@@ -1,0 +1,12 @@
+.login_form {
+  max-width: 30rem;
+  margin: 3rem auto;
+  text-align: left;
+  font-size: 1rem;
+}
+.login_issues {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.3rem;
+  font-size: 1rem;
+}

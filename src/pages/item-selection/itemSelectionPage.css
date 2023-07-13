@@ -1,0 +1,117 @@
+.itemSelection {
+  margin-top: 3rem;
+}
+.itemSelection_body {
+  display: flex;
+  justify-content: space-around;
+}
+.itemSelection_body__img {
+  display: flex;
+  background-color: white;
+}
+.itemSelection_body__img-images {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.item-subImages {
+  width: 7rem;
+  height: 5rem;
+  background-color: aqua;
+  margin-right: 0.2rem;
+  object-fit: cover;
+  cursor: pointer;
+}
+.itemSelection_body__img-image {
+  max-width: 24rem;
+}
+.itemSelection_body__img-image--description {
+  font-size: 1rem;
+  text-align: left;
+  padding-bottom: 1rem;
+}
+.itemSelection_body__shopping {
+  /* background-color: rgba(222, 93, 33, 0.137); */
+  background-color: white;
+  width: 20rem;
+  height: max-content;
+  border-radius: 15px;
+  padding: 1rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 200;
+  text-align: left;
+}
+.itemSelection_body__shoping-filter {
+  display: flex;
+  align-items: center;
+}
+
+.filter_heading {
+  margin-left: 0.5rem;
+}
+.itemSelection_body__shopping-btn {
+  background-color: var(--color-grey-dark-3-light);
+  width: 2rem;
+  display: inline-block;
+  margin: 0.5rem;
+  text-align: center;
+  font-weight: 400;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.itemSelection_body__shopping > *:not(:last-child) {
+  border-bottom: 1px solid rgb(162, 159, 159);
+  padding: 0.5rem;
+  letter-spacing: 0.05rem;
+}
+.itemSelection_body_shopping-options {
+  display: flex;
+  justify-content: space-between;
+}
+.btn-fav,
+.btn-cart {
+  min-width: 7rem;
+}
+.itemSelection_reviews {
+  max-width: 50rem;
+  margin-top: 3rem;
+  font-size: 1rem;
+  text-align: left;
+}
+.itemSelection_reviews__heading {
+  text-align: center;
+}
+.itemSelection_reviews__content {
+  display: flex;
+  flex-direction: column;
+  max-height: 40rem;
+  overflow: scroll;
+}
+.itemSelection_reviews__content::-webkit-scrollbar {
+  display: none;
+}
+.itemSelection_reviews__content-review {
+  margin: 0 auto;
+  max-width: 45rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  /* background-color: var(--color-grey-dark-2-light); */
+  background-color: white;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+.itemSelection_reviews__content-review--first {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-grey-dark-2);
+}
+.itemSelection_reviews__content-review--second {
+  display: flex;
+  justify-content: space-between;
+}
+.itemSelection_reviews__content-review--second_star {
+  min-width: 2.9rem;
+  color: var(--color-grey-dark-2);
+}
+

@@ -1,0 +1,134 @@
+/* customCarousel */
+.carousel {
+  margin: 3rem auto 0;
+  width: 50rem;
+}
+.carousel_caption {
+  background-color: var(--color-pastrelred-lightest);
+  height: 3rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 0.3rem;
+}
+.carousel_name,
+.carousel_description {
+  margin: 0;
+  font-size: 1rem;
+}
+/* Custom Card */
+.card {
+  margin: 0 auto;
+  width: 80%;
+  height: 15rem;
+  margin-bottom: 0.8rem;
+  transition: all 0.3s;
+  z-index: 10;
+}
+.card:hover {
+  transform: scale(1.05);
+  outline: none;
+  backface-visibility: hidden;
+  cursor: pointer;
+}
+/* offers card */
+.clearance_card__img {
+  height: 100%;
+  width: 100%;
+  /* display: block; */
+}
+.clearance_card__title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-pastrelred);
+  text-align: left;
+  height: 2rem;
+  font-size: 1rem;
+  width: 100%;
+}
+.clearance_card__description {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--color-zomp);
+  width: 100%;
+  font-size: 1rem;
+  text-align: right;
+}
+/* offers card */
+.offers_card__img {
+  height: 100%;
+  width: 100%;
+  /* display: block; */
+}
+.offers_card__title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-grey-dark-1);
+  text-align: left;
+  height: 2rem;
+  font-size: 1rem;
+  width: 100%;
+}
+.offers_card__description {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--color-grey-dark-3);
+  width: 100%;
+  font-size: 1rem;
+  text-align: right;
+}
+/* New Arrival Card */
+.newArrivals_card__img {
+  height: 100%;
+  width: 100%;
+  /* display: block; */
+}
+.newArrivals_card__title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-charcoal);
+  text-align: left;
+  height: 2rem;
+  font-size: 1rem;
+  width: 100%;
+}
+.newArrivals_card__description {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--color-pastrelred);
+  width: 100%;
+  font-size: 1rem;
+  text-align: right;
+}
+/* top sales */
+.topSales_card__img {
+  height: 100%;
+  width: 100%;
+  /* display: block; */
+}
+.topSales_card__title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-charcoal);
+  text-align: left;
+  height: 2rem;
+  font-size: 1rem;
+  width: 100%;
+}
+.topSales_card__description {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--color-grey-dark-2);
+  width: 100%;
+  font-size: 1rem;
+  text-align: right;
+}

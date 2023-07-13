@@ -1,0 +1,48 @@
+.categories_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  position: sticky;
+  top: 10rem;
+}
+.categories_div * {
+  /* line-height: 2; */
+  font-size: 1.1rem;
+  width: 100%;
+  text-align: center;
+  transition: all 0.3s;
+}
+.categories {
+  position: relative;
+  align-items: center;
+  padding-right: 1rem;
+  width: 100%;
+  z-index: 1;
+  line-height: 1.3;
+  margin-bottom: .3rem;
+  padding: .5rem 0;
+  display: block;
+}
+.categories:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 20px;
+  background-color: var(--color-zomp);
+  transform: scaleY(0);
+  transition: transform 0.3s, width 0.3s, color 1s;
+  z-index: 0;
+}
+.categories:hover {
+  color: white;
+}
+.categories:hover::before {
+  transform: scaleY(1);
+  width: 100%;
+  color: white;
+  z-index: -2;
+}

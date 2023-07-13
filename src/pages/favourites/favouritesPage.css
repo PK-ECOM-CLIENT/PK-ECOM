@@ -1,0 +1,39 @@
+.favourites {
+  margin-top: 3rem;
+  padding: 0 1%;
+}
+.favourites_content {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1rem;
+  text-align: left;
+}
+.favourites_content__items {
+  display: flex;
+  flex-direction: column;
+  /* max-width: 24rem; */
+  background-color: white;
+  padding: 2rem;
+}
+.favourites_content__items-div {
+  margin-bottom: 1rem;
+}
+.favourites_content__items-img {
+  width: 100%;
+  /* height: 15rem; */
+}
+.favourites_content__items-description {
+  min-height: 7rem;
+  overflow: hidden;
+  line-height: 1.1;
+}
+.favourites_content__items-pricenfilter {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-zomp);
+}
+
+.favourites_content__items-option {
+  display: flex;
+  justify-content: space-between;
+}

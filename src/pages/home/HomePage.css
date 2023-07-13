@@ -1,0 +1,87 @@
+.homepage_content {
+  position: relative;
+}
+.homepage_content::-webkit-scrollbar {
+  display: none;
+}
+.carousel_img {
+  width: 100%;
+  height: 20rem;
+  object-fit: cover;
+}
+
+/* clearance */
+.clearance {
+  margin-top: 3rem;
+}
+.clearance_heading {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.clearance_clearance {
+  padding-top: 1rem;
+  max-height: 50rem;
+  overflow: scroll;
+}
+.clearance_clearance::-webkit-scrollbar {
+  display: none;
+}
+
+/* offers */
+.offers {
+  margin-top: 3rem;
+}
+.offers_heading {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.offers_offers {
+  padding-top: 1rem;
+  max-height: 50rem;
+  overflow: scroll;
+}
+.offers_offers::-webkit-scrollbar {
+  display: none;
+}
+/* New Arrivals */
+.newArrivals {
+  margin-top: 3rem;
+}
+.newArrivals_heading {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.newArrivals_newArrivals {
+  padding-top: 1rem;
+  max-height: 50rem;
+  overflow: scroll;
+}
+.newArrivals_newArrivals::-webkit-scrollbar {
+  display: none;
+}
+/* Top sales */
+.topSales {
+  margin-top: 3rem;
+}
+.topSales_heading {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.topSales_topSales {
+  padding-top: 1rem;
+  max-height: 50rem;
+  overflow: scroll;
+}
+.topSales_topSales::-webkit-scrollbar {
+  display: none;
+}
+.subcategories {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: red;
+  height: 100%;
+  width: 100%;
+  z-index: 900;
+}

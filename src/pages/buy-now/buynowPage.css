@@ -1,0 +1,90 @@
+.buynow {
+  margin-top: 3rem;
+  text-align: left;
+}
+.buynow_details {
+  letter-spacing: 0.1rem;
+  font-size: 1.1rem;
+  background-color: white;
+  padding: 1rem;
+  max-width: 45rem;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+.buynow_details > *:not(:last-child) {
+  border-bottom: 1px solid rgb(162, 159, 159);
+  padding: 0.5rem 0;
+}
+.buynow_details__deliveryaddress {
+  display: flex;
+  justify-content: space-between;
+}
+.buynow_details__deliveryaddress_content {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+.buynow_details__deliveryaddress_content-div {
+  flex: 1;
+}
+.buynow_details__deliveryaddress_content-div > *:not(:last-child) {
+  border-bottom: 1px solid rgb(162, 159, 159);
+}
+.buynow_details__deliveryaddress_content-items {
+  display: flex;
+  justify-content: space-between;
+  gap:1rem;
+}
+
+.buynow_details__paymentmethods-heading,
+.buynow_details__deliveryaddress-heading {
+  min-width: 12rem;
+  margin-bottom: 1rem;
+}
+.buynow_details__paymentmethods {
+  display: flex;
+  align-items: center;
+}
+.buynow_details__paymentmethods_content {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.buynow_details__paymentmethods_content > *:not(:last-child) {
+  margin-right: 2rem;
+}
+.paypal {
+  background: linear-gradient(to right, rgba(0, 72, 255), rgb(3, 3, 105));
+  color: white;
+}
+.steppay {
+  background: linear-gradient(to right, rgb(0, 255, 85), rgba(3, 105, 105));
+  color: white;
+}
+.mastercard {
+  background: linear-gradient(to right, rgb(255, 85, 0), rgb(255, 153, 0));
+  color: white;
+}
+.buynow_features {
+  display: flex;
+  justify-content: space-around;
+  color: white;
+}
+.giftcard {
+  background: linear-gradient(
+    to right,
+    rgb(255, 0, 144),
+    rgba(194, 118, 4, 0.9)
+  );
+  color: white;
+}
+.coupan {
+  background: linear-gradient(
+    to right,
+    rgb(0, 208, 255),
+    rgba(194, 163, 4, 0.9)
+  );
+  color: white;
+}

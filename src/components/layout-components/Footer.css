@@ -1,0 +1,12 @@
+.footer_footer {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.footer_footer__list > :first-child {
+  font-weight: bold;
+  text-decoration: underline;
+}
