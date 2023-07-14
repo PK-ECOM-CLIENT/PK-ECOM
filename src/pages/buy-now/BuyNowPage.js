@@ -98,10 +98,8 @@ const BuyNowPage = () => {
               Total cost $: 2200
             </div>
 
-            <div className="buynow_details__submitorder d-grid gap-2 -util-brdr-bt-none">
-              <Button className="btn-positive" variant="primary">
-                Submit order
-              </Button>
+            <div className="buynow_details__submitorder d-grid gap-2">
+              <Button className="-util-btn-positive">Submit order</Button>
             </div>
           </div>
         </div>
