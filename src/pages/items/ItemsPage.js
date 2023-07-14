@@ -25,7 +25,7 @@ const ItemsPage = () => {
         <div className="items">
           <Row>
             {items.map((item, i) => {
-              const { name, description, images, thumbnail, price } = item;
+              const { name, thumbnail, price } = item;
 
               return (
                 <Col
