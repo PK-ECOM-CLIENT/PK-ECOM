@@ -1,6 +1,6 @@
 import "./HomePage.css";
 import "../../components/layout-components/Footer";
-import React, { useEffect } from "react";
+import React from "react";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import { CustomCarousels } from "../../components/custom-components/CustomCarousels";
 import boots from "../../assits/images/offersimg/boots.jpg";
@@ -9,7 +9,7 @@ import sofa from "../../assits/images/offersimg/sofa.jpg";
 import trousers from "../../assits/images/offersimg/trousers.jpg";
 import { CustomCard } from "../../components/custom-components/CustomCard";
 import { Col, Row } from "react-bootstrap";
-import { CustomModal } from "../../components/custom-modal/CustomModal";
+// import { CustomModal } from "../../components/custom-modal/CustomModal";
 const HomePage = () => {
   const carouselOffers = [
     {

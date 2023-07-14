@@ -29,7 +29,17 @@ const ItemSelectionPage = () => {
   const handleOnImageClick = (img) => {
     setImage(img);
   };
-
+  // for sharing
+  const copyOnClick = (content) => {
+    navigator.clipboard
+      .writeText(content)
+      .then(() => {
+        alert("Link copied to clipboard!");
+      })
+      .catch((error) => {
+        console.error("Failed to copy:", error);
+      });
+  };
   return (
     <div>
       <AppLayOut>
@@ -94,6 +104,11 @@ const ItemSelectionPage = () => {
                   onClick={onButtonBuynowClick}
                 >
                   Buy Now
+                </Button>
+              </div>
+              <div className="d-grid">
+                <Button id="copyButton" onClick={() => copyOnClick("copy url")}>
+                  Share
                 </Button>
               </div>
               <div className="itemSelection_body_shopping-options">

@@ -23,6 +23,7 @@ const ItemsPage = () => {
     <div>
       <AppLayOut>
         <div className="items">
+           
           <Row>
             {items.map((item, i) => {
               const { name, thumbnail, price } = item;

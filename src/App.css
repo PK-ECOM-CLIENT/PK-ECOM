@@ -4,7 +4,6 @@
   --color-zomp: #66a182;
   --color-zomp-2: #08a752;
   --color-zomp-2-light: #31714f;
-
   /* --color-zomp-lightest: #66a181ab; */
   --color-teagreen: #caffb9;
   --color-lightgreen: #aef78e;
@@ -13,7 +12,6 @@
   --color-pastrelred: #ff6b6b;
   --color-pastrelred-2: #f07474;
   --color-pastrelred-2-light: #f0747432;
-
   --color-pastrelred-lightest: #ff6b6bc4;
   --color-sunsetorange: #ff5e57;
   --color-grey-dark-1: #333;
@@ -31,7 +29,7 @@ html {
 }
 body {
   min-height: 100vh;
-  margin: 0.2rem;
+  /* margin: 0.2rem; */
 }
 * {
   margin: 0;

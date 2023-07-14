@@ -1,6 +1,7 @@
 import React from "react";
 import "./itemCard.css";
 export const ItemCard = ({ name, img, price, ratingsRate, ratingsCount }) => {
+  
   return (
     <div className="itemCard">
       <div className="itemCard_img">
