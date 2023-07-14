@@ -411,11 +411,6 @@ const HomePage = () => {
       id: "djfkld",
     },
   ];
-  useEffect(() => {
-    // alert(
-    //   "In case of categories and products, please follow the ones with stars, not all categories and products has items assigned to them"
-    // );
-  });
   return (
     <div>
       <AppLayOut>
@@ -486,7 +481,7 @@ const HomePage = () => {
             </Row>
           </div>
         </div>
-        <CustomModal></CustomModal>
+        {/* <CustomModal></CustomModal> */}
       </AppLayOut>
     </div>
   );
