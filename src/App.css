@@ -63,34 +63,45 @@ body {
 .-util-font20 {
   font-size: 2rem !important;
 }
-.btn-positive,
-.btn-positive:hover,
-.btn-positive:focus,
-.btn-positive:target,
-.btn-positive:visited,
-.btn-positive:active {
+.-util-btn-positive,
+.-util-btn-positive:hover,
+.-util-btn-positive:focus,
+.-util-btn-positive:target,
+.-util-btn-positive:visited,
+.-util-btn-positive:active {
   background-color: var(--color-zomp-2) !important;
   border: none !important;
   outline: none !important;
   outline-offset: none !important;
 }
-.btn-fav,
-.btn-fav:hover,
-.btn-fav:focus,
-.btn-fav:target,
-.btn-fav:visited,
-.btn-fav:active {
+.-util-fav,
+.-util-fav:hover,
+.-util-fav:focus,
+.-util-fav:target,
+.-util-fav:visited,
+.-util-fav:active {
   background-color: var(--color-pastrelred) !important;
   border: none !important;
   font-size: 0.9rem;
   width: 6rem;
 }
-.btn-cart,
-.btn-cart:hover,
-.btn-cart:focus,
-.btn-cart:target,
-.btn-cart:visited,
-.btn-cart:active {
+.-util-share,
+.-util-share:hover,
+.-util-share:focus,
+.-util-share:target,
+.-util-share:visited,
+.-util-share:active {
+  background-color: var(--color-yellowgreen) !important;
+  border: none !important;
+  font-size: 0.9rem;
+  /* width: 6rem; */
+}
+.-util-cart,
+.-util-cart:hover,
+.-util-cart:focus,
+.-util-cart:target,
+.-util-cart:visited,
+.-util-cart:active {
   background-color: var(--color-zomp) !important;
   border: none !important;
   font-size: 0.9rem;

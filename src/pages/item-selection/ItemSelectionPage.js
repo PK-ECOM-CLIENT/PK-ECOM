@@ -3,13 +3,16 @@ import "./itemSelectionPage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import { ItemCard } from "../../components/itemCard/ItemCard";
 import { Button, Form } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getIndividualItemAction } from "../../slices/items/itemsAction";
 const ItemSelectionPage = () => {
   const { _cid, _pid, _iid } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const url = location.pathname;
+  console.log(url);
   const { selectedItem } = useSelector((state) => state.items);
   const { name, description, images, price } = selectedItem;
   const [image, setImage] = useState("");
@@ -100,20 +103,25 @@ const ItemSelectionPage = () => {
               <div className="itemSelection_body_shopping-buy d-grid mt-2 border-0">
                 <Button
                   size="lg"
-                  className="btn-positive"
+                  className="-util-btn-positive"
                   onClick={onButtonBuynowClick}
                 >
                   Buy Now
                 </Button>
               </div>
-              <div className="d-grid">
-                <Button id="copyButton" onClick={() => copyOnClick("copy url")}>
+              <div className="d-grid border-0">
+                <Button
+                  className="-util-share"
+                  onClick={() =>
+                    copyOnClick(process.env.REACT_APP_ROOTURL + url)
+                  }
+                >
                   Share
                 </Button>
               </div>
               <div className="itemSelection_body_shopping-options">
-                <Button className="btn-fav">Add to fav</Button>
-                <Button className="btn-cart">Add to cart</Button>
+                <Button className="btn-fav -util-fav">Add to fav</Button>
+                <Button className="btn-cart -util-cart">Add to cart</Button>
               </div>
             </div>
           </div>
