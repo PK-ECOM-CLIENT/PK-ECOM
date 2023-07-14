@@ -146,8 +146,12 @@
   opacity: 0;
 }
 .user_profile__profie-dropdown-items {
-  transform: translate(-4.5rem, 1.5rem);
+  transform: translate(-4.5rem, 2rem);
   font-size: 0.9rem;
+}
+.user_profile__profie-dropdown-items > *,
+.profile__toggle-menu > * {
+  padding-left: 1rem;
 }
 .user_profile > *:hover {
   cursor: pointer;

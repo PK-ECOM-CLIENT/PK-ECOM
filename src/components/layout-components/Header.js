@@ -135,19 +135,13 @@ export const Header = () => {
                   variant="dark"
                   className="profile__toggle-menu -util-togglemenu"
                 >
-                  <Link className="nav-link text-white" to="/dd">
-                    Profilef d 
-                  </Link>
-                  <Dropdown.Item href="#/action-1">Purchases</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Reviews</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">
-                    Payment Methods
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-1">Close Account</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">
-                    Switch Account
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Sign Out</Dropdown.Item>
+                  <Link className="nav-link">Profile</Link>
+                  <Link className="nav-link">Purchases</Link>
+                  <Link className="nav-link">Reviews</Link>
+                  <Link className="nav-link">Payment Methods</Link>
+                  <Link className="nav-link">Close Account</Link>
+                  <Link className="nav-link">Switch Account</Link>
+                  <Link className="nav-link">Sign Out</Link>
                 </Dropdown.Menu>
               </Dropdown>
             )}
@@ -209,20 +203,14 @@ export const Header = () => {
                       id="dropdown-basic"
                       className="user_profile__profie-dropdown"
                     ></Dropdown.Toggle>
-                    <Dropdown.Menu className="user_profile__profie-dropdown-items">
-                      <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">Purchases</Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">Reviews</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">
-                        Payment Methods
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">
-                        Close Account
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#/action-1">
-                        Switch Account
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">Sign Out</Dropdown.Item>
+                    <Dropdown.Menu className="user_profile__profie-dropdown-items -util-togglemenu">
+                      <Link className="nav-link">Profile</Link>
+                      <Link className="nav-link">Purchases</Link>
+                      <Link className="nav-link">Reviews</Link>
+                      <Link className="nav-link">Payment Methods</Link>
+                      <Link className="nav-link">Close Account</Link>
+                      <Link className="nav-link">Switch Account</Link>
+                      <Link className="nav-link">Sign Out</Link>
                     </Dropdown.Menu>
                   </Dropdown>
                 </p>
