@@ -135,7 +135,9 @@ export const Header = () => {
                   variant="dark"
                   className="profile__toggle-menu -util-togglemenu"
                 >
-                  <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
+                  <Link className="nav-link text-white" to="/dd">
+                    Profilef d 
+                  </Link>
                   <Dropdown.Item href="#/action-1">Purchases</Dropdown.Item>
                   <Dropdown.Item href="#/action-2">Reviews</Dropdown.Item>
                   <Dropdown.Item href="#/action-3">
@@ -148,31 +150,6 @@ export const Header = () => {
                   <Dropdown.Item href="#/action-3">Sign Out</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              // <Form>
-              //   <Dropdown>
-              //     <Dropdown.Toggle
-              //       variant="none"
-              //       id="dropdown-basic"
-              //       className="dropdown-toggle color-white"
-              //       // onClick={() => onVisibilityClick("profile")}
-              //     >
-              //       Profile
-              //     </Dropdown.Toggle>
-              //     <div
-              //       // className={
-              //       //   visibility.profile ? "visible category_div" : "hide"
-              //       // }
-              //     >
-              //       <div>Profile </div>
-              //       <div>Purchases</div>
-              //       <div>Reviews</div>
-              //       <div>Payment Methods</div>
-              //       <div>Close Account</div>
-              //       <div>Switch Account</div>
-              //       <div>Sign Out</div>
-              //     </div>
-              //   </Dropdown>
-              // </Form>
             )}
           </Nav>
           <div className="search-and-icons">
