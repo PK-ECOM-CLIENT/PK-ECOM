@@ -135,7 +135,7 @@ export const Header = () => {
                   variant="dark"
                   className="profile__toggle-menu -util-togglemenu"
                 >
-                  <Link className="nav-link">Profile</Link>
+                  <Link className="nav-link e ">Profile</Link>
                   <Link className="nav-link">Purchases</Link>
                   <Link className="nav-link">Reviews</Link>
                   <Link className="nav-link">Payment Methods</Link>
