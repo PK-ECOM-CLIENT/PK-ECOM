@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./loginpage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { CustomInputFields } from "../../components/custom-components/CustomInputFields";
 import { Link } from "react-router-dom";
+import { logInUserAction } from "../../slices/user/userAction";
+import { useDispatch } from "react-redux";
 const inputFields = [
   {
     label: "Email",
@@ -22,11 +24,22 @@ const inputFields = [
   },
 ];
 const LoginPage = () => {
+  const [form, setForm] = useState({});
+  const dispatch = useDispatch();
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    dispatch(logInUserAction(form));
+    console.log(form);
+  };
   return (
     <div>
       <AppLayOut>
         <div className="login">
-          <Form className="login_form -util-form">
+          <Form className="login_form -util-form" onSubmit={handleOnSubmit}>
             <Button className="-util-btnback">
               <Link className="nav-link" to="/">
                 <i class="fa-solid fa-angle-left -util-backicon"></i> Back
@@ -34,11 +47,16 @@ const LoginPage = () => {
             </Button>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               {inputFields.map((item, i) => (
-                <CustomInputFields {...item}></CustomInputFields>
+                <CustomInputFields
+                  {...item}
+                  onChange={handleOnChange}
+                ></CustomInputFields>
               ))}
             </Form.Group>
             <div className="d-grid">
-              <Button className="btn-positive">Login</Button>
+              <Button className="-util-btn-positive" type="submit">
+                Login
+              </Button>
             </div>
             <div className="login_issues">
               <Link className="forgotten-password" to="/forgotpassword">

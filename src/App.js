@@ -1,6 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import HomePage from "./pages/home/HomePage";
 import BuyNowPage from "./pages/buy-now/BuyNowPage";
 import ForgotPasswordPage from "./pages/forgot-password/ForgotPasswordPage";
@@ -74,6 +76,7 @@ function App() {
           <Route path="/favourites" element={<Favourites></Favourites>}></Route>
           <Route path="/cart" element={<Cart></Cart>}></Route>
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </div>
   );
