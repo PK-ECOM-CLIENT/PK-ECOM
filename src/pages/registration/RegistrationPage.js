@@ -192,14 +192,14 @@ const RegistrationPage = () => {
                         required
                       >
                         <option value="">Select</option>
-                        <option value="nsw">NSW</option>
-                        <option value="act">ACT</option>
-                        <option value="nt">NT</option>
-                        <option value="sa">SA</option>
-                        <option value="wa">WA</option>
-                        <option value="victoria">Victoria</option>
-                        <option value="queensland">Queensland</option>
-                        <option value="tasmania">Tasmania</option>
+                        <option value="NSW">NSW</option>
+                        <option value="ACT">ACT</option>
+                        <option value="NT">NT</option>
+                        <option value="SA">SA</option>
+                        <option value="WA">WA</option>
+                        <option value="Victoria">Victoria</option>
+                        <option value="Queensland">Queensland</option>
+                        <option value="Tasmania">Tasmania</option>
                       </Form.Select>
                     </Form.Group>
                   </Col>

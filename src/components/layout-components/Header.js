@@ -4,7 +4,7 @@ import logo from "../../assits/images/logo/pk.png";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
-import { Button } from "react-bootstrap";
+import { Button, ButtonGroup } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
@@ -13,6 +13,18 @@ import { getCategoriesAction } from "../../slices/categories/categoriesAction";
 export const Header = () => {
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const { categories } = useSelector((state) => state.categories);
+  const { user } = useSelector((state) => state.user);
+  let address = "";
+  if (user._id) {
+    address =
+      user.address.streetAddress +
+      " " +
+      user.address.suburb +
+      " " +
+      user.address.state +
+      " " +
+      user.address.postCode;
+  }
   const dispatch = useDispatch();
   useEffect(() => {
     !categories.length && dispatch(getCategoriesAction());
@@ -25,6 +37,8 @@ export const Header = () => {
     };
   }, [dispatch, categories.length]);
   console.log(window.location);
+  let today = new Date();
+  let hour = today.getHours();
   return (
     <Navbar expand="lg" variant="dark" className="header_navbar color-white">
       <div className="container-fluid ">
@@ -65,14 +79,13 @@ export const Header = () => {
                 </Dropdown.Menu>
               </Dropdown>
             )}
-            {!window.location.pathname === "/" && (
+            {window.location.pathname !== "/" && (
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
                   Home
                 </Link>
               </li>
             )}
-
             <li className="nav-item">
               <Link
                 className="nav-link active"
@@ -122,29 +135,34 @@ export const Header = () => {
               </Link>
               <span className="nav_icons__count">2</span>
             </li>
-            {windowWidth < 992 && (
-              <Dropdown>
-                <Dropdown.Toggle
-                  variant="none"
-                  id="dropdown-basic"
-                  className="color-white dropdown-toggle "
-                >
-                  Profile
-                </Dropdown.Toggle>
-                <Dropdown.Menu
-                  variant="dark"
-                  className="profile__toggle-menu -util-togglemenu"
-                >
-                  <Link className="nav-link e ">Profile</Link>
-                  <Link className="nav-link">Purchases</Link>
-                  <Link className="nav-link">Reviews</Link>
-                  <Link className="nav-link">Payment Methods</Link>
-                  <Link className="nav-link">Close Account</Link>
-                  <Link className="nav-link">Switch Account</Link>
-                  <Link className="nav-link">Sign Out</Link>
-                </Dropdown.Menu>
-              </Dropdown>
-            )}
+            {windowWidth < 992 &&
+              (user?._id ? (
+                <Dropdown>
+                  <Dropdown.Toggle
+                    variant="none"
+                    id="dropdown-basic"
+                    className="color-white dropdown-toggle "
+                  >
+                    Profile
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu
+                    variant="dark"
+                    className="profile__toggle-menu -util-togglemenu"
+                  >
+                    <Link className="nav-link">Profile</Link>
+                    <Link className="nav-link">Purchases</Link>
+                    <Link className="nav-link">Reviews</Link>
+                    <Link className="nav-link">Payment Methods</Link>
+                    <Link className="nav-link">Close Account</Link>
+                    <Link className="nav-link">Switch Account</Link>
+                    <Link className="nav-link">Sign Out</Link>
+                  </Dropdown.Menu>
+                </Dropdown>
+              ) : (
+                <Link className="nav-link active" to="/login">
+                  Login
+                </Link>
+              ))}
           </Nav>
           <div className="search-and-icons">
             <Form
@@ -182,38 +200,58 @@ export const Header = () => {
               </Button>
             </Form>
           </div>
-          <div className=" user color-white ">
+          <div className="user color-white ">
             {windowWidth > 991 && (
               <div className="user_profile">
-                <p className="user_profile__user">Hello Pradeep !</p>
-                <p className="user_profile__address">
-                  Delivery Address: 1-3 Clarance Street NSW 2135
+                <p className="user_profile__user user_profile__address">
+                  {user?._id
+                    ? `Hello ${user.firstName} ! Delivery Address: ${address}`
+                    : `Dear valued client ! Wishing you a great
+            ${
+              hour < 4
+                ? " night"
+                : hour < 12
+                ? " morning"
+                : hour < 17
+                ? " day"
+                : hour < 21
+                ? " evening"
+                : " night"
+            }
+            
+           !`}
                 </p>
-                <p className="user_profile__profile">
-                  <Button
-                    variant="none"
-                    className=" user_profile__profie-btn btn-logout text-white"
-                  >
-                    <i class="fa-solid fa-user -util-font15"></i>
-                    <i class="fa-solid fa-caret-down "></i>
-                  </Button>
-                  <Dropdown>
-                    <Dropdown.Toggle
-                      variant="success"
-                      id="dropdown-basic"
-                      className="user_profile__profie-dropdown"
-                    ></Dropdown.Toggle>
-                    <Dropdown.Menu className="user_profile__profie-dropdown-items -util-togglemenu">
-                      <Link className="nav-link">Profile</Link>
-                      <Link className="nav-link">Purchases</Link>
-                      <Link className="nav-link">Reviews</Link>
-                      <Link className="nav-link">Payment Methods</Link>
-                      <Link className="nav-link">Close Account</Link>
-                      <Link className="nav-link">Switch Account</Link>
-                      <Link className="nav-link">Sign Out</Link>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </p>
+                {user?._id ? (
+                  <p className="user_profile__profile">
+                    <Button
+                      variant="none"
+                      className=" user_profile__profie-btn btn-logout text-white"
+                    >
+                      <i class="fa-solid fa-user -util-font15"></i>
+                      <i class="fa-solid fa-caret-down "></i>
+                    </Button>
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        variant="success"
+                        id="dropdown-basic"
+                        className="user_profile__profie-dropdown"
+                      ></Dropdown.Toggle>
+                      <Dropdown.Menu className="user_profile__profie-dropdown-items -util-togglemenu">
+                        <Link className="nav-link">Profile</Link>
+                        <Link className="nav-link">Purchases</Link>
+                        <Link className="nav-link">Reviews</Link>
+                        <Link className="nav-link">Payment Methods</Link>
+                        <Link className="nav-link">Close Account</Link>
+                        <Link className="nav-link">Switch Account</Link>
+                        <Link className="nav-link">Sign Out</Link>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </p>
+                ) : (
+                  <Link to="/login" className="nav-link header_login-btn">
+                    Login
+                  </Link>
+                )}
               </div>
             )}
           </div>

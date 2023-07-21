@@ -116,8 +116,8 @@
 .profile__toggle-menu::-webkit-scrollbar {
   display: none;
 }
-.profile__toggle-menu>*{
-  color:white;
+.profile__toggle-menu > * {
+  color: white;
 }
 .user {
   display: flex;
@@ -125,6 +125,9 @@
 .user_profile {
   display: flex;
   gap: 1.3rem;
+}
+.user_profile__user {
+  text-decoration: underline;
 }
 .user_profile__profile {
   position: relative;
@@ -159,6 +162,6 @@
 .user_profile > *:hover {
   cursor: pointer;
 }
-.user_profile__address {
-  text-decoration: underline;
+.header_login-btn {
+  font-weight: bold;
 }
