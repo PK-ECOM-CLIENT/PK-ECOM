@@ -17,8 +17,8 @@ import Favourites from "./pages/favourites/FavouritesPage";
 import Cart from "./pages/cart/CartPage";
 import OffersPage from "./pages/offers/OffersPage";
 import Categories from "./pages/categories/Categories";
+import EmailVerification from "./pages/registration/EmailVerification";
 function App() {
-
   return (
     <div className="app">
       <BrowserRouter>
@@ -29,7 +29,10 @@ function App() {
             path="/register"
             element={<RegistrationPage></RegistrationPage>}
           ></Route>
-
+          <Route
+            path="/user/verify-email"
+            element={<EmailVerification></EmailVerification>}
+          ></Route>
           <Route
             path="/forgotpassword"
             element={<ForgotPasswordPage></ForgotPasswordPage>}

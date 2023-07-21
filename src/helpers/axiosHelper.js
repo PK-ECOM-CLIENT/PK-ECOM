@@ -3,7 +3,7 @@ const rootUrl = process.env.REACT_APP_API_ENDPOINT + "api/v1";
 const categoriesEp = rootUrl + "/categories";
 const productsEp = rootUrl + "/products";
 const itemsEp = rootUrl + "/items";
-
+const userEp = rootUrl + "/users";
 const apiProcessor = async ({ method, url, data }) => {
   try {
     const response = await axios({
@@ -13,6 +13,31 @@ const apiProcessor = async ({ method, url, data }) => {
     });
     return response.data;
   } catch (error) {}
+};
+//====================  User APIs
+export const postUser = (data) => {
+  const option = {
+    method: "post",
+    url: userEp,
+    data,
+  };
+  return apiProcessor(option);
+};
+export const verifyUserEmail = (data) => {
+  const option = {
+    method: "patch",
+    url: userEp + "/verify-email",
+    data,
+  };
+  return apiProcessor(option);
+};
+export const loginUser = (data) => {
+  const option = {
+    method: "post",
+    url: userEp + "/login",
+    data,
+  };
+  return apiProcessor(option);
 };
 // ====================Categories APIs
 // Get all categories
@@ -41,7 +66,7 @@ export const getProducts = () => {
   };
   return apiProcessor(options);
 };
-// Get single category
+// Get single Product
 export const getSingleProduct = (_id) => {
   const options = {
     method: "get",
