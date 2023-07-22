@@ -175,7 +175,7 @@ export const Header = () => {
                   id="dropdown-basic"
                   className="color-white dropdown-toggle search__filter-toggle"
                 >
-                  Haha
+                  All
                 </Dropdown.Toggle>
                 <Dropdown.Menu
                   variant="dark"
