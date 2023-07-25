@@ -66,6 +66,13 @@ const LoginPage = () => {
                 Not member yet?
               </Link>
             </div>
+            <div className="sampleLogin">
+              <div className="heading">Sample login details</div>
+              <div className="sampleLogin_email">
+                Email: Pradeepdhital@gmail.com
+              </div>
+              <div className="sampleLogin_password">Password: Pradeep</div>
+            </div>
           </Form>
         </div>
       </AppLayOut>

@@ -10,3 +10,12 @@
   margin-top: 0.3rem;
   font-size: 1rem;
 }
+.sampleLogin{
+  background-color: rgba(233, 117, 117, 0.217);
+  margin-top:1rem;
+  padding:1rem;
+  /* color: white; */
+}
+.heading{
+  text-decoration: underline;
+}
