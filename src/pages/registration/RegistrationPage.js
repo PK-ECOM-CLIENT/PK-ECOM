@@ -223,7 +223,7 @@ const RegistrationPage = () => {
               className="-util-required"
               label="Password"
               name="password"
-              type="string"
+              type="password"
               placeholder="***********"
               required
               onChange={handleOnChange}
@@ -232,7 +232,7 @@ const RegistrationPage = () => {
               className="-util-required"
               label="Confirm Password"
               name="confirmPassword"
-              type="string"
+              type="password"
               placeholder="***********"
               required
               onChange={handleOnChange}
