@@ -68,7 +68,7 @@ const RegistrationPage = () => {
   const [response, setResponse] = useState({});
   const [error, setError] = useState("");
   const handleOnChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
     if (
       name === "streetAddress" ||
       name === "suburb" ||
@@ -82,6 +82,9 @@ const RegistrationPage = () => {
           [name]: value,
         },
       }));
+    } else if (name === "email") {
+      value = value.toLowerCase();
+      setForm({ ...form, [name]: value });
     } else {
       setForm((form) => ({
         ...form,
@@ -115,7 +118,6 @@ const RegistrationPage = () => {
     }
     const result = await postUser(rest);
     setResponse(result);
-    console.log(rest);
   };
   return (
     <div>

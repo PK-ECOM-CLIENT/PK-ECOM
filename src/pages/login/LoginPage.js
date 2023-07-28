@@ -27,7 +27,11 @@ const LoginPage = () => {
   const [form, setForm] = useState({});
   const dispatch = useDispatch();
   const handleOnChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+    if (name === "email") {
+      value = value.toLowerCase();
+      setForm({ ...form, [name]: value });
+    }
     setForm({ ...form, [name]: value });
   };
   const handleOnSubmit = (e) => {
