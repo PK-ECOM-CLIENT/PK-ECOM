@@ -4,15 +4,39 @@ const categoriesEp = rootUrl + "/categories";
 const productsEp = rootUrl + "/products";
 const itemsEp = rootUrl + "/items";
 const userEp = rootUrl + "/users";
-const apiProcessor = async ({ method, url, data }) => {
+const apiProcessor = async ({ method, url, data, isPrivate, token }) => {
   try {
+    const headers = isPrivate
+      ? { Authorization: token || sessionStorage.getItem("accessJWT") }
+      : null;
     const response = await axios({
       method,
       url,
       data,
+      headers,
     });
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    let message = error.message;
+    if (error.response && error.response.status === 401) {
+      sessionStorage.removeItem("accessJWT");
+      localStorage.removeItem("refreshJWT");
+    }
+    if (error.response && error.response.data) {
+      message = error.response.data.message;
+    }
+    if (message === "jwt expired") {
+      // call the api to get new access jwt and store in the session and re-call the api processor
+      const accessJWT = await getNewAccessJWT();
+      if (accessJWT) {
+        return apiProcessor({ method, url, data, isPrivate, token });
+      }
+    }
+    return {
+      status: "error",
+      message,
+    };
+  }
 };
 //====================  User APIs
 export const postUser = (data) => {
@@ -38,6 +62,27 @@ export const loginUser = (data) => {
     data,
   };
   return apiProcessor(option);
+};
+export const getUser = (token) => {
+  const option = {
+    method: "get",
+    url: userEp,
+    isPrivate: true,
+    token,
+  };
+  return apiProcessor(option);
+};
+
+export const getNewAccessJWT = async () => {
+  const option = {
+    method: "get",
+    url: userEp + "/accessjwt",
+    isPrivate: true,
+    token: localStorage.getItem("refreshJWT"),
+  };
+  const { status, accessJWT } = await apiProcessor(option);
+  status === "success" && sessionStorage.setItem("accessJWT", accessJWT);
+  return accessJWT;
 };
 // ====================Categories APIs
 // Get all categories
