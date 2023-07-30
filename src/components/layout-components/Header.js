@@ -10,6 +10,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAction } from "../../slices/categories/categoriesAction";
+import { autoLogin } from "../../slices/user/userAction";
 export const Header = () => {
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const { categories } = useSelector((state) => state.categories);
@@ -28,6 +29,7 @@ export const Header = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     !categories.length && dispatch(getCategoriesAction());
+    !user._id && dispatch(autoLogin());
     function handleWindowResize() {
       setwindowWidth(window.innerWidth);
     }
@@ -35,7 +37,7 @@ export const Header = () => {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
-  }, [dispatch, categories.length]);
+  }, [dispatch, user, categories.length]);
   console.log(window.location);
   let today = new Date();
   let hour = today.getHours();
