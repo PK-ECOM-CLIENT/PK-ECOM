@@ -4,6 +4,7 @@ const categoriesEp = rootUrl + "/categories";
 const productsEp = rootUrl + "/products";
 const itemsEp = rootUrl + "/items";
 const userEp = rootUrl + "/users";
+const favsEp = rootUrl + "/favs";
 const apiProcessor = async ({ method, url, data, isPrivate, token }) => {
   try {
     const headers = isPrivate
@@ -143,6 +144,24 @@ export const getIndividualItem = (_iid) => {
   const options = {
     method: "get",
     url: itemsEp + "/" + _iid,
+  };
+  return apiProcessor(options);
+};
+// ===============================================Favs APIs============================
+export const getFavs = (obj) => {
+  const options = {
+    method: "get",
+    url: favsEp,
+    isPrivate: true,
+  };
+  return apiProcessor(options);
+};
+export const postFav = (obj) => {
+  const options = {
+    method: "post",
+    url: favsEp,
+    data: obj,
+    isPrivate: true,
   };
   return apiProcessor(options);
 };

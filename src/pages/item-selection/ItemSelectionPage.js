@@ -6,6 +6,7 @@ import { Button, Form } from "react-bootstrap";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getIndividualItemAction } from "../../slices/items/itemsAction";
+import { addFavsAction } from "../../slices/system/systemAction";
 const ItemSelectionPage = () => {
   const { _cid, _pid, _iid } = useParams();
   const navigate = useNavigate();
@@ -13,19 +14,28 @@ const ItemSelectionPage = () => {
   const location = useLocation();
   const url = location.pathname;
   console.log(url);
+  const [image, setImage] = useState("");
+  const [count, setCount] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(null);
   const { selectedItem } = useSelector((state) => state.items);
   const { name, description, images, price } = selectedItem;
-  const [image, setImage] = useState("");
 
-  useEffect(() => {
-    dispatch(getIndividualItemAction(_iid));
-  }, [_iid, dispatch]);
-
-  useEffect(() => {
-    if (selectedItem?._id) {
-      setImage(selectedItem?.thumbnail);
+  const handleOnIncrement = () => {
+    setCount(count + 1);
+    setTotalPrice((count + 1) * price);
+  };
+  const handleOnDecrement = () => {
+    if (count < 2) {
+      return;
     }
-  }, [selectedItem]);
+    setCount(count - 1);
+    setTotalPrice((count - 1) * price);
+  };
+  const handleOnAddTofav = (_id) => {
+    const obj = { itemId: _id };
+    dispatch(addFavsAction(obj));
+  };
+
   const onButtonBuynowClick = () => {
     navigate(`/categories/${_cid}/products/${_pid}/item/${_iid}/buynow`);
   };
@@ -43,6 +53,17 @@ const ItemSelectionPage = () => {
         console.error("Failed to copy:", error);
       });
   };
+  useEffect(() => {
+    dispatch(getIndividualItemAction(_iid));
+  }, [_iid, dispatch]);
+
+  useEffect(() => {
+    if (selectedItem?._id) {
+      setImage(selectedItem?.thumbnail);
+      setTotalPrice(selectedItem?.price);
+    }
+  }, [selectedItem]);
+
   return (
     <div>
       <AppLayOut>
@@ -94,11 +115,22 @@ const ItemSelectionPage = () => {
               </div>
               <div className="itemSelection_body_shopping-no">
                 Number of items:
-                <span className="itemSelection_body__shopping-btn">+</span>1
-                <span className="itemSelection_body__shopping-btn">-</span>
+                <span
+                  className="itemSelection_body__shopping-btn"
+                  onClick={handleOnDecrement}
+                >
+                  -
+                </span>
+                {count}
+                <span
+                  className="itemSelection_body__shopping-btn"
+                  onClick={handleOnIncrement}
+                >
+                  +
+                </span>
               </div>
               <div className="itemSelection_body_shopping-totalPrice">
-                Total Price: 2200
+                Total Price: {totalPrice}
               </div>
               <div className="itemSelection_body_shopping-buy d-grid mt-2 border-0">
                 <Button
@@ -120,7 +152,12 @@ const ItemSelectionPage = () => {
                 </Button>
               </div>
               <div className="itemSelection_body_shopping-options">
-                <Button className="btn-fav -util-fav">Add to fav</Button>
+                <Button
+                  className="btn-fav -util-fav"
+                  onClick={() => handleOnAddTofav(_iid)}
+                >
+                  Add to fav
+                </Button>
                 <Button className="btn-cart -util-cart">Add to cart</Button>
               </div>
             </div>

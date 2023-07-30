@@ -11,10 +11,12 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAction } from "../../slices/categories/categoriesAction";
 import { autoLogin, logoutUserAction } from "../../slices/user/userAction";
+import { getFavsAction } from "../../slices/system/systemAction";
 export const Header = () => {
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const { categories } = useSelector((state) => state.categories);
   const { user } = useSelector((state) => state.user);
+  const { favourites } = useSelector((state) => state.system);
   let address = "";
   if (user._id) {
     address =
@@ -33,6 +35,7 @@ export const Header = () => {
   useEffect(() => {
     !categories.length && dispatch(getCategoriesAction());
     !user._id && dispatch(autoLogin());
+    !favourites.length && dispatch(getFavsAction());
     function handleWindowResize() {
       setwindowWidth(window.innerWidth);
     }
@@ -40,7 +43,7 @@ export const Header = () => {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
-  }, [dispatch, user._id, categories.length]);
+  }, [dispatch, user._id, categories.length, favourites.length]);
   console.log(window.location);
   let today = new Date();
   let hour = today.getHours();
