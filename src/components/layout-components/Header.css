@@ -159,6 +159,9 @@
 .profile__toggle-menu > * {
   padding-left: 1rem;
 }
+.user_profile__profie-dropdown-items > *:hover {
+  background-color: var(--color-zomp);
+}
 .user_profile > *:hover {
   cursor: pointer;
 }

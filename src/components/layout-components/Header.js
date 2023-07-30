@@ -10,7 +10,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAction } from "../../slices/categories/categoriesAction";
-import { autoLogin } from "../../slices/user/userAction";
+import { autoLogin, logoutUserAction } from "../../slices/user/userAction";
 export const Header = () => {
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const { categories } = useSelector((state) => state.categories);
@@ -27,6 +27,9 @@ export const Header = () => {
       user.address.postCode;
   }
   const dispatch = useDispatch();
+  const handleOnLogout = () => {
+    dispatch(logoutUserAction({}));
+  };
   useEffect(() => {
     !categories.length && dispatch(getCategoriesAction());
     !user._id && dispatch(autoLogin());
@@ -37,7 +40,7 @@ export const Header = () => {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
-  }, [dispatch, user, categories.length]);
+  }, [dispatch, user._id, categories.length]);
   console.log(window.location);
   let today = new Date();
   let hour = today.getHours();
@@ -245,7 +248,9 @@ export const Header = () => {
                         <Link className="nav-link">Payment Methods</Link>
                         <Link className="nav-link">Close Account</Link>
                         <Link className="nav-link">Switch Account</Link>
-                        <Link className="nav-link">Sign Out</Link>
+                        <Link className="nav-link" onClick={handleOnLogout}>
+                          Sign Out
+                        </Link>
                       </Dropdown.Menu>
                     </Dropdown>
                   </p>
