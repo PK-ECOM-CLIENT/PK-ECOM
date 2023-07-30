@@ -160,7 +160,9 @@ export const Header = () => {
                     <Link className="nav-link">Payment Methods</Link>
                     <Link className="nav-link">Close Account</Link>
                     <Link className="nav-link">Switch Account</Link>
-                    <Link className="nav-link">Sign Out</Link>
+                    <Link className="nav-link" onClick={handleOnLogout}>
+                      Sign Out
+                    </Link>
                   </Dropdown.Menu>
                 </Dropdown>
               ) : (
