@@ -90,6 +90,7 @@ const ItemSelectionPage = () => {
                     price={price}
                     ratingsRate="3.5"
                     ratingsCount="990"
+                    location="item"
                   ></ItemCard>
                 )}
 

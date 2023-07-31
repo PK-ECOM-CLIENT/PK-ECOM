@@ -130,7 +130,7 @@ export const Header = () => {
                   "Favourites"
                 )}
               </Link>
-              <span className="nav_icons__count">17</span>
+              <span className="nav_icons__count">{ favourites?.length}</span>
             </li>
 
             <li className="nav-item nav_icons">

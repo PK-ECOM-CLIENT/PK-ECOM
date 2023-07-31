@@ -23,10 +23,9 @@ const ItemsPage = () => {
     <div>
       <AppLayOut>
         <div className="items">
-           
           <Row>
             {items.map((item, i) => {
-              const { name, thumbnail, price } = item;
+              const { name, thumbnail, price, _id } = item;
 
               return (
                 <Col
@@ -42,6 +41,8 @@ const ItemsPage = () => {
                     price={price}
                     ratingsRate="4.3"
                     ratingsCount="500"
+                    location="item"
+                    id={_id}
                   ></ItemCard>
                 </Col>
               );

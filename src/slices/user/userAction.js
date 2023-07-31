@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { getNewAccessJWT, getUser, loginUser } from "../../helpers/axiosHelper";
 import { setUser } from "./userSlice";
+import { setCart, setFavourites } from "../system/systemSlice";
 
 export const logInUserAction = (data) => async (dispatch) => {
   const resultPromise = loginUser(data);
@@ -15,6 +16,8 @@ export const logInUserAction = (data) => async (dispatch) => {
 };
 export const logoutUserAction = () => (dispatch) => {
   dispatch(setUser({}));
+  dispatch(setFavourites([]));
+  dispatch(setCart([]));
   sessionStorage.removeItem("accessJWT");
   localStorage.removeItem("refreshJWT");
 };

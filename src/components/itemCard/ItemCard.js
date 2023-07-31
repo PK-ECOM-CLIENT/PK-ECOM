@@ -1,7 +1,22 @@
 import React from "react";
 import "./itemCard.css";
-export const ItemCard = ({ name, img, price, ratingsRate, ratingsCount }) => {
-  
+import { Link } from "react-router-dom";
+import { addFavsAction } from "../../slices/system/systemAction";
+import { useDispatch } from "react-redux";
+export const ItemCard = ({
+  name,
+  img,
+  price,
+  id,
+  ratingsRate,
+  ratingsCount,
+  location,
+}) => {
+  const dispatch = useDispatch();
+  const handleOnAddTofav = (_id) => {
+    const obj = { itemId: _id };
+    dispatch(addFavsAction(obj));
+  };
   return (
     <div className="itemCard">
       <div className="itemCard_img">
@@ -11,18 +26,31 @@ export const ItemCard = ({ name, img, price, ratingsRate, ratingsCount }) => {
           alt="itemimg"
           // crossOrigin="anonymous"
         ></img>
-        <i className="itemCard_img__fav fa-solid fa-heart -util-font20 ">
-          <span className="addto ">Add to fav</span>
-        </i>
-        <i className="itemCard_img__cart fa-solid fa-cart-shopping -util-font20">
-          <span className="addto addtocart">Add to Cart</span>
-        </i>
+        {location === "item" && (
+          <div>
+            <i className="itemCard_img__fav fa-solid fa-heart -util-font20 ">
+              <span className="addto " onClick={()=>handleOnAddTofav(id)}>Add to fav</span>
+            </i>
+            <i className="itemCard_img__cart fa-solid fa-cart-shopping -util-font20">
+              <span className="addto addtocart">Add to Cart</span>
+            </i>
+          </div>
+        )}
       </div>
       <div className="itemCard_body">
         <div className="itemCard_body__name -util-borderbottom">{name}</div>
 
         <div className="itemCard_body__content -util-borderbottom">
           <div className="itemCard_body__content-price"> ${price}</div>
+          {location === "fav" ? (
+            <>
+              {" "}
+              <Link>Add to cart</Link>
+              <Link>Remove from favs</Link>
+            </>
+          ) : location === "cart" ? (
+            <Link>Add to favs</Link>
+          ) : null}
           <div className="itemCard_body__content-ratings">
             <span className="itemCard_body__content-ratings-rate">
               {ratingsRate}
