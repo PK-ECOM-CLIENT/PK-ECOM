@@ -31,7 +31,7 @@ const ItemSelectionPage = () => {
     setCount(count - 1);
     setTotalPrice((count - 1) * price);
   };
-  const handleOnAddTofav = (_id) => {
+  const handleOnAddToFav = (_id) => {
     const obj = { itemId: _id };
     dispatch(addFavsAction(obj));
   };
@@ -90,7 +90,8 @@ const ItemSelectionPage = () => {
                     price={price}
                     ratingsRate="3.5"
                     ratingsCount="990"
-                    location="item"
+                    location="selection"
+                    id={_iid}
                   ></ItemCard>
                 )}
 
@@ -155,7 +156,7 @@ const ItemSelectionPage = () => {
               <div className="itemSelection_body_shopping-options">
                 <Button
                   className="btn-fav -util-fav"
-                  onClick={() => handleOnAddTofav(_iid)}
+                  onClick={() => handleOnAddToFav(_iid)}
                 >
                   Add to fav
                 </Button>

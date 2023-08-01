@@ -19,6 +19,7 @@ const ItemsPage = () => {
   const handleOnItemClick = (_iid) => {
     navigate(`/categories/${_cid}/products/${_pid}/item/${_iid}`);
   };
+
   return (
     <div>
       <AppLayOut>
@@ -28,13 +29,7 @@ const ItemsPage = () => {
               const { name, thumbnail, price, _id } = item;
 
               return (
-                <Col
-                  key={i}
-                  lg={4}
-                  md={4}
-                  sm={6}
-                  onClick={() => handleOnItemClick(item._id)}
-                >
+                <Col key={i} lg={4} md={4} sm={6}>
                   <ItemCard
                     name={name}
                     img={thumbnail}
@@ -43,6 +38,7 @@ const ItemsPage = () => {
                     ratingsCount="500"
                     location="item"
                     id={_id}
+                    onItemClick={handleOnItemClick}
                   ></ItemCard>
                 </Col>
               );

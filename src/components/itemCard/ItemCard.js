@@ -11,9 +11,10 @@ export const ItemCard = ({
   ratingsRate,
   ratingsCount,
   location,
+  onItemClick,
 }) => {
   const dispatch = useDispatch();
-  const handleOnAddTofav = (_id) => {
+  const handleOnAddToFav = (_id) => {
     const obj = { itemId: _id };
     dispatch(addFavsAction(obj));
   };
@@ -24,18 +25,22 @@ export const ItemCard = ({
           src={img}
           className="itemCard_img__img"
           alt="itemimg"
+          onClick={onItemClick}
           // crossOrigin="anonymous"
         ></img>
-        {location === "item" && (
+        {location === "item" || location === "selection" ? (
           <div>
-            <i className="itemCard_img__fav fa-solid fa-heart -util-font20 ">
-              <span className="addto " onClick={()=>handleOnAddTofav(id)}>Add to fav</span>
+            <i
+              className="itemCard_img__fav fa-solid fa-heart -util-font20"
+              onClick={() => handleOnAddToFav(id)}
+            >
+              <span className="addto">Add to fav</span>
             </i>
             <i className="itemCard_img__cart fa-solid fa-cart-shopping -util-font20">
               <span className="addto addtocart">Add to Cart</span>
             </i>
           </div>
-        )}
+        ) : null}
       </div>
       <div className="itemCard_body">
         <div className="itemCard_body__name -util-borderbottom">{name}</div>
