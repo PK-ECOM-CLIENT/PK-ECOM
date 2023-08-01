@@ -57,12 +57,14 @@ export const ItemCard = ({
           <div className="itemCard_body__content-price"> ${price}</div>
           {location === "favs" ? (
             <>
-              {" "}
-              <Link>Add to cart</Link>
-              <Link>Remove from favs</Link>
+              <div className="itemCard__actionoptions">Add to cart</div>
+              <div className="itemCard__actionoptions">Remove from favs </div>
             </>
           ) : location === "cart" ? (
-            <Link>Add to favs</Link>
+            <>
+              <div className="itemCard__actionoptions">Add to favs</div>
+              <div className="itemCard__actionoptions">Remove from cart </div>
+            </>
           ) : null}
           <div className="itemCard_body__content-ratings">
             <span className="itemCard_body__content-ratings-rate">
