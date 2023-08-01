@@ -1,6 +1,6 @@
 import React from "react";
 import "./itemCard.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { addFavsAction } from "../../slices/system/systemAction";
 import { useDispatch } from "react-redux";
 export const ItemCard = ({
@@ -11,12 +11,17 @@ export const ItemCard = ({
   ratingsRate,
   ratingsCount,
   location,
-  onItemClick,
+  catId,
+  productId,
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleOnAddToFav = (_id) => {
     const obj = { itemId: _id };
     dispatch(addFavsAction(obj));
+  };
+  const handleOnItemClick = (catId, productId, id) => {
+    navigate(`/categories/${catId}/products/${productId}/item/${id}`);
   };
   return (
     <div className="itemCard">
@@ -25,10 +30,14 @@ export const ItemCard = ({
           src={img}
           className="itemCard_img__img"
           alt="itemimg"
-          onClick={onItemClick}
+          onClick={
+            location === "items" || location === "favs"
+              ? () => handleOnItemClick(catId, productId, id)
+              : null
+          }
           // crossOrigin="anonymous"
         ></img>
-        {location === "item" || location === "selection" ? (
+        {location === "items" || location === "selection" ? (
           <div>
             <i
               className="itemCard_img__fav fa-solid fa-heart -util-font20"
@@ -44,17 +53,18 @@ export const ItemCard = ({
       </div>
       <div className="itemCard_body">
         <div className="itemCard_body__name -util-borderbottom">{name}</div>
-
         <div className="itemCard_body__content -util-borderbottom">
           <div className="itemCard_body__content-price"> ${price}</div>
-          {location === "fav" ? (
+          {location === "favs" ? (
             <>
-              {" "}
-              <Link>Add to cart</Link>
-              <Link>Remove from favs</Link>
+              <div className="itemCard__actionoptions">Add to cart</div>
+              <div className="itemCard__actionoptions">Remove from favs </div>
             </>
           ) : location === "cart" ? (
-            <Link>Add to favs</Link>
+            <>
+              <div className="itemCard__actionoptions">Add to favs</div>
+              <div className="itemCard__actionoptions">Remove from cart </div>
+            </>
           ) : null}
           <div className="itemCard_body__content-ratings">
             <span className="itemCard_body__content-ratings-rate">

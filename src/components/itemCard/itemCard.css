@@ -2,12 +2,15 @@
   margin: 0 auto;
   margin-bottom: 0.8rem;
   transition: all 0.3s;
+  box-shadow: 0 0 0 0 transparent;
+  transform-origin: top left;
   z-index: 10;
   background-color: white;
   max-width: 25rem;
 }
 .itemCard:hover {
-  transform: translateY(-0.2rem);
+  transform: scale(1.02);
+  cursor: pointer;
 }
 .itemCard_img {
   position: relative;
@@ -72,6 +75,9 @@
   /* color: black; */
   opacity: 1;
 }
+.itemCard_body {
+  backface-visibility: hidden;
+}
 .itemCard_body__name {
   text-align: center;
   font-size: 1.1rem;
@@ -79,7 +85,7 @@
   text-transform: uppercase;
 }
 .itemCard_body__content {
-  padding: 0 0.5rem 0.2rem;
+  padding: 0.1rem 0.5rem;
   display: flex;
   justify-content: space-between;
   color: var(--color-grey-dark-2);
@@ -92,4 +98,13 @@
 }
 .itemCard_body__content-ratings-count {
   margin-left: 0.5rem;
+}
+.itemCard__actionoptions {
+  display: inline-block;
+  background-color: var(--color-lightgreen);
+  padding: 0, 0.1rem;
+  border-radius: 5%;
+  min-width: 7rem;
+  text-align: center;
+  cursor: pointer;
 }
