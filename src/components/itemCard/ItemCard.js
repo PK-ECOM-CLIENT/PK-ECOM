@@ -25,7 +25,7 @@ export const ItemCard = ({
           src={img}
           className="itemCard_img__img"
           alt="itemimg"
-          onClick={onItemClick}
+          onClick={()=>onItemClick(id)}
           // crossOrigin="anonymous"
         ></img>
         {location === "item" || location === "selection" ? (
