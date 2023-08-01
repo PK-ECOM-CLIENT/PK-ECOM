@@ -1,7 +1,10 @@
 import React from "react";
 import "./itemCard.css";
 import { useNavigate } from "react-router-dom";
-import { addFavsAction } from "../../slices/system/systemAction";
+import {
+  addFavsAction,
+  deleteFavsAction,
+} from "../../slices/system/systemAction";
 import { useDispatch } from "react-redux";
 export const ItemCard = ({
   name,
@@ -19,6 +22,12 @@ export const ItemCard = ({
   const handleOnAddToFav = (_id) => {
     const obj = { itemId: _id };
     dispatch(addFavsAction(obj));
+  };
+  const handleOnDeleteFromFav = (_id) => {
+     if (window.confirm("Are you sure, you want to remove the item from favs list?")) {
+        dispatch(deleteFavsAction(_id));
+     }
+   
   };
   const handleOnItemClick = (catId, productId, id) => {
     navigate(`/categories/${catId}/products/${productId}/item/${id}`);
@@ -58,7 +67,12 @@ export const ItemCard = ({
           {location === "favs" ? (
             <>
               <div className="itemCard__actionoptions">Add to cart</div>
-              <div className="itemCard__actionoptions">Remove from favs </div>
+              <div
+                className="itemCard__actionoptions"
+                onClick={() => handleOnDeleteFromFav(id)}
+              >
+                Remove from favs{" "}
+              </div>
             </>
           ) : location === "cart" ? (
             <>

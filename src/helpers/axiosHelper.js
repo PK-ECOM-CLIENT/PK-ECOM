@@ -165,3 +165,11 @@ export const postFav = (obj) => {
   };
   return apiProcessor(options);
 };
+export const deleteFav = (_id) => {
+  const options = {
+    method: "delete",
+    url: favsEp + "/" + _id,
+    isPrivate: true,
+  };
+  return apiProcessor(options);
+};
