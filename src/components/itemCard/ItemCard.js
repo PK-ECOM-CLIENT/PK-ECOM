@@ -25,7 +25,7 @@ export const ItemCard = ({
           src={img}
           className="itemCard_img__img"
           alt="itemimg"
-          onClick={()=>onItemClick(id)}
+          onClick={() => onItemClick(id)}
           // crossOrigin="anonymous"
         ></img>
         {location === "item" || location === "selection" ? (
@@ -49,12 +49,16 @@ export const ItemCard = ({
           <div className="itemCard_body__content-price"> ${price}</div>
           {location === "fav" ? (
             <>
-              {" "}
-              <Link>Add to cart</Link>
-              <Link>Remove from favs</Link>
+              
+              <div>Add to cart</div>
+              <div>Remove from favs</div>
             </>
           ) : location === "cart" ? (
-            <Link>Add to favs</Link>
+            <>
+              
+              <div>Add to cart</div>
+              <div>Remove from favs</div>
+            </>
           ) : null}
           <div className="itemCard_body__content-ratings">
             <span className="itemCard_body__content-ratings-rate">
