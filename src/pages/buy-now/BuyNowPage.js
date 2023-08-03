@@ -28,12 +28,12 @@ const BuyNowPage = () => {
                       Street Address
                     </div>
                     <div className="buynow_details__deliveryaddress_content-items--values">
-                      201/1-3 Clarence Street dsjds jslkfjs sjdlsk
+                      302/1-3 Clarence Street
                     </div>
                   </div>
                   <div className="buynow_details__deliveryaddress_content-items ">
                     <div className="buynow_details__deliveryaddress_content-items--subject">
-                      City
+                      Suburb
                     </div>
                     <div className="buynow_details__deliveryaddress_content-items--values">
                       Strathfield
