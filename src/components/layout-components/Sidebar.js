@@ -26,7 +26,14 @@ export const Sidebar = () => {
               key={i}
               id={item._id}
             >
-              {item.name}
+              {item.name === "Home & Kitchen" ? (
+                <span>
+                  {item.name}
+                  <span className="-util-nav">*</span>
+                </span>
+              ) : (
+                item.name
+              )}
             </Link>
           )
       )}

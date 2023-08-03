@@ -21,8 +21,8 @@ export const CustomModal = () => {
         <Modal.Title id="contained-modal-title-vcenter">Notice!!!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        All categories or products doesn't have items assigned, selecting only
-        the ones with the stars will give you better experience.
+        For a better experience, consider selecting categories or products with
+       the star, as not all categories or products have been assigned the items.
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => dispatch(setModalShow())}>Close</Button>

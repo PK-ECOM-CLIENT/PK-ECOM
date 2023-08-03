@@ -57,6 +57,11 @@ body {
 .color-pastrelred {
   color: var(--color-pastrelred);
 }
+.-util-nav {
+  font-weight: bold;
+  color: currentColor;
+  margin-left: 0.5rem;
+}
 .-util-font15 {
   font-size: 1.5rem !important;
 }

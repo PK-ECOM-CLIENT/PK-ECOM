@@ -37,7 +37,14 @@ const Categories = () => {
                           className="products"
                           onClick={() => handleOnProductClick(product._id)}
                         >
-                          {product.name}
+                          {product.name === "Sheets" ? (
+                            <span>
+                              {product.name}
+                              <span className="-util-nav">*</span>
+                            </span>
+                          ) : (
+                            product.name
+                          )}
                         </div>
                       )
                   )}
