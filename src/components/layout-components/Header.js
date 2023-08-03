@@ -80,7 +80,14 @@ export const Header = () => {
                           key={i}
                           id={item._id}
                         >
-                          {item.name}
+                          {item.name === "Home & Kitchen" ? (
+                            <span>
+                              {item.name}
+                              <span className="-util-nav">*</span>
+                            </span>
+                          ) : (
+                            item.name
+                          )}
                         </Link>
                       )
                   )}
@@ -130,7 +137,7 @@ export const Header = () => {
                   "Favourites"
                 )}
               </Link>
-              <span className="nav_icons__count">{ favourites?.length}</span>
+              <span className="nav_icons__count">{favourites?.length}</span>
             </li>
 
             <li className="nav-item nav_icons">
