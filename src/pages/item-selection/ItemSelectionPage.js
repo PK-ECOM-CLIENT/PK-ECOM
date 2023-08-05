@@ -18,6 +18,7 @@ const ItemSelectionPage = () => {
   const [count, setCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(null);
   const { selectedItem } = useSelector((state) => state.items);
+  const { user } = useSelector((state) => state.user);
   const { name, description, images, price } = selectedItem;
 
   const handleOnIncrement = () => {
@@ -32,6 +33,9 @@ const ItemSelectionPage = () => {
     setTotalPrice((count - 1) * price);
   };
   const handleOnAddToFav = (_id) => {
+    if (!user._id) {
+      navigate("/login");
+    }
     const obj = { itemId: _id };
     dispatch(addFavsAction(obj));
   };

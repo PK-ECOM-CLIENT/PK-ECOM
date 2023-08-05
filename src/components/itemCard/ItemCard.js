@@ -5,7 +5,7 @@ import {
   addFavsAction,
   deleteFavsAction,
 } from "../../slices/system/systemAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 export const ItemCard = ({
   name,
   img,
@@ -19,15 +19,22 @@ export const ItemCard = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
   const handleOnAddToFav = (_id) => {
+    if (!user._id) {
+      navigate("/login");
+    }
     const obj = { itemId: _id };
     dispatch(addFavsAction(obj));
   };
   const handleOnDeleteFromFav = (_id) => {
-     if (window.confirm("Are you sure, you want to remove the item from favs list?")) {
-        dispatch(deleteFavsAction(_id));
-     }
-   
+    if (
+      window.confirm(
+        "Are you sure, you want to remove the item from favs list?"
+      )
+    ) {
+      dispatch(deleteFavsAction(_id));
+    }
   };
   const handleOnItemClick = (catId, productId, id) => {
     navigate(`/categories/${catId}/products/${productId}/item/${id}`);

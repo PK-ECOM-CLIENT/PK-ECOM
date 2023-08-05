@@ -12,6 +12,7 @@ export const logInUserAction = (data) => async (dispatch) => {
     sessionStorage.setItem("accessJWT", accessJWT);
     localStorage.setItem("refreshJWT", refreshJWT);
     dispatch(setUser(user));
+    return status;
   }
 };
 export const logoutUserAction = () => (dispatch) => {
