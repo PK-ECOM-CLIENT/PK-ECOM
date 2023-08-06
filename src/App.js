@@ -54,7 +54,9 @@ function App() {
           ></Route>
           <Route
             path="/categories/:_cid/products/:_pid/item/:_iid"
-            element={<ItemSelectionPage></ItemSelectionPage>}
+            element={
+                <ItemSelectionPage />
+            }
           ></Route>
           <Route
             path="/categories/:_cid/products/:_pid/item/:_iid/buynow"
