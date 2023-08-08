@@ -27,6 +27,7 @@ export const ItemCard = ({
     if (!user._id) {
       dispatch(setPublicUrl(url));
       navigate("/login");
+      return;
     }
     const obj = { itemId: _id };
     dispatch(addFavsAction(obj));
