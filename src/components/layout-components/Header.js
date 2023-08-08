@@ -17,6 +17,7 @@ export const Header = () => {
   const { categories } = useSelector((state) => state.categories);
   const { user } = useSelector((state) => state.user);
   const { favourites } = useSelector((state) => state.system);
+  const url = window.location.pathname;
   let address = "";
   if (user._id) {
     address =
@@ -43,8 +44,7 @@ export const Header = () => {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
-  }, [dispatch, user._id, categories.length, favourites.length]);
-  console.log(window.location);
+  }, [dispatch, user._id, categories.length, favourites.length, url]);
   let today = new Date();
   let hour = today.getHours();
   return (
@@ -94,7 +94,7 @@ export const Header = () => {
                 </Dropdown.Menu>
               </Dropdown>
             )}
-            {window.location.pathname !== "/" && (
+            {url !== "/" && (
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
                   Home

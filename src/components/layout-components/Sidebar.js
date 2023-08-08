@@ -10,7 +10,6 @@ export const Sidebar = () => {
   useEffect(() => {
     !categories.length && dispatch(getCategoriesAction());
   }, [dispatch, categories.length, _cid]);
-  console.log(_cid);
   return (
     <div className="categories_div">
       {categories.map(

@@ -6,7 +6,8 @@ import Form from "react-bootstrap/Form";
 import { CustomInputFields } from "../../components/custom-components/CustomInputFields";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logInUserAction } from "../../slices/user/userAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setPublicUrl } from "../../slices/system/systemSlice";
 const inputFields = [
   {
     label: "Email",
@@ -25,11 +26,13 @@ const inputFields = [
 ];
 const LoginPage = () => {
   const [form, setForm] = useState({});
+  const { publicUrl } = useSelector((state) => state.system);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const origin =
     (location.state && location.state.from && location.state.from.pathname) ||
+    publicUrl ||
     "/";
   const handleOnChange = (e) => {
     let { name, value } = e.target;
@@ -42,8 +45,10 @@ const LoginPage = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const result = await dispatch(logInUserAction(form));
-    result === "success" && navigate(origin);
-    console.log(result);
+    if (result === "success") {
+      navigate(origin);
+      dispatch(setPublicUrl(""));
+    }
   };
   return (
     <div>

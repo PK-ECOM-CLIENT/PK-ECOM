@@ -20,3 +20,6 @@ export const deleteFavsAction = (_id) => async (dispatch) => {
   toast[status](message);
   status === "success" && dispatch(getFavsAction());
 };
+// export const setPublicUrlAction = (url) = dispatch => {
+  
+// }

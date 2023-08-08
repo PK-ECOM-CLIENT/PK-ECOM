@@ -17,7 +17,6 @@ const Categories = () => {
     !products.length && dispatch(getProductsAction());
     window.scrollTo(0, 0);
   }, [_cid, dispatch, categories.length, products.length]);
-  console.log(_cid);
   const handleOnProductClick = (_pid) => {
     navigate(`/categories/${_cid}/products/${_pid}`);
   };

@@ -3,21 +3,22 @@ import "./itemSelectionPage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import { ItemCard } from "../../components/itemCard/ItemCard";
 import { Button, Form } from "react-bootstrap";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getIndividualItemAction } from "../../slices/items/itemsAction";
 import { addFavsAction } from "../../slices/system/systemAction";
+import { setPublicUrl } from "../../slices/system/systemSlice";
 const ItemSelectionPage = () => {
   const { _cid, _pid, _iid } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
-  const url = location.pathname;
+  const url = window.location.pathname;
   console.log(url);
   const [image, setImage] = useState("");
   const [count, setCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(null);
   const { selectedItem } = useSelector((state) => state.items);
+
   const { user } = useSelector((state) => state.user);
   const { name, description, images, price } = selectedItem;
 
@@ -34,7 +35,9 @@ const ItemSelectionPage = () => {
   };
   const handleOnAddToFav = (_id) => {
     if (!user._id) {
+      dispatch(setPublicUrl(url));
       navigate("/login");
+      return;
     }
     const obj = { itemId: _id };
     dispatch(addFavsAction(obj));

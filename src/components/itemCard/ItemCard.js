@@ -6,6 +6,7 @@ import {
   deleteFavsAction,
 } from "../../slices/system/systemAction";
 import { useDispatch, useSelector } from "react-redux";
+import { setPublicUrl } from "../../slices/system/systemSlice";
 export const ItemCard = ({
   name,
   img,
@@ -20,8 +21,11 @@ export const ItemCard = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
+  const url = window.location.pathname;
+  console.log(url);
   const handleOnAddToFav = (_id) => {
     if (!user._id) {
+      dispatch(setPublicUrl(url));
       navigate("/login");
     }
     const obj = { itemId: _id };
