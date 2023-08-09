@@ -482,7 +482,7 @@ const HomePage = () => {
             </Row>
           </div>
         </div>
-        {/* <CustomModal></CustomModal> */}
+        <CustomModal></CustomModal>
       </AppLayOut>
     </div>
   );
