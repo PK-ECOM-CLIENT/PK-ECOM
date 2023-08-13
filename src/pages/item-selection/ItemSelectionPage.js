@@ -82,7 +82,11 @@ const ItemSelectionPage = () => {
                 {images &&
                   images.map((img, i) => (
                     <img
-                      className="item-subImages"
+                      className={
+                        img.secure_url === image
+                          ? "item-subImages item-subImages-border"
+                          : "item-subImages"
+                      }
                       src={img.secure_url}
                       alt="img1"
                       key={i}
