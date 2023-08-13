@@ -3,7 +3,7 @@ import "./itemSelectionPage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import { ItemCard } from "../../components/itemCard/ItemCard";
 import { Button, Form } from "react-bootstrap";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getIndividualItemAction } from "../../slices/items/itemsAction";
 import { addFavsAction } from "../../slices/system/systemAction";
@@ -20,7 +20,8 @@ const ItemSelectionPage = () => {
   const { selectedItem } = useSelector((state) => state.items);
 
   const { user } = useSelector((state) => state.user);
-  const { name, description, images, price } = selectedItem;
+  const { name, description, images, price, filterName, filters } =
+    selectedItem;
 
   const handleOnIncrement = () => {
     setCount(count + 1);
@@ -111,17 +112,20 @@ const ItemSelectionPage = () => {
               <div className="itemSelection_body__shoping-price">
                 Unit Price: $ {price}
               </div>
-              <div className="itemSelection_body__shoping-filter">
-                Size:
-                <Form>
-                  <Form.Select name="state" className="filter_heading">
-                    <option value="choose">choose</option>
-                    <option value="nsw">11.5 inch</option>
-                    <option value="act">13 inch</option>
-                    <option value="nt">15 inch</option>
-                  </Form.Select>
-                </Form>
-              </div>
+              {selectedItem.filters.length ? (
+                <div className="itemSelection_body__shoping-filter">
+                  {filterName}
+                  <Form>
+                    <Form.Select name="state" className="filter_heading">
+                      <option value="choose">choose</option>
+                      {filters.map((item, i) => (
+                        <option value="nsw">{item}</option>
+                      ))}
+                    </Form.Select>
+                  </Form>
+                </div>
+              ) : null}
+
               <div className="itemSelection_body_shopping-no">
                 Number of items:
                 <span
