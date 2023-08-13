@@ -116,14 +116,17 @@ const ItemSelectionPage = () => {
               <div className="itemSelection_body__shoping-price">
                 Unit Price: $ {price}
               </div>
-              {selectedItem.filters.length ? (
+              {selectedItem?.filters?.length ? (
                 <div className="itemSelection_body__shoping-filter">
                   {filterName}
                   <Form>
-                    <Form.Select name="state" className="filter_heading">
+                    <Form.Select
+                      name="state"
+                      className="filter_heading "
+                    >
                       <option value="choose">choose</option>
-                      {filters.map((item, i) => (
-                        <option value="nsw">{item}</option>
+                      {filters.map((filter, i) => (
+                        <option value={filter}>{filter}</option>
                       ))}
                     </Form.Select>
                   </Form>

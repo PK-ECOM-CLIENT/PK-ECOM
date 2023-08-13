@@ -176,7 +176,6 @@ body {
   outline: none;
   box-shadow: 0 0 0 0.2rem var(--color-zomp);
 }
-
 @media screen and (min-width: 768px) {
   .navbar-collapse {
     display: flex;
