@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./itemSelectionPage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import { ItemCard } from "../../components/itemCard/ItemCard";
@@ -23,8 +23,8 @@ const ItemSelectionPage = () => {
   const [image, setImage] = useState("");
   const [count, setCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(null);
+  const filterRef = useRef();
   const { selectedItem } = useSelector((state) => state.items);
-
   const { user } = useSelector((state) => state.user);
   const { name, description, images, price, filterName, filters } =
     selectedItem;
@@ -40,18 +40,19 @@ const ItemSelectionPage = () => {
     setCount(count - 1);
     setTotalPrice((count - 1) * price);
   };
-  const handleOnAddToFav = (_id) => {
+  const handleOnAddToFav = () => {
     if (!user._id) {
       dispatch(setPublicUrl(url));
       navigate("/login");
       return;
     }
-    const obj = { itemId: _id };
+    const obj = { itemId: _iid };
     dispatch(addFavsAction(obj));
   };
 
   const onButtonBuynowClick = () => {
-    navigate(`/categories/${_cid}/products/${_pid}/item/${_iid}/buynow`);
+    console.log(form);
+    // navigate(`/categories/${_cid}/products/${_pid}/item/${_iid}/buynow`);
   };
   const handleOnImageClick = (img) => {
     setImage(img);
@@ -66,6 +67,20 @@ const ItemSelectionPage = () => {
       .catch((error) => {
         console.error("Failed to copy:", error);
       });
+  };
+  // handling adding to cart
+  const handleOnAddToCart = () => {
+    if (!user._id) {
+      dispatch(setPublicUrl(url));
+      navigate("/login");
+      return;
+    }
+    const obj = {
+      itemId: _iid,
+      filter: filterRef.current.value,
+      count,
+    };
+    console.log(obj);
   };
   useEffect(() => {
     dispatch(getIndividualItemAction(_iid));
@@ -141,7 +156,11 @@ const ItemSelectionPage = () => {
                 {selectedItem?.filters?.length ? (
                   <div className="itemSelection_body__shoping-filter">
                     <div className="filterName">{filterName}:</div>
-                    <Form.Select name="filter" className="filter_heading ">
+                    <Form.Select
+                      name="filter"
+                      className="filter_heading"
+                      ref={filterRef}
+                    >
                       <option value="choose">choose</option>
                       {filters.map((filter, i) => (
                         <option value={filter}>{filter}</option>
@@ -222,11 +241,16 @@ const ItemSelectionPage = () => {
                 <div className="itemSelection_body_shopping-options">
                   <Button
                     className="btn-fav -util-fav"
-                    onClick={() => handleOnAddToFav(_iid)}
+                    onClick={() => handleOnAddToFav()}
                   >
                     Add to fav
                   </Button>
-                  <Button className="btn-cart -util-cart">Add to cart</Button>
+                  <Button
+                    className="btn-cart -util-cart"
+                    onClick={handleOnAddToCart}
+                  >
+                    Add to cart
+                  </Button>
                 </div>
               </Form>
             </div>
