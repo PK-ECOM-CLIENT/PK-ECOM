@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./itemSelectionPage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import { ItemCard } from "../../components/itemCard/ItemCard";
@@ -34,6 +34,7 @@ const ItemSelectionPage = () => {
     setCount(count - 1);
     setTotalPrice((count - 1) * price);
   };
+  // adding to favourite
   const handleOnAddToFav = (_id) => {
     if (!user._id) {
       dispatch(setPublicUrl(url));
@@ -61,6 +62,19 @@ const ItemSelectionPage = () => {
         console.error("Failed to copy:", error);
       });
   };
+  // working with adding to cart
+  const filterRef = useRef(null);
+  const handleOnAddToCart = (iid, filterValue, count) => {
+    console.log(iid, filterValue, count);
+    if (!user._id) {
+      dispatch(setPublicUrl(url));
+      navigate("/login");
+      return;
+    }
+    const obj = { itemId: iid, filter: filterValue, count };
+    console.log(obj);
+  };
+  // useEffects
   useEffect(() => {
     dispatch(getIndividualItemAction(_iid));
   }, [_iid, dispatch]);
@@ -113,45 +127,53 @@ const ItemSelectionPage = () => {
               </div>
             </div>
             <div className="itemSelection_body__shopping">
-              <div className="itemSelection_body__shoping-price">
-                Unit Price: $ {price}
-              </div>
-              {selectedItem?.filters?.length ? (
-                <div className="itemSelection_body__shoping-filter">
-                  {filterName}
-                  <Form>
+              <Form>
+                <label
+                  htmlFor="unitPrice"
+                  className="itemSelection_body__shoping-price"
+                >
+                  Unit Price: $ {price}
+                </label>
+                <input type="text" id="unitPrice" value={price} readOnly />
+                {selectedItem?.filters?.length ? (
+                  <div className="itemSelection_body__shoping-filter">
+                    {filterName}
+
                     <Form.Select
                       name="state"
                       className="filter_heading "
+                      ref={filterRef}
                     >
                       <option value="choose">choose</option>
                       {filters.map((filter, i) => (
-                        <option value={filter}>{filter}</option>
+                        <option key={i} value={filter}>
+                          {filter}
+                        </option>
                       ))}
                     </Form.Select>
-                  </Form>
-                </div>
-              ) : null}
+                  </div>
+                ) : null}
 
-              <div className="itemSelection_body_shopping-no">
-                Number of items:
-                <span
-                  className="itemSelection_body__shopping-btn"
-                  onClick={handleOnDecrement}
-                >
-                  -
-                </span>
-                {count}
-                <span
-                  className="itemSelection_body__shopping-btn"
-                  onClick={handleOnIncrement}
-                >
-                  +
-                </span>
-              </div>
-              <div className="itemSelection_body_shopping-totalPrice">
-                Total Price: {totalPrice}
-              </div>
+                <div className="itemSelection_body_shopping-no">
+                  Number of items:
+                  <span
+                    className="itemSelection_body__shopping-btn"
+                    onClick={handleOnDecrement}
+                  >
+                    -
+                  </span>
+                  {count}
+                  <span
+                    className="itemSelection_body__shopping-btn"
+                    onClick={handleOnIncrement}
+                  >
+                    +
+                  </span>
+                </div>
+                <div className="itemSelection_body_shopping-totalPrice">
+                  Total Price: {totalPrice}
+                </div>
+              </Form>
               <div className="itemSelection_body_shopping-buy d-grid mt-2 border-0">
                 <Button
                   size="lg"
@@ -178,7 +200,14 @@ const ItemSelectionPage = () => {
                 >
                   Add to fav
                 </Button>
-                <Button className="btn-cart -util-cart">Add to cart</Button>
+                <Button
+                  className="btn-cart -util-cart"
+                  onClick={() =>
+                    handleOnAddToCart(_iid, filterRef?.current?.value, count)
+                  }
+                >
+                  Add to cart
+                </Button>
               </div>
             </div>
           </div>
