@@ -44,29 +44,93 @@
   font-weight: 200;
   text-align: left;
 }
+.itemSelection_body__shoping-price {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.unitPrice_label {
+  display: inline-block;
+  min-width: 5rem;
+  margin-right: 1rem;
+}
+.unitPrice_input {
+  display: inline-block;
+  max-width: 2rem;
+  border: none;
+}
+.unitPrice_input:active,
+.unitPrice_input:focus,
+.totalPriceValue:active,
+.totalPriceValue:focus,
+.btn-noFocus:active,
+.btn-noFocus:focus,
+.count:active,
+.count:focus {
+  outline: none;
+  border: none;
+}
 .itemSelection_body__shoping-filter {
   display: flex;
   align-items: center;
+  margin-bottom: 0.5rem;
+  min-width: min-content;
 }
-
+.filterName {
+  min-width: min-content;
+}
 .filter_heading {
   margin-left: 0.5rem;
+  max-width: 10rem;
+}
+.itemSelection_body_shopping-no {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  margin-bottom: 0.5rem;
+}
+.number {
+  display: inline-block;
+  min-width: 7rem;
+  /* margin-right: 1rem; */
 }
 .itemSelection_body__shopping-btn {
   background-color: var(--color-grey-dark-3-light);
   width: 2rem;
   display: inline-block;
-  margin: 0.5rem;
+  /* margin: 0.5rem; */
   text-align: center;
   font-weight: 400;
   border-radius: 5px;
   cursor: pointer;
 }
-.itemSelection_body__shopping > *:not(:last-child) {
+.count {
+  display: inline-block;
+  width: 2rem;
+  border: none;
+  text-align: center;
+}
+.itemSelection_body_shopping-totalPrice {
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+.totalPrice {
+  display: inline-block;
+  min-width: 7rem;
+}
+.totalPriceValue {
+  display: inline-block;
+  width: 2rem;
+  border: none;
+  text-align: center;
+}
+/* .itemSelection_body__shopping > *:not(:last-child) {
   border-bottom: 1px solid rgb(162, 159, 159);
   padding: 0.5rem;
   letter-spacing: 0.05rem;
-}
+} */
+
 .itemSelection_body_shopping-options {
   display: flex;
   justify-content: space-between;
@@ -101,7 +165,7 @@
   flex-direction: column;
   /* background-color: var(--color-grey-dark-2-light); */
   background-color: white;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   border-radius: 5px;
 }
 .itemSelection_reviews__content-review--first {

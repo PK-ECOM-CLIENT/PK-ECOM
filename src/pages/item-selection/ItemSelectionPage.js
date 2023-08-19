@@ -8,12 +8,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIndividualItemAction } from "../../slices/items/itemsAction";
 import { addFavsAction } from "../../slices/system/systemAction";
 import { setPublicUrl } from "../../slices/system/systemSlice";
+const itemInitialState = {
+  price: null,
+  filter: "",
+  count: null,
+  totalPrice: null,
+};
 const ItemSelectionPage = () => {
   const { _cid, _pid, _iid } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const url = window.location.pathname;
-  console.log(url);
+  const [form, setForm] = useState(itemInitialState);
   const [image, setImage] = useState("");
   const [count, setCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(null);
@@ -69,9 +75,14 @@ const ItemSelectionPage = () => {
     if (selectedItem?._id) {
       setImage(selectedItem?.thumbnail);
       setTotalPrice(selectedItem?.price);
+      setForm({
+        price: selectedItem.price,
+        filter: null,
+        count: 1,
+        totalPrice: selectedItem.price,
+      });
     }
   }, [selectedItem]);
-
   return (
     <div>
       <AppLayOut>
@@ -113,73 +124,111 @@ const ItemSelectionPage = () => {
               </div>
             </div>
             <div className="itemSelection_body__shopping">
-              <div className="itemSelection_body__shoping-price">
-                Unit Price: $ {price}
-              </div>
-              {selectedItem?.filters?.length ? (
-                <div className="itemSelection_body__shoping-filter">
-                  {filterName}
-                  <Form>
-                    <Form.Select
-                      name="state"
-                      className="filter_heading "
-                    >
+              <Form>
+                <div className="itemSelection_body__shoping-price">
+                  <label htmlFor="unitPrice_label" className="unitPrice_label">
+                    Unit Price:
+                  </label>
+                  <input
+                    className="unitPrice_input"
+                    type="text"
+                    id="unitPrice"
+                    value={price}
+                    readOnly
+                    name="price"
+                  />
+                </div>
+                {selectedItem?.filters?.length ? (
+                  <div className="itemSelection_body__shoping-filter">
+                    <div className="filterName">{filterName}:</div>
+                    <Form.Select name="filter" className="filter_heading ">
                       <option value="choose">choose</option>
                       {filters.map((filter, i) => (
                         <option value={filter}>{filter}</option>
                       ))}
                     </Form.Select>
-                  </Form>
-                </div>
-              ) : null}
+                  </div>
+                ) : null}
 
-              <div className="itemSelection_body_shopping-no">
-                Number of items:
-                <span
-                  className="itemSelection_body__shopping-btn"
-                  onClick={handleOnDecrement}
-                >
-                  -
-                </span>
-                {count}
-                <span
-                  className="itemSelection_body__shopping-btn"
-                  onClick={handleOnIncrement}
-                >
-                  +
-                </span>
-              </div>
-              <div className="itemSelection_body_shopping-totalPrice">
-                Total Price: {totalPrice}
-              </div>
-              <div className="itemSelection_body_shopping-buy d-grid mt-2 border-0">
-                <Button
-                  size="lg"
-                  className="-util-btn-positive"
-                  onClick={onButtonBuynowClick}
-                >
-                  Buy Now
-                </Button>
-              </div>
-              <div className="d-grid border-0">
-                <Button
-                  className="-util-share"
-                  onClick={() =>
-                    copyOnClick(process.env.REACT_APP_ROOTURL + url)
-                  }
-                >
-                  Share
-                </Button>
-              </div>
-              <div className="itemSelection_body_shopping-options">
-                <Button
-                  className="btn-fav -util-fav"
-                  onClick={() => handleOnAddToFav(_iid)}
-                >
-                  Add to fav
-                </Button>
-                <Button className="btn-cart -util-cart">Add to cart</Button>
-              </div>
+                <div className="itemSelection_body_shopping-no">
+                  <label htmlFor="number" className="number">
+                    No of items:
+                  </label>
+                  <span
+                    className="itemSelection_body__shopping-btn"
+                    onClick={handleOnDecrement}
+                  >
+                    <Button
+                      variant="none"
+                      type="button"
+                      className="btn-noFocus"
+                    >
+                      -
+                    </Button>
+                  </span>
+                  <input
+                    className="count"
+                    type="text"
+                    id="number"
+                    value={count}
+                    readOnly
+                    name="count"
+                  />
+                  <span
+                    className="itemSelection_body__shopping-btn"
+                    onClick={handleOnIncrement}
+                  >
+                    <Button
+                      className="btn-noFocus"
+                      variant="none"
+                      type="button"
+                    >
+                      +
+                    </Button>
+                  </span>
+                </div>
+                <div className="itemSelection_body_shopping-totalPrice">
+                  <label className="totalPrice" htmlFor="totalPrice">
+                    Total Price:
+                  </label>
+                  <input
+                    className="totalPriceValue"
+                    type="text"
+                    id="readOnlyField"
+                    value={totalPrice}
+                    readOnly
+                    name="totalPrice"
+                  />
+                </div>
+                <div className="itemSelection_body_shopping-buy d-grid mt-2 border-0">
+                  <Button
+                    size="lg"
+                    className="-util-btn-positive mb-1"
+                    onClick={onButtonBuynowClick}
+                  >
+                    Buy Now
+                  </Button>
+                </div>
+                <div className="d-grid border-0">
+                  <Button
+                    className="-util-share mb-1"
+                    onClick={() =>
+                      copyOnClick(process.env.REACT_APP_ROOTURL + url)
+                    }
+                  >
+                    Share
+                  </Button>
+                </div>
+                <div className="itemSelection_body_shopping-options">
+                  <Button
+                    className="btn-fav -util-fav"
+                    onClick={() => handleOnAddToFav(_iid)}
+                  >
+                    Add to fav
+                  </Button>
+                  <Button className="btn-cart -util-cart">Add to cart</Button>
+                </div>
+              </Form>
             </div>
           </div>
 
