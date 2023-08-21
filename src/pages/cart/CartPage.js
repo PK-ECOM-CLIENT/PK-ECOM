@@ -8,7 +8,7 @@ const Cart = () => {
   const {cart}=useSelector(state=>state.system)
   return (
     <AppLayOut>
-      <div className="cart">
+      <div className="items">
         <Row>
           {cart.map((item, i) => {
             const { name, thumbnail, price, catId, productId, _id } = item;
