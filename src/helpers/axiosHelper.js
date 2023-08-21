@@ -5,6 +5,7 @@ const productsEp = rootUrl + "/products";
 const itemsEp = rootUrl + "/items";
 const userEp = rootUrl + "/users";
 const favsEp = rootUrl + "/favs";
+const cartsEp = rootUrl + "/cart";
 const apiProcessor = async ({ method, url, data, isPrivate, token }) => {
   try {
     const headers = isPrivate
@@ -169,6 +170,32 @@ export const deleteFav = (_id) => {
   const options = {
     method: "delete",
     url: favsEp + "/" + _id,
+    isPrivate: true,
+  };
+  return apiProcessor(options);
+};
+// ===============================================Cart APIs============================
+export const getCarts = (obj) => {
+  const options = {
+    method: "get",
+    url: cartsEp,
+    isPrivate: true,
+  };
+  return apiProcessor(options);
+};
+export const postCart = (obj) => {
+  const options = {
+    method: "post",
+    url: cartsEp,
+    data: obj,
+    isPrivate: true,
+  };
+  return apiProcessor(options);
+};
+export const deleteCart = (_id) => {
+  const options = {
+    method: "delete",
+    url: cartsEp + "/" + _id,
     isPrivate: true,
   };
   return apiProcessor(options);

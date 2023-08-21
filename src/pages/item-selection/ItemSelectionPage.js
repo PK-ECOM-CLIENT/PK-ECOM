@@ -6,7 +6,10 @@ import { Button, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getIndividualItemAction } from "../../slices/items/itemsAction";
-import { addFavsAction } from "../../slices/system/systemAction";
+import {
+  addCartsAction,
+  addFavsAction,
+} from "../../slices/system/systemAction";
 import { setPublicUrl } from "../../slices/system/systemSlice";
 const itemInitialState = {
   price: null,
@@ -80,7 +83,7 @@ const ItemSelectionPage = () => {
       filter: filterRef.current.value,
       count,
     };
-    console.log(obj);
+    dispatch(addCartsAction(obj));
   };
   useEffect(() => {
     dispatch(getIndividualItemAction(_iid));

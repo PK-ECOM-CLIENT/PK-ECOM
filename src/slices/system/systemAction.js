@@ -1,7 +1,15 @@
 import { toast } from "react-toastify";
-import { deleteFav, getFavs, postFav } from "../../helpers/axiosHelper";
-import { setFavourites } from "./systemSlice";
+import {
+  deleteCart,
+  deleteFav,
+  getCarts,
+  getFavs,
+  postCart,
+  postFav,
+} from "../../helpers/axiosHelper";
+import { setCart, setFavourites } from "./systemSlice";
 
+// Favs Action
 export const getFavsAction = () => async (dispatch) => {
   const { status, favs } = await getFavs();
   status === "success" && dispatch(setFavourites(favs));
@@ -20,6 +28,23 @@ export const deleteFavsAction = (_id) => async (dispatch) => {
   toast[status](message);
   status === "success" && dispatch(getFavsAction());
 };
-// export const setPublicUrlAction = (url) = dispatch => {
-  
-// }
+// Carts Action
+export const getCartsAction = () => async (dispatch) => {
+  const { status, carts } = await getCarts();
+  status === "success" && dispatch(setCart(carts));
+};
+export const addCartsAction = (data) => async (dispatch) => {
+  const promisePending = postCart(data);
+  toast.promise(promisePending, { pending: "Please wait" });
+  const { status, message } = await promisePending;
+  toast[status](message);
+  status === "success" && dispatch(getCartsAction());
+};
+
+export const deleteCartsAction = (_id) => async (dispatch) => {
+  const promisePending = deleteCart(_id);
+  toast.promise(promisePending, { pending: "Please wait" });
+  const { status, message } = await promisePending;
+  toast[status](message);
+  status === "success" && dispatch(getCartsAction());
+};
