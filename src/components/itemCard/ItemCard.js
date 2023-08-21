@@ -2,6 +2,7 @@ import React from "react";
 import "./itemCard.css";
 import { useNavigate } from "react-router-dom";
 import {
+  addCartsAction,
   addFavsAction,
   deleteFavsAction,
 } from "../../slices/system/systemAction";
@@ -31,6 +32,15 @@ export const ItemCard = ({
     }
     const obj = { itemId: _id };
     dispatch(addFavsAction(obj));
+  };
+  const handleOnAddToCart = (_id) => {
+    if (!user._id) {
+      dispatch(setPublicUrl(url));
+      navigate("/login");
+      return;
+    }
+    const obj = { itemId: _id, count: "1", filter: "" };
+    dispatch(addCartsAction(obj));
   };
   const handleOnDeleteFromFav = (_id) => {
     if (
@@ -66,7 +76,10 @@ export const ItemCard = ({
             >
               <span className="addto">Add to fav</span>
             </i>
-            <i className="itemCard_img__cart fa-solid fa-cart-shopping -util-font20">
+            <i
+              className="itemCard_img__cart fa-solid fa-cart-shopping -util-font20"
+              onClick={() => handleOnAddToCart(id)}
+            >
               <span className="addto addtocart">Add to Cart</span>
             </i>
           </div>
