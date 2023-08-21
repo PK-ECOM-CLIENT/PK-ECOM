@@ -164,7 +164,7 @@ const ItemSelectionPage = () => {
                       className="filter_heading"
                       ref={filterRef}
                     >
-                      <option value="choose">choose</option>
+                      <option value="">choose</option>
                       {filters.map((filter, i) => (
                         <option value={filter}>{filter}</option>
                       ))}
