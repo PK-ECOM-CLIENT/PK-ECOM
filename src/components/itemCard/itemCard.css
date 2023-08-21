@@ -10,7 +10,7 @@
   border: 1px solid rgba(226, 218, 218, 0.421);
 }
 .itemCard:hover {
-  transform: scale(1.02);
+  /* transform: scale(1.02); */
   cursor: pointer;
 }
 .itemCard_img {
@@ -100,12 +100,7 @@
 .itemCard_body__content-ratings-count {
   margin-left: 0.5rem;
 }
-.itemCard__actionoptions {
-  display: inline-block;
-  background-color: var(--color-lightgreen);
-  padding: 0, 0.1rem;
-  border-radius: 5%;
-  min-width: 7rem;
-  text-align: center;
-  cursor: pointer;
+.itemCard__actionoptions:hover {
+  transform: scale(1.1);
+  transition: all 0.3s;
 }

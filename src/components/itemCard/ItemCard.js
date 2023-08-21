@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   addCartsAction,
   addFavsAction,
+  deleteCartsAction,
   deleteFavsAction,
 } from "../../slices/system/systemAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,10 +46,17 @@ export const ItemCard = ({
   const handleOnDeleteFromFav = (_id) => {
     if (
       window.confirm(
-        "Are you sure, you want to remove the item from favs list?"
+        "Are you sure, you want to remove the item from favourites?"
       )
     ) {
       dispatch(deleteFavsAction(_id));
+    }
+  };
+  const handleOnDeleteFromCart = (_id) => {
+    if (
+      window.confirm("Are you sure, you want to remove the item from cart?")
+    ) {
+      dispatch(deleteCartsAction(_id));
     }
   };
   const handleOnItemClick = (catId, productId, id) => {
@@ -91,18 +99,33 @@ export const ItemCard = ({
           <div className="itemCard_body__content-price"> ${price}</div>
           {location === "favs" ? (
             <>
-              <div className="itemCard__actionoptions">Add to cart</div>
+              <div
+                className="itemCard__actionoptions"
+                onClick={() => handleOnAddToCart(id)}
+              >
+                <i className="fa-solid fa-cart-shopping -util-font15"></i>
+              </div>
               <div
                 className="itemCard__actionoptions"
                 onClick={() => handleOnDeleteFromFav(id)}
               >
-                Remove from favs{" "}
+                <i class="fa-solid fa-trash-can -util-trashcan"></i>
               </div>
             </>
           ) : location === "cart" ? (
             <>
-              <div className="itemCard__actionoptions">Add to favs</div>
-              <div className="itemCard__actionoptions">Remove from cart </div>
+              <div
+                className="itemCard__actionoptions"
+                onClick={() => handleOnAddToFav(id)}
+              >
+                <i className="fa-solid fa-heart -util-font15"></i>
+              </div>
+              <div
+                className="itemCard__actionoptions"
+                onClick={() => handleOnDeleteFromCart(id)}
+              >
+                <i class="fa-solid fa-trash-can -util-trashcan"></i>
+              </div>
             </>
           ) : null}
           <div className="itemCard_body__content-ratings">

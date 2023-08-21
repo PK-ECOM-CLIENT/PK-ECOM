@@ -11,12 +11,16 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAction } from "../../slices/categories/categoriesAction";
 import { autoLogin, logoutUserAction } from "../../slices/user/userAction";
-import { getFavsAction } from "../../slices/system/systemAction";
+import {
+  getCartsAction,
+  getFavsAction,
+} from "../../slices/system/systemAction";
 export const Header = () => {
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const { categories } = useSelector((state) => state.categories);
   const { user } = useSelector((state) => state.user);
   const { favourites } = useSelector((state) => state.system);
+  const { cart } = useSelector((state) => state.system);
   const url = window.location.pathname;
   let address = "";
   if (user._id) {
@@ -37,6 +41,7 @@ export const Header = () => {
     !categories.length && dispatch(getCategoriesAction());
     !user._id && dispatch(autoLogin());
     !favourites.length && dispatch(getFavsAction());
+    !cart.length && dispatch(getCartsAction());
     function handleWindowResize() {
       setwindowWidth(window.innerWidth);
     }
@@ -44,7 +49,14 @@ export const Header = () => {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
-  }, [dispatch, user._id, categories.length, favourites.length, url]);
+  }, [
+    dispatch,
+    user._id,
+    categories.length,
+    favourites.length,
+    cart.length,
+    url,
+  ]);
   let today = new Date();
   let hour = today.getHours();
   return (
@@ -148,7 +160,7 @@ export const Header = () => {
                   "Cart"
                 )}
               </Link>
-              <span className="nav_icons__count">2</span>
+              <span className="nav_icons__count">{ cart?.length}</span>
             </li>
             {windowWidth < 992 &&
               (user?._id ? (

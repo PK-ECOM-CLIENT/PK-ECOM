@@ -68,6 +68,9 @@ body {
 .-util-font20 {
   font-size: 2rem !important;
 }
+.-util-trashcan{
+  font-size:1.2rem;
+}
 .-util-btn-positive,
 .-util-btn-positive:hover,
 .-util-btn-positive:focus,
