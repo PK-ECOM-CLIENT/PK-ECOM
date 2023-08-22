@@ -143,117 +143,122 @@ const ItemSelectionPage = () => {
             </div>
             <div className="itemSelection_body__shopping">
               <Form>
-                <div className="itemSelection_body__shoping-price">
-                  <label htmlFor="unitPrice_label" className="unitPrice_label">
-                    Unit Price:
-                  </label>
-                  <input
-                    className="unitPrice_input"
-                    type="text"
-                    id="unitPrice"
-                    value={price}
-                    readOnly
-                    name="price"
-                  />
-                </div>
-                {selectedItem?.filters?.length ? (
-                  <div className="itemSelection_body__shoping-filter">
-                    <div className="filterName">{filterName}:</div>
-                    <Form.Select
-                      name="filter"
-                      className="filter_heading"
-                      ref={filterRef}
+                <div className="body_shopping">
+                  <div className="itemSelection_body__shoping-price">
+                    <label
+                      htmlFor="unitPrice_label"
+                      className="unitPrice_label"
                     >
-                      <option value="">choose</option>
-                      {filters.map((filter, i) => (
-                        <option value={filter}>{filter}</option>
-                      ))}
-                    </Form.Select>
+                      Unit Price:
+                    </label>
+                    <input
+                      className="unitPrice_input"
+                      type="text"
+                      id="unitPrice"
+                      value={price}
+                      readOnly
+                      name="price"
+                    />
                   </div>
-                ) : null}
+                  {selectedItem?.filters?.length ? (
+                    <div className="itemSelection_body__shoping-filter">
+                      <div className="filterName">{filterName}:</div>
+                      <Form.Select
+                        name="filter"
+                        className="filter_heading"
+                        ref={filterRef}
+                      >
+                        <option value="">choose</option>
+                        {filters.map((filter, i) => (
+                          <option value={filter}>{filter}</option>
+                        ))}
+                      </Form.Select>
+                    </div>
+                  ) : null}
 
-                <div className="itemSelection_body_shopping-no">
-                  <label htmlFor="number" className="number">
-                    No of items:
-                  </label>
-                  <span
-                    className="itemSelection_body__shopping-btn"
-                    onClick={handleOnDecrement}
-                  >
-                    <Button
-                      variant="none"
-                      type="button"
-                      className="btn-noFocus"
+                  <div className="itemSelection_body_shopping-no">
+                    <label htmlFor="number" className="number">
+                      No of items:
+                    </label>
+                    <span
+                      className="itemSelection_body__shopping-btn"
+                      onClick={handleOnDecrement}
                     >
-                      -
-                    </Button>
-                  </span>
-                  <input
-                    className="count"
-                    type="text"
-                    id="number"
-                    value={count}
-                    readOnly
-                    name="count"
-                  />
-                  <span
-                    className="itemSelection_body__shopping-btn"
-                    onClick={handleOnIncrement}
-                  >
-                    <Button
-                      className="btn-noFocus"
-                      variant="none"
-                      type="button"
+                      <Button
+                        variant="none"
+                        type="button"
+                        className="btn-noFocus"
+                      >
+                        -
+                      </Button>
+                    </span>
+                    <input
+                      className="count"
+                      type="text"
+                      id="number"
+                      value={count}
+                      readOnly
+                      name="count"
+                    />
+                    <span
+                      className="itemSelection_body__shopping-btn"
+                      onClick={handleOnIncrement}
                     >
-                      +
+                      <Button
+                        className="btn-noFocus"
+                        variant="none"
+                        type="button"
+                      >
+                        +
+                      </Button>
+                    </span>
+                  </div>
+                  <div className="itemSelection_body_shopping-totalPrice">
+                    <label className="totalPrice" htmlFor="totalPrice">
+                      Total Price:
+                    </label>
+                    <input
+                      className="totalPriceValue"
+                      type="text"
+                      id="readOnlyField"
+                      value={totalPrice}
+                      readOnly
+                      name="totalPrice"
+                    />
+                  </div>
+                  <div className="itemSelection_body_shopping-buy d-grid border-0">
+                    <Button
+                      size="lg"
+                      className="-util-btn-positive mb-1"
+                      onClick={onButtonBuynowClick}
+                    >
+                      Buy Now
                     </Button>
-                  </span>
-                </div>
-                <div className="itemSelection_body_shopping-totalPrice">
-                  <label className="totalPrice" htmlFor="totalPrice">
-                    Total Price:
-                  </label>
-                  <input
-                    className="totalPriceValue"
-                    type="text"
-                    id="readOnlyField"
-                    value={totalPrice}
-                    readOnly
-                    name="totalPrice"
-                  />
-                </div>
-                <div className="itemSelection_body_shopping-buy d-grid mt-2 border-0">
-                  <Button
-                    size="lg"
-                    className="-util-btn-positive mb-1"
-                    onClick={onButtonBuynowClick}
-                  >
-                    Buy Now
-                  </Button>
-                </div>
-                <div className="d-grid border-0">
-                  <Button
-                    className="-util-share mb-1"
-                    onClick={() =>
-                      copyOnClick(process.env.REACT_APP_ROOTURL + url)
-                    }
-                  >
-                    Share
-                  </Button>
-                </div>
-                <div className="itemSelection_body_shopping-options">
-                  <Button
-                    className="btn-fav -util-fav"
-                    onClick={() => handleOnAddToFav()}
-                  >
-                    Add to fav
-                  </Button>
-                  <Button
-                    className="btn-cart -util-cart"
-                    onClick={handleOnAddToCart}
-                  >
-                    Add to cart
-                  </Button>
+                  </div>
+                  <div className="d-grid border-0">
+                    <Button
+                      className="-util-share mb-1"
+                      onClick={() =>
+                        copyOnClick(process.env.REACT_APP_ROOTURL + url)
+                      }
+                    >
+                      Share
+                    </Button>
+                  </div>
+                  <div className="itemSelection_body_shopping-options">
+                    <Button
+                      className="btn-fav -util-fav"
+                      onClick={() => handleOnAddToFav()}
+                    >
+                      Add to fav
+                    </Button>
+                    <Button
+                      className="btn-cart -util-cart"
+                      onClick={handleOnAddToCart}
+                    >
+                      Add to cart
+                    </Button>
+                  </div>
                 </div>
               </Form>
             </div>
