@@ -91,14 +91,18 @@
   justify-content: space-between;
   color: var(--color-grey-dark-2);
 }
+.itemCard_body__content{
+  display:flex;
+  align-items: center;
+}
 .itemCard_body__content-price {
   font-size: 1.1rem;
 }
 .itemCard_body__content-ratings {
-  font-size: 1rem;
+  /* font-size: 1rem; */
 }
 .itemCard_body__content-ratings-count {
-  margin-left: 0.5rem;
+  margin-left: 0.3rem;
 }
 .itemCard__actionoptions:hover {
   transform: scale(1.1);
