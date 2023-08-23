@@ -34,6 +34,7 @@ body {
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 .app {
   max-width: 120rem;
@@ -68,8 +69,8 @@ body {
 .-util-font20 {
   font-size: 2rem !important;
 }
-.-util-trashcan{
-  font-size:1.2rem;
+.-util-trashcan {
+  font-size: 1.2rem;
 }
 .-util-btn-positive,
 .-util-btn-positive:hover,
@@ -160,6 +161,10 @@ body {
 .-util-clicked {
   background-color: var(--color-zomp);
   color: white !important;
+}
+/* util on header pages tracking */
+.-util-underline {
+  border-bottom: 3px solid var(--color-pastrelred);
 }
 /* overriding default elements styling */
 .card {
