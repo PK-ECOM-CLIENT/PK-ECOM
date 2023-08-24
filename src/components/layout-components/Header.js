@@ -106,6 +106,7 @@ export const Header = () => {
                 </Dropdown.Menu>
               </Dropdown>
             )}
+            
             {url !== "/" && (
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
@@ -118,7 +119,7 @@ export const Header = () => {
                 className={
                   url.includes("/offers") & (windowWidth > 991)
                     ? "nav-link active -util-underline"
-                    : "nav-link active"
+                    : "nav-link active -util-underline-transparent"
                 }
                 aria-current="page"
                 to="/offers"
@@ -131,7 +132,7 @@ export const Header = () => {
                 className={
                   url.includes("/bestsellers") & (windowWidth > 991)
                     ? "nav-link active -util-underline"
-                    : "nav-link active"
+                    : "nav-link active -util-underline-transparent"
                 }
                 to="/bestsellers"
               >
@@ -143,7 +144,7 @@ export const Header = () => {
                 className={
                   url.includes("/newarrivals") & (windowWidth > 991)
                     ? "nav-link active -util-underline"
-                    : "nav-link active"
+                    : "nav-link active -util-underline-transparent"
                 }
                 to="/newarrivals"
               >
@@ -155,7 +156,7 @@ export const Header = () => {
                 className={
                   url.includes("/dealsandsales") & (windowWidth > 991)
                     ? "nav-link active -util-underline"
-                    : "nav-link active"
+                    : "nav-link active -util-underline-transparent"
                 }
                 to="/dealsandsales"
               >
@@ -168,7 +169,7 @@ export const Header = () => {
                 className={
                   url.includes("/favourites") & (windowWidth > 991)
                     ? "nav-link active nav_icons__icon -util-underline"
-                    : "nav-link active nav_icons__icon"
+                    : "nav-link active nav_icons__icon -util-underline-transparent"
                 }
                 to="/favourites"
               >
@@ -186,19 +187,12 @@ export const Header = () => {
                 className={
                   url.includes("/cart") & (windowWidth > 991)
                     ? "nav-link active nav_icons__icon -util-underline"
-                    : "nav-link active nav_icons__icon"
+                    : "nav-link active nav_icons__icon -util-underline-transparent"
                 }
                 to="/cart"
               >
                 {windowWidth > 991 ? (
-                  <i
-                    className={url.includes(
-                      "/cart"
-                        ? "fa-sloid fa-cart-shopping -util-font-15 -util-underline"
-                        : "fa-solid fa-cart-shopping -util-font15"
-                    )}
-                    className="fa-solid fa-cart-shopping -util-font15"
-                  ></i>
+                  <i className="fa-solid fa-cart-shopping -util-font15"></i>
                 ) : (
                   "Cart"
                 )}

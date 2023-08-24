@@ -166,6 +166,9 @@ body {
 .-util-underline {
   border-bottom: 3px solid var(--color-pastrelred);
 }
+.-util-underline-transparent {
+  border-bottom: 3px solid transparent;
+}
 /* overriding default elements styling */
 .card {
   /* for the custom card, it is used in the home page */
