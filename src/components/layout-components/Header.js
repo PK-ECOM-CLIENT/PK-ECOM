@@ -106,7 +106,7 @@ export const Header = () => {
                 </Dropdown.Menu>
               </Dropdown>
             )}
-            
+
             {url !== "/" && (
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
@@ -199,6 +199,7 @@ export const Header = () => {
               </Link>
               <span className="nav_icons__count">{cart?.length}</span>
             </li>
+
             {windowWidth < 992 &&
               (user?._id ? (
                 <Dropdown>

@@ -57,7 +57,7 @@
 }
 .nav_icons {
   position: relative;
-  margin: 0.2rem;
+  margin: 0.2rem 0.2rem 0;
   /* box-sizing:content-box; */
 }
 .nav_icons__count {
