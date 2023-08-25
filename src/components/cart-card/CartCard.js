@@ -10,7 +10,7 @@ export const CartCard = () => {
       </div>
       <div className="cart_items_item_details">
         <div className="cart_items_item_details-name">
-          Name of the item is laaamo
+          Cart page still under developement!!
         </div>
         <div className="cart_items_item_details-price">
           Unit Price: <span className="price">$45</span>
