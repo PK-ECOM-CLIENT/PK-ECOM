@@ -18,7 +18,7 @@ export const Sidebar = () => {
             <Link
               className={
                 _cid === `${item._id}`
-                  ? "-util-clicked nav-link categories"
+                  ? "nav-link categories -util-clicked "
                   : " nav-link categories"
               }
               to={"/categories/" + item._id}
