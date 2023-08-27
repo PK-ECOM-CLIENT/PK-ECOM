@@ -169,6 +169,9 @@ body {
 .-util-underline-transparent {
   border-bottom: 3px solid transparent;
 }
+.-util-pointer:hover{
+cursor: pointer;
+}
 /* overriding default elements styling */
 .card {
   /* for the custom card, it is used in the home page */

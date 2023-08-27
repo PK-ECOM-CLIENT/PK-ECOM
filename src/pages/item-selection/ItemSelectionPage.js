@@ -55,7 +55,7 @@ const ItemSelectionPage = () => {
 
   const onButtonBuynowClick = () => {
     console.log(form);
-    // navigate(`/categories/${_cid}/products/${_pid}/item/${_iid}/buynow`);
+    navigate(`/categories/${_cid}/products/${_pid}/item/${_iid}/buynow`);
   };
   const handleOnImageClick = (img) => {
     setImage(img);

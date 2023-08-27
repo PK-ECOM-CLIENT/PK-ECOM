@@ -7,7 +7,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { Button } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAction } from "../../slices/categories/categoriesAction";
 import { autoLogin, logoutUserAction } from "../../slices/user/userAction";
@@ -15,6 +15,7 @@ import {
   getCartsAction,
   getFavsAction,
 } from "../../slices/system/systemAction";
+import { setPublicUrl } from "../../slices/system/systemSlice";
 export const Header = () => {
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const { categories } = useSelector((state) => state.categories);
@@ -22,6 +23,7 @@ export const Header = () => {
   const { favourites } = useSelector((state) => state.system);
   const { cart } = useSelector((state) => state.system);
   const url = window.location.pathname;
+  const navigate = useNavigate();
   let address = "";
   if (user._id) {
     address =
@@ -34,6 +36,10 @@ export const Header = () => {
       user.address.postCode;
   }
   const dispatch = useDispatch();
+  const handleOnLogin = () => {
+    dispatch(setPublicUrl(url));
+    navigate("/login");
+  };
   const handleOnLogout = () => {
     dispatch(logoutUserAction({}));
   };
@@ -226,9 +232,9 @@ export const Header = () => {
                   </Dropdown.Menu>
                 </Dropdown>
               ) : (
-                <Link className="nav-link active" to="/login">
+                <div className="-util-pointer" onClick={handleOnLogin}>
                   Login
-                </Link>
+                </div>
               ))}
           </Nav>
           <div className="search-and-icons">
@@ -317,9 +323,12 @@ export const Header = () => {
                     </Dropdown>
                   </p>
                 ) : (
-                  <Link to="/login" className="nav-link header_login-btn">
+                  <div
+                    className="nav-link header_login-btn"
+                    onClick={handleOnLogin}
+                  >
                     Login
-                  </Link>
+                  </div>
                 )}
               </div>
             )}

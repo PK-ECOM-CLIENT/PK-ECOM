@@ -24,7 +24,6 @@ export const ItemCard = ({
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const url = window.location.pathname;
-  console.log(url);
   const handleOnAddToFav = (_id) => {
     if (!user._id) {
       dispatch(setPublicUrl(url));
