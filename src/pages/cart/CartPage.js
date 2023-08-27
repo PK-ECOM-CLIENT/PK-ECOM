@@ -28,7 +28,7 @@ const Cart = () => {
                 <h4 className="cart_body__checkout-heading">Cart Summary</h4>
                 <div className="cart_body__checkout-productCount">
                   <div className="cart_body__checkout-productCount-text">
-                    Total number of products:
+                    Number of items:
                   </div>
                   <div className="cart_body__checkout-productCount-value">
                     7
@@ -36,7 +36,7 @@ const Cart = () => {
                 </div>
                 <div className="cart_body__checkout-productTotal">
                   <div className="cart_body__checkout-productTotal-text">
-                    Total product cost:
+                    Total items cost:
                   </div>
                   <div className="cart_body__checkout-productTotal-value">
                     $450

@@ -4,20 +4,25 @@
 .cart_body__items {
   height: 100vh;
   overflow: scroll;
-  width: 50%;
-}
 
+}
+.cart_body__items > * {
+  width: 100%;
+}
 .cart_body__items::-webkit-scrollbar {
   visibility: hidden;
 }
 
 .cart_body__checkout {
-  width: 40%;
+  width: 50%;
+  max-width: 30rem;
 }
 .checkout_div {
   background-color: white;
   padding: 1rem 0.5rem;
   border-radius: 15px;
+  margin: 0 auto;
+  width: 80%;
 }
 .cart_body__checkout-heading {
   text-align: center;
@@ -26,7 +31,6 @@
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-  /* padding: 0rem 1rem; */
   margin-bottom: 0.2rem;
   border-bottom: 1px solid rgb(162, 159, 159);
   padding: 0.5rem;
