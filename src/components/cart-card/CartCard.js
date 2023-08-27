@@ -9,9 +9,7 @@ export const CartCard = () => {
         <img src={image} alt="" className="cart_items_item_image-img" />
       </div>
       <div className="cart_items_item_details">
-        <div className="cart_items_item_details-name">
-          Cart page still under developement!!
-        </div>
+        <div className="cart_items_item_details-name">Feel comfy trousers</div>
         <div className="cart_items_item_details-price">
           Unit Price: <span className="price">$45</span>
         </div>

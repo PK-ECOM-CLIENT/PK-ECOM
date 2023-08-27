@@ -10,6 +10,7 @@ const Cart = () => {
   return (
     <AppLayOut>
       <div className="items">
+        <h1 className="text-center">Cart Page still  under development</h1>
         <div className="cart_body">
           <div className="cart_body__items">
             <CartCard></CartCard>
