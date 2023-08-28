@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./loginpage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import Button from "react-bootstrap/Button";
@@ -53,14 +53,7 @@ const LoginPage = () => {
       dispatch(setPublicUrl(""));
     }
   };
-  useEffect(() => {
-    if (window.ityped) {
-      window.ityped.init(document.querySelector(".ityped"), {
-        strings: ["Login Details", "Login Details", "Login Details"],
-        loop: true,
-      });
-    }
-  }, []);
+
   return (
     <div>
       <AppLayOut>
@@ -96,9 +89,10 @@ const LoginPage = () => {
               <div className="heading">
                 {/* typing effect */}
                 <TypingEffect
-                  text="Sample login details"
+                  text="Sample login details:"
                   charDelay={100} // Delay between characters in milliseconds
                   pauseDuration={1000} // Duration to pause after typing all characters in milliseconds
+                  className="typingEffect"
                 />
               </div>
               <div className="sampleLogin_email">

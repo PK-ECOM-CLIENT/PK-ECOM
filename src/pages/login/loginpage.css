@@ -15,7 +15,11 @@
   margin-top:1rem;
   padding:1rem;
   /* color: white; */
+  min-height:7rem;
 }
 .heading{
   text-decoration: underline;
+  min-height: 1.5rem;
+font-weight: bold;
 }
+/* typing effect */
