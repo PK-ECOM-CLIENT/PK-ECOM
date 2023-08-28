@@ -27,6 +27,7 @@ const ItemSelectionPage = () => {
   const [count, setCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(null);
   const filterRef = useRef();
+  const filter = filterRef?.current?.value;
   const { selectedItem } = useSelector((state) => state.items);
   const { user } = useSelector((state) => state.user);
   const { name, description, images, price, filterName, filters } =
@@ -72,7 +73,7 @@ const ItemSelectionPage = () => {
       });
   };
   // handling adding to cart
-  const handleOnAddToCart = () => {
+  const handleOnAddToCart = (filter, count) => {
     if (!user._id) {
       dispatch(setPublicUrl(url));
       navigate("/login");
@@ -80,7 +81,7 @@ const ItemSelectionPage = () => {
     }
     const obj = {
       itemId: _iid,
-      filter: filterRef.current.value,
+      filter: filter ? filter : "",
       count,
     };
     dispatch(addCartsAction(obj));
@@ -254,7 +255,7 @@ const ItemSelectionPage = () => {
                     </Button>
                     <Button
                       className="btn-cart -util-cart"
-                      onClick={handleOnAddToCart}
+                      onClick={() => handleOnAddToCart(filter, count)}
                     >
                       Add to cart
                     </Button>

@@ -70,9 +70,6 @@ export const ItemCard = ({
           alt="itemimg"
           onClick={
             () => handleOnItemClick(catId, productId, id)
-            // location === "items" || location === "favs" || location=="cart"
-            //   ? () => handleOnItemClick(catId, productId, id)
-            //   : null
           }
           // crossOrigin="anonymous"
         ></img>
