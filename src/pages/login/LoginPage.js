@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./loginpage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import Button from "react-bootstrap/Button";
@@ -8,6 +8,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logInUserAction } from "../../slices/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { setPublicUrl } from "../../slices/system/systemSlice";
+import { TypingEffect } from "../../components/typing-effect/TypingEffect";
 const inputFields = [
   {
     label: "Email",
@@ -24,6 +25,8 @@ const inputFields = [
     required: true,
   },
 ];
+// typing effect
+
 const LoginPage = () => {
   const [form, setForm] = useState({});
   const { publicUrl } = useSelector((state) => state.system);
@@ -50,6 +53,14 @@ const LoginPage = () => {
       dispatch(setPublicUrl(""));
     }
   };
+  useEffect(() => {
+    if (window.ityped) {
+      window.ityped.init(document.querySelector(".ityped"), {
+        strings: ["Login Details", "Login Details", "Login Details"],
+        loop: true,
+      });
+    }
+  }, []);
   return (
     <div>
       <AppLayOut>
@@ -82,7 +93,14 @@ const LoginPage = () => {
               </Link>
             </div>
             <div className="sampleLogin">
-              <div className="heading">Sample login details</div>
+              <div className="heading">
+                {/* typing effect */}
+                <TypingEffect
+                  text="Sample login details"
+                  charDelay={100} // Delay between characters in milliseconds
+                  pauseDuration={1000} // Duration to pause after typing all characters in milliseconds
+                />
+              </div>
               <div className="sampleLogin_email">
                 Email: Pradeepdhital@gmail.com
               </div>

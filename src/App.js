@@ -78,8 +78,22 @@ function App() {
             element={<DealsAndSales></DealsAndSales>}
           ></Route>
           <Route path="/profile" element={<Profile></Profile>}></Route>
-          <Route path="/favourites" element={<Favourites></Favourites>}></Route>
-          <Route path="/cart" element={<Cart></Cart>}></Route>
+          <Route
+            path="/favourites"
+            element={
+              <PrivateRouter>
+                <Favourites />
+              </PrivateRouter>
+            }
+          ></Route>
+          <Route
+            path="/cart"
+            element={
+              <PrivateRouter>
+                <Cart />
+              </PrivateRouter>
+            }
+          ></Route>
         </Routes>
         <ToastContainer />
       </BrowserRouter>

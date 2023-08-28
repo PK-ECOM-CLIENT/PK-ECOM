@@ -20,6 +20,10 @@
   height: 18rem;
   height: 100%;
   margin-bottom: 0.8rem;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  object-fit: cover;
+  backface-visibility: hidden;
 }
 .itemCard_img__img {
   width: 100%;
@@ -27,6 +31,10 @@
   object-fit: cover;
   position: relative;
   display: block;
+  transition: transform 0.3s ease-in-out;
+}
+.itemCard_img:hover .itemCard_img__img {
+  transform: scale(1.1); /* Apply zoom effect on hover */
 }
 .itemCard_img__fav {
   position: absolute;
@@ -91,8 +99,8 @@
   justify-content: space-between;
   color: var(--color-grey-dark-2);
 }
-.itemCard_body__content{
-  display:flex;
+.itemCard_body__content {
+  display: flex;
   align-items: center;
 }
 .itemCard_body__content-price {
