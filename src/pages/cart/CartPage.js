@@ -1,26 +1,29 @@
 import React from "react";
 import "./cartPage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { CartCard } from "../../components/cart-card/CartCard";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 const Cart = () => {
-  // const { cart } = useSelector((state) => state.system);
+  const { cart } = useSelector((state) => state.system);
+  const { name, count, filter, filterName, filters, price, thumbnail } = cart;
   return (
     <AppLayOut>
       <div className="items">
-        <h1 className="text-center">Cart Page still  under development</h1>
+        <h1 className="text-center">Cart Page still under development</h1>
         <div className="cart_body">
           <div className="cart_body__items">
-            <CartCard></CartCard>
-            <CartCard></CartCard>
-            <CartCard></CartCard>
-            <CartCard></CartCard>
-            <CartCard></CartCard>
-            <CartCard></CartCard>
-            <CartCard></CartCard>
-            <CartCard></CartCard>
+            <CartCard
+              name={name}
+              count={count}
+              filter={filter}
+              filterName={filterName}
+              filters={filters}
+              price={price}
+              thumbnail={thumbnail}
+            ></CartCard>
+           
           </div>
           <div className="cart_body__checkout">
             <div className="checkout_div">

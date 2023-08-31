@@ -2,26 +2,33 @@ import React from "react";
 import image from "../../assits/images/offersimg/trousers.jpg";
 import "./cartCard.css";
 import { Button, Form } from "react-bootstrap";
-export const CartCard = () => {
+export const CartCard = ({
+  name,
+  count,
+  filter,
+  filterName,
+  filters,
+  price,
+  thumbnail,
+}) => {
   return (
     <div className="cart_items_item">
       <div className="cart_items_item_image">
-        <img src={image} alt="" className="cart_items_item_image-img" />
+        <img src={thumbnail} alt="img" className="cart_items_item_image-img" />
       </div>
       <div className="cart_items_item_details">
-        <div className="cart_items_item_details-name">
-          WHISPERING WILLOWS BED SHEET
-        </div>
+        <div className="cart_items_item_details-name">{name}</div>
         <div className="cart_items_item_details-price">
-          Unit Price: <span className="price">$45</span>
+          Unit Price: <span className="price">{price}</span>
         </div>
         <Form>
           <div className="itemSelection_body__shoping-filter">
-            <div className="filterName">filter name:</div>
+            <div className="filterName">{filterName}:</div>
             <Form.Select name="filter" className="filter_heading">
               <option value="">choose</option>
-              <option>filter 1</option>
-              <option>filter 2</option>
+              {filters.map((filter, i) => {
+                return <option>{filter}</option>;
+              })}
             </Form.Select>
           </div>
 
@@ -40,7 +47,7 @@ export const CartCard = () => {
               id="number"
               readOnly
               name="count"
-              value={2}
+              value={count}
             />
             <span className="itemSelection_body__shopping-btn">
               <Button className="btn-noFocus" variant="none" type="button">
