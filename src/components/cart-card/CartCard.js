@@ -1,5 +1,4 @@
 import React from "react";
-import image from "../../assits/images/offersimg/trousers.jpg";
 import "./cartCard.css";
 import { Button, Form } from "react-bootstrap";
 export const CartCard = ({
@@ -22,15 +21,21 @@ export const CartCard = ({
           Unit Price: <span className="price">{price}</span>
         </div>
         <Form>
-          <div className="itemSelection_body__shoping-filter">
-            <div className="filterName">{filterName}:</div>
-            <Form.Select name="filter" className="filter_heading">
-              <option value="">choose</option>
-              {filters.map((filter, i) => {
-                return <option>{filter}</option>;
-              })}
-            </Form.Select>
-          </div>
+          {filters?.length ? (
+            <div className="itemSelection_body__shoping-filter">
+              <div className="filterName">{filterName}:</div>
+              <Form.Select name="filter" className="filter_heading">
+                {!filter && <option value="">choose</option>}
+                {filters.map((item, i) => {
+                  return (
+                    <option key={i} value={item} selected={item === filter}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </Form.Select>
+            </div>
+          ) : null}
 
           <div className="itemSelection_body_shopping-no">
             <label htmlFor="number" className="number">

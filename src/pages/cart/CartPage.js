@@ -7,23 +7,25 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 const Cart = () => {
   const { cart } = useSelector((state) => state.system);
-  const { name, count, filter, filterName, filters, price, thumbnail } = cart;
+  // const { name, count, filter, filterName, filters, price, thumbnail } = cart;
+  // console.log(name, count, filter, filterName, filters, price, thumbnail);
   return (
     <AppLayOut>
       <div className="items">
         <h1 className="text-center">Cart Page still under development</h1>
         <div className="cart_body">
           <div className="cart_body__items">
-            <CartCard
-              name={name}
-              count={count}
-              filter={filter}
-              filterName={filterName}
-              filters={filters}
-              price={price}
-              thumbnail={thumbnail}
-            ></CartCard>
-           
+            {cart.map((item, i) => {
+               return <CartCard
+                name={item.name}
+                count={item.count}
+                filter={item.filter}
+                filterName={item.filterName}
+                filters={item.filters}
+                price={item.price}
+                thumbnail={item.thumbnail}
+              ></CartCard>;
+            })}
           </div>
           <div className="cart_body__checkout">
             <div className="checkout_div">
