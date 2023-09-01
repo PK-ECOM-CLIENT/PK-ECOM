@@ -24,6 +24,7 @@ const Cart = () => {
                   filters={item.filters}
                   price={item.price}
                   thumbnail={item.thumbnail}
+                  id={item._id}
                 ></CartCard>
               );
             })}

@@ -1,6 +1,13 @@
 import React from "react";
 import "./cartCard.css";
 import { Button, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addFavsAction,
+  deleteCartsAction,
+} from "../../slices/system/systemAction";
+import { useNavigate } from "react-router-dom";
+import { setPublicUrl } from "../../slices/system/systemSlice";
 export const CartCard = ({
   name,
   count,
@@ -9,7 +16,29 @@ export const CartCard = ({
   filters,
   price,
   thumbnail,
+  id,
 }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const url = window.location.pathname;
+  const { user } = useSelector((state) => state.user);
+
+  const handleOnDeleteFromCart = (_id) => {
+    if (
+      window.confirm("Are you sure, you want to remove the item from cart?")
+    ) {
+      dispatch(deleteCartsAction(_id));
+    }
+  };
+  const handleOnAddToFav = (_id) => {
+    if (!user._id) {
+      dispatch(setPublicUrl(url));
+      navigate("/login");
+      return;
+    }
+    const obj = { itemId: _id };
+    dispatch(addFavsAction(obj));
+  };
   return (
     <div className="cart_items_item">
       <div className="cart_items_item_image">
@@ -66,10 +95,16 @@ export const CartCard = ({
         <div className="cart_items_item_details-total">
           Item total Price: <span className="price">$450</span>
         </div>
-        <div className="cart_items_item_details-remove">
+        <div
+          className="cart_items_item_details-remove -util-pointer"
+          onClick={() => handleOnDeleteFromCart(id)}
+        >
           <i className="fa-solid fa-trash-can -util-trashcan"></i>
         </div>
-        <div className="cart_items_item_details-later">
+        <div
+          className="cart_items_item_details-later -util-pointer"
+          onClick={() => handleOnAddToFav(id)}
+        >
           <i className="fa-solid fa-heart -util-font15"></i>
         </div>
       </div>

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import {
   addCartsAction,
   addFavsAction,
-  deleteCartsAction,
   deleteFavsAction,
 } from "../../slices/system/systemAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,13 +50,7 @@ export const ItemCard = ({
       dispatch(deleteFavsAction(_id));
     }
   };
-  const handleOnDeleteFromCart = (_id) => {
-    if (
-      window.confirm("Are you sure, you want to remove the item from cart?")
-    ) {
-      dispatch(deleteCartsAction(_id));
-    }
-  };
+ 
   const handleOnItemClick = (catId, productId, id) => {
     navigate(`/categories/${catId}/products/${productId}/item/${id}`);
   };
@@ -105,21 +98,6 @@ export const ItemCard = ({
               <div
                 className="itemCard__actionoptions"
                 onClick={() => handleOnDeleteFromFav(id)}
-              >
-                <i class="fa-solid fa-trash-can -util-trashcan"></i>
-              </div>
-            </>
-          ) : location === "cart" ? (
-            <>
-              <div
-                className="itemCard__actionoptions"
-                onClick={() => handleOnAddToFav(id)}
-              >
-                <i className="fa-solid fa-heart -util-font15"></i>
-              </div>
-              <div
-                className="itemCard__actionoptions"
-                onClick={() => handleOnDeleteFromCart(id)}
               >
                 <i class="fa-solid fa-trash-can -util-trashcan"></i>
               </div>
