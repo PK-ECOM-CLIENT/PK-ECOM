@@ -26,8 +26,8 @@ const ItemSelectionPage = () => {
   const [image, setImage] = useState("");
   const [count, setCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(null);
-  const filterRef = useRef();
-  const filter = filterRef?.current?.value;
+  const filterRef = useRef(null);
+  const filter = filterRef.current?.value;
   const { selectedItem } = useSelector((state) => state.items);
   const { user } = useSelector((state) => state.user);
   const { name, description, images, price, filterName, filters } =
@@ -73,21 +73,23 @@ const ItemSelectionPage = () => {
       });
   };
   // handling adding to cart
-  const handleOnAddToCart = (filter, count) => {
+  const handleOnAddToCart = () => {
     if (!user._id) {
       dispatch(setPublicUrl(url));
       navigate("/login");
       return;
     }
-    const obj = {
-      itemId: _iid,
-      filter: filter ? filter : "",
-      count,
-    };
-    dispatch(addCartsAction(obj));
+   const selectedFilter = filterRef.current?.value; // Get the selected filter here
+   const obj = {
+     itemId: _iid,
+     filter: selectedFilter ? selectedFilter : "",
+     count,
+   };
+   dispatch(addCartsAction(obj));
   };
   useEffect(() => {
     dispatch(getIndividualItemAction(_iid));
+    filterRef.current = document.getElementById("filterSelect");
   }, [_iid, dispatch]);
 
   useEffect(() => {
@@ -167,6 +169,7 @@ const ItemSelectionPage = () => {
                       <Form.Select
                         name="filter"
                         className="filter_heading"
+                        id="filterSelect"
                         ref={filterRef}
                       >
                         <option value="">choose</option>
@@ -255,7 +258,7 @@ const ItemSelectionPage = () => {
                     </Button>
                     <Button
                       className="btn-cart -util-cart"
-                      onClick={() => handleOnAddToCart(filter, count)}
+                      onClick={() => handleOnAddToCart()}
                     >
                       Add to cart
                     </Button>
