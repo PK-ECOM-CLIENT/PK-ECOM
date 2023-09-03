@@ -27,6 +27,9 @@
 .cart_body__checkout-heading {
   text-align: center;
 }
+.cart_body__checkout-total{
+  font-size:1.3rem;
+}
 .checkout_flex > * {
   display: flex;
   justify-content: space-between;

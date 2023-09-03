@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./cartPage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import { useSelector } from "react-redux";
@@ -7,8 +7,18 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 const Cart = () => {
   const { cart } = useSelector((state) => state.system);
-  // const { name, count, filter, filterName, filters, price, thumbnail } = cart;
-  // console.log(name, count, filter, filterName, filters, price, thumbnail);
+  const { totalItems, totalPrice } = cart.reduce(
+    (accumulator, item) => {
+      return {
+        totalItems: accumulator.totalItems + parseInt(item.count, 10),
+        totalPrice: accumulator.totalPrice + item.count * item.price,
+      };
+    },
+    { totalItems: 0, totalPrice: 0 }
+  );
+  let gst = Math.ceil((2 / 100) * totalPrice);
+  let delivery = Math.ceil((5 / 100) * totalPrice);
+  let cartTotal = totalPrice + gst + delivery;
   return (
     <AppLayOut>
       <div className="items">
@@ -40,7 +50,7 @@ const Cart = () => {
                       Number of items:
                     </div>
                     <div className="cart_body__checkout-productCount-value">
-                      7
+                      {totalItems}
                     </div>
                   </div>
                   <div className="cart_body__checkout-productTotal">
@@ -48,26 +58,28 @@ const Cart = () => {
                       Total items cost:
                     </div>
                     <div className="cart_body__checkout-productTotal-value">
-                      $450
+                      ${totalPrice}
                     </div>
                   </div>
                   <div className="cart_body__checkout-gst">
                     <div className="cart_body__checkout-gst-text">GST:</div>
-                    <div className="cart_body__checkout-gst-value">$32</div>
+                    <div className="cart_body__checkout-gst-value">${gst}</div>
                   </div>
                   <div className="cart_body__checkout-delivery">
                     <div className="cart_body__checkout-delivery-text">
                       Delivery:
                     </div>
                     <div className="cart_body__checkout-delivery-value">
-                      $55
+                      ${delivery}
                     </div>
                   </div>
                   <div className="cart_body__checkout-total -util-brdr-btm-none">
                     <div className="cart_body__checkout-total-text">
                       Subtotal:
                     </div>
-                    <div className="cart_body__checkout-total-value">$750</div>
+                    <div className="cart_body__checkout-total-value">
+                      ${cartTotal}
+                    </div>
                   </div>
                 </div>
 
