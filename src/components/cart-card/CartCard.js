@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./cartCard.css";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFavsAction,
@@ -18,6 +18,7 @@ export const CartCard = ({
   price,
   thumbnail,
   id,
+  quantity,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,17 +27,7 @@ export const CartCard = ({
   const [totalPrice, setTotalPrice] = useState(num * price);
   const url = window.location.pathname;
   const { user } = useSelector((state) => state.user);
-  const handleOnIncrement = () => {
-    setNum(num + 1);
-    setTotalPrice((num + 1) * price);
-  };
-  const handleOnDecrement = () => {
-    if (num < 2) {
-      return;
-    }
-    setNum(num - 1);
-    setTotalPrice((num - 1) * price);
-  };
+  const { cart } = useSelector((state) => state.system);
   const handleOnDeleteFromCart = (_id) => {
     if (
       window.confirm("Are you sure, you want to remove the item from cart?")
@@ -46,9 +37,11 @@ export const CartCard = ({
   };
   const handleOnCountChange = (id, count, filter) => {
     dispatch(updateCartItemAction(id, count, filter));
+    setTotalPrice(count * price);
   };
   const handleOnFilterChange = (id, count, filter) => {
     dispatch(updateCartItemAction(id, count, filter));
+    console.log(cart);
   };
   const handleOnAddToFav = (_id) => {
     if (!user._id) {
@@ -102,31 +95,19 @@ export const CartCard = ({
             <label htmlFor="number" className="number">
               No of items:
             </label>
-            <span
-              className="itemSelection_body__shopping-btn"
-              onClick={handleOnDecrement}
-            >
-              <Button variant="none" type="button" className="btn-noFocus">
-                -
-              </Button>
-            </span>
-            <input
-              className="count"
-              type="text"
-              id="number"
-              readOnly
+            <Form.Select
               name="count"
-              value={num}
-              onChange={() => handleOnCountChange(id, num, filterValue)}
-            />
-            <span
-              className="itemSelection_body__shopping-btn"
-              onClick={handleOnIncrement}
+              className="count_heading"
+              onChange={(e) =>
+                handleOnCountChange(id, e.target.value, filterValue)
+              }
             >
-              <Button className="btn-noFocus" variant="none" type="button">
-                +
-              </Button>
-            </span>
+              {Array.from({ length: quantity }).map((_, i) => (
+                <option key={i} value={i + 1} selected={i + 1 === num}>
+                  {i + 1}
+                </option>
+              ))}
+            </Form.Select>
           </div>
         </Form>
         <div className="cart_items_item_details-total">

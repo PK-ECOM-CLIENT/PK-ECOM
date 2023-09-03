@@ -25,6 +25,7 @@ const Cart = () => {
                   price={item.price}
                   thumbnail={item.thumbnail}
                   id={item._id}
+                  quantity={item.quantity}
                 ></CartCard>
               );
             })}

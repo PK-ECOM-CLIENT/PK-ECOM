@@ -83,6 +83,10 @@
   margin-left: 0.5rem;
   max-width: 10rem;
 }
+.count_heading{
+  margin-left: 0.5rem;
+  max-width: 5rem;
+}
 .itemSelection_body_shopping-no {
   display: flex;
   align-items: center;
