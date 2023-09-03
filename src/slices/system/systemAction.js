@@ -7,7 +7,7 @@ import {
   postCart,
   postFav,
 } from "../../helpers/axiosHelper";
-import { setCart, setFavourites } from "./systemSlice";
+import { setCart, setFavourites, updateCartItem } from "./systemSlice";
 
 // Favs Action
 export const getFavsAction = () => async (dispatch) => {
@@ -48,3 +48,14 @@ export const deleteCartsAction = (_id) => async (dispatch) => {
   toast[status](message);
   status === "success" && dispatch(getCartsAction());
 };
+export const updateCartItemAction =
+  (itemId, updatedCount, updatedFilter) => (dispatch) => {
+    // Dispatch the updateCartItem action with the provided parameters
+    dispatch(
+      updateCartItem({
+        itemId,
+        updatedCount,
+        updatedFilter,
+      })
+    );
+  };

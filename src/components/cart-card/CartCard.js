@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addFavsAction,
   deleteCartsAction,
+  updateCartItemAction,
 } from "../../slices/system/systemAction";
 import { useNavigate } from "react-router-dom";
 import { setPublicUrl } from "../../slices/system/systemSlice";
@@ -21,6 +22,7 @@ export const CartCard = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [num, setNum] = useState(count);
+  const [filterValue, setFilterValue] = useState(filter);
   const [totalPrice, setTotalPrice] = useState(num * price);
   const url = window.location.pathname;
   const { user } = useSelector((state) => state.user);
@@ -42,6 +44,12 @@ export const CartCard = ({
       dispatch(deleteCartsAction(_id));
     }
   };
+  const handleOnCountChange = (id, count, filter) => {
+    dispatch(updateCartItemAction(id, count, filter));
+  };
+  const handleOnFilterChange = (id, count, filter) => {
+    dispatch(updateCartItemAction(id, count, filter));
+  };
   const handleOnAddToFav = (_id) => {
     if (!user._id) {
       dispatch(setPublicUrl(url));
@@ -53,7 +61,8 @@ export const CartCard = ({
   };
   useEffect(() => {
     setNum(count);
-  }, [count]);
+    setFilterValue(filter);
+  }, [count, filter]);
   return (
     <div className="cart_items_item">
       <div className="cart_items_item_image">
@@ -68,11 +77,19 @@ export const CartCard = ({
           {filters?.length ? (
             <div className="itemSelection_body__shoping-filter">
               <div className="filterName">{filterName}:</div>
-              <Form.Select name="filter" className="filter_heading">
+              <Form.Select
+                name="filter"
+                className="filter_heading"
+                onChange={(e) => handleOnFilterChange(id, num, e.target.value)}
+              >
                 {!filter && <option value="">choose</option>}
                 {filters.map((item, i) => {
                   return (
-                    <option key={i} value={item} selected={item === filter}>
+                    <option
+                      key={i}
+                      value={item}
+                      selected={item === filterValue}
+                    >
                       {item}
                     </option>
                   );
@@ -100,6 +117,7 @@ export const CartCard = ({
               readOnly
               name="count"
               value={num}
+              onChange={() => handleOnCountChange(id, num, filterValue)}
             />
             <span
               className="itemSelection_body__shopping-btn"
