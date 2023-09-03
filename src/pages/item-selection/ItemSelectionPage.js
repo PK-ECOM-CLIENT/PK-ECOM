@@ -27,7 +27,6 @@ const ItemSelectionPage = () => {
   const [count, setCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(null);
   const filterRef = useRef(null);
-  const filter = filterRef.current?.value;
   const { selectedItem } = useSelector((state) => state.items);
   const { user } = useSelector((state) => state.user);
   const { name, description, images, price, filterName, filters } =

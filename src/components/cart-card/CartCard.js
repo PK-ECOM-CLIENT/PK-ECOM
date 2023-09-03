@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./cartCard.css";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,9 +20,21 @@ export const CartCard = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [num, setNum] = useState(count);
+  const [totalPrice, setTotalPrice] = useState(num * price);
   const url = window.location.pathname;
   const { user } = useSelector((state) => state.user);
-
+  const handleOnIncrement = () => {
+    setNum(num + 1);
+    setTotalPrice((num + 1) * price);
+  };
+  const handleOnDecrement = () => {
+    if (num < 2) {
+      return;
+    }
+    setNum(num - 1);
+    setTotalPrice((num - 1) * price);
+  };
   const handleOnDeleteFromCart = (_id) => {
     if (
       window.confirm("Are you sure, you want to remove the item from cart?")
@@ -39,6 +51,9 @@ export const CartCard = ({
     const obj = { itemId: _id };
     dispatch(addFavsAction(obj));
   };
+  useEffect(() => {
+    setNum(count);
+  }, [count]);
   return (
     <div className="cart_items_item">
       <div className="cart_items_item_image">
@@ -70,7 +85,10 @@ export const CartCard = ({
             <label htmlFor="number" className="number">
               No of items:
             </label>
-            <span className="itemSelection_body__shopping-btn">
+            <span
+              className="itemSelection_body__shopping-btn"
+              onClick={handleOnDecrement}
+            >
               <Button variant="none" type="button" className="btn-noFocus">
                 -
               </Button>
@@ -81,19 +99,20 @@ export const CartCard = ({
               id="number"
               readOnly
               name="count"
-              value={count}
+              value={num}
             />
-            <span className="itemSelection_body__shopping-btn">
+            <span
+              className="itemSelection_body__shopping-btn"
+              onClick={handleOnIncrement}
+            >
               <Button className="btn-noFocus" variant="none" type="button">
                 +
               </Button>
             </span>
           </div>
         </Form>
-        {/* <div className="cart_items_item_details-filter">Filter Name: Value</div> */}
-        {/* <div className="cart_items_item_details-count"> Number of items:7</div> */}
         <div className="cart_items_item_details-total">
-          Item total Price: <span className="price">$450</span>
+          Item total Price: <span className="price">${totalPrice}</span>
         </div>
         <div
           className="cart_items_item_details-remove -util-pointer"

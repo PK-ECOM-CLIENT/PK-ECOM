@@ -18,7 +18,7 @@ const Cart = () => {
               return (
                 <CartCard
                   name={item.name}
-                  count={item.count}
+                  count={parseInt(item.count, 10)}
                   filter={item.filter}
                   filterName={item.filterName}
                   filters={item.filters}
