@@ -43,6 +43,11 @@ export const Header = () => {
   const handleOnLogout = () => {
     dispatch(logoutUserAction({}));
   };
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
   useEffect(() => {
     !categories.length && dispatch(getCategoriesAction());
     !user._id && dispatch(autoLogin());
@@ -300,10 +305,17 @@ export const Header = () => {
                       variant="none"
                       className=" user_profile__profie-btn btn-logout text-white"
                     >
-                      <i class="fa-solid fa-user -util-font15"></i>
-                      <i class="fa-solid fa-caret-down "></i>
+                      <i className="fa-solid fa-user -util-font15"></i>
+                      <i
+                        className={`fa-solid fa-caret-down ${
+                          isDropdownOpen ? "-util-rotate_180" : ""
+                        }`}
+                      ></i>
                     </Button>
-                    <Dropdown>
+                    <Dropdown
+                      show={isDropdownOpen}
+                      onToggle={handleDropdownToggle}
+                    >
                       <Dropdown.Toggle
                         variant="success"
                         id="dropdown-basic"

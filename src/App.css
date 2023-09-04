@@ -172,6 +172,9 @@ body {
 .-util-pointer:hover{
 cursor: pointer;
 }
+.-util-rotate_180 {
+  transform: rotate(180deg);
+}
 /* overriding default elements styling */
 .card {
   /* for the custom card, it is used in the home page */

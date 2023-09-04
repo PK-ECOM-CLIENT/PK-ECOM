@@ -143,6 +143,9 @@
   height: 100%;
   text-align: right;
 }
+.fa-caret-down{
+  transition: transform 0.3s ease
+}
 .user_profile__profie-dropdown {
   background-color: rgb(0, 255, 64);
   top: 0;
