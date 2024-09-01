@@ -68,12 +68,13 @@ const ItemSelectionPage = () => {
       });
   };
   // handling adding to cart
-  const handleOnAddToCart = () => {
+  const handleOnAddToCart = (e) => {
     if (!user._id) {
       dispatch(setPublicUrl(url));
       navigate("/login");
       return;
     }
+    e.preventDefault(); 
     const selectedFilter = filterRef.current?.value; // Get the selected filter here
     const obj = {
       itemId: _iid,
@@ -140,7 +141,7 @@ const ItemSelectionPage = () => {
               </div>
             </div>
             <div className="itemSelection_body__shopping">
-              <Form>
+              <Form onSubmit={(e) => handleOnAddToCart(e)}>
                 <div className="body_shopping">
                   <div className="itemSelection_body__shoping-price">
                     <label
@@ -166,6 +167,7 @@ const ItemSelectionPage = () => {
                         className="filter_heading"
                         id="filterSelect"
                         ref={filterRef}
+                        required
                       >
                         <option value="">choose</option>
                         {filters.map((filter, i) => (
@@ -230,7 +232,7 @@ const ItemSelectionPage = () => {
                       <Button
                         size="lg"
                         className="-util-btn-positive"
-                        onClick={() => handleOnAddToCart()}
+                        type="submit"
                       >
                         Add to cart
                       </Button>
