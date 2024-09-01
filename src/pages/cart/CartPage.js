@@ -85,7 +85,7 @@ const Cart = () => {
 
                 <div className="d-grid">
                   <Button size="lg" className="-util-btn-positive mb-1">
-                    Buy Now
+                    Buy Now 
                   </Button>
                 </div>
 

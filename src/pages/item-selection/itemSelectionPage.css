@@ -83,7 +83,7 @@
   margin-left: 0.5rem;
   max-width: 10rem;
 }
-.count_heading{
+.count_heading {
   margin-left: 0.5rem;
   max-width: 5rem;
 }
@@ -134,14 +134,8 @@
   padding: 0.5rem;
   letter-spacing: 0.05rem;
 }
-
-.itemSelection_body_shopping-options {
-  display: flex;
-  justify-content: space-between;
-}
-.btn-fav,
-.btn-cart {
-  min-width: 7rem;
+.itemSelection_buttonoptions > * {
+  margin-top: .5rem;
 }
 .itemSelection_reviews {
   max-width: 50rem;

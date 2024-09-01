@@ -92,7 +92,6 @@ body {
   background-color: var(--color-pastrelred) !important;
   border: none !important;
   font-size: 0.9rem;
-  width: 6rem;
 }
 .-util-share,
 .-util-share:hover,
@@ -103,7 +102,6 @@ body {
   background-color: var(--color-yellowgreen) !important;
   border: none !important;
   font-size: 0.9rem;
-  /* width: 6rem; */
 }
 .-util-cart,
 .-util-cart:hover,
@@ -169,8 +167,8 @@ body {
 .-util-underline-transparent {
   border-bottom: 3px solid transparent;
 }
-.-util-pointer:hover{
-cursor: pointer;
+.-util-pointer:hover {
+  cursor: pointer;
 }
 .-util-rotate_180 {
   transform: rotate(180deg);

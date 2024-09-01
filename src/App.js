@@ -4,7 +4,6 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import HomePage from "./pages/home/HomePage";
-import BuyNowPage from "./pages/buy-now/BuyNowPage";
 import ForgotPasswordPage from "./pages/forgot-password/ForgotPasswordPage";
 import ItemSelectionPage from "./pages/item-selection/ItemSelectionPage";
 import ItemsPage from "./pages/items/ItemsPage";
@@ -56,14 +55,7 @@ function App() {
             path="/categories/:_cid/products/:_pid/item/:_iid"
             element={<ItemSelectionPage />}
           ></Route>
-          <Route
-            path="/categories/:_cid/products/:_pid/item/:_iid/buynow"
-            element={
-              <PrivateRouter>
-                <BuyNowPage />
-              </PrivateRouter>
-            }
-          ></Route>
+
           <Route path="/offers" element={<OffersPage></OffersPage>}></Route>
           <Route
             path="/bestsellers"

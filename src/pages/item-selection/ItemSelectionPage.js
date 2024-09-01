@@ -53,10 +53,6 @@ const ItemSelectionPage = () => {
     dispatch(addFavsAction(obj));
   };
 
-  const onButtonBuynowClick = () => {
-    console.log(form);
-    navigate(`/categories/${_cid}/products/${_pid}/item/${_iid}/buynow`);
-  };
   const handleOnImageClick = (img) => {
     setImage(img);
   };
@@ -78,13 +74,13 @@ const ItemSelectionPage = () => {
       navigate("/login");
       return;
     }
-   const selectedFilter = filterRef.current?.value; // Get the selected filter here
-   const obj = {
-     itemId: _iid,
-     filter: selectedFilter ? selectedFilter : "",
-     count,
-   };
-   dispatch(addCartsAction(obj));
+    const selectedFilter = filterRef.current?.value; // Get the selected filter here
+    const obj = {
+      itemId: _iid,
+      filter: selectedFilter ? selectedFilter : "",
+      count,
+    };
+    dispatch(addCartsAction(obj));
   };
   useEffect(() => {
     dispatch(getIndividualItemAction(_iid));
@@ -229,38 +225,34 @@ const ItemSelectionPage = () => {
                       name="totalPrice"
                     />
                   </div>
-                  <div className="itemSelection_body_shopping-buy d-grid border-0">
-                    <Button
-                      size="lg"
-                      className="-util-btn-positive mb-1"
-                      onClick={onButtonBuynowClick}
-                    >
-                      Buy Now
-                    </Button>
-                  </div>
-                  <div className="d-grid border-0">
-                    <Button
-                      className="-util-share mb-1"
-                      onClick={() =>
-                        copyOnClick(process.env.REACT_APP_ROOTURL + url)
-                      }
-                    >
-                      Share
-                    </Button>
-                  </div>
-                  <div className="itemSelection_body_shopping-options">
-                    <Button
-                      className="btn-fav -util-fav"
-                      onClick={() => handleOnAddToFav()}
-                    >
-                      Add to fav
-                    </Button>
-                    <Button
-                      className="btn-cart -util-cart"
-                      onClick={() => handleOnAddToCart()}
-                    >
-                      Add to cart
-                    </Button>
+                  <div className="itemSelection_buttonoptions">
+                    <div className="itemSelection_body_shopping-buy d-grid border-0">
+                      <Button
+                        size="lg"
+                        className="-util-btn-positive"
+                        onClick={() => handleOnAddToCart()}
+                      >
+                        Add to cart
+                      </Button>
+                    </div>
+                    <div className="d-grid border-0">
+                      <Button
+                        className="btn-fav -util-fav"
+                        onClick={() => handleOnAddToFav()}
+                      >
+                        Add to favourites
+                      </Button>
+                    </div>
+                    <div className="d-grid border-0">
+                      <Button
+                        className="-util-share"
+                        onClick={() =>
+                          copyOnClick(process.env.REACT_APP_ROOTURL + url)
+                        }
+                      >
+                        Share
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </Form>
