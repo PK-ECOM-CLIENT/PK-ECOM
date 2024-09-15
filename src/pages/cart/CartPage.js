@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { CartCard } from "../../components/cart-card/CartCard";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+const rootUrl = process.env.REACT_APP_API_ENDPOINT + "api/v1";
 const Cart = () => {
   const { cart } = useSelector((state) => state.system);
   const { totalItems, totalPrice } = cart.reduce(
@@ -19,6 +21,39 @@ const Cart = () => {
   let gst = Math.ceil((2 / 100) * totalPrice);
   let delivery = Math.ceil((5 / 100) * totalPrice);
   let cartTotal = totalPrice + gst + delivery;
+  console.log(cart);
+  const makePayment = async () => {
+    try {
+      const stripe = await loadStripe(process.env.REACT_APP_STRIPE_Key); // Ensure this key is correct
+
+      const body = {
+        products: cart, // Assuming cart is an array of products
+      };
+
+      const headers = {
+        "Content-Type": "application/json",
+      };
+
+      const response = await fetch(rootUrl + "/payment", {
+        method: "POST",
+        headers,
+        body: JSON.stringify(body),
+      });
+
+      const { sessionId } = await response.json(); // Extract the sessionId from the response
+
+      // Redirect the user to Stripe's checkout page
+      const result = await stripe.redirectToCheckout({
+        sessionId: sessionId,
+      });
+
+      if (result.error) {
+        console.error(result.error.message);
+      }
+    } catch (error) {
+      console.error("Error during Stripe Checkout:", error);
+    }
+  };
   return (
     <AppLayOut>
       <div className="items">
@@ -84,8 +119,12 @@ const Cart = () => {
                 </div>
 
                 <div className="d-grid">
-                  <Button size="lg" className="-util-btn-positive mb-1">
-                    Buy Now 
+                  <Button
+                    size="lg"
+                    className="-util-btn-positive mb-1"
+                    onClick={makePayment}
+                  >
+                    Pay ${cartTotal}
                   </Button>
                 </div>
 
