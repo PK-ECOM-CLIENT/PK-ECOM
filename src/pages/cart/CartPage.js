@@ -18,9 +18,11 @@ const Cart = () => {
     },
     { totalItems: 0, totalPrice: 0 }
   );
-  let gst = Math.ceil((2 / 100) * totalPrice);
-  let delivery = Math.ceil((5 / 100) * totalPrice);
-  let cartTotal = totalPrice + gst + delivery;
+  let gst = Math.ceil(process.env.REACT_APP_GST_CHARGE_RATE * totalPrice);
+  let deliveryCharge = Math.ceil(
+    process.env.REACT_APP_DELIVERY_CHARGE_RATE * totalPrice
+  );
+  let cartTotal = totalPrice + gst + deliveryCharge;
   console.log(cart);
   const makePayment = async () => {
     try {
@@ -28,6 +30,8 @@ const Cart = () => {
 
       const body = {
         products: cart, // Assuming cart is an array of products
+        deliveryCharge,
+        gstRate: process.env.REACT_APP_GST_CHARGE_RATE,
       };
 
       const headers = {
@@ -105,7 +109,7 @@ const Cart = () => {
                       Delivery:
                     </div>
                     <div className="cart_body__checkout-delivery-value">
-                      ${delivery}
+                      ${deliveryCharge}
                     </div>
                   </div>
                   <div className="cart_body__checkout-total -util-brdr-btm-none">
