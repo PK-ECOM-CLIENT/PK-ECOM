@@ -140,7 +140,9 @@ body {
   transform: translateX(-0.5rem);
 }
 /* for the image flowing out of the card */
-
+.util-link{
+  text-decoration: none;
+}
 .-util-required::after {
   content: "*";
   color: red;

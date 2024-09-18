@@ -1,0 +1,110 @@
+.content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.circle-container.circle-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #ff6b6b; /* Solid inner circle color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 10px solid #58a97d; /* Thicker main green border */
+  z-index: 2;
+}
+
+.circle-container::before,
+.circle-container::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0; /* Start invisible */
+  animation-fill-mode: forwards; /* Ensure it stays after the animation */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0); /* Center and start from scale 0 */
+}
+
+/* First outer green shade animation */
+.circle-container::before {
+  width: 130px;
+  height: 130px;
+  border: 30px solid rgba(102, 161, 130, 0.75); /* Semi-transparent green */
+  z-index: 1;
+  animation: expandShade 1.5s ease-out forwards; /* Adjusted timing */
+}
+
+/* Second outer green shade animation */
+.circle-container::after {
+  width: 150px; /* Reduced size for better alignment */
+  height: 150px; /* Reduced size for better alignment */
+  border: 40px solid rgba(102, 161, 130, 0.5); /* More transparent green */
+  z-index: 0;
+  animation: expandShade 1.5s ease-out forwards; /* Adjusted timing */
+}
+
+@keyframes expandShade {
+  0% {
+    transform: translate(-50%, -50%) scale(0); /* Start from the origin */
+    opacity: 0; /* Invisible at start */
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1); /* Expand to full size */
+    opacity: 1; /* Full opacity at end */
+  }
+}
+
+.tick {
+  width: 60px;
+  height: 60px;
+}
+
+.tick-path {
+  stroke: transparent;
+  stroke-width: 4;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  transition: stroke 1.5s ease-out, stroke-dashoffset 1.5s ease-out; /* Adjusted timing */
+}
+
+.circle.completed .tick-path {
+  stroke: white;
+  stroke-dashoffset: 0;
+}
+
+/* New style for the text */
+.continue-text {
+  /* Reduced space between the circle and text */
+  font-size: 18px;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+  z-index: 3; /* Ensure text is above the expanding shades */
+}
+.text {
+  text-decoration: none;
+  display: block;
+  background-color: #58a97d; /* Green color */
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  color: white;
+  border-radius: 0.5rem;
+  text-align: center;
+}

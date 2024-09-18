@@ -20,6 +20,9 @@ import OffersPage from "./pages/offers/OffersPage";
 import Categories from "./pages/categories/Categories";
 import EmailVerification from "./pages/registration/EmailVerification";
 import { PrivateRouter } from "./components/private-router/PrivateRouter";
+import SuccessfulPayment from "./pages/successfulpayment/successfulPayent";
+import failedPayment from "./pages/successfulpayment/failedPayment";
+import FailedPayment from "./pages/successfulpayment/failedPayment";
 function App() {
   return (
     <div className="app">
@@ -86,6 +89,15 @@ function App() {
               </PrivateRouter>
             }
           ></Route>
+          <Route
+            path="/paymentsuccessful"
+            element={
+              // <PrivateRouter>
+              <SuccessfulPayment />
+              // </PrivateRouter>
+            }
+          ></Route>
+          <Route path="/paymentfailed" element={<FailedPayment />}></Route>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
