@@ -27,14 +27,12 @@ const FailedPayment = () => {
         </div>
       </div>
       <p className="error-text">
-        Couldn't process the payment! Please check your card details and try
-        again.
+        Payment failed!
       </p>
       <Link to={process.env.REACT_APP_API_ENDPOINT_FRONTEND +"/cart"} className="text">
         Go back
       </Link>
     </div>
   );
-  console.log("API Endpoint:", process.env.REACT_APP_API_ENDPOINT_FRONTEND);
 };
 export default FailedPayment;
