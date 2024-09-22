@@ -82,6 +82,7 @@ export const CartCard = ({
                       key={i}
                       value={item}
                       selected={item === filterValue}
+                      required
                     >
                       {item}
                     </option>

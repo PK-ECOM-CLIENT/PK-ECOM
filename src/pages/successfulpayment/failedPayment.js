@@ -26,13 +26,12 @@ const FailedPayment = () => {
           </svg>
         </div>
       </div>
-      <p className="error-text">
-        Payment failed!
-      </p>
-      <Link to={process.env.REACT_APP_API_ENDPOINT_FRONTEND +"/cart"} className="text">
+      <p className="error-text">Payment failed!</p>
+      <Link to={process.env.REACT_APP_ROOTURL + "/cart"} className="text">
         Go back
       </Link>
     </div>
   );
 };
+// lets see if the changes gets deployed on vercel automatically
 export default FailedPayment;
