@@ -92,20 +92,15 @@
 /* New style for the text */
 .continue-text {
   /* Reduced space between the circle and text */
-  font-size: 18px;
-  color: #333;
-  font-weight: 500;
-  text-align: center;
-  z-index: 3; /* Ensure text is above the expanding shades */
-}
-.text {
   text-decoration: none;
   display: block;
-  background-color: #58a97d; /* Green color */
+  background-color: #58a97d; 
   padding: 0.5rem 1rem;
   font-weight: 600;
   color: white;
   border-radius: 0.5rem;
   text-align: center;
-  margin-top:3rem;
+  margin-top: 3rem;
+  z-index: 5;
 }
+
