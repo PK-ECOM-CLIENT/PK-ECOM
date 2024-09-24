@@ -27,7 +27,7 @@ const TickMark = () => {
             </svg>
           </div>
         </div>
-        <Link to={process.env.REACT_APP_API_ENDPOINT_FRONTEND} className="continue-text">
+        <Link to={process.env.REACT_APP_ROOTURL} className="continue-text">
           Continue shopping
         </Link>
       </div>
