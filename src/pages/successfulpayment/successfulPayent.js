@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./successfulPayment.css"; // Import the updated CSS file
+import "./successfulPayment.css";
 import { Link } from "react-router-dom";
 
 const TickMark = () => {
@@ -27,7 +27,7 @@ const TickMark = () => {
             </svg>
           </div>
         </div>
-        <Link to={process.env.REACT_APP_ROOTURL} className="text">
+        <Link to={process.env.REACT_APP_API_ENDPOINT_FRONTEND} className="continue-text">
           Continue shopping
         </Link>
       </div>
