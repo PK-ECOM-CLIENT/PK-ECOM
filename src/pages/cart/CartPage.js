@@ -62,7 +62,6 @@ const Cart = () => {
     <AppLayOut>
       <div className="items">
         <div className="cart_body">
-          <form action="">
             <div className="cart_body__items">
               {cart.map((item, i) => {
                 return (
@@ -144,7 +143,6 @@ const Cart = () => {
                 </div>
               </div>
             )}
-          </form>
         </div>
       </div>
     </AppLayOut>
