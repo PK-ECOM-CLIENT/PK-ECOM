@@ -6,7 +6,7 @@ import { CartCard } from "../../components/cart-card/CartCard";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
-const rootUrl = process.env.REACT_APP_API_ENDPOINT + "api/v1";
+import { createStripeSession } from "../../helpers/axiosHelper";
 const Cart = () => {
   const { cart } = useSelector((state) => state.system);
   const { totalItems, totalPrice } = cart.reduce(
@@ -23,39 +23,23 @@ const Cart = () => {
     process.env.REACT_APP_DELIVERY_CHARGE_RATE * totalPrice
   );
   let cartTotal = totalPrice + gst + deliveryCharge;
-  console.log(cart);
   const makePayment = async () => {
     try {
-      const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY); // Ensure this key is correct
-
-      const body = {
-        products: cart, // Assuming cart is an array of products
+      const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+      const paymentData = {
+        products: cart, 
         deliveryCharge,
         gstRate: process.env.REACT_APP_GST_CHARGE_RATE,
       };
 
-      const headers = {
-        "Content-Type": "application/json",
-      };
-
-      const response = await fetch(rootUrl + "/payment", {
-        method: "POST",
-        headers,
-        body: JSON.stringify(body),
-      });
-
-      const { sessionId } = await response.json(); // Extract the sessionId from the response
-
-      // Redirect the user to Stripe's checkout page
-      const result = await stripe.redirectToCheckout({
-        sessionId: sessionId,
-      });
-
-      if (result.error) {
-        console.error(result.error.message);
+      const response = await createStripeSession(paymentData);
+      if (response.sessionId) {
+        await stripe.redirectToCheckout({
+          sessionId: response.sessionId,
+        });
       }
     } catch (error) {
-      console.error("Error during Stripe Checkout:", error);
+      console.error("Error during payment initiation", error);
     }
   };
   return (

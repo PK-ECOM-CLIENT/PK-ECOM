@@ -200,3 +200,13 @@ export const deleteCart = (_id) => {
   };
   return apiProcessor(options);
 };
+// ============================================= Payment APIS =========================== 
+export const createStripeSession = async (data) => {
+  const options = {
+    method: "post",
+    url:rootUrl+"/payment" , 
+    data,
+    isPrivate: true, 
+  };
+  return apiProcessor(options);
+};
