@@ -190,7 +190,6 @@ export const Header = () => {
                   "Favourites"
                 )}
               </Link>
-              <Link to="paymentfailed">failed pay</Link>
               <span className="nav_icons__count">{favourites?.length}</span>
             </li>
 
