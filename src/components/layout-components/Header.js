@@ -174,7 +174,18 @@ export const Header = () => {
                 Deals and Sales
               </Link>
             </li>
-
+            <li className="nav-item">
+              <Link
+                className={
+                  url.includes("/dealsandsales") & (windowWidth > 991)
+                    ? "nav-link active -util-underline"
+                    : "nav-link active -util-underline-transparent"
+                }
+                to="/purchases"
+              >
+                purchases
+              </Link>
+            </li>
             <li className="nav-item nav_icons">
               <Link
                 className={

@@ -21,8 +21,8 @@ import Categories from "./pages/categories/Categories";
 import EmailVerification from "./pages/registration/EmailVerification";
 import { PrivateRouter } from "./components/private-router/PrivateRouter";
 import SuccessfulPayment from "./pages/successfulpayment/successfulPayent";
-import failedPayment from "./pages/successfulpayment/failedPayment";
 import FailedPayment from "./pages/successfulpayment/failedPayment";
+import Purchases from "./pages/purchases/purchasesPage"
 function App() {
   return (
     <div className="app">
@@ -98,6 +98,10 @@ function App() {
             }
           ></Route>
           <Route path="/paymentfailed" element={<FailedPayment />}></Route>
+          <Route
+            path="/purchases"
+            element={<Purchases></Purchases>}
+          ></Route>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
