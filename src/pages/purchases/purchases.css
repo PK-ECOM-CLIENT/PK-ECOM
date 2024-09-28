@@ -1,0 +1,11 @@
+.purchases {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  min-height: 100vh; 
+  gap:.2rem;
+  /* padding: 20px; */
+}
+.purchases-column{
+    /* margin:.5rem; */
+}
