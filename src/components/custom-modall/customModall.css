@@ -1,0 +1,14 @@
+.custom-backdrop {
+  backdrop-filter: blur(100px); /* High-intensity blur */
+  background-color: transparent;
+  transition: background-color 0.3s ease; /* Smooth transition effect */
+}
+
+.custom-modal {
+  z-index: 1050; /* Ensure modal is above the backdrop */
+  position: absolute; /* Position the modal absolutely */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  z-index: 1050;
+}

@@ -128,3 +128,42 @@
   background-color: #f5f5f5;
   border-radius: 4px;
 }
+
+.card-info {
+  display: flex;
+  align-items: center; /* Align items vertically centered */
+  justify-content: space-between; /* Space between the icon and the card details */
+}
+
+.card-details {
+  margin-left: 12px; /* Space between the SVG and the card details */
+  flex-grow: 1; /* Allow this to grow and take available space */
+}
+
+.card-no {
+  font-size: 1rem; /* Font size for card number */
+  font-weight: bold; /* Make it bold */
+}
+
+.holder-name {
+  font-size: 0.9rem; /* Slightly smaller font for the holder name */
+  color: #555; /* Optional: a lighter color for the holder name */
+}
+
+.price-paid {
+  font-size: 1.1rem; /* Adjust size for price */
+  font-weight: bold; /* Make it bold */
+  text-align: right; /* Align to the right */
+}
+
+.time-paid {
+  font-size: 0.8rem; /* Smaller size for the time */
+  text-align: right; /* Align to the right */
+  color: #999; /* Optional: lighter color for the time */
+}
+
+.all-details>*{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

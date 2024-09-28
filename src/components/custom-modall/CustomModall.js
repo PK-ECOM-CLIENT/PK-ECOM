@@ -1,22 +1,22 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-
-const CustomModall = () => {
+import "./customModall.css";
+const CustomModall = ({ children }) => {
   return (
     <Modal
       show={true}
       onHide={"change the status of showing modal to false"}
-      size="sm"
+      size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       backdrop="static"
+      backdropClassName="custom-backdrop"
+      className="custom-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Title</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        body of modal
-      </Modal.Body>
+      <Modal.Body>{children}</Modal.Body>
       <Modal.Footer>
         <Button onClick={"make it disappear"}>Close if necessary</Button>
       </Modal.Footer>
