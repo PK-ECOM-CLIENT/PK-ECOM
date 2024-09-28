@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import boots from "./../../assits/images/offersimg/boots.jpg";
 import "./purchasesCard.css";
+import CustomModall from "../custom-modall/CustomModall";
 
 export const PurchasesCard = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -41,6 +42,7 @@ export const PurchasesCard = () => {
                 <li>Payment Info</li>
                 <li>Order Info</li>
               </ul>
+              <CustomModall></CustomModall>
             </div>
           )}
         </div>
