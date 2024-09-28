@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import "./customModall.css";
-const CustomModall = ({ children }) => {
+const CustomModall = ({ title,children }) => {
   return (
     <Modal
       show={true}
@@ -14,12 +14,12 @@ const CustomModall = ({ children }) => {
       className="custom-modal"
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Title</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{children}</Modal.Body>
-      <Modal.Footer>
+      {/* <Modal.Footer>
         <Button onClick={"make it disappear"}>Close if necessary</Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   );
 };

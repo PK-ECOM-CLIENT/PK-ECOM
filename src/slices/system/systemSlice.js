@@ -4,6 +4,7 @@ const initialState = {
   favourites: [],
   cart: [],
   publicUrl: "",
+  applicationModal: false,
 };
 const systemSlice = createSlice({
   name: "systemSlice",
@@ -11,6 +12,9 @@ const systemSlice = createSlice({
   reducers: {
     setModalShow: (state) => {
       state.modalShow = !state.modalShow;
+    },
+    setapplicationModal: (state) => {
+      state.applicationModal = !state.applicationModal;
     },
     setFavourites: (state, { payload = {} }) => {
       state.favourites = payload;
@@ -39,6 +43,12 @@ const systemSlice = createSlice({
   },
 });
 const { reducer, actions } = systemSlice;
-export const { setModalShow, setFavourites, setCart, setPublicUrl, updateCartItem } =
-  actions;
+export const {
+  setModalShow,
+  setFavourites,
+  setCart,
+  setPublicUrl,
+  updateCartItem,
+  setApplicationModal,
+} = actions;
 export default reducer;
