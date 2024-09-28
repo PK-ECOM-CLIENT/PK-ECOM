@@ -83,8 +83,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  position:absolute;
-  right:.2rem;
+  position: absolute;
+  right: 0.2rem;
 }
 
 .more-actions-btn {
@@ -102,10 +102,29 @@
   background-color: #5a6268;
 }
 .dropdown-meu {
-  border: 0.2rem solid black;
+  position: absolute;
+  top: 40px;
+  right: 0;
   background-color: white;
-  margin-top: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  width: 200px;
+  padding: 10px;
 }
 .more-actions-options {
   list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.more-actions-options li {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+.more-actions-options li:hover {
+  background-color: #f5f5f5;
+  border-radius: 4px;
 }
