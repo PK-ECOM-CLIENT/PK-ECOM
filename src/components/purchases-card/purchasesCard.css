@@ -5,13 +5,14 @@
   border-radius: 8px;
   padding: 6px;
   width: 400px;
+  height: 17rem;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin: 16px;
   font-family: Arial, sans-serif;
+  position: relative;
 }
 
-/* Content section with image and product title */
 .card-content {
   display: flex;
   gap: 16px;
@@ -19,22 +20,19 @@
   margin-bottom: 16px;
 }
 
-/* Image styling */
 .product-image {
-  width: 12rem;
-  height: 12rem;
+  width: 10rem;
+  height: 10rem;
   object-fit: cover;
   border-radius: 8px;
 }
 
-/* Product title */
 .product-title {
   font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
 }
 
-/* Details section (order status, link, price) */
 .details {
   display: flex;
   flex-direction: column;
@@ -42,13 +40,11 @@
   margin-top: 16px;
 }
 
-/* Order status text */
 .order-status {
   color: #555;
   font-size: 0.9rem;
 }
 
-/* Link to item */
 .product-link {
   color: #007bff;
   text-decoration: underline;
@@ -56,7 +52,6 @@
   font-size: 0.9rem;
 }
 
-/* Unit price styling */
 .unit-price {
   font-size: 1.1rem;
   font-weight: bold;
@@ -64,16 +59,15 @@
   margin-top: 8px;
 }
 
-/* Actions section (Buy Again, More Actions buttons) */
 .card-actions {
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
+  position: relative; /* This ensures the dropdown is positioned relative to this container */
+  align-items: flex-start; /* Ensure items are centered vertically */
 }
 
-/* Buy Again button styling */
-.buy-again-btn,
-.more-actions-btn {
+.buy-again-btn {
   background-color: #007bff;
   color: white;
   padding: 8px 16px;
@@ -82,20 +76,36 @@
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.3s ease;
+  display: inline-block; /* Make sure it only takes up as much space as the content */
 }
 
-/* Hover effect for buttons */
-.buy-again-btn:hover,
-.more-actions-btn:hover {
-  background-color: #0056b3;
+.more-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position:absolute;
+  right:.2rem;
 }
 
-/* More Actions button */
 .more-actions-btn {
   background-color: #6c757d;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: fit-content;
+  transition: background-color 0.3s ease;
 }
 
-/* Hover effect for More Actions button */
 .more-actions-btn:hover {
   background-color: #5a6268;
+}
+.dropdown-meu {
+  border: 0.2rem solid black;
+  background-color: white;
+  margin-top: 0.5rem;
+}
+.more-actions-options {
+  list-style: none;
 }

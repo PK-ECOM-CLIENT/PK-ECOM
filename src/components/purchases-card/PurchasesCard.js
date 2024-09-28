@@ -1,7 +1,15 @@
-import React from 'react'
-import boots from "./../../assits/images/offersimg/boots.jpg"
-import "./purchasesCard.css"
+import React, { useState } from "react";
+import boots from "./../../assits/images/offersimg/boots.jpg";
+import "./purchasesCard.css";
+
 export const PurchasesCard = () => {
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+    console.log("toggled");
+  };
+
   return (
     <div className="purchase-card">
       <div className="card-content">
@@ -19,7 +27,23 @@ export const PurchasesCard = () => {
       </div>
       <div className="card-actions">
         <div className="buy-again-btn">Buy Again</div>
-        <div className="more-actions-btn">More Actions</div>
+        <div className="more-actions">
+          <div className="more-actions-btn" onClick={toggleDropdown}>
+            More Actions
+          </div>
+          {dropdownVisible && (
+            <div className="dropdown-meu">
+              <ul className="more-actions-options">
+                <li>Contact Seller</li>
+                <li>Report Item</li>
+                <li>Leave Review</li>
+                <li>Cancel Purchase</li>
+                <li>Payment Info</li>
+                <li>Order Info</li>
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
