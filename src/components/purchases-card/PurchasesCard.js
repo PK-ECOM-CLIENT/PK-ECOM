@@ -34,8 +34,30 @@ export const PurchasesCard = ({ imgsource }) => {
           {dropdownVisible && (
             <div className="dropdown-meu">
               <ul className="more-actions-options">
-                <li>Contact Seller</li>
-                <li>Report Item</li>
+                <li
+                  onClick={() =>
+                    dispatch(
+                      setApplicationModal({
+                        title: "Contact Seller",
+                        body: "contact-seller",
+                      })
+                    )
+                  }
+                >
+                  Contact Seller
+                </li>
+                <li
+                  onClick={() =>
+                    dispatch(
+                      setApplicationModal({
+                        title: "Report Item",
+                        body: "report-item",
+                      })
+                    )
+                  }
+                >
+                  Report Item
+                </li>
                 <li>Leave Review</li>
                 <li>Cancel Purchase</li>
                 <li

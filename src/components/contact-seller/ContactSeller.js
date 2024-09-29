@@ -27,7 +27,6 @@ const ContactSeller = () => {
 
   return (
     <div>
-      <h3>Contact the Seller</h3>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formFullName">
           <Form.Label>Full Name</Form.Label>

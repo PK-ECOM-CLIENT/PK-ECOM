@@ -4,6 +4,8 @@ import "./customModal.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setApplicationModal } from "../../slices/system/systemSlice";
 import PaymentDetails from "../Payment-details/PaymentDetails";
+import ContactSeller from "../contact-seller/ContactSeller";
+import ReportItem from "../report-item/ReportItem";
 export const CustomModal = () => {
   const { applicationModal } = useSelector((state) => state.system);
   const dispatch = useDispatch();
@@ -26,7 +28,9 @@ export const CustomModal = () => {
       <Modal.Body>
         {applicationModal.modalContent.body === "payment-details" ? (
           <PaymentDetails />
-        ) : null}
+        ) : applicationModal.modalContent.body === "contact-seller" ? (
+          <ContactSeller />
+        ):applicationModal.modalContent.body==="report-item"?(<ReportItem/>) : null}
       </Modal.Body>
     </Modal>
   );
