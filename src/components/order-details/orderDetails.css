@@ -1,0 +1,47 @@
+.order-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section-content {
+  display: grid;
+  grid-template-columns: 200px 1fr; /* First column for titles, second for values */
+  align-items: center; /* Vertically center the content */
+  gap: 1rem; /* Space between rows */
+}
+
+.indiviual-content {
+  display: contents; /* Ensures grid applies directly to label and value */
+}
+
+.label {
+  font-weight: bold;
+  justify-self: start; /* Align titles to the left */
+}
+
+.value {
+  justify-self: start; /* Align values right next to the title */
+}
+
+.item-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.item-description {
+  margin-top: 1rem;
+}
+
+.item-image {
+  width: 8rem;
+  height: 8rem;
+}

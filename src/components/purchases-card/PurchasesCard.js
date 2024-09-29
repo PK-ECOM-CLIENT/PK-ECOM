@@ -81,9 +81,20 @@ export const PurchasesCard = ({ imgsource }) => {
                     )
                   }
                 >
-                  Payment Info
+                  Payment Details
                 </li>
-                <li>Order Info</li>
+                <li
+                  onClick={() =>
+                    dispatch(
+                      setApplicationModal({
+                        title: "Order Details",
+                        body: "order-details",
+                      })
+                    )
+                  }
+                >
+                  Order Details
+                </li>
               </ul>
             </div>
           )}
