@@ -1,20 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  modalShow: true,
   favourites: [],
   cart: [],
   publicUrl: "",
-  applicationModal: false,
+  applicationModal: {
+    state: false,
+    modalContent: {
+      title: "",
+      body: "",
+    },
+  },
 };
 const systemSlice = createSlice({
   name: "systemSlice",
   initialState,
   reducers: {
-    setModalShow: (state) => {
-      state.modalShow = !state.modalShow;
-    },
-    setApplicationModal: (state) => {
-      state.applicationModal = !state.applicationModal;
+    setApplicationModal: (state, { payload }) => {
+      state.applicationModal.state = !state.applicationModal.state; // Reverse the state
+      state.applicationModal.modalContent = {
+        title: payload.title, // Set new title
+        body: payload.body, // Set new body content
+      };
     },
     setFavourites: (state, { payload = {} }) => {
       state.favourites = payload;
@@ -44,7 +50,6 @@ const systemSlice = createSlice({
 });
 const { reducer, actions } = systemSlice;
 export const {
-  setModalShow,
   setFavourites,
   setCart,
   setPublicUrl,

@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import "./purchasesCard.css";
-import PaymentDetails from "../Payment-details/PaymentDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { setApplicationModal } from "../../slices/system/systemSlice";
+import { CustomModal } from "../custom-modal/CustomModal";
 export const PurchasesCard = ({ imgsource }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const { applicationModal } = useSelector((state) => state.system);
   const dispatch = useDispatch();
-  const toggleApplicationModal = () => {
-    dispatch(setApplicationModal());
-  };
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
@@ -41,14 +38,25 @@ export const PurchasesCard = ({ imgsource }) => {
                 <li>Report Item</li>
                 <li>Leave Review</li>
                 <li>Cancel Purchase</li>
-                <li onClick={toggleApplicationModal}>Payment Info</li>
+                <li
+                  onClick={() =>
+                    dispatch(
+                      setApplicationModal({
+                        title: "Payment Details",
+                        body: "payment-details",
+                      })
+                    )
+                  }
+                >
+                  Payment Info
+                </li>
                 <li>Order Info</li>
               </ul>
             </div>
           )}
         </div>
       </div>
-      {applicationModal && <PaymentDetails></PaymentDetails>}
+      {applicationModal.state && <CustomModal></CustomModal>}
     </div>
   );
 };

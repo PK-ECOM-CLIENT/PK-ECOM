@@ -1,32 +1,33 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { setModalShow } from "../../slices/system/systemSlice";
-import { useSelector, useDispatch } from "react-redux";
-
+import { Button, Modal } from "react-bootstrap";
+import "./customModal.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setApplicationModal } from "../../slices/system/systemSlice";
+import PaymentDetails from "../Payment-details/PaymentDetails";
 export const CustomModal = () => {
+  const { applicationModal } = useSelector((state) => state.system);
   const dispatch = useDispatch();
-
-  const { modalShow } = useSelector((state) => state.system);
   return (
     <Modal
-      show={modalShow}
-      onHide={() => dispatch(setModalShow())}
+      show={applicationModal.state}
+      onHide={() => dispatch(setApplicationModal({ title: "", body: "" }))}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       backdrop="static"
+      backdropClassName="custom-backdrop"
+      className="custom-modal"
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Notice!!!</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">
+          {applicationModal.modalContent.title}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        For a better experience, consider selecting categories or products with
-       the star, as not all categories or products have been assigned the items.
+        {applicationModal.modalContent.body === "payment-details" ? (
+          <PaymentDetails />
+        ) : null}
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={() => dispatch(setModalShow())}>Close</Button>
-      </Modal.Footer>
     </Modal>
   );
 };
