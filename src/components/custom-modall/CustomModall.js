@@ -1,11 +1,15 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import "./customModall.css";
-const CustomModall = ({ title,children }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { setApplicationModal } from "../../slices/system/systemSlice";
+const CustomModall = ({ title, children }) => {
+  const { applicationModal } = useSelector((state) => state.system);
+  const dispatch=useDispatch()
   return (
     <Modal
-      show={true}
-      onHide={"change the status of showing modal to false"}
+      show={applicationModal}
+      onHide={()=>dispatch(setApplicationModal())}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered

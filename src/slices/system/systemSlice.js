@@ -13,7 +13,7 @@ const systemSlice = createSlice({
     setModalShow: (state) => {
       state.modalShow = !state.modalShow;
     },
-    setapplicationModal: (state) => {
+    setApplicationModal: (state) => {
       state.applicationModal = !state.applicationModal;
     },
     setFavourites: (state, { payload = {} }) => {
