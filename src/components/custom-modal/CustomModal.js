@@ -6,6 +6,7 @@ import { setApplicationModal } from "../../slices/system/systemSlice";
 import PaymentDetails from "../Payment-details/PaymentDetails";
 import ContactSeller from "../contact-seller/ContactSeller";
 import ReportItem from "../report-item/ReportItem";
+import LeaveReview from "../leave-review/LeaveReview";
 export const CustomModal = () => {
   const { applicationModal } = useSelector((state) => state.system);
   const dispatch = useDispatch();
@@ -30,7 +31,11 @@ export const CustomModal = () => {
           <PaymentDetails />
         ) : applicationModal.modalContent.body === "contact-seller" ? (
           <ContactSeller />
-        ):applicationModal.modalContent.body==="report-item"?(<ReportItem/>) : null}
+        ) : applicationModal.modalContent.body === "report-item" ? (
+          <ReportItem />
+        ) : applicationModal.modalContent.body === "leave-review" ? (
+          <LeaveReview />
+        ) : null}
       </Modal.Body>
     </Modal>
   );

@@ -58,7 +58,18 @@ export const PurchasesCard = ({ imgsource }) => {
                 >
                   Report Item
                 </li>
-                <li>Leave Review</li>
+                <li
+                  onClick={() =>
+                    dispatch(
+                      setApplicationModal({
+                        title: "",
+                        body: "leave-review",
+                      })
+                    )
+                  }
+                >
+                  Leave Review
+                </li>
                 <li>Cancel Purchase</li>
                 <li
                   onClick={() =>

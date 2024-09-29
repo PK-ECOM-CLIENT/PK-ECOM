@@ -1,0 +1,14 @@
+.star-rating {
+  font-size: 30px; /* Adjust star size */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin: 20px 0; /* Space around stars */
+}
+
+.star {
+  color: rgb(234, 229, 229); /* Default star color */
+  transition: color 0.2s; /* Smooth color transition */
+}
+
+.star.selected {
+  color: rgb(255, 132, 0); /* Selected star color */
+}
