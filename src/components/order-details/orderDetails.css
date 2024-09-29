@@ -5,32 +5,64 @@
   gap: 2rem;
 }
 
+/* Main header styling for all sections (Order Info, Delivery Info, Item Info) */
+.section-title {
+  font-size: 1.2rem; /* Larger font size for main headers */
+  font-weight: 400; /* Bold to emphasize the main section titles */
+  text-transform: uppercase; /* Uppercase for visual distinction */
+  color: #333; /* Darker color for prominence */
+  border-bottom: 2px solid #ccc; /* Subtle border below the main headers */
+  padding-bottom: 0.5rem; /* Add some padding below */
+  margin-bottom: 1rem; /* Space below the header */
+}
+
+/* Shared class for all info sections */
 .info-section {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
+/* Grid layout for each section content */
 .section-content {
   display: grid;
-  grid-template-columns: 200px 1fr; /* First column for titles, second for values */
-  align-items: center; /* Vertically center the content */
-  gap: 1rem; /* Space between rows */
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: 1rem;
 }
 
-.indiviual-content {
-  display: contents; /* Ensures grid applies directly to label and value */
-}
-
+/* Styling for subheader labels (Time Placed, Order Number, etc.) */
 .label {
-  font-weight: bold;
-  justify-self: start; /* Align titles to the left */
+  font-size: 1rem; /* Regular font size for subheaders */
+  font-weight: 600; /* Slightly bold */
+  color: #555; /* Gray color for subheaders */
+  text-transform: capitalize; /* Capitalize subheader labels */
 }
 
+/* Styling for subheader values */
 .value {
-  justify-self: start; /* Align values right next to the title */
+  font-size: 1rem; /* Regular size for values */
+  color: #333; /* Darker color for values */
 }
 
+/* Specific section content class names */
+.order-section-content,
+.delivery-section-content,
+.item-section-content {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Individual content blocks for each section */
+.order-content,
+.delivery-content,
+.item-content {
+  display: contents;
+}
+
+/* Item-specific styling */
 .item-header {
   display: flex;
   align-items: center;
