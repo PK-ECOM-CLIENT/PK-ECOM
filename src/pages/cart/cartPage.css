@@ -4,7 +4,6 @@
 .cart_body__items {
   height: 100vh;
   overflow: scroll;
-
 }
 .cart_body__items > * {
   width: 100%;
@@ -27,8 +26,8 @@
 .cart_body__checkout-heading {
   text-align: center;
 }
-.cart_body__checkout-total{
-  font-size:1.3rem;
+.cart_body__checkout-total {
+  font-size: 1.3rem;
 }
 .checkout_flex > * {
   display: flex;
@@ -44,4 +43,24 @@
   font-size: 0.8rem;
   font-weight: normal;
   text-align: center;
+}
+.cart_body__checkout-delivery {
+  display: flex;
+  flex-direction: column; /* Arrange children in a column */
+  width: 100%;
+}
+
+.cart_body__checkout-delivery-info {
+  display: flex;
+  justify-content: space-between; /* Align text on left and value on right */
+  width: 100%;
+}
+
+.cart_body__checkout-delivery-alert {
+  font-size: 10px; /* Small text size */
+  color: red; /* Standout color */
+  font-style: italic; /* Emphasis with italic */
+  margin-top: 5px; /* Small margin to space it from the delivery info */
+  opacity: 0.8; /* Make it a bit subtle */
+  width: 100%; /* Make sure it takes the full width */
 }
