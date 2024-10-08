@@ -8,6 +8,7 @@ import ContactSeller from "../contact-seller/ContactSeller";
 import ReportItem from "../report-item/ReportItem";
 import LeaveReview from "../leave-review/LeaveReview";
 import OrderDetails from "../order-details/OrderDetails";
+import UpdateAddress from "../update-address/UpdateAddress";
 export const CustomModal = () => {
   const { applicationModal } = useSelector((state) => state.system);
   const dispatch = useDispatch();
@@ -38,6 +39,8 @@ export const CustomModal = () => {
           <LeaveReview />
         ) : applicationModal.modalContent.body === "order-details" ? (
           <OrderDetails />
+        ) : applicationModal.modalContent.body === "update-address" ? (
+          <UpdateAddress/>
         ) : null}
       </Modal.Body>
     </Modal>

@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import "./cartPage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CartCard } from "../../components/cart-card/CartCard";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { createStripeSession } from "../../helpers/axiosHelper";
+import { setApplicationModal } from "../../slices/system/systemSlice";
+import { CustomModal } from "../../components/custom-modal/CustomModal";
 const Cart = () => {
   const { cart } = useSelector((state) => state.system);
   const { user } = useSelector((state) => state.user);
+  const { applicationModal } = useSelector((state) => state.system);
+  const dispatch = useDispatch();
+
   const { totalItems, totalPrice } = cart.reduce(
     (accumulator, item) => {
       return {
@@ -102,7 +107,19 @@ const Cart = () => {
                     <div className="cart_body__checkout-delivery-alert">
                       Delivery Address: {user.address.streetAddress},{" "}
                       {user.address.suburb}, {user.address.state},{" "}
-                      {user.address.postCode} <a href="">edit</a>
+                      {user.address.postCode}{" "}
+                      <span
+                        onClick={() =>
+                          dispatch(
+                            setApplicationModal({
+                              title: "Update User Address",
+                              body: "update-address",
+                            })
+                          )
+                        }
+                      >
+                        edit
+                      </span>
                     </div>
                   </div>{" "}
                   <div className="cart_body__checkout-total -util-brdr-btm-none">
@@ -132,6 +149,7 @@ const Cart = () => {
             </div>
           )}
         </div>
+        {applicationModal.state && <CustomModal></CustomModal>}
       </div>
     </AppLayOut>
   );

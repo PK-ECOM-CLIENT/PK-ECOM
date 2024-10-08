@@ -1,0 +1,98 @@
+/* Wrapper class for the custom address form */
+.custom-address-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Custom labels */
+.custom-address-form .custom-label {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Custom inputs and selects */
+.custom-address-form .custom-input,
+.custom-address-form .custom-select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Focus states for inputs */
+.custom-address-form .custom-input:focus,
+.custom-address-form .custom-select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Custom button */
+.custom-address-form .custom-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-address-form .custom-button:hover {
+  background-color: #0056b3;
+}
+
+/* Custom row and column styling */
+.custom-address-form .custom-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.custom-address-form .custom-col {
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.custom-address-form .custom-col-sm-6 {
+  width: 50%;
+}
+
+.custom-address-form .custom-col-sm-3 {
+  width: 25%;
+}
+
+.custom-address-form .custom-col-md-9 {
+  width: 75%;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 768px) {
+  .custom-address-form .custom-col-sm-6,
+  .custom-address-form .custom-col-sm-3,
+  .custom-address-form .custom-col-md-9 {
+    width: 100%;
+  }
+}
+
+/* Custom form heading */
+.custom-address-form .custom-heading {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #007bff;
+}
+
+/* Custom address content */
+.custom-address-form .custom-address-content {
+  margin-bottom: 20px;
+}
