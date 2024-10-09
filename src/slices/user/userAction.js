@@ -1,5 +1,10 @@
 import { toast } from "react-toastify";
-import { getNewAccessJWT, getUser, loginUser } from "../../helpers/axiosHelper";
+import {
+  getNewAccessJWT,
+  getUser,
+  loginUser,
+  updateUserAddress,
+} from "../../helpers/axiosHelper";
 import { setUser } from "./userSlice";
 import { setCart, setFavourites } from "../system/systemSlice";
 
@@ -26,7 +31,11 @@ export const getUserAction = (token) => async (dispatch) => {
   const { status, user } = await getUser(token);
   status === "success" && dispatch(setUser(user));
 };
-
+// update users Address Action
+export const updateUserAddressAction = (data) => async (dispatch) => {
+  const { status, user } = await updateUserAddress(data);
+  status === "success" && dispatch(setUser(user));
+};
 export const autoLogin = () => async (dispatch) => {
   const accessJWT = sessionStorage.getItem("accessJWT");
   const refreshJWT = localStorage.getItem("refreshJWT");

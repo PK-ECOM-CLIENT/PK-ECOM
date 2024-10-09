@@ -74,7 +74,15 @@ export const getUser = (token) => {
   };
   return apiProcessor(option);
 };
-
+export const updateUserAddress = (data) => {
+  const option = {
+    method: "post",
+    url: userEp + "/update-address",
+    isPrivate: true,
+    data,
+  };
+  return apiProcessor(option);
+};
 export const getNewAccessJWT = async () => {
   const option = {
     method: "get",
@@ -200,13 +208,13 @@ export const deleteCart = (_id) => {
   };
   return apiProcessor(options);
 };
-// ============================================= Payment APIS =========================== 
+// ============================================= Payment APIS ===========================
 export const createStripeSession = async (data) => {
   const options = {
     method: "post",
-    url:rootUrl+"/payment" , 
+    url: rootUrl + "/payment",
     data,
-    isPrivate: true, 
+    isPrivate: true,
   };
   return apiProcessor(options);
 };
