@@ -218,3 +218,13 @@ export const createStripeSession = async (data) => {
   };
   return apiProcessor(options);
 };
+// ========================= Australia Post Delivery =========================
+export const calculateDeliveryFee = async (params) => {
+  const options = {
+    method: "get",
+    url: rootUrl + "/delivery/delivery-fee",
+    params,
+    isPrivate: true,
+  };
+  return apiProcessor(options);
+};

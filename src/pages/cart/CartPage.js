@@ -6,9 +6,13 @@ import { CartCard } from "../../components/cart-card/CartCard";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
-import { createStripeSession } from "../../helpers/axiosHelper";
+import {
+  calculateDeliveryFee,
+  createStripeSession,
+} from "../../helpers/axiosHelper";
 import { setApplicationModal } from "../../slices/system/systemSlice";
 import { CustomModal } from "../../components/custom-modal/CustomModal";
+import { calculateDimensionsAndWeight } from "../../helpers/functions/cartDimension";
 const Cart = () => {
   const { cart } = useSelector((state) => state.system);
   const { user } = useSelector((state) => state.user);
@@ -29,15 +33,25 @@ const Cart = () => {
     process.env.REACT_APP_DELIVERY_CHARGE_RATE * totalPrice
   );
   console.log(user);
+  console.log(cart);
+  const calculatedDimension = calculateDimensionsAndWeight(cart);
+  console.log(calculatedDimension);
+  const deliveryFee = async (calculatedDimension) => {
+    try {
+      const result = await calculateDeliveryFee({
+        fromPostcode: 6107,
+        toPostcode: 2135,
+        ...calculatedDimension,
+      });
+      alert(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   let cartTotal = totalPrice + gst + deliveryCharge;
   const makePayment = async () => {
     try {
       const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
-      const paymentData = {
-        products: cart,
-        deliveryCharge,
-        gstRate: process.env.REACT_APP_GST_CHARGE_RATE,
-      };
 
       const response = await createStripeSession({ products: cart });
       if (response.sessionId) {
