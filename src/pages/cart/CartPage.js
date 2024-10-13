@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./cartPage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,7 @@ import {
 import { setApplicationModal } from "../../slices/system/systemSlice";
 import { CustomModal } from "../../components/custom-modal/CustomModal";
 import { calculateDimensionsAndWeight } from "../../helpers/functions/cartDimension";
+
 const Cart = () => {
   const { cart } = useSelector((state) => state.system);
   const { user } = useSelector((state) => state.user);
@@ -28,27 +29,40 @@ const Cart = () => {
     },
     { totalItems: 0, totalPrice: 0 }
   );
+
   let gst = Math.ceil(process.env.REACT_APP_GST_CHARGE_RATE * totalPrice);
-  let deliveryCharge = Math.ceil(
-    process.env.REACT_APP_DELIVERY_CHARGE_RATE * totalPrice
-  );
-  console.log(user);
-  console.log(cart);
+
+  // State to store the dynamically calculated delivery charge
+  const [deliveryCharge, setDeliveryCharge] = useState(0);
+
   const calculatedDimension = calculateDimensionsAndWeight(cart);
+  console.log(cart);
+  console.log(user);
   console.log(calculatedDimension);
-  const deliveryFee = async (calculatedDimension) => {
-    try {
-      const result = await calculateDeliveryFee({
-        fromPostcode: 6107,
-        toPostcode: 2135,
-        ...calculatedDimension,
-      });
-      alert(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+  // Fetch delivery fee when the component mounts or when cart or user details change
+  useEffect(() => {
+    const fetchDeliveryFee = async () => {
+      try {
+        if (user?.address?.postCode) {
+          const result = await calculateDeliveryFee({
+            fromPostcode: 6107, // Hardcoded origin postcode
+            toPostcode: user.address.postCode, // Use the user's address for delivery
+            ...calculatedDimension,
+          });
+          console.log(result)
+          setDeliveryCharge(result?.total_cost || 0); // Update state with delivery fee
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchDeliveryFee();
+  }, [cart, user, calculatedDimension]);
+
   let cartTotal = totalPrice + gst + deliveryCharge;
+
   const makePayment = async () => {
     try {
       const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
@@ -63,6 +77,7 @@ const Cart = () => {
       console.error("Error during payment initiation", error);
     }
   };
+
   return (
     <AppLayOut>
       <div className="items">
@@ -71,6 +86,7 @@ const Cart = () => {
             {cart.map((item, i) => {
               return (
                 <CartCard
+                  key={item._id}
                   name={item.name}
                   count={parseInt(item.count, 10)}
                   filter={item.filter}
@@ -80,7 +96,7 @@ const Cart = () => {
                   thumbnail={item.thumbnail}
                   id={item._id}
                   quantity={item.quantity}
-                ></CartCard>
+                />
               );
             })}
           </div>
@@ -119,9 +135,9 @@ const Cart = () => {
                       </div>
                     </div>
                     <div className="cart_body__checkout-delivery-alert">
-                      Delivery Address: {user.address.streetAddress},{" "}
-                      {user.address.suburb}, {user.address.state},{" "}
-                      {user.address.postCode}{" "}
+                      Delivery Address: {user.address?.streetAddress},{" "}
+                      {user.address?.suburb}, {user.address?.state},{" "}
+                      {user.address?.postCode}{" "}
                       <span
                         onClick={() =>
                           dispatch(
@@ -163,7 +179,7 @@ const Cart = () => {
             </div>
           )}
         </div>
-        {applicationModal.state && <CustomModal></CustomModal>}
+        {applicationModal.state && <CustomModal />}
       </div>
     </AppLayOut>
   );

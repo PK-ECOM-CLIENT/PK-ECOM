@@ -219,11 +219,11 @@ export const createStripeSession = async (data) => {
   return apiProcessor(options);
 };
 // ========================= Australia Post Delivery =========================
-export const calculateDeliveryFee = async (params) => {
+export const calculateDeliveryFee = async (data) => {
   const options = {
-    method: "get",
+    method: "post",
     url: rootUrl + "/delivery/delivery-fee",
-    params,
+    data,
     isPrivate: true,
   };
   return apiProcessor(options);
