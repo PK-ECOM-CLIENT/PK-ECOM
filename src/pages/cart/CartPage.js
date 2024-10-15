@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./cartPage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,28 +30,48 @@ const Cart = () => {
     { totalItems: 0, totalPrice: 0 }
   );
 
-  let gst = Math.ceil(process.env.REACT_APP_GST_CHARGE_RATE * totalPrice);
-
   // State to store the dynamically calculated delivery charge
-  const [deliveryCharge, setDeliveryCharge] = useState(0);
+  const [deliveryDetails, setDeliveryDetails] = useState({
+    service: "",
+    deliveryTime: "",
+    totalCost: 0, // Store delivery cost as a number for calculations
+  });
 
-  const calculatedDimension = calculateDimensionsAndWeight(cart);
-  console.log(cart);
-  console.log(user);
-  console.log(calculatedDimension);
+  const calculatedDimension = useMemo(
+    () => calculateDimensionsAndWeight(cart),
+    [cart]
+  );
 
   // Fetch delivery fee when the component mounts or when cart or user details change
   useEffect(() => {
     const fetchDeliveryFee = async () => {
       try {
         if (user?.address?.postCode) {
-          const result = await calculateDeliveryFee({
-            fromPostcode: 6107, // Hardcoded origin postcode
-            toPostcode: user.address.postCode, // Use the user's address for delivery
-            ...calculatedDimension,
+          const result = await calculateDeliveryFee(
+            {
+              fromPostcode: 6107, // Hardcoded origin postcode
+              toPostcode: user.address.postCode, // Use the user's address for delivery
+              ...calculatedDimension,
+            },
+            {
+              fromPostcode: 6107, // Hardcoded origin postcode
+              toPostcode: user.address.postCode, // Use the user's address for delivery
+              ...calculatedDimension,
+            },
+            {
+              fromPostcode: 6107, // Hardcoded origin postcode
+              toPostcode: user.address.postCode, // Use the user's address for delivery
+              ...calculatedDimension,
+            }
+          );
+          console.log(result);
+
+          // Update the delivery details state
+          setDeliveryDetails({
+            service: result?.service || "Unknown service",
+            deliveryTime: result?.delivery_time || "Unknown delivery time",
+            totalCost: Number(result?.total_cost || 0), // Ensure it's a number
           });
-          console.log(result)
-          setDeliveryCharge(result?.total_cost || 0); // Update state with delivery fee
         }
       } catch (error) {
         console.log(error);
@@ -59,9 +79,17 @@ const Cart = () => {
     };
 
     fetchDeliveryFee();
-  }, [cart, user, calculatedDimension]);
+  }, [cart, user, calculatedDimension]); // Memoized 'calculatedDimension' won't cause unnecessary triggers
 
-  let cartTotal = totalPrice + gst + deliveryCharge;
+  // Calculate GST and round to 2 decimals
+  const gst = (totalPrice * process.env.REACT_APP_GST_CHARGE_RATE).toFixed(2);
+
+  // Calculate cart total and round to 2 decimals
+  let cartTotal = (
+    Number(totalPrice) +
+    Number(gst) +
+    Number(deliveryDetails.totalCost)
+  ).toFixed(2);
 
   const makePayment = async () => {
     try {
@@ -118,7 +146,7 @@ const Cart = () => {
                       Total items cost:
                     </div>
                     <div className="cart_body__checkout-productTotal-value">
-                      ${totalPrice}
+                      ${totalPrice.toFixed(2)}
                     </div>
                   </div>
                   <div className="cart_body__checkout-gst">
@@ -128,16 +156,17 @@ const Cart = () => {
                   <div className="cart_body__checkout-delivery">
                     <div className="cart_body__checkout-delivery-info">
                       <div className="cart_body__checkout-delivery-text">
-                        Delivery:
+                        Delivery :
                       </div>
                       <div className="cart_body__checkout-delivery-value">
-                        ${deliveryCharge}
+                        ${deliveryDetails.totalCost.toFixed(2)}
                       </div>
                     </div>
+
                     <div className="cart_body__checkout-delivery-alert">
                       Delivery Address: {user.address?.streetAddress},{" "}
                       {user.address?.suburb}, {user.address?.state},{" "}
-                      {user.address?.postCode}{" "}
+                      {user.address?.postCode}
                       <span
                         onClick={() =>
                           dispatch(
@@ -151,7 +180,13 @@ const Cart = () => {
                         edit
                       </span>
                     </div>
-                  </div>{" "}
+                    <div className="cart_body__checkout-delivery-time">
+                      <span className="cart_body__checkout-delivery-alert">
+                        {deliveryDetails.deliveryTime}
+                      </span>
+                    </div>
+                  </div>
+
                   <div className="cart_body__checkout-total -util-brdr-btm-none">
                     <div className="cart_body__checkout-total-text">
                       Subtotal:
