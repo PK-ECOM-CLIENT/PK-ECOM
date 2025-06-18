@@ -1,5 +1,5 @@
 import axios from "axios";
-const rootUrl = process.env.REACT_APP_API_ENDPOINT + "api/v1";
+const rootUrl = process.env.REACT_APP_API_ENDPOINT + "api/v1/client";
 const categoriesEp = rootUrl + "/categories";
 const productsEp = rootUrl + "/products";
 const itemsEp = rootUrl + "/items";
