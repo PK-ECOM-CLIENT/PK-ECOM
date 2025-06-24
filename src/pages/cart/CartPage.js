@@ -7,8 +7,8 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import {
-  calculateDeliveryFee,
   createStripeSession,
+  getDeliveryDetails,
 } from "../../helpers/axiosHelper";
 import { setApplicationModal } from "../../slices/system/systemSlice";
 import { CustomModal } from "../../components/custom-modal/CustomModal";
@@ -41,28 +41,19 @@ const Cart = () => {
     () => calculateDimensionsAndWeight(cart),
     [cart]
   );
-
+console.log(cart)
   // Fetch delivery fee when the component mounts or when cart or user details change
   useEffect(() => {
-    const fetchDeliveryFee = async () => {
+    const fetchDeliveryDetails = async () => {
       try {
         if (user?.address?.postCode) {
-          const result = await calculateDeliveryFee(
-            {
-              fromPostcode: 6107, // Hardcoded origin postcode
-              toPostcode: user.address.postCode, // Use the user's address for delivery
-              ...calculatedDimension,
-            },
-            {
-              fromPostcode: 6107, // Hardcoded origin postcode
-              toPostcode: user.address.postCode, // Use the user's address for delivery
-              ...calculatedDimension,
-            },
+          const result = await getDeliveryDetails(
             {
               fromPostcode: 6107, // Hardcoded origin postcode
               toPostcode: user.address.postCode, // Use the user's address for delivery
               ...calculatedDimension,
             }
+        
           );
           console.log(result);
 
@@ -78,7 +69,7 @@ const Cart = () => {
       }
     };
 
-    fetchDeliveryFee();
+    fetchDeliveryDetails();
   }, [cart, user, calculatedDimension]); // Memoized 'calculatedDimension' won't cause unnecessary triggers
 
   // Calculate GST and round to 2 decimals

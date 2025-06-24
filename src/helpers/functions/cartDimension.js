@@ -5,26 +5,19 @@ export const calculateDimensionsAndWeight = (cart) => {
   let maxWidth = 0;
 
   cart.forEach((item) => {
-    const itemCount = parseInt(item.count, 10); // Ensure count is treated as a number
-    const itemLength = item.length;
-    const itemWidth = item.width;
-    const itemHeight = item.height;
-    const itemWeight = item.weight;
+    const itemCount = Number(item.count) || 0;
+    const itemLength = Number(item.length) || 0;
+    const itemWidth = Number(item.width) || 0;
+    const itemHeight = Number(item.height) || 0;
+    const itemWeight = Number(item.weight) || 0;
 
-    // Calculate the max length and width (longest and widest items)
-    if (itemLength > maxLength) {
-      maxLength = itemLength;
-    }
-    if (itemWidth > maxWidth) {
-      maxWidth = itemWidth;
-    }
+    if (itemLength > maxLength) maxLength = itemLength;
+    if (itemWidth > maxWidth) maxWidth = itemWidth;
 
-    // Sum up height and weight considering item counts
     totalHeight += itemHeight * itemCount;
     totalWeight += itemWeight * itemCount;
   });
 
-  // Return the calculated dimensions and weight
   return {
     length: maxLength,
     width: maxWidth,
@@ -32,4 +25,3 @@ export const calculateDimensionsAndWeight = (cart) => {
     weight: totalWeight,
   };
 };
-
