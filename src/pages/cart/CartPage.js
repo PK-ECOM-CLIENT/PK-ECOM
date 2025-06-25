@@ -86,7 +86,7 @@ console.log(cart)
     try {
       const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
-      const response = await createStripeSession({ products: cart });
+      const response = await createStripeSession({ items: cart });
       if (response.sessionId) {
         await stripe.redirectToCheckout({
           sessionId: response.sessionId,
