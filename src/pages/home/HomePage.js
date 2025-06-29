@@ -9,7 +9,7 @@ import sofa from "../../assits/images/offersimg/sofa.jpg";
 import trousers from "../../assits/images/offersimg/trousers.jpg";
 import { CustomCard } from "../../components/custom-components/CustomCard";
 import { Col, Row } from "react-bootstrap";
-import { CustomModal } from "../../components/custom-modal/CustomModal";
+import { NoticeModal } from "../../components/noticeModal/NoticeModal";
 const HomePage = () => {
   const carouselOffers = [
     {
@@ -482,7 +482,8 @@ const HomePage = () => {
             </Row>
           </div>
         </div>
-        <CustomModal></CustomModal>
+              <NoticeModal></NoticeModal>
+
       </AppLayOut>
     </div>
   );

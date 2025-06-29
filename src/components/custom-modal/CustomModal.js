@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal } from "react-bootstrap";
+import {  Modal } from "react-bootstrap";
 import "./customModal.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setApplicationModal } from "../../slices/system/systemSlice";

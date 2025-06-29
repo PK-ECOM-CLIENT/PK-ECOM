@@ -10,6 +10,7 @@ const initialState = {
       body: "",
     },
   },
+  noticeModal:true
 };
 const systemSlice = createSlice({
   name: "systemSlice",
@@ -46,6 +47,9 @@ const systemSlice = createSlice({
     setPublicUrl: (state, action) => {
       state.publicUrl = action.payload;
     },
+     setNoticeModal: (state) => {
+      state.noticeModal = !state.noticeModal;
+    },
   },
 });
 const { reducer, actions } = systemSlice;
@@ -55,5 +59,6 @@ export const {
   setPublicUrl,
   updateCartItem,
   setApplicationModal,
+  setNoticeModal,
 } = actions;
 export default reducer;
