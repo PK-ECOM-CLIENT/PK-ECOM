@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import "./cartPage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,7 @@ import {
 import { setApplicationModal } from "../../slices/system/systemSlice";
 import { CustomModal } from "../../components/custom-modal/CustomModal";
 import { calculateDimensionsAndWeight } from "../../helpers/functions/cartDimension";
+import { Spinnersmall } from "../../helpers/snippets/spinner";
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.system);
@@ -36,7 +37,7 @@ const Cart = () => {
     deliveryTime: "",
     totalCost: 0, // Store delivery cost as a number for calculations
   });
-
+const [paymentInitiationSpinner,setPaymentInitiationSpinner]=useState(false);
   const calculatedDimension = useMemo(
     () => calculateDimensionsAndWeight(cart),
     [cart]
@@ -83,19 +84,23 @@ console.log(cart)
   ).toFixed(2);
 
   const makePayment = async () => {
-    try {
-      const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+  try {
+    setPaymentInitiationSpinner(true); // Start spinner
 
-      const response = await createStripeSession({ items: cart });
-      if (response.sessionId) {
-        await stripe.redirectToCheckout({
-          sessionId: response.sessionId,
-        });
-      }
-    } catch (error) {
-      console.error("Error during payment initiation", error);
+    const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+    const response = await createStripeSession({ items: cart });
+
+    if (response.sessionId) {
+      await stripe.redirectToCheckout({
+        sessionId: response.sessionId,
+      });
     }
-  };
+  } catch (error) {
+    console.error("Error during payment initiation", error);
+  } finally {
+    setPaymentInitiationSpinner(false); // Stop spinner regardless of success or failure
+  }
+};
 
   return (
     <AppLayOut>
@@ -189,13 +194,13 @@ console.log(cart)
                 </div>
 
                 <div className="d-grid">
-                  <Button
-                    size="lg"
-                    className="-util-btn-positive mb-1"
-                    onClick={makePayment}
-                  >
-                    Pay ${cartTotal}
-                  </Button>
+                 <Button
+  size="lg"
+  className="-util-btn-positive mb-1"
+  onClick={makePayment}
+>
+  {paymentInitiationSpinner ? <Spinnersmall /> : <>Pay ${cartTotal}</>}
+</Button>
                 </div>
                 <p className="checkout_paragraph">
                   By checking out, you are agreeing to our &nbsp;
