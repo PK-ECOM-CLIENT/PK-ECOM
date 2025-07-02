@@ -175,6 +175,12 @@ body {
 .-util-rotate_180 {
   transform: rotate(180deg);
 }
+.util-mr-xsml{
+  margin-right: .5rem;
+}
+.util-mr-sml{
+  margin-right: 1rem;
+}
 /* overriding default elements styling */
 .card {
   /* for the custom card, it is used in the home page */

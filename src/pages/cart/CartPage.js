@@ -126,87 +126,78 @@ console.log(cart)
           </div>
           {cart.length > 0 && (
             <div className="cart_body__checkout">
-              <div className="checkout_div">
-                <div className="checkout_flex">
-                  <h4 className="cart_body__checkout-heading">Cart Summary</h4>
-                  <div className="cart_body__checkout-productCount">
-                    <div className="cart_body__checkout-productCount-text">
-                      Number of items:
-                    </div>
-                    <div className="cart_body__checkout-productCount-value">
-                      {totalItems}
-                    </div>
-                  </div>
-                  <div className="cart_body__checkout-productTotal">
-                    <div className="cart_body__checkout-productTotal-text">
-                      Total items cost:
-                    </div>
-                    <div className="cart_body__checkout-productTotal-value">
-                      ${totalPrice.toFixed(2)}
-                    </div>
-                  </div>
-                  <div className="cart_body__checkout-gst">
-                    <div className="cart_body__checkout-gst-text">GST:</div>
-                    <div className="cart_body__checkout-gst-value">${gst}</div>
-                  </div>
-                  <div className="cart_body__checkout-delivery">
-                    <div className="cart_body__checkout-delivery-info">
-                      <div className="cart_body__checkout-delivery-text">
-                        Delivery :
-                      </div>
-                      <div className="cart_body__checkout-delivery-value">
-                        ${deliveryDetails.totalCost.toFixed(2)}
-                      </div>
-                    </div>
+             <div className="checkout_div">
+  <h5 className="fw-bold text-center mb-4">
+      <i className="fa-solid fa-cart-shopping -util-font15 util-mr-sml"></i>Cart Summary
+  </h5>
 
-                    <div className="cart_body__checkout-delivery-alert">
-                      Delivery Address: {user.address?.streetAddress},{" "}
-                      {user.address?.suburb}, {user.address?.state},{" "}
-                      {user.address?.postCode}
-                      <span
-                        onClick={() =>
-                          dispatch(
-                            setApplicationModal({
-                              title: "Update User Address",
-                              body: "update-address",
-                            })
-                          )
-                        }
-                      >
-                        edit
-                      </span>
-                    </div>
-                    <div className="cart_body__checkout-delivery-time">
-                      <span className="cart_body__checkout-delivery-alert">
-                        {deliveryDetails.deliveryTime}
-                      </span>
-                    </div>
-                  </div>
+  <div className="d-flex justify-content-between mb-2">
+    <span>Number of items:</span>
+    <span className="fw-bold">{totalItems}</span>
+  </div>
 
-                  <div className="cart_body__checkout-total -util-brdr-btm-none">
-                    <div className="cart_body__checkout-total-text">
-                      Subtotal:
-                    </div>
-                    <div className="cart_body__checkout-total-value">
-                      ${cartTotal}
-                    </div>
-                  </div>
-                </div>
+  <div className="d-flex justify-content-between mb-2">
+    <span>Total items cost:</span>
+    <span className="fw-bold">${totalPrice.toFixed(2)}</span>
+  </div>
 
-                <div className="d-grid">
-                 <Button
-  size="lg"
-  className="-util-btn-positive mb-1"
-  onClick={makePayment}
->
-  {paymentInitiationSpinner ? <Spinnersmall /> : <>Pay ${cartTotal}</>}
-</Button>
-                </div>
-                <p className="checkout_paragraph">
-                  By checking out, you are agreeing to our &nbsp;
-                  <Link to="">Terms and Conditions</Link>.
-                </p>
-              </div>
+  <div className="d-flex justify-content-between mb-2">
+    <span>GST:</span>
+    <span className="fw-bold">${gst}</span>
+  </div>
+
+  <hr />
+
+  <div className="d-flex justify-content-between mb-1">
+    <span className="fw-bold">Delivery:</span>
+    <span className="fw-bold">${deliveryDetails.totalCost.toFixed(2)}</span>
+  </div>
+
+  <div className="small text-danger d-flex justify-content-between align-items-start mb-1">
+    <div>
+    <i class="fa-solid fa-location-dot util-mr-xsml"></i>{user.address?.streetAddress}, {user.address?.suburb},{" "}
+      {user.address?.state}, {user.address?.postCode}
+      <div className="fst-italic">Delivered in {deliveryDetails.deliveryTime}</div>
+    </div>
+    <div
+      className="ms-2 text-primary"
+      style={{ cursor: "pointer", fontWeight: 500 }}
+      onClick={() =>
+        dispatch(
+          setApplicationModal({
+            title: "Update User Address",
+            body: "update-address",
+          })
+        )
+      }
+    >
+      Edit
+    </div>
+  </div>
+
+  <hr />
+
+  <div className="d-flex justify-content-between fs-5 fw-bold mb-3">
+    <span>Subtotal:</span>
+    <span>${cartTotal}</span>
+  </div>
+
+  <div className="d-grid mb-2">
+    <Button
+      size="lg"
+      className="-util-btn-positive"
+      onClick={makePayment}
+      disabled={paymentInitiationSpinner}
+    >
+      {paymentInitiationSpinner ? <Spinnersmall /> : `Pay $${cartTotal}`}
+    </Button>
+  </div>
+
+  <p className="checkout_paragraph">
+    By checking out, you agree to our&nbsp;
+    <Link to="">Terms and Conditions</Link>.
+  </p>
+</div>
             </div>
           )}
         </div>
