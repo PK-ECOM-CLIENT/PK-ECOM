@@ -153,11 +153,11 @@ console.log(cart)
     <span className="fw-bold">${deliveryDetails.totalCost.toFixed(2)}</span>
   </div>
 
-  <div className="small text-danger d-flex justify-content-between align-items-start mb-1">
+  <div className="small  d-flex justify-content-between align-items-start mb-1">
     <div>
     <i class="fa-solid fa-location-dot util-mr-xsml"></i>{user.address?.streetAddress}, {user.address?.suburb},{" "}
       {user.address?.state}, {user.address?.postCode}
-      <div className="fst-italic">Delivered in {deliveryDetails.deliveryTime}</div>
+      <div className="fst-italic -util-ml-sml"> {deliveryDetails.deliveryTime}</div>
     </div>
     <div
       className="ms-2 text-primary"

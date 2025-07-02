@@ -175,8 +175,11 @@ body {
 .-util-rotate_180 {
   transform: rotate(180deg);
 }
+.-util-ml-sml{
+  margin-left: 1rem;
+}
 .util-mr-xsml{
-  margin-right: .5rem;
+  margin-right: .3rem;
 }
 .util-mr-sml{
   margin-right: 1rem;
