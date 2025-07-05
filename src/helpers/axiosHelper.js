@@ -5,6 +5,8 @@ const productsEp = rootUrl + "/products";
 const itemsEp = rootUrl + "/items";
 const userEp = rootUrl + "/users";
 const favsEp = rootUrl + "/favs";
+const purchasesEp = rootUrl + "/purchases";
+
 const cartsEp = rootUrl + "/cart";
 const apiProcessor = async ({ method, url, data, isPrivate, token }) => {
   try {
@@ -208,6 +210,16 @@ export const deleteCart = (_id) => {
   };
   return apiProcessor(options);
 };
+// Purchases API
+export const getPurchases = (obj) => {
+  const options = {
+    method: "get",
+    url: purchasesEp,
+    isPrivate: true,
+  };
+  return apiProcessor(options);
+};
+
 // ============================================= Payment APIS ===========================
 export const createStripeSession = async (data) => {
   const options = {

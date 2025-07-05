@@ -4,10 +4,11 @@ import {
   deleteFav,
   getCarts,
   getFavs,
+  getPurchases,
   postCart,
   postFav,
 } from "../../helpers/axiosHelper";
-import { setCart, setFavourites, updateCartItem } from "./systemSlice";
+import { setCart, setFavourites, updateCartItem,setPurchases} from "./systemSlice";
 
 // Favs Action
 export const getFavsAction = () => async (dispatch) => {
@@ -59,3 +60,8 @@ export const updateCartItemAction =
       })
     );
   };
+  // purchases action
+  export const getPurchasesAction = () => async (dispatch) => {
+  const { status, purchases } = await getPurchases();
+  status === "success" && dispatch(setPurchases(purchases));
+};

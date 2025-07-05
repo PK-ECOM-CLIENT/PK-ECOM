@@ -14,6 +14,7 @@ import { autoLogin, logoutUserAction } from "../../slices/user/userAction";
 import {
   getCartsAction,
   getFavsAction,
+  getPurchasesAction,
 } from "../../slices/system/systemAction";
 import { setPublicUrl } from "../../slices/system/systemSlice";
 export const Header = () => {
@@ -22,6 +23,8 @@ export const Header = () => {
   const { user } = useSelector((state) => state.user);
   const { favourites } = useSelector((state) => state.system);
   const { cart } = useSelector((state) => state.system);
+  const { purchases } = useSelector((state) => state.system);
+
   const url = window.location.pathname;
   const navigate = useNavigate();
   let address = "";
@@ -53,6 +56,7 @@ export const Header = () => {
     !user._id && dispatch(autoLogin());
     !favourites.length && dispatch(getFavsAction());
     !cart.length && dispatch(getCartsAction());
+    !purchases.length && dispatch(getPurchasesAction());
     function handleWindowResize() {
       setwindowWidth(window.innerWidth);
     }
@@ -65,9 +69,11 @@ export const Header = () => {
     user._id,
     categories.length,
     favourites.length,
+    purchases.length,
     cart.length,
     url,
   ]);
+  console.log(purchases)
   let today = new Date();
   let hour = today.getHours();
   return (

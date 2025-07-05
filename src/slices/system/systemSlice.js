@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   favourites: [],
   cart: [],
+  purchases:[],
   publicUrl: "",
   applicationModal: {
     state: false,
@@ -26,8 +27,12 @@ const systemSlice = createSlice({
     setFavourites: (state, { payload = {} }) => {
       state.favourites = payload;
     },
+    
     setCart: (state, { payload = {} }) => {
       state.cart = payload;
+    },
+     setPurchases: (state, { payload = {} }) => {
+      state.purchases = payload;
     },
     updateCartItem: (state, action) => {
       const { itemId, updatedCount, updatedFilter } = action.payload;
@@ -56,6 +61,7 @@ const { reducer, actions } = systemSlice;
 export const {
   setFavourites,
   setCart,
+  setPurchases,
   setPublicUrl,
   updateCartItem,
   setApplicationModal,
