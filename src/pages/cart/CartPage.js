@@ -157,10 +157,10 @@ console.log(cart)
     <div>
     <i class="fa-solid fa-location-dot util-mr-xsml"></i>{user.address?.streetAddress}, {user.address?.suburb},{" "}
       {user.address?.state}, {user.address?.postCode}
-      <div className="fst-italic -util-ml-sml"> {deliveryDetails.deliveryTime}</div>
+      <div className="fst-italic -util-ml-sml text-decoration-underline"> {deliveryDetails.deliveryTime}</div>
     </div>
     <div
-      className="ms-2 text-primary"
+      className="ms-2 text-decoration-underline "
       style={{ cursor: "pointer", fontWeight: 500 }}
       onClick={() =>
         dispatch(
