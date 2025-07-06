@@ -88,6 +88,7 @@ export const getPurchasesAction = () => async (dispatch) => {
               catId: item.catId || null,
               subCatId: item.subCatId || null,
               productId: item._id || null,
+              name:item.name
             };
           } else {
             return {

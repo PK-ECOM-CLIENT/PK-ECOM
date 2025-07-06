@@ -3,7 +3,9 @@ import "./purchasesCard.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setApplicationModal } from "../../slices/system/systemSlice";
 import { CustomModal } from "../custom-modal/CustomModal";
-export const PurchasesCard = ({ image,orderDate,itemId }) => {
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+export const PurchasesCard = ({ name,image,orderDate,catId, productId,itemId,itemPrice }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const { applicationModal } = useSelector((state) => state.system);
   const dispatch = useDispatch();
@@ -17,16 +19,17 @@ export const PurchasesCard = ({ image,orderDate,itemId }) => {
           <div>
             <img className="product-image" src={image} alt="boots" />
           </div>
-          <div className="product-title">Boots</div>
+          <div className="product-title">{name}</div>
         </div>
         <div className="details">
           <div className="order-status">Ordered on: {orderDate}</div>
-          <div className="product-link">{process.env.REACT_APP_ROOTURL}</div>
-          <div className="unit-price">24 AU</div>
+          <Link className="nav-link" to={process.env.REACT_APP_ROOTURL + "/categories/" +catId+"/products/"+productId+"/item/"+itemId }>{name}</Link>
+          <div className="unit-price">{itemPrice}$</div>
         </div>
       </div>
       <div className="card-actions">
-        <div className="buy-again-btn">Buy Again</div>
+        <Button>  <Link className="nav-link" to={process.env.REACT_APP_ROOTURL + "/categories/" +catId+"/products/"+productId+"/item/"+itemId }>Buy again</Link></Button>
+       
         <div className="more-actions">
           <div className="more-actions-btn" onClick={toggleDropdown}>
             More Actions

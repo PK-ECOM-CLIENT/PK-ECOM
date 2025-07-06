@@ -20,6 +20,10 @@ const Purchases = () => {
                   image={item.image}
                   orderDate={convertToAESTWithTimeZone(item.createdAt)}
                   itemId={item.itemId}
+                  name={item.name}
+                  catId={item.catId}
+                  productId={item.productId}
+                  itemPrice={item.itemPrice}
                 ></PurchasesCard>
               </Col>
             );
