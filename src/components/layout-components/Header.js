@@ -24,6 +24,7 @@ export const Header = () => {
   const { favourites } = useSelector((state) => state.system);
   const { cart } = useSelector((state) => state.system);
   const { purchases } = useSelector((state) => state.system);
+  const { items } = useSelector((state) => state.items);
 
   const url = window.location.pathname;
   const navigate = useNavigate();
@@ -51,28 +52,16 @@ export const Header = () => {
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-  useEffect(() => {
-    !categories.length && dispatch(getCategoriesAction());
-    !user._id && dispatch(autoLogin());
-    !favourites.length && dispatch(getFavsAction());
-    !cart.length && dispatch(getCartsAction());
-    !purchases.length && dispatch(getPurchasesAction());
-    function handleWindowResize() {
-      setwindowWidth(window.innerWidth);
-    }
-    window.addEventListener("resize", handleWindowResize);
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, [
-    dispatch,
-    user._id,
-    categories.length,
-    favourites.length,
-    purchases.length,
-    cart.length,
-    url,
-  ]);
+useEffect(() => {
+  if (!categories.length) dispatch(getCategoriesAction());
+  if (!user._id) dispatch(autoLogin());
+  if (!favourites.length) dispatch(getFavsAction());
+  if (!cart.length) dispatch(getCartsAction());
+
+  if (user._id) {
+    dispatch(getPurchasesAction());
+  }
+}, [dispatch, user._id, categories.length, favourites.length, cart.length]);
   console.log(purchases)
   let today = new Date();
   let hour = today.getHours();

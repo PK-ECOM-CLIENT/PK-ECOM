@@ -3,7 +3,7 @@ import "./purchasesCard.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setApplicationModal } from "../../slices/system/systemSlice";
 import { CustomModal } from "../custom-modal/CustomModal";
-export const PurchasesCard = ({ imgsource }) => {
+export const PurchasesCard = ({ image,orderDate,itemId }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const { applicationModal } = useSelector((state) => state.system);
   const dispatch = useDispatch();
@@ -15,13 +15,13 @@ export const PurchasesCard = ({ imgsource }) => {
       <div className="card-content">
         <div className="image-and-title">
           <div>
-            <img className="product-image" src={imgsource} alt="boots" />
+            <img className="product-image" src={image} alt="boots" />
           </div>
           <div className="product-title">Boots</div>
         </div>
         <div className="details">
-          <div className="order-status">Ordered on: 16/09/2024</div>
-          <div className="product-link">Link to the item</div>
+          <div className="order-status">Ordered on: {orderDate}</div>
+          <div className="product-link">{process.env.REACT_APP_ROOTURL}</div>
           <div className="unit-price">24 AU</div>
         </div>
       </div>
