@@ -1,6 +1,7 @@
 import React from "react";
 import "./paymentDetails.css";
 import { useSelector } from "react-redux";
+import { convertToAESTWithTimeZone } from "../../helpers/functions/dateConversion";
 const PaymentDetails = () => {
     const { selectedPurchase } = useSelector((state) => state.system);
   console.log(selectedPurchase);
@@ -32,14 +33,14 @@ const PaymentDetails = () => {
           <div className="card-holder-name">{selectedPurchase.cardHolderName}</div>
         </div>
         <div className="payment-info">
-          <div className="price-paid">AU $92.00</div>
-          <div className="time-paid">29 Sep at 10:46 PM</div>
+          <div className="price-paid">{selectedPurchase.itemCount*selectedPurchase.itemPrice}</div>
+          <div className="time-paid">{convertToAESTWithTimeZone(selectedPurchase.createdAt)}</div>
         </div>
       </div>
       <div className="order-details">
         <div className="items-summary">
-          <div className="item-count">3 items</div>
-          <div className="items-price">AU $56</div>
+          <div className="item-count">{selectedPurchase.itemCount} items</div>
+          <div className="items-price">{selectedPurchase.itemPrice}</div>
         </div>
         <div className="postage-details">
           <div className="postage-text">Postage</div>
