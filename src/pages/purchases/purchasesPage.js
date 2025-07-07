@@ -21,6 +21,7 @@ const Purchases = () => {
           {purchases.map((item) => (
             <Col key={item.itemId} lg={6} md={6} sm={12} className="purchases-column">
               <PurchasesCard
+              item={item}
                 image={item.image}
                 orderDate={convertToAESTWithTimeZone(item.createdAt)}
                 itemId={item.itemId}

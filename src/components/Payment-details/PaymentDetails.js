@@ -1,6 +1,9 @@
 import React from "react";
 import "./paymentDetails.css";
+import { useSelector } from "react-redux";
 const PaymentDetails = () => {
+    const { selectedPurchase } = useSelector((state) => state.system);
+  console.log(selectedPurchase);
   return (
     <div>
       <div className="card-info">
@@ -25,8 +28,8 @@ const PaymentDetails = () => {
           />
         </svg>
         <div className="card-details">
-          <div className="card-number">Ending in 4242</div>
-          <div className="card-holder-name">Card holder name</div>
+          <div className="card-number">Ending in {selectedPurchase.cardEnding}</div>
+          <div className="card-holder-name">{selectedPurchase.cardHolderName}</div>
         </div>
         <div className="payment-info">
           <div className="price-paid">AU $92.00</div>

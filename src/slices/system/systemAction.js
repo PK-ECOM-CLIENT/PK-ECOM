@@ -14,6 +14,7 @@ import {
   setFavourites,
   updateCartItem,
   setPurchases,
+  setSelectedPurchase,
 } from "./systemSlice";
 
 // Favs Action
@@ -113,3 +114,8 @@ export const getPurchasesAction = () => async (dispatch) => {
     dispatch(setPurchases(detailedPurchases));
   }
 };
+
+// set selected purchase
+export const setSelectedPurchaseRecord=(data)=>async(dispatch)=>{
+  dispatch( setSelectedPurchase(data));
+}

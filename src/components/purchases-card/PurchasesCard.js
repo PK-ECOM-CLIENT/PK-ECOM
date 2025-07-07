@@ -1,10 +1,11 @@
 import React from "react";
 import "./purchasesCard.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setApplicationModal } from "../../slices/system/systemSlice";
+import { setApplicationModal, setSelectedPurchase } from "../../slices/system/systemSlice";
 import { CustomModal } from "../custom-modal/CustomModal";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { setSelectedPurchaseRecord } from "../../slices/system/systemAction";
 
 export const PurchasesCard = ({
   name,
@@ -16,9 +17,11 @@ export const PurchasesCard = ({
   itemPrice,
   dropdownVisible,
   onToggleDropdown,
+  item
 }) => {
   const { applicationModal } = useSelector((state) => state.system);
   const dispatch = useDispatch();
+  const { selectedPurchase } = useSelector((state) => state.system);
 
   return (
     <div className="purchase-card">
@@ -52,7 +55,9 @@ export const PurchasesCard = ({
         </Button>
 
         <div className="more-actions">
-          <div className="more-actions-btn" onClick={() => onToggleDropdown(itemId)}>
+          <div className="more-actions-btn" onClick={() => {
+  onToggleDropdown(itemId);
+  dispatch(setSelectedPurchaseRecord(item));}}>
             More Actions
           </div>
           {dropdownVisible && (

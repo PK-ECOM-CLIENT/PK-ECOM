@@ -3,6 +3,7 @@ const initialState = {
   favourites: [],
   cart: [],
   purchases:[],
+  selectedPurchase: {},
   publicUrl: "",
   applicationModal: {
     state: false,
@@ -34,6 +35,9 @@ const systemSlice = createSlice({
      setPurchases: (state, { payload = {} }) => {
       state.purchases = payload;
     },
+     setSelectedPurchase: (state, { payload }) => {
+      state.selectedPurchase = payload;
+    },
     updateCartItem: (state, action) => {
       const { itemId, updatedCount, updatedFilter } = action.payload;
       const cartItemIndex = state.cart.findIndex((item) => item._id === itemId);
@@ -62,6 +66,7 @@ export const {
   setFavourites,
   setCart,
   setPurchases,
+  setSelectedPurchase,
   setPublicUrl,
   updateCartItem,
   setApplicationModal,
