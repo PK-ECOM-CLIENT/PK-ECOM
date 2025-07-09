@@ -1,7 +1,13 @@
 import React from "react";
 import "./orderDetails.css";
+import { useSelector } from "react-redux";
+import { convertToAESTWithTimeZone } from "../../helpers/functions/dateConversion";
+import { generateRandomId } from "../../helpers/functions/randomIdGenerate";
+import { Link } from "react-router-dom";
 
 const OrderDetails = () => {
+      const { selectedPurchase } = useSelector((state) => state.system);
+  
   return (
     <div className="order-details">
       <div className="order-info-section info-section">
@@ -9,15 +15,15 @@ const OrderDetails = () => {
         <div className="order-section-content section-content">
           <div className="time-placed order-content">
             <div className="label">Time Placed:</div>
-            <div className="value">29 Sep 2024 at 12:5 AM</div>
+            <div className="value">{convertToAESTWithTimeZone(selectedPurchase.createdAt)}</div>
           </div>
           <div className="order-number order-content">
             <div className="label">Order Number:</div>
-            <div className="value">3gder43dgdtt4ds324</div>
+            <div className="value">{generateRandomId()}</div>
           </div>
           <div className="total-paid order-content">
             <div className="label">Total Paid:</div>
-            <div className="value">AU $57</div>
+            <div className="value">AU {selectedPurchase.itemCount*selectedPurchase.itemPrice}</div>
           </div>
         </div>
       </div>
@@ -28,16 +34,16 @@ const OrderDetails = () => {
           <div className="delivery-address delivery-content">
             <div className="label">Delivery Address:</div>
             <div className="value">
-              101/6 Clarence Street Strathfield NSW 2135
+             { selectedPurchase.deliveryAddress }
             </div>
           </div>
           <div className="delivery-status delivery-content">
             <div className="label">Status:</div>
-            <div className="value">--------------------------------------</div>
+            <div className="value">Order received</div>
           </div>
           <div className="tracking-number delivery-content">
             <div className="label">Tracking Number:</div>
-            <div className="value">8dfjd8yfhdf7ds9sd</div>
+            <div className="value">{generateRandomId()}</div>
           </div>
         </div>
       </div>
@@ -49,12 +55,18 @@ const OrderDetails = () => {
             <div className="label">
               <img
                 className="item-image"
-                src="https://media.istockphoto.com/id/474862754/photo/yellow-boots.jpg?s=612x612&w=0&k=20&c=wlaxHn6a5BOjOPGi92VypLutLfumhp6Woru6P_gFAww="
+                src={selectedPurchase.image}
                 alt=""
               />
             </div>
             <div className="value">
-              Name of the item with the link to open it
+               <Link
+                          className="nav-link"
+                          // to={`${process.env.REACT_APP_ROOTURL}/categories/${selectedPurchase.catId}/products/${selectedPurchase.productId}/item/${selectedPurchase.itemId}`}
+                          to={`${process.env.REACT_APP_ROOTURL}/categories/${selectedPurchase.catId}/products/${selectedPurchase.productId}/item/${selectedPurchase.itemId}`}
+                        >
+                          Buy again
+                        </Link>
             </div>
           </div>
         </div>

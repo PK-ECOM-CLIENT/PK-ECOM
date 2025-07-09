@@ -29,7 +29,7 @@ const Purchases = () => {
                 catId={item.catId}
                 productId={item.productId}
                 itemPrice={item.itemPrice}
-                dropdownVisible={openDropdownId === item.itemId}
+                dropdownVisible={openDropdownId === item._id}
                 onToggleDropdown={handleToggleDropdown}
               />
             </Col>

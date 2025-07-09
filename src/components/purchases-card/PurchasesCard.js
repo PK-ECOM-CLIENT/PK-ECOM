@@ -56,7 +56,7 @@ export const PurchasesCard = ({
 
         <div className="more-actions">
           <div className="more-actions-btn" onClick={() => {
-  onToggleDropdown(itemId);
+  onToggleDropdown(item._id);
   dispatch(setSelectedPurchaseRecord(item));}}>
             More Actions
           </div>

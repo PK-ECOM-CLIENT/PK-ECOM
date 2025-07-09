@@ -69,11 +69,14 @@
   gap: 1rem;
 }
 
-.item-description {
-  margin-top: 1rem;
-}
 
 .item-image {
+  align-self:flex-start;
+  display:block;
   width: 8rem;
   height: 8rem;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f4f4f4;
 }

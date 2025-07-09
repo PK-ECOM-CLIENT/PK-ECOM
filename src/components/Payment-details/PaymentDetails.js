@@ -48,7 +48,7 @@ const PaymentDetails = () => {
         </div>
         <div className="voucher-details">
           <div className="voucher-text">Voucher discount</div>
-          <div className="voucher-discount">AU $5</div>
+          <div className="voucher-discount">AU $15</div>
         </div>
       </div>
     </div>
