@@ -23,8 +23,6 @@ export const Header = () => {
   const { user } = useSelector((state) => state.user);
   const { favourites } = useSelector((state) => state.system);
   const { cart } = useSelector((state) => state.system);
-  const { purchases } = useSelector((state) => state.system);
-  const { items } = useSelector((state) => state.items);
 
   const url = window.location.pathname;
   const navigate = useNavigate();
@@ -62,7 +60,6 @@ useEffect(() => {
     dispatch(getPurchasesAction());
   }
 }, [dispatch, user._id, categories.length, favourites.length, cart.length]);
-  console.log(purchases)
   let today = new Date();
   let hour = today.getHours();
   return (
@@ -167,18 +164,6 @@ useEffect(() => {
                 to="/dealsandsales"
               >
                 Deals and Sales
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className={
-                  url.includes("/dealsandsales") & (windowWidth > 991)
-                    ? "nav-link active -util-underline"
-                    : "nav-link active -util-underline-transparent"
-                }
-                to="/purchases"
-              >
-                purchases
               </Link>
             </li>
             <li className="nav-item nav_icons">
@@ -329,7 +314,7 @@ useEffect(() => {
                       ></Dropdown.Toggle>
                       <Dropdown.Menu className="user_profile__profie-dropdown-items -util-togglemenu">
                         <Link className="nav-link">Profile</Link>
-                        <Link className="nav-link">Purchases</Link>
+                        <Link className="nav-link"  to="/purchases">Purchases</Link>
                         <Link className="nav-link">Reviews</Link>
                         <Link className="nav-link">Payment Methods</Link>
                         <Link className="nav-link">Close Account</Link>
