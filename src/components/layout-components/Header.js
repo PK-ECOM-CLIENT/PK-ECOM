@@ -217,7 +217,7 @@ useEffect(() => {
                     className="profile__toggle-menu -util-togglemenu"
                   >
                     <Link className="nav-link">Profile</Link>
-                    <Link className="nav-link">Purchases</Link>
+                    <Link className="nav-link" to="/purchases">Purchases</Link>
                     <Link className="nav-link">Reviews</Link>
                     <Link className="nav-link">Payment Methods</Link>
                     <Link className="nav-link">Close Account</Link>
