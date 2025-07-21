@@ -46,9 +46,18 @@ export const Header = () => {
     dispatch(logoutUserAction({}));
   };
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCagtegoriesDropdownOpen, setIsCategoriesDropdownOpen] = useState(false);
+
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
+    setIsCategoriesDropdownOpen(false);
+
+  };
+  const handleCategoriesDropdownToggle = () => {
+    setIsCategoriesDropdownOpen(!isCagtegoriesDropdownOpen);
+    setIsDropdownOpen(false);
+
   };
 useEffect(() => {
   if (!categories.length) dispatch(getCategoriesAction());
@@ -74,40 +83,51 @@ useEffect(() => {
         <Navbar.Collapse id="basic-navbar-nav ">
           <Nav className="navbar-nav ms-auto mb-2 mb-lg-0 ">
             {windowWidth < 992 && (
-              <Dropdown>
-                <Dropdown.Toggle
-                  variant="none"
-                  id="dropdown-basic"
-                  className="color-white dropdown-toggle search__filter-toggle"
-                >
-                  Categories
-                </Dropdown.Toggle>
-                <Dropdown.Menu
-                  variant="dark"
-                  className="categories__toggle-menu -util-togglemenu"
-                >
-                  {categories.map(
-                    (item, i) =>
-                      !item.catId && (
-                        <Link
-                          className="nav-link text-white"
-                          to={"/categories/" + item._id}
-                          key={i}
-                          id={item._id}
-                        >
-                          {item.name === "Home & Kitchen" ? (
-                            <span>
-                              {item.name}
-                              <span className="-util-nav">*</span>
-                            </span>
-                          ) : (
-                            item.name
-                          )}
-                        </Link>
-                      )
-                  )}
-                </Dropdown.Menu>
-              </Dropdown>
+              <div className="dropdown-wrapper" style={{ position: "relative" }}>
+  <div
+    className="color-white search__filter-toggle"
+    onClick={handleCategoriesDropdownToggle}
+    style={{ cursor: "pointer" }}
+  >
+    Categories
+    <i
+      className={`fa-solid fa-caret-down ${
+        isCagtegoriesDropdownOpen ? "-util-rotate_180" : ""
+      }`}
+      style={{ marginLeft: "5px" }}
+    ></i>
+  </div>
+
+  <Dropdown show={isCagtegoriesDropdownOpen}>
+    <Dropdown.Menu
+      variant="dark"
+      className="categories__toggle-menu -util-togglemenu"
+      style={{ position: "absolute", top: "100%", left: 0, zIndex: 1000 }}
+    >
+      {categories.map(
+        (item, i) =>
+          !item.catId && (
+            <Link
+              className="nav-link text-white"
+              to={`/categories/${item._id}`}
+              key={i}
+              id={item._id}
+            >
+              {item.name === "Home & Kitchen" ? (
+                <span>
+                  {item.name}
+                  <span className="-util-nav">*</span>
+                </span>
+              ) : (
+                item.name
+              )}
+            </Link>
+          )
+      )}
+    </Dropdown.Menu>
+  </Dropdown>
+</div>
+
             )}
 
             {url !== "/" && (
@@ -202,36 +222,41 @@ useEffect(() => {
               <span className="nav_icons__count">{cart?.length}</span>
             </li>
 
-            {windowWidth < 992 &&
-              (user?._id ? (
-                <Dropdown>
-                  <Dropdown.Toggle
-                    variant="none"
-                    id="dropdown-basic"
-                    className="color-white dropdown-toggle "
-                  >
-                    Profile
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu
-                    variant="dark"
-                    className="profile__toggle-menu -util-togglemenu"
-                  >
-                    <Link className="nav-link">Profile</Link>
-                    <Link className="nav-link" to="/purchases">Purchases</Link>
-                    <Link className="nav-link">Reviews</Link>
-                    <Link className="nav-link">Payment Methods</Link>
-                    <Link className="nav-link">Close Account</Link>
-                    <Link className="nav-link">Switch Account</Link>
-                    <Link className="nav-link" onClick={handleOnLogout}>
-                      Sign Out
-                    </Link>
-                  </Dropdown.Menu>
-                </Dropdown>
-              ) : (
-                <div className="-util-pointer" onClick={handleOnLogin}>
-                  Login
-                </div>
-              ))}
+            {windowWidth < 992 && user?._id ? (
+ <div className="dropdown-wrapper" style={{ position: "relative" }}>
+  <div
+    className="profile-toggle text-white"
+    onClick={handleDropdownToggle}
+    style={{ cursor: "pointer" }}
+  >
+    Profile
+    <i
+      className={`fa-solid fa-caret-down ${isDropdownOpen ? "-util-rotate_180" : ""}`}
+      style={{ marginLeft: "5px" }}
+    ></i>
+  </div>
+  <Dropdown show={isDropdownOpen}>
+    <Dropdown.Menu
+      variant="dark"
+      className="profile__toggle-menu -util-togglemenu"
+      style={{ position: "absolute", top: "100%", right: 0, zIndex: 1000 }}
+    >
+      <Link className="nav-link">Profile</Link>
+      <Link className="nav-link" to="/purchases">Purchases</Link>
+      <Link className="nav-link">Reviews</Link>
+      <Link className="nav-link">Payment Methods</Link>
+      <Link className="nav-link">Close Account</Link>
+      <Link className="nav-link">Switch Account</Link>
+      <Link className="nav-link" onClick={handleOnLogout}>Sign Out</Link>
+    </Dropdown.Menu>
+  </Dropdown>
+</div>
+
+) : (
+  <div className="-util-pointer" onClick={handleOnLogin}>
+    Login
+  </div>
+)}
           </Nav>
           <div className="search-and-icons">
             <Form
@@ -302,7 +327,7 @@ useEffect(() => {
   </div>
 
   <Dropdown show={isDropdownOpen}>
-    <Dropdown.Menu className="user_profile__profie-dropdown-items -util-togglemenu">
+    <Dropdown.Menu className="user_profile__profie-dropdown-items -util-navbar-togglemenu">
       <Link className="nav-link">Profile</Link>
       <Link className="nav-link" to="/purchases">Purchases</Link>
       <Link className="nav-link">Reviews</Link>
