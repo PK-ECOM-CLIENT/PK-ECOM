@@ -73,8 +73,7 @@
 }
 
 /* Dropdown Menus */
-.categories__toggle-menu,
-.profile__toggle-menu {
+/* .profile__toggle-menu {
   max-height: 4rem;
   background-color: var(--color-zomp-2);
   color: white !important;
@@ -82,14 +81,13 @@
   overflow: scroll;
   line-height: 0.8;
   font-size: 0.95rem;
-}
-.categories__toggle-menu::-webkit-scrollbar,
-.profile__toggle-menu::-webkit-scrollbar {
+} */
+/* .profile__toggle-menu::-webkit-scrollbar {
   display: none;
 }
 .profile__toggle-menu > * {
   color: white;
-}
+} */
 
 /* User section */
 .user {

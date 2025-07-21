@@ -148,9 +148,6 @@ body {
   color: red;
   display: inline-block;
 }
-/* .-util-navbar-togglemenu > *:active {
-  background-color: var(--color-zomp-2);
-} */
 .-util-borderbottom {
   border-bottom: 1px solid rgb(162, 159, 159);
 }

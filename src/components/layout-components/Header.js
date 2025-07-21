@@ -101,7 +101,7 @@ useEffect(() => {
   <Dropdown show={isCagtegoriesDropdownOpen}>
     <Dropdown.Menu
       variant="dark"
-      className="categories__toggle-menu -util-togglemenu"
+      className="categories-toggle-items"
       style={{ position: "absolute", top: "100%", left: 0, zIndex: 1000 }}
     >
       {categories.map(
@@ -327,7 +327,7 @@ useEffect(() => {
   </div>
 
   <Dropdown show={isDropdownOpen}>
-    <Dropdown.Menu className="user_profile__profie-dropdown-items -util-navbar-togglemenu">
+    <Dropdown.Menu className="user_profile__profie-dropdown-items">
       <Link className="nav-link">Profile</Link>
       <Link className="nav-link" to="/purchases">Purchases</Link>
       <Link className="nav-link">Reviews</Link>
