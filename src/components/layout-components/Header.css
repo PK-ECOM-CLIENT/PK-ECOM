@@ -4,63 +4,63 @@
   position: relative;
   z-index: 9999;
 }
+
 .logo {
   max-width: 13rem;
 }
 
-.categories_search__menu {
-  max-height: 4rem;
-  background-color: var(--color-zomp-2);
-  color: white;
-  border: none;
-  overflow: scroll;
-  line-height: 0.8;
-  font-size: 0.95rem;
-}
-.categories_search__menu::-webkit-scrollbar {
-  display: none;
+.user {
+  display: flex;
 }
 
-.navbar form input {
-  border-radius: 5px;
+.user_profile {
+  display: flex;
+  gap: 1.3rem;
 }
-.navbar form input[type="search"] {
-  height: 2em;
-  background: #fff;
+
+.user_profile__user {
+  text-decoration: underline;
 }
-.navbar form input[type="text"],
-.navbar form input[type="text"]:focus {
-  background: #fff;
-  box-shadow: none;
-}
-.search_form__control {
-  transition: all 0.3s;
-  transform-origin: left;
-}
-.search_form__control:focus {
-  color: var(--color-grey-dark-2);
-  border-radius: 5px;
+
+.user_profile__profile {
   position: relative;
-  transform: scaleX(1.07);
+  min-width: 5rem;
+  transform: translateY(-0.5rem);
 }
-.search_form__control:focus + .search_icon {
-  transform: translateX(-1.2rem);
+
+.user_profile__profie-dropdown-items {
+  background-color: white !important;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 0.25rem 0; /* reduced padding */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: 0.95rem;
+  min-width: 10rem;
+  max-height: 15rem; /* restrict height */
+  overflow-y: auto;  /* enable scroll */
+  scrollbar-width: none; /* Firefox */
 }
-.search_icon {
-  transform: translateY(0.2rem);
-  transition: all 0.3s;
+
+.user_profile__profie-dropdown-items::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
-.search_icon,
-.search_icon:active,
-.search_icon:focus {
-  border-color: none;
-  border: none;
+
+.user_profile__profie-dropdown-items > * {
+  color: black !important;
+  padding: 0.1rem 1rem; /* reduced vertical padding */
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.user_profile__profie-dropdown-items > *:hover {
+  background-color: #f1f1f1;
 }
 
 .nav_icons {
   position: relative;
   margin: 0.2rem 0.2rem 0;
 }
+
 .nav_icons__count {
   position: absolute;
   top: -0.2rem;
@@ -69,89 +69,34 @@
   border-radius: 10%;
   font-weight: bold;
   background-color: var(--color-pastrelred-lightest);
-  backface-visibility: hidden;
 }
 
-/* Dropdown Menus */
-/* .profile__toggle-menu {
-  max-height: 4rem;
-  background-color: var(--color-zomp-2);
-  color: white !important;
+.search_icon {
+  transform: translateY(0.2rem);
+  transition: all 0.3s;
   border: none;
-  overflow: scroll;
+}
+
+.search_form__control:focus {
+  transform: scaleX(1.07);
+  color: var(--color-grey-dark-2);
+  border-radius: 5px;
+}
+
+.categories_search__menu {
+  background-color: var(--color-zomp-2);
+  color: white;
+  border: none;
   line-height: 0.8;
   font-size: 0.95rem;
-} */
-/* .profile__toggle-menu::-webkit-scrollbar {
-  display: none;
-}
-.profile__toggle-menu > * {
-  color: white;
-} */
-
-/* User section */
-.user {
-  display: flex;
-}
-.user_profile {
-  display: flex;
-  gap: 1.3rem;
-}
-.user_profile__user {
-  text-decoration: underline;
-}
-.user_profile__profile {
-  position: relative;
-  min-width: 5rem;
-  transform: translateY(-0.5rem);
+  max-height: 10rem;
+  overflow-y: auto;
 }
 
-/* Removed absolute full overlay button - replaced with clean block toggle */
-.user_profile__profie-btn {
+.categories_search__menu::-webkit-scrollbar {
   display: none;
 }
 
-/* Clean click area */
-.clickable-profile {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  position: relative;
-}
-.user_profile__trigger {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-/* Dropdown toggle */
-.fa-caret-down {
-  transition: transform 0.3s ease;
-}
-.user_profile__profie-dropdown {
-  background-color: rgb(0, 255, 64);
-  top: 0;
-  left: 0;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-}
-.user_profile__profie-dropdown-items {
-  transform: translate(-4.5rem, 2rem);
-  font-size: 0.9rem;
-}
-.user_profile__profie-dropdown-items > *,
-.profile__toggle-menu > * {
-  padding-left: 1rem;
-}
-.user_profile__profie-dropdown-items > *:hover {
-  background-color: var(--color-zomp);
-}
-.user_profile > *:hover {
-  cursor: pointer;
-}
 .header_login-btn {
   font-weight: bold;
 }
