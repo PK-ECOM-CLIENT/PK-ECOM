@@ -145,7 +145,7 @@ export const Header = () => {
 
           <div className="search-and-icons">
             <Form className="d-flex align-items-center mb-2 categories_search" role="search">
-              <Dropdown>
+              {/* <Dropdown>
                 <Dropdown.Toggle variant="none" id="dropdown-basic" className="search__filter-toggle text-white">All</Dropdown.Toggle>
                 <Dropdown.Menu variant="dark" className="categories_search__menu -util-togglemenu">
                   <Dropdown.Item href="#">All</Dropdown.Item>
@@ -153,8 +153,8 @@ export const Header = () => {
                   <Dropdown.Item href="#">Category 2</Dropdown.Item>
                   <Dropdown.Item href="#">Category 3</Dropdown.Item>
                 </Dropdown.Menu>
-              </Dropdown>
-              <Form.Control className="form-control me-2 search_form__control" type="text" aria-label="Search" />
+              </Dropdown> */}
+              <Form.Control className="form-control me-2 search_form__control" type="text" aria-label="Search" placeholder="Search" />
               <Button variant="none" className="search_icon">
                 <i className="fa-solid fa-magnifying-glass -util-font15 color-pastrelred"></i>
               </Button>
