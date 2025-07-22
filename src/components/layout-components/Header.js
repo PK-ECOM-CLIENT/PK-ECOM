@@ -146,7 +146,7 @@ export const Header = () => {
           <div className="search-and-icons">
             <Form className="d-flex align-items-center mb-2 categories_search" role="search">
               <Dropdown>
-                <Dropdown.Toggle variant="none" id="dropdown-basic" className="color-white dropdown-toggle search__filter-toggle">All</Dropdown.Toggle>
+                <Dropdown.Toggle variant="none" id="dropdown-basic" className="search__filter-toggle">All</Dropdown.Toggle>
                 <Dropdown.Menu variant="dark" className="categories_search__menu -util-togglemenu">
                   <Dropdown.Item href="#">All</Dropdown.Item>
                   <Dropdown.Item href="#">Category 1</Dropdown.Item>

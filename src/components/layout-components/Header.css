@@ -102,18 +102,23 @@
 
 .search_icon {
   transform: translateY(0.2rem);
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   border: none;
 }
-
+.search_form__control {
+  transition: all 0.3s ease;
+  transform-origin: left;
+}
 .search_form__control:focus {
   transform: scaleX(1.07);
   color: var(--color-grey-dark-2);
   border-radius: 5px;
 }
-
+.search_form__control:focus + .search_icon {
+  transform: translateX(-1.2rem);
+}
 .categories_search__menu {
-  background-color: var(--color-zomp-2);
+  background-color: white;
   color: white;
   border: none;
   line-height: 0.8;
