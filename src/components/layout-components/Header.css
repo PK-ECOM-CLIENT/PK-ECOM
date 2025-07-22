@@ -100,3 +100,6 @@
 .header_login-btn {
   font-weight: bold;
 }
+.fa-caret-down{
+  transition: transform 0.3s ease;
+}
