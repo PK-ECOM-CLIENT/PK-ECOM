@@ -86,7 +86,7 @@ export const Header = () => {
                     {categories.map(
                       (item, i) =>
                         !item.catId && (
-                          <Link className="nav-link" to={`/categories/${item._id}`} key={i}>
+                          <Link className="nav-link dropdown-item" to={`/categories/${item._id}`} key={i}>
                             {item.name === "Home & Kitchen" ? (
                               <span>{item.name}<span className="-util-nav">*</span></span>
                             ) : (
@@ -127,14 +127,14 @@ export const Header = () => {
                   <i className={`fa-solid fa-caret-down ${isDropdownOpen ? "-util-rotate_180" : ""}`} style={{ marginLeft: "5px" }}></i>
                 </div>
                 <Dropdown show={isDropdownOpen}>
-                  <Dropdown.Menu variant="light" className="user_profile__profie-dropdown-items" style={{ position: "absolute", top: "100%", right: 0 }}>
-                    <Link className="nav-link">Profile</Link>
-                    <Link className="nav-link" to="/purchases">Purchases</Link>
-                    <Link className="nav-link">Reviews</Link>
-                    <Link className="nav-link">Payment Methods</Link>
-                    <Link className="nav-link">Close Account</Link>
-                    <Link className="nav-link">Switch Account</Link>
-                    <Link className="nav-link" onClick={handleOnLogout}>Sign Out</Link>
+                  <Dropdown.Menu className="user_profile__profie-dropdown-items" style={{ position: "absolute", top: "100%", right: 0 }}>
+                    <Link className="nav-link dropdown-item">Profile</Link>
+                    <Link className="nav-link dropdown-item" to="/purchases">Purchases</Link>
+                    <Link className="nav-link dropdown-item">Reviews</Link>
+                    <Link className="nav-link dropdown-item">Payment Methods</Link>
+                    <Link className="nav-link dropdown-item">Close Account</Link>
+                    <Link className="nav-link dropdown-item">Switch Account</Link>
+                    <Link className="nav-link dropdown-item" onClick={handleOnLogout}>Sign Out</Link>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
@@ -179,13 +179,13 @@ export const Header = () => {
                     </div>
                     <Dropdown show={isDropdownOpen}>
                       <Dropdown.Menu variant="light" className="user_profile__profie-dropdown-items">
-                        <Link className="nav-link">Profile</Link>
-                        <Link className="nav-link" to="/purchases">Purchases</Link>
-                        <Link className="nav-link">Reviews</Link>
-                        <Link className="nav-link">Payment Methods</Link>
-                        <Link className="nav-link">Close Account</Link>
-                        <Link className="nav-link">Switch Account</Link>
-                        <Link className="nav-link" onClick={handleOnLogout}>Sign Out</Link>
+                        <Link className="nav-link dropdown-item">Profile</Link>
+                        <Link className="nav-link dropdown-item" to="/purchases">Purchases</Link>
+                        <Link className="nav-link dropdown-item">Reviews</Link>
+                        <Link className="nav-link dropdown-item">Payment Methods</Link>
+                        <Link className="nav-link dropdown-item">Close Account</Link>
+                        <Link className="nav-link dropdown-item">Switch Account</Link>
+                        <Link className="nav-link dropdown-item" onClick={handleOnLogout}>Sign Out</Link>
                       </Dropdown.Menu>
                     </Dropdown>
                   </p>
