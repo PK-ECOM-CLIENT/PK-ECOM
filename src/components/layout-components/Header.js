@@ -55,6 +55,12 @@ export const Header = () => {
   };
 
   useEffect(() => {
+    const handleResize = () => setwindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
     if (!categories.length) dispatch(getCategoriesAction());
     if (!user._id) dispatch(autoLogin());
     if (!favourites.length) dispatch(getFavsAction());
@@ -139,21 +145,14 @@ export const Header = () => {
                 </Dropdown>
               </div>
             ) : (
-              <div className="-util-pointer" onClick={handleOnLogin}>Login</div>
+              windowWidth < 992 && (
+                <div className="-util-pointer" onClick={handleOnLogin}>Login</div>
+              )
             )}
           </Nav>
 
           <div className="search-and-icons">
             <Form className="d-flex align-items-center mb-2 categories_search" role="search">
-              {/* <Dropdown>
-                <Dropdown.Toggle variant="none" id="dropdown-basic" className="search__filter-toggle text-white">All</Dropdown.Toggle>
-                <Dropdown.Menu variant="dark" className="categories_search__menu -util-togglemenu">
-                  <Dropdown.Item href="#">All</Dropdown.Item>
-                  <Dropdown.Item href="#">Category 1</Dropdown.Item>
-                  <Dropdown.Item href="#">Category 2</Dropdown.Item>
-                  <Dropdown.Item href="#">Category 3</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown> */}
               <Form.Control className="form-control me-2 search_form__control" type="text" aria-label="Search" placeholder="Search" />
               <Button variant="none" className="search_icon">
                 <i className="fa-solid fa-magnifying-glass -util-font15 color-pastrelred"></i>
