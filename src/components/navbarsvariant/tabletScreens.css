@@ -1,74 +1,123 @@
-*{
-    font-size: .8rem;
-}
 .maindiv {
   display: flex;
   height: 100vh;
-  padding: 1rem;
+  width: 100%;
   box-sizing: border-box;
+  padding: 1rem;
+  gap: 1rem;
 }
 
-/* Logo section */
+/* LOGO LEFT */
 .logo {
-  background-color: #f0f0f0;
-  padding: 1rem;
-  height: 100%;
+  min-width: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 100px;
-  font-weight: bold;
-  border-right: 1px solid #ddd;
+  background-color: #f0f0f0;
+  border-right: 1px solid #ccc;
+  padding: 1rem;
 }
 
-/* Right panel */
+/* RIGHT SIDE */
 .side {
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   padding: 1rem;
-  gap: 1rem;
+  gap: 1.5rem;
+  box-sizing: border-box;
 }
 
-/* Top row: search + login */
+/* TOP: SEARCH + LOGIN */
 .top {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 1rem;
 }
 
-/* Search field stretches */
+/* SEARCH */
 .search {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  background-color: #e2e2e2;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  background-color: #e8f0fe;
+  padding: 0.5rem 1rem;
   border-radius: 5px;
-  min-width: 0;
 }
 
-/* Login stays its size */
+.search_form__control {
+  flex: 1;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.search_icon {
+  background: none;
+  border: none;
+  padding-left: 0.5rem;
+  cursor: pointer;
+}
+
+/* LOGIN / PROFILE */
 .login {
   white-space: nowrap;
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem 1rem;
   background-color: #d1e7dd;
   border-radius: 5px;
   font-weight: 500;
+  flex-shrink: 0;
 }
 
-/* Options container */
+/* OPTIONS HORIZONTAL */
 .bottom {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
 }
 
-/* Each option fits its content */
 .options {
-  padding: 0.5rem 1rem;
+  display: inline-block;
   background-color: #f8f9fa;
+  padding: 0.6rem 1rem;
   border-radius: 5px;
   white-space: nowrap;
-  width: fit-content;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* DROPDOWN STYLE */
+.user_profile__profie-dropdown-items {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 0.25rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: 0.95rem;
+  min-width: 10rem;
+  max-height: 15rem;
+  overflow-y: auto;
+}
+
+/* ICON COUNT */
+.nav_icons__count {
+  position: absolute;
+  top: -0.3rem;
+  right: -0.4rem;
+  font-size: 0.7rem;
+  background-color: var(--color-pastrelred-lightest);
+  padding: 0.1rem 0.4rem;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+/* OTHER STYLES */
+.dropdown-item {
+  padding: 0.5rem 1rem;
+}
+
+.-util-rotate_180 {
+  transform: rotate(180deg);
 }

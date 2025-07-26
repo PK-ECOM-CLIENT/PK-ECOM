@@ -19,6 +19,7 @@ import {
 import { setPublicUrl } from "../../slices/system/systemSlice";
 import Bigscreens from "../navbarsvariant/Bigscreens";
 import MediumScreens from "../navbarsvariant/MediumScreens";
+import SmallScreens from "../navbarsvariant/SmallScreens";
 
 export const Header = () => {
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
@@ -31,7 +32,8 @@ export const Header = () => {
   const dispatch = useDispatch();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] = useState(false);
+  const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] =
+    useState(false);
 
   const address = user._id
     ? `${user.address.streetAddress} ${user.address.suburb} ${user.address.state} ${user.address.postCode}`
@@ -76,9 +78,11 @@ export const Header = () => {
     <div>
       {windowWidth > 991 && <Bigscreens></Bigscreens>}
 
-{windowWidth <= 991 && windowWidth >= 576 && <MediumScreens></MediumScreens>}
+      {windowWidth <= 991 && windowWidth >= 576 && (
+        <MediumScreens></MediumScreens>
+      )}
 
-{windowWidth < 576 && <div>small screens</div>}
+      {windowWidth < 576 && <SmallScreens></SmallScreens>}
     </div>
     // <Navbar expand="lg" variant="dark" className="header_navbar color-white">
     //   <div className="container-fluid">
@@ -206,6 +210,5 @@ export const Header = () => {
     //     </Navbar.Collapse>
     //   </div>
     // </Navbar>
-    
   );
 };

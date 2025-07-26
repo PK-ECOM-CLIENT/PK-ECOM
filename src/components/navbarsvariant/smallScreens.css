@@ -1,0 +1,53 @@
+/* Make Offcanvas take full screen height */
+.toggle-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1051;
+  cursor: pointer;
+}
+
+/* Make Offcanvas full height */
+.fullscreen-offcanvas {
+  height: 100vh !important;
+  width: 100vw;
+  background-color: var(--bs-body-bg);
+}
+
+/* Center list items vertically and horizontally */
+.offcanvas-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* Optional: hover effects for list items */
+.offcanvas-list li {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.offcanvas-list li:hover {
+  color: var(--bs-primary);
+}
+
+/* Ensure the toggle icon stays on top-right */
+.offcanvas-toggle-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1051;
+  cursor: pointer;
+}
+.offcanvas-list li:hover {
+  transform: scale(1.05);
+  color: var(--bs-primary);
+}
