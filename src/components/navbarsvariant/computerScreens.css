@@ -1,0 +1,8 @@
+.navdiv{
+    display:flex;
+    flex-direction: column;
+    align-items: end;
+}
+.nav-link{
+    display:flex;
+}

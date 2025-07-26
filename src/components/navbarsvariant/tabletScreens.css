@@ -1,0 +1,74 @@
+*{
+    font-size: .8rem;
+}
+.maindiv {
+  display: flex;
+  height: 100vh;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Logo section */
+.logo {
+  background-color: #f0f0f0;
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  font-weight: bold;
+  border-right: 1px solid #ddd;
+}
+
+/* Right panel */
+.side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+/* Top row: search + login */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Search field stretches */
+.search {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background-color: #e2e2e2;
+  border-radius: 5px;
+  min-width: 0;
+}
+
+/* Login stays its size */
+.login {
+  white-space: nowrap;
+  padding: 0.75rem 1.25rem;
+  background-color: #d1e7dd;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+/* Options container */
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Each option fits its content */
+.options {
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  white-space: nowrap;
+  width: fit-content;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}

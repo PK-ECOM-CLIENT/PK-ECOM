@@ -13,10 +13,10 @@
   display: flex;
 }
 
-.user_profile {
+/* .user_profile {
   display: flex;
   gap: 1.3rem;
-}
+} */
 
 .user_profile__user {
   text-decoration: underline;
