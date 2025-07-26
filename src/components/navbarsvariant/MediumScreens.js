@@ -17,7 +17,8 @@ import { setPublicUrl } from "../../slices/system/systemSlice";
 
 const MediumScreens = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] = useState(false);
+  const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] =
+    useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const url = window.location.pathname;
@@ -98,17 +99,33 @@ const MediumScreens = () => {
                     className="user_profile__profie-dropdown-items"
                   >
                     <Link className="nav-link dropdown-item">Profile</Link>
-                    <Link className="nav-link dropdown-item" to="/purchases">Purchases</Link>
+                    <Link className="nav-link dropdown-item" to="/purchases">
+                      Purchases
+                    </Link>
                     <Link className="nav-link dropdown-item">Reviews</Link>
-                    <Link className="nav-link dropdown-item">Payment Methods</Link>
-                    <Link className="nav-link dropdown-item">Close Account</Link>
-                    <Link className="nav-link dropdown-item">Switch Account</Link>
-                    <Link className="nav-link dropdown-item" onClick={handleOnLogout}>Sign Out</Link>
+                    <Link className="nav-link dropdown-item">
+                      Payment Methods
+                    </Link>
+                    <Link className="nav-link dropdown-item">
+                      Close Account
+                    </Link>
+                    <Link className="nav-link dropdown-item">
+                      Switch Account
+                    </Link>
+                    <Link
+                      className="nav-link dropdown-item"
+                      onClick={handleOnLogout}
+                    >
+                      Sign Out
+                    </Link>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
             ) : (
-              <div className="nav-link header_login-btn" onClick={handleOnLogin}>
+              <div
+                className="nav-link header_login-btn"
+                onClick={handleOnLogin}
+              >
                 Login
               </div>
             )}
@@ -118,7 +135,12 @@ const MediumScreens = () => {
         <div className="bottom">
           <div className="options" onClick={handleCategoriesDropdownToggle}>
             Categories
-            <i className={`fa-solid fa-caret-down ${isCategoriesDropdownOpen ? "-util-rotate_180" : ""}`} style={{ marginLeft: "5px" }}></i>
+            <i
+              className={`fa-solid fa-caret-down ${
+                isCategoriesDropdownOpen ? "-util-rotate_180" : ""
+              }`}
+              style={{ marginLeft: "5px" }}
+            ></i>
             <Dropdown show={isCategoriesDropdownOpen}>
               <Dropdown.Menu
                 variant="light"
@@ -134,7 +156,10 @@ const MediumScreens = () => {
                         key={i}
                       >
                         {item.name === "Home & Kitchen" ? (
-                          <span>{item.name}<span className="-util-nav">*</span></span>
+                          <span>
+                            {item.name}
+                            <span className="-util-nav">*</span>
+                          </span>
                         ) : (
                           item.name
                         )}
@@ -145,10 +170,18 @@ const MediumScreens = () => {
             </Dropdown>
           </div>
 
-          <div className="options"><Link to="/offers">Offers</Link></div>
-          <div className="options"><Link to="/bestsellers">Best Sellers</Link></div>
-          <div className="options"><Link to="/newarrivals">New Arrivals</Link></div>
-          <div className="options"><Link to="/dealsandsales">Deals & Sales</Link></div>
+          <div className="options">
+            <Link to="/offers">Offers</Link>
+          </div>
+          <div className="options">
+            <Link to="/bestsellers">Best Sellers</Link>
+          </div>
+          <div className="options">
+            <Link to="/newarrivals">New Arrivals</Link>
+          </div>
+          <div className="options">
+            <Link to="/dealsandsales">Deals & Sales</Link>
+          </div>
 
           <div className="options">
             <Link to="/favourites">
