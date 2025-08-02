@@ -172,15 +172,93 @@ const Bigscreens = () => {
         </div>
 
         <ul className="content_options">
-          <li>dfsdf</li>
-          <li>Categories</li>
-          <li>Offers</li>
-          <li>New Arrivals</li>
-          <li>Favourites</li>
-          <li>Cart</li> <li>Offers</li>
-          <li>New Arrivals</li>
-          <li>Favourites</li>
-          <li>Cart</li>
+          {url !== "/" && (
+            <li className="nav-item">
+              <Link className="nav-link active" to="/">
+                Home
+              </Link>
+            </li>
+          )}
+
+          <li className="nav-item">
+            <Link
+              className={`nav-link active ${
+                url.includes("/offers")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
+              to="/offers"
+            >
+              Offers
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link
+              className={`nav-link active ${
+                url.includes("/bestsellers")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
+              to="/bestsellers"
+            >
+              Best Sellers
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link
+              className={`nav-link active ${
+                url.includes("/newarrivals")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
+              to="/newarrivals"
+            >
+              New Arrivals
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link
+              className={`nav-link active ${
+                url.includes("/dealsandsales")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
+              to="/dealsandsales"
+            >
+              Deals and Sales
+            </Link>
+          </li>
+
+          <li className="nav-item nav_icons">
+            <Link
+              className={`nav-link active nav_icons__icon ${
+                url.includes("/favourites")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
+              to="/favourites"
+            >
+              <i className="fa-solid fa-heart -util-font15"></i>
+            </Link>
+            <span className="nav_icons__count">{favourites?.length}</span>
+          </li>
+
+          <li className="nav-item nav_icons">
+            <Link
+              className={`nav-link active nav_icons__icon ${
+                url.includes("/cart")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
+              to="/cart"
+            >
+              <i className="fa-solid fa-cart-shopping -util-font15"></i>
+            </Link>
+            <span className="nav_icons__count">{cart?.length}</span>
+          </li>
         </ul>
       </div>
     </div>
