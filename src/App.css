@@ -72,6 +72,9 @@ body {
 .-util-trashcan {
   font-size: 1.2rem;
 }
+.-util-link{
+  cursor: pointer;
+}
 .-util-btn-positive,
 .-util-btn-positive:hover,
 .-util-btn-positive:focus,

@@ -37,7 +37,7 @@
   font-size: 0.95rem;
   min-width: 10rem;
   max-height: 15rem; /* restrict height */
-  overflow-y: auto;  /* enable scroll */
+  overflow-y: auto; /* enable scroll */
   scrollbar-width: none; /* Firefox */
 }
 
@@ -50,7 +50,7 @@
   padding: 0.1rem 1rem; /* reduced vertical padding */
   text-decoration: none;
   white-space: nowrap;
-  color:white;
+  color: white;
 }
 .dropdown-item {
   position: relative;
@@ -108,11 +108,11 @@
 .search_form__control {
   transition: all 0.3s ease;
   transform-origin: left;
-  color:var(--color-pastrelred-2);
+  color: var(--color-pastrelred-2);
 }
 .search_form__control:focus {
   transform: scaleX(1.07);
-  color:var(--color-pastrelred);
+  color: var(--color-pastrelred);
   /* color: var(--color-grey-dark-2); */
   border-radius: 5px;
   font-weight: 500;
@@ -137,6 +137,6 @@
 .header_login-btn {
   font-weight: bold;
 }
-.fa-caret-down{
+.fa-caret-down {
   transition: transform 0.3s ease;
 }
