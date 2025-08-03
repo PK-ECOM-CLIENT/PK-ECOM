@@ -16,59 +16,59 @@
   background-color: var(--color-zomp) !important;
   border: none !important;
 }
-
 .contents {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: flex-end;
 }
-
 .client_login_search_wrapper {
-  display: inline-block; /* so width is based on its child */
+  display: inline-block;
 }
-
-.client_login_search {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.5rem;
+.client {
+  text-decoration: underline;
+  margin-right: 1rem;
 }
 .client_login {
   display: inline-flex;
-  gap: 1rem;
 }
-.fa-caret-down {
-  transition: transform 0.3s ease;
+.facaret {
+  transition: all 0.3s ease;
 }
-.user_profile__profie-dropdown-items {
+.user_profile__profie_dropdown_items {
   background-color: white !important;
-  border: 1px solid #ddd;
   border-radius: 5px;
-  padding: 0.25rem 0; /* reduced padding */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  font-size: 0.95rem;
-  min-width: 10rem;
-  max-height: 15rem; /* restrict height */
-  overflow-y: auto; /* enable scroll */
-  scrollbar-width: none; /* Firefox */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 1rem;
+  max-height: 8rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+  text-align: center;
 }
-.user_profile__profie-dropdown-items::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+.user_profile__profie_dropdown_items::-webkit-scrollbar {
+  display: none;
 }
-.dropdown-item {
+
+.dropdown_item {
   position: relative;
-  z-index: 1;
   display: block;
-  padding: 0.4rem 1rem;
+  width: 100%;
+  padding: 0.1rem 0; /* No padding-left to allow full hover effect */
   text-decoration: none;
   color: black;
   transition: color 0.3s;
-  line-height: 1.3;
-  text-align: left;
+  z-index: 1;
   overflow: hidden;
+  text-align: left; /* To align text correctly */
 }
-.dropdown-item::before {
+
+.dropdown_item_text {
+  padding-left: 1rem; /* Controls visual left gap of text */
+  display: inline-block;
+  width: 100%;
+}
+
+.dropdown_item::before {
   content: "";
   position: absolute;
   top: 0;
@@ -80,90 +80,85 @@
   transition: transform 0.3s ease, width 0.3s ease;
   z-index: 0;
 }
-.dropdown-item:hover {
+
+.dropdown_item:hover {
   color: white;
 }
-.dropdown-item:hover::before {
+
+.dropdown_item:hover::before {
   transform: scaleY(1);
   width: 100%;
   z-index: -1;
 }
-.client_login_search {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align left */
-  width: fit-content; /* Shrink to content width */
-}
 
-.client_login {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-/* Make search form wrapper match client_login width */
 .search_form_wrapper {
   width: 100%;
   display: flex;
 }
-
 .search_form {
   display: flex;
   width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
 }
-
 .search_form__control {
   flex: 1;
-  background-color: white !important; /* Always white background */
+  background-color: white !important;
   transition: all 0.3s ease;
   transform-origin: left;
   color: var(--color-pastrelred-2);
 }
-
 .search_icon {
-  /* transform: translateY(0.2rem); */
   transition: all 0.3s ease;
   border: none;
-  transform:translateX(.8rem);
+  transform: translateX(0.8rem);
 }
-
-/* Focus effects */
 .search_form__control:focus {
   transform: scaleX(1.07);
   color: var(--color-pastrelred);
   border-radius: 5px;
   font-weight: 500;
 }
-
 .search_form__control:focus + .search_icon {
   transform: translateX(-1.2rem) scale(1.1);
 }
-
 .content_options {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-top: 0.5rem;
   list-style: none;
+  margin-top: 0.8rem;
 }
-
-.options {
-  padding: 0.5rem 1rem;
-  flex-shrink: 0;
-}
-.nav_icons {
+.icon_wrapper {
   position: relative;
-  margin: 0.2rem 0.2rem 0;
+  display: inline-block;
 }
-
 .nav_icons__count {
   position: absolute;
-  top: -0.2rem;
-  right: -0.2rem;
+  text-align: center;
+  top: -0.4rem;
+  right: -0.4rem;
   padding: 0rem 0.2rem;
-  border-radius: 10%;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
   font-weight: bold;
   background-color: var(--color-pastrelred-lightest);
+}
+@media (max-width: 1681px) {
+  .user_profile__profie_dropdown_items {
+    transform: translateX(-3rem);
+  }
+}
+
+/* Second step: screen ≤ 1617px → translate -6rem */
+@media (max-width: 1586px) {
+  .user_profile__profie_dropdown_items {
+    transform: translateX(-5rem);
+  }
+}
+@media (max-width: 1522px) {
+  .user_profile__profie_dropdown_items {
+    transform: translateX(-7.8rem);
+  }
 }

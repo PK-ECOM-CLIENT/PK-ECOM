@@ -41,6 +41,5 @@
 .categories:hover::before {
   transform: scaleY(1);
   width: 100%;
-  /* color: white; */
   z-index: -2;
 }

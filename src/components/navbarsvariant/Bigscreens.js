@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./computerScreens.css";
+import styles from "./computerScreens.module.css"; // ✅ CSS Module
 import logo from "../../assits/images/logo/pk.png";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Button } from "react-bootstrap";
-import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,8 +28,6 @@ const Bigscreens = () => {
   const dispatch = useDispatch();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] =
-    useState(false);
 
   const address = user._id
     ? `${user.address.streetAddress} ${user.address.suburb} ${user.address.state} ${user.address.postCode}`
@@ -47,12 +44,6 @@ const Bigscreens = () => {
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
-    setIsCategoriesDropdownOpen(false);
-  };
-
-  const handleCategoriesDropdownToggle = () => {
-    setIsCategoriesDropdownOpen(!isCategoriesDropdownOpen);
-    setIsDropdownOpen(false);
   };
 
   useEffect(() => {
@@ -72,18 +63,19 @@ const Bigscreens = () => {
   const hour = new Date().getHours();
 
   return (
-    <div className="navdiv header_navbar color-white">
+    <div
+      className={`${styles.navdiv} ${styles.header_navbar} ${styles.colorWhite}`}
+    >
       <Col md={2}>
         <Navbar.Brand className="navbar-brand d-flex flex-column justify-content-center align-items-center">
-          <img src={logo} alt="logo" className="logo" />
+          <img src={logo} alt="logo" className={styles.logo} />
         </Navbar.Brand>
       </Col>
-      <div className="contents">
-        <div className="client_login_search_wrapper">
-          <div className="client_login_search">
-            {/* Wrapper for client and login */}
-            <div className="client_login">
-              <div className="client">
+      <div className={styles.contents}>
+        <div className={styles.client_login_search_wrapper}>
+          <div className={styles.client_login_search}>
+            <div className={styles.client_login}>
+              <div className={styles.client}>
                 {user?._id
                   ? `Hello ${user.firstName} ! Delivery Address: ${address}`
                   : `Dear valued client! Wishing you a great ${
@@ -100,7 +92,7 @@ const Bigscreens = () => {
               </div>
               <div>
                 {user?._id ? (
-                  <p
+                  <div
                     onClick={handleDropdownToggle}
                     style={{ cursor: "pointer" }}
                   >
@@ -109,43 +101,58 @@ const Bigscreens = () => {
                       <i
                         className={`fa-solid fa-caret-down ${
                           isDropdownOpen ? "-util-rotate_180" : ""
-                        }`}
+                        } ${styles.facaret}`}
                       ></i>
                     </div>
                     <Dropdown show={isDropdownOpen}>
                       <Dropdown.Menu
                         variant="light"
-                        className="user_profile__profie-dropdown-items"
+                        className={styles.user_profile__profie_dropdown_items}
                       >
-                        <Link className="nav-link dropdown-item">Profile</Link>
+                        <Link className={styles.dropdown_item}>
+                          <span className={styles.dropdown_item_text}>
+                            Profile
+                          </span>
+                        </Link>
+                        <Link className={styles.dropdown_item} to="/purchases">
+                          <span className={styles.dropdown_item_text}>
+                            Purchases
+                          </span>
+                        </Link>
+                        <Link className={styles.dropdown_item}>
+                          <span className={styles.dropdown_item_text}>
+                            Reviews
+                          </span>
+                        </Link>
+                        <Link className={styles.dropdown_item}>
+                          <span className={styles.dropdown_item_text}>
+                            Payment Methods
+                          </span>
+                        </Link>
+                        <Link className={styles.dropdown_item}>
+                          <span className={styles.dropdown_item_text}>
+                            Close Account
+                          </span>
+                        </Link>
+                        <Link className={styles.dropdown_item}>
+                          <span className={styles.dropdown_item_text}>
+                            Switch Account
+                          </span>
+                        </Link>
                         <Link
-                          className="nav-link dropdown-item"
-                          to="/purchases"
-                        >
-                          Purchases
-                        </Link>
-                        <Link className="nav-link dropdown-item">Reviews</Link>
-                        <Link className="nav-link dropdown-item">
-                          Payment Methods
-                        </Link>
-                        <Link className="nav-link dropdown-item">
-                          Close Account
-                        </Link>
-                        <Link className="nav-link dropdown-item">
-                          Switch Account
-                        </Link>
-                        <Link
-                          className="nav-link dropdown-item"
+                          className={styles.dropdown_item}
                           onClick={handleOnLogout}
                         >
-                          Sign Out
+                          <span className={styles.dropdown_item_text}>
+                            Sign Out
+                          </span>
                         </Link>
                       </Dropdown.Menu>
                     </Dropdown>
-                  </p>
+                  </div>
                 ) : (
                   <div
-                    className="nav-link header_login-btn -util-link"
+                    className={`nav-link ${styles.header_login_btn} -util-link mb-3`}
                     onClick={handleOnLogin}
                   >
                     Login
@@ -154,16 +161,15 @@ const Bigscreens = () => {
               </div>
             </div>
 
-            {/* Search form that matches width of client_login */}
-            <div className="search_form_wrapper">
-              <Form className="search_form" role="search">
+            <div className={styles.search_form_wrapper}>
+              <Form className={styles.search_form} role="search">
                 <Form.Control
-                  className="form-control search_form__control"
+                  className={`form-control ${styles.search_form__control}`}
                   type="text"
                   aria-label="Search"
                   placeholder="Search"
                 />
-                <Button variant="none" className="search_icon">
+                <Button variant="none" className={styles.search_icon}>
                   <i className="fa-solid fa-magnifying-glass -util-font15 color-pastrelred"></i>
                 </Button>
               </Form>
@@ -171,7 +177,7 @@ const Bigscreens = () => {
           </div>
         </div>
 
-        <ul className="content_options">
+        <ul className={styles.content_options}>
           {url !== "/" && (
             <li className="nav-item">
               <Link className="nav-link active" to="/">
@@ -179,85 +185,51 @@ const Bigscreens = () => {
               </Link>
             </li>
           )}
-
           <li className="nav-item">
-            <Link
-              className={`nav-link active ${
-                url.includes("/offers")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
-              }`}
-              to="/offers"
-            >
+            <Link className="nav-link active" to="/offers">
               Offers
             </Link>
           </li>
-
           <li className="nav-item">
-            <Link
-              className={`nav-link active ${
-                url.includes("/bestsellers")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
-              }`}
-              to="/bestsellers"
-            >
+            <Link className="nav-link active" to="/bestsellers">
               Best Sellers
             </Link>
           </li>
-
           <li className="nav-item">
-            <Link
-              className={`nav-link active ${
-                url.includes("/newarrivals")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
-              }`}
-              to="/newarrivals"
-            >
+            <Link className="nav-link active" to="/newarrivals">
               New Arrivals
             </Link>
           </li>
-
           <li className="nav-item">
-            <Link
-              className={`nav-link active ${
-                url.includes("/dealsandsales")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
-              }`}
-              to="/dealsandsales"
-            >
+            <Link className="nav-link active" to="/dealsandsales">
               Deals and Sales
             </Link>
           </li>
 
-          <li className="nav-item nav_icons">
+          <li className={`nav-item ${styles.nav_icons}`}>
             <Link
-              className={`nav-link active nav_icons__icon ${
-                url.includes("/favourites")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
-              }`}
+              className={`nav-link active ${styles.nav_icons__icon}`}
               to="/favourites"
             >
-              <i className="fa-solid fa-heart -util-font15"></i>
+              <div className={styles.icon_wrapper}>
+                <i className="fa-solid fa-heart -util-font15"></i>
+                <span className={styles.nav_icons__count}>
+                  {favourites?.length}
+                </span>
+              </div>
             </Link>
-            <span className="nav_icons__count">{favourites?.length}</span>
           </li>
 
-          <li className="nav-item nav_icons">
+          <li className={`nav-item ${styles.nav_icons}`}>
             <Link
-              className={`nav-link active nav_icons__icon ${
-                url.includes("/cart")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
-              }`}
+              className={`nav-link active ${styles.nav_icons__icon}`}
               to="/cart"
             >
-              <i className="fa-solid fa-cart-shopping -util-font15"></i>
+              <div className={styles.icon_wrapper}>
+                <i className="fa-solid fa-cart-shopping -util-font15"></i>
+                <span className={styles.nav_icons__count}>{cart?.length}</span>
+              </div>
             </Link>
-            <span className="nav_icons__count">{cart?.length}</span>
           </li>
         </ul>
       </div>

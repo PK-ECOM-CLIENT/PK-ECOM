@@ -1,5 +1,7 @@
 import { useState } from "react";
-import "./smallScreens.css";
+
+import styles from "./smallScreens.module.css";
+
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
