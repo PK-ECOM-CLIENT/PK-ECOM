@@ -16,6 +16,11 @@
   background-color: var(--color-zomp) !important;
   border: none !important;
 }
+.header_login_btn {
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
 .contents {
   display: flex;
   flex-direction: column;
@@ -135,15 +140,18 @@
 }
 .nav_icons__count {
   position: absolute;
-  text-align: center;
   top: -0.4rem;
   right: -0.4rem;
-  padding: 0rem 0.2rem;
-  width: 1.3rem;
-  height: 1.3rem;
-  border-radius: 50%;
+  width: 1.3rem; /* Set smaller width for better fit */
+  height: 1.3rem; /* Equal to width for perfect circle */
+  display: flex; /* Center content horizontally and vertically */
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
   font-weight: bold;
   background-color: var(--color-pastrelred-lightest);
+  border-radius: 50%;
+  line-height: 1; /* Prevent vertical shift */
 }
 @media (max-width: 1681px) {
   .user_profile__profie_dropdown_items {

@@ -17,7 +17,8 @@ import { setPublicUrl } from "../../slices/system/systemSlice";
 
 const MediumScreens = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] = useState(false);
+  const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] =
+    useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const url = window.location.pathname;
@@ -82,12 +83,14 @@ const MediumScreens = () => {
                 onClick={handleDropdownToggle}
                 style={{ cursor: "pointer" }}
               >
-                <div className={`${styles.user_profile__profie_btn} btn-logout text-white d-flex align-items-center`}>
+                <div
+                  className={`${styles.user_profile__profie_btn} btn-logout text-white d-flex align-items-center`}
+                >
                   <i className="fa-solid fa-user -util-font15"></i>
                   <i
                     className={`fa-solid fa-caret-down ${
                       isDropdownOpen ? "-util-rotate_180" : ""
-                    }`}
+                    } ${styles.facaret}`}
                   ></i>
                 </div>
                 <Dropdown show={isDropdownOpen}>
@@ -95,18 +98,48 @@ const MediumScreens = () => {
                     variant="light"
                     className={styles.user_profile__profie_dropdown_items}
                   >
-                    <Link className="nav-link dropdown-item">Profile</Link>
-                    <Link className="nav-link dropdown-item" to="/purchases">Purchases</Link>
-                    <Link className="nav-link dropdown-item">Reviews</Link>
-                    <Link className="nav-link dropdown-item">Payment Methods</Link>
-                    <Link className="nav-link dropdown-item">Close Account</Link>
-                    <Link className="nav-link dropdown-item">Switch Account</Link>
-                    <Link className="nav-link dropdown-item" onClick={handleOnLogout}>Sign Out</Link>
+                    <Link className={styles.dropdown_item}>
+                      <span className={styles.dropdown_item_text}>Profile</span>
+                    </Link>
+                    <Link className={styles.dropdown_item} to="/purchases">
+                      <span className={styles.dropdown_item_text}>
+                        Purchases
+                      </span>
+                    </Link>
+                    <Link className={styles.dropdown_item}>
+                      <span className={styles.dropdown_item_text}>Reviews</span>
+                    </Link>
+                    <Link className={styles.dropdown_item}>
+                      <span className={styles.dropdown_item_text}>
+                        Payment Methods
+                      </span>
+                    </Link>
+                    <Link className={styles.dropdown_item}>
+                      <span className={styles.dropdown_item_text}>
+                        Close Account
+                      </span>
+                    </Link>
+                    <Link className={styles.dropdown_item}>
+                      <span className={styles.dropdown_item_text}>
+                        Switch Account
+                      </span>
+                    </Link>
+                    <Link
+                      className={styles.dropdown_item}
+                      onClick={handleOnLogout}
+                    >
+                      <span className={styles.dropdown_item_text}>
+                        Sign Out
+                      </span>
+                    </Link>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
             ) : (
-              <div className={`nav-link ${styles.header_login_btn}`} onClick={handleOnLogin}>
+              <div
+                className={`nav-link ${styles.header_login_btn}`}
+                onClick={handleOnLogin}
+              >
                 Login
               </div>
             )}
@@ -116,58 +149,27 @@ const MediumScreens = () => {
       <div className={styles.bottom}>
         <Col sm={2} className={styles.logo}></Col>
         <ul className={styles.content_options}>
-          <li className="nav-item" style={{ position: "relative" }}>
-            <Link
-              className="nav-link active"
-              to="/"
-              onClick={handleCategoriesDropdownToggle}
-            >
-              Categories
-              <i
-                className={`fa-solid fa-caret-down ${
-                  isCategoriesDropdownOpen ? "-util-rotate_180" : ""
-                }`}
-                style={{ marginLeft: "5px" }}
-              ></i>
-            </Link>
-            <Dropdown show={isCategoriesDropdownOpen}>
-              <Dropdown.Menu
-                variant="light"
-                className={styles.user_profile__profie_dropdown_items}
-                style={{ position: "absolute", top: "100%", left: 0 }}
-              >
-                {categories.map(
-                  (item, i) =>
-                    !item.catId && (
-                      <Link
-                        className="nav-link dropdown-item"
-                        to={`/categories/${item._id}`}
-                        key={i}
-                      >
-                        {item.name === "Home & Kitchen" ? (
-                          <span>
-                            {item.name}
-                            <span className="-util-nav">*</span>
-                          </span>
-                        ) : (
-                          item.name
-                        )}
-                      </Link>
-                    )
-                )}
-              </Dropdown.Menu>
-            </Dropdown>
-          </li>
           {url !== "/" && (
             <li className="nav-item">
-              <Link className="nav-link active" to="/">Home</Link>
+              <Link
+                className={`nav-link active ${
+                  url === "/"
+                    ? "-util-underline"
+                    : "-util-underline-transparent"
+                }`}
+                to="/"
+              >
+                Home
+              </Link>
             </li>
           )}
 
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/offers") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/offers")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/offers"
             >
@@ -178,7 +180,9 @@ const MediumScreens = () => {
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/bestsellers") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/bestsellers")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/bestsellers"
             >
@@ -189,7 +193,9 @@ const MediumScreens = () => {
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/newarrivals") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/newarrivals")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/newarrivals"
             >
@@ -200,7 +206,9 @@ const MediumScreens = () => {
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/dealsandsales") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/dealsandsales")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/dealsandsales"
             >
@@ -211,25 +219,35 @@ const MediumScreens = () => {
           <li className={`nav-item ${styles.nav_icons}`}>
             <Link
               className={`nav-link active ${styles.nav_icons__icon} ${
-                url.includes("/favourites") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/favourites")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/favourites"
             >
-              <i className="fa-solid fa-heart -util-font15"></i>
+              <div className={styles.icon_wrapper}>
+                <i className="fa-solid fa-heart -util-font15"></i>
+                <span className={styles.nav_icons__count}>
+                  {favourites?.length}
+                </span>
+              </div>
             </Link>
-            <span className={styles.nav_icons__count}>{favourites?.length}</span>
           </li>
 
           <li className={`nav-item ${styles.nav_icons}`}>
             <Link
               className={`nav-link active ${styles.nav_icons__icon} ${
-                url.includes("/cart") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/cart")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/cart"
             >
-              <i className="fa-solid fa-cart-shopping -util-font15"></i>
+              <div className={styles.icon_wrapper}>
+                <i className="fa-solid fa-cart-shopping -util-font15"></i>
+                <span className={styles.nav_icons__count}>{cart?.length}</span>
+              </div>
             </Link>
-            <span className={styles.nav_icons__count}>{cart?.length}</span>
           </li>
         </ul>
       </div>

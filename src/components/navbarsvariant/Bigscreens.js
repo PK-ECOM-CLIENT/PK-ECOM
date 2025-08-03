@@ -176,39 +176,81 @@ const Bigscreens = () => {
             </div>
           </div>
         </div>
-
         <ul className={styles.content_options}>
           {url !== "/" && (
             <li className="nav-item">
-              <Link className="nav-link active" to="/">
+              <Link
+                className={`nav-link active ${
+                  url === "/"
+                    ? "-util-underline"
+                    : "-util-underline-transparent"
+                }`}
+                to="/"
+              >
                 Home
               </Link>
             </li>
           )}
+
           <li className="nav-item">
-            <Link className="nav-link active" to="/offers">
+            <Link
+              className={`nav-link active ${
+                url.includes("/offers")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
+              to="/offers"
+            >
               Offers
             </Link>
           </li>
+
           <li className="nav-item">
-            <Link className="nav-link active" to="/bestsellers">
+            <Link
+              className={`nav-link active ${
+                url.includes("/bestsellers")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
+              to="/bestsellers"
+            >
               Best Sellers
             </Link>
           </li>
+
           <li className="nav-item">
-            <Link className="nav-link active" to="/newarrivals">
+            <Link
+              className={`nav-link active ${
+                url.includes("/newarrivals")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
+              to="/newarrivals"
+            >
               New Arrivals
             </Link>
           </li>
+
           <li className="nav-item">
-            <Link className="nav-link active" to="/dealsandsales">
+            <Link
+              className={`nav-link active ${
+                url.includes("/dealsandsales")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
+              to="/dealsandsales"
+            >
               Deals and Sales
             </Link>
           </li>
 
           <li className={`nav-item ${styles.nav_icons}`}>
             <Link
-              className={`nav-link active ${styles.nav_icons__icon}`}
+              className={`nav-link active ${styles.nav_icons__icon} ${
+                url.includes("/favourites")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
               to="/favourites"
             >
               <div className={styles.icon_wrapper}>
@@ -222,7 +264,11 @@ const Bigscreens = () => {
 
           <li className={`nav-item ${styles.nav_icons}`}>
             <Link
-              className={`nav-link active ${styles.nav_icons__icon}`}
+              className={`nav-link active ${styles.nav_icons__icon} ${
+                url.includes("/cart")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
+              }`}
               to="/cart"
             >
               <div className={styles.icon_wrapper}>
