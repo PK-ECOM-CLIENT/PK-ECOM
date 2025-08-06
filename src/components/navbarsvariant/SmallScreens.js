@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./smallScreens.module.css";
 import logo from "../../assits/images/logo/pk.png";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faXmark,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { getCategoriesAction } from "../../slices/categories/categoriesAction";
 import { autoLogin, logoutUserAction } from "../../slices/user/userAction";
 import {
@@ -18,7 +22,7 @@ import { setPublicUrl } from "../../slices/system/systemSlice";
 const SmallScreens = () => {
   const [showMain, setShowMain] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   const { categories } = useSelector((state) => state.categories);
   const { user } = useSelector((state) => state.user);
@@ -35,27 +39,23 @@ const SmallScreens = () => {
     if (user._id) dispatch(getPurchasesAction());
   }, [dispatch, user._id, categories.length, favourites.length, cart.length]);
 
-  const handleOnLogin = () => {
-    dispatch(setPublicUrl(url));
-    navigate("/login");
-  };
-
-  const handleOnLogout = () => {
-    dispatch(logoutUserAction({}));
-    setShowProfile(false);
-    setShowMain(true);
-  };
-
-  const handleCloseCategories = () => {
-    setShowCategories(false);
-    setShowMain(true);
-  };
-
   const handleNavigate = (path) => {
     navigate(path);
     setShowMain(false);
     setShowCategories(false);
-    setShowProfile(false);
+    setShowProfileMenu(false);
+  };
+
+  const handleOnLogin = () => {
+    dispatch(setPublicUrl(url));
+    navigate("/login");
+    setShowMain(false);
+  };
+
+  const handleOnLogout = () => {
+    dispatch(logoutUserAction({}));
+    setShowProfileMenu(false);
+    setShowMain(true);
   };
 
   return (
@@ -67,7 +67,7 @@ const SmallScreens = () => {
         </div>
       )}
 
-      {/* MAIN MENU Offcanvas */}
+      {/* MAIN Offcanvas */}
       <Offcanvas
         show={showMain}
         onHide={() => setShowMain(false)}
@@ -94,19 +94,30 @@ const SmallScreens = () => {
               Deals and Sales
             </li>
             <li onClick={() => handleNavigate("/favourites")}>
-              Favourites ({favourites.length})
+              <span className={styles.text_with_count}>
+                Favourites
+                <span className={styles.count_badge}>{favourites.length}</span>
+              </span>
             </li>
             <li onClick={() => handleNavigate("/cart")}>
-              Cart ({cart.length})
+              <span className={styles.text_with_count}>
+                Cart
+                <span className={styles.count_badge}>{cart.length}</span>
+              </span>
             </li>
-            <li
-              onClick={() => {
-                setShowMain(false);
-                setShowProfile(true);
-              }}
-            >
-              Profile
-            </li>
+
+            {!user._id ? (
+              <li onClick={handleOnLogin}>Login</li>
+            ) : (
+              <li
+                onClick={() => {
+                  setShowMain(false);
+                  setShowProfileMenu(true);
+                }}
+              >
+                Profile
+              </li>
+            )}
           </ul>
         </Offcanvas.Body>
       </Offcanvas>
@@ -114,12 +125,21 @@ const SmallScreens = () => {
       {/* CATEGORIES Offcanvas */}
       <Offcanvas
         show={showCategories}
-        onHide={handleCloseCategories}
+        onHide={() => {
+          setShowCategories(false);
+          setShowMain(true);
+        }}
         placement="top"
         className={styles.fullscreen_offcanvas}
       >
-        <div className={styles.toggle_icon} onClick={handleCloseCategories}>
-          <FontAwesomeIcon icon={faXmark} />
+        <div
+          className={`${styles.toggle_icon} ${styles.left_icon}`}
+          onClick={() => {
+            setShowCategories(false);
+            setShowMain(true);
+          }}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
         </div>
         <Offcanvas.Body>
           <ul className={styles.offcanvas_list}>
@@ -143,44 +163,40 @@ const SmallScreens = () => {
         </Offcanvas.Body>
       </Offcanvas>
 
-      {/* PROFILE Offcanvas */}
+      {/* PROFILE MENU Offcanvas */}
       <Offcanvas
-        show={showProfile}
+        show={showProfileMenu}
         onHide={() => {
-          setShowProfile(false);
+          setShowProfileMenu(false);
           setShowMain(true);
         }}
         placement="top"
         className={styles.fullscreen_offcanvas}
       >
         <div
-          className={styles.toggle_icon}
+          className={`${styles.toggle_icon} ${styles.left_icon}`}
           onClick={() => {
-            setShowProfile(false);
+            setShowProfileMenu(false);
             setShowMain(true);
           }}
         >
-          <FontAwesomeIcon icon={faXmark} />
+          <FontAwesomeIcon icon={faArrowLeft} />
         </div>
         <Offcanvas.Body>
           <ul className={styles.offcanvas_list}>
-            {!user._id ? (
-              <li
-                onClick={() => {
-                  handleOnLogin();
-                  setShowProfile(false);
-                }}
-              >
-                Login
-              </li>
-            ) : (
-              <>
-                <li onClick={() => handleNavigate("/profile")}>Profile</li>
-                <li onClick={() => handleNavigate("/purchases")}>Purchases</li>
-                <li onClick={() => handleNavigate("/reviews")}>Reviews</li>
-                <li onClick={handleOnLogout}>Sign Out</li>
-              </>
-            )}
+            <li onClick={() => handleNavigate("/profile")}>Profile</li>
+            <li onClick={() => handleNavigate("/purchases")}>Purchases</li>
+            <li onClick={() => handleNavigate("/reviews")}>Reviews</li>
+            <li onClick={() => handleNavigate("/paymentmethods")}>
+              Payment Methods
+            </li>
+            <li onClick={() => handleNavigate("/closeaccount")}>
+              Close Account
+            </li>
+            <li onClick={() => handleNavigate("/switchaccount")}>
+              Switch Account
+            </li>
+            <li onClick={handleOnLogout}>Sign Out</li>
           </ul>
         </Offcanvas.Body>
       </Offcanvas>
