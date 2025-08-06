@@ -24,16 +24,17 @@ const Categories = () => {
     <AppLayOut>
       <div className="categories_content">
         <div className="categories_content__wrapper">
-          <div className="categories_content_row">
-            {subCategories.map((item, i) => (
-              <div className="categories_content_row-item">
-                <h6 className="subcategory">{item.name}</h6>
-                <div className="categories_ul">
+          <div className="categories_grid">
+            {subCategories.map((item) => (
+              <div key={item._id} className="subcategory_card">
+                <h6 className="subcategory_title">{item.name}</h6>
+                <div className="subcategory_products">
                   {products.map(
-                    (product, i) =>
+                    (product) =>
                       product.subCatId === item._id && (
                         <div
-                          className="products"
+                          key={product._id}
+                          className="product_item"
                           onClick={() => handleOnProductClick(product._id)}
                         >
                           {product.name === "Sheets" ? (
