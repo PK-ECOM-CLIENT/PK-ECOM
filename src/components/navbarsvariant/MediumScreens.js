@@ -173,7 +173,7 @@ const MediumScreens = () => {
               }`}
               to="/offers"
             >
-              Offers
+            Offers
             </Link>
           </li>
 

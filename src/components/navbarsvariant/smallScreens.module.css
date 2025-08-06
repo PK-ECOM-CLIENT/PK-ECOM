@@ -1,21 +1,42 @@
-/* Make Offcanvas take full screen height */
-.toggle-icon {
+/* Top navbar */
+.navdiv {
+  background-color: var(--color-zomp) !important;
+  min-height: 4rem;
+  position: relative;
+}
+
+/* Logo on left */
+.logo {
+  max-width: 9rem;
+  background-color: var(--color-zomp) !important;
+  border: none !important;
+}
+
+/* Toggle icon (faBars and faXmark) */
+.toggle_icon {
   position: absolute;
-  top: 1rem;
+  top: 2rem;
   right: 1rem;
   z-index: 1051;
   cursor: pointer;
+  font-size: 1.4rem;
+  color: white;
 }
 
-/* Make Offcanvas full height */
-.fullscreen-offcanvas {
+/* Apply Zomp background to all Offcanvas */
+.fullscreen_offcanvas {
   height: 100vh !important;
-  width: 100vw;
-  background-color: var(--bs-body-bg);
+  width: 100vw !important;
+  background-color: var(--color-zomp) !important; /* ✅ Zomp applies here */
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  padding: 2rem 0;
 }
 
-/* Center list items vertically and horizontally */
-.offcanvas-list {
+/* Center Offcanvas items */
+.offcanvas_list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -27,27 +48,16 @@
   gap: 1.5rem;
   font-size: 1.2rem;
   font-weight: 500;
+  color: white; /* ✅ White text for better contrast */
 }
 
-/* Optional: hover effects for list items */
-.offcanvas-list li {
+/* Hover effect for items */
+.offcanvas_list li {
   cursor: pointer;
-  transition: color 0.3s;
+  transition: transform 0.3s, color 0.3s;
 }
 
-.offcanvas-list li:hover {
-  color: var(--bs-primary);
-}
-
-/* Ensure the toggle icon stays on top-right */
-.offcanvas-toggle-icon {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1051;
-  cursor: pointer;
-}
-.offcanvas-list li:hover {
+.offcanvas_list li:hover {
   transform: scale(1.05);
   color: var(--bs-primary);
 }
