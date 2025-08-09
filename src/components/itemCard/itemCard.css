@@ -1,5 +1,5 @@
 /* =========================
-   ItemCard (final, tighter)
+   ItemCard – refined
    ========================= */
 
 /* ---- Card container ---- */
@@ -11,15 +11,16 @@
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  height: auto; /* let content define height */
-  min-height: unset; /* remove forced min height */
+  height: auto;          /* no forced height */
+  min-height: unset;     /* ensure no extra blank space */
   box-sizing: border-box;
 }
+
 /* ---- Image area ---- */
 .itemCard_img {
   position: relative;
   width: 100%;
-  aspect-ratio: 5 / 4; /* 10:8 ratio */
+  aspect-ratio: 5 / 4;   /* stable visual rhythm */
   overflow: hidden;
 }
 
@@ -35,7 +36,7 @@
   transform: scale(1.04);
 }
 
-/* ---- Action icons ---- */
+/* ---- Action icons (inside image) ---- */
 .itemCard_img__fav,
 .itemCard_img__cart {
   position: absolute;
@@ -45,23 +46,11 @@
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.itemCard_img__fav {
-  left: 0.5rem;
-  color: var(--color-pastrelred-2);
-}
-.itemCard_img__fav:hover {
-  transform: scale(1.1);
-  color: var(--color-pastrelred);
-}
+.itemCard_img__fav { left: 0.5rem; color: var(--color-pastrelred-2); }
+.itemCard_img__fav:hover { transform: scale(1.1); color: var(--color-pastrelred); }
 
-.itemCard_img__cart {
-  right: 0.5rem;
-  color: var(--color-zomp);
-}
-.itemCard_img__cart:hover {
-  transform: scale(1.1);
-  color: var(--color-zomp-2);
-}
+.itemCard_img__cart { right: 0.5rem; color: var(--color-zomp); }
+.itemCard_img__cart:hover { transform: scale(1.1); color: var(--color-zomp-2); }
 
 /* Tiny hover tooltips */
 .addto {
@@ -72,60 +61,88 @@
   opacity: 0;
   transition: opacity 0.2s ease;
 }
-.addtocart {
-  left: -1.3rem !important;
-}
+.addtocart { left: -1.3rem !important; }
+
 .itemCard_img__fav:hover .addto,
 .itemCard_img__cart:hover .addto {
   opacity: 1;
 }
 
-/* ---- Body (tight spacing) ---- */
+/* ---- Body ---- */
 .itemCard_body {
-  padding: 0.1rem 0.5rem;
+  padding: 0.6rem 0.8rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem; /* small uniform gap between elements */
-  flex-grow: 0; /* prevent stretching */
+  gap: 0.5rem;
 }
 
-/* Title and price row tight together */
+/* Title */
 .itemCard_body__name {
   text-align: center;
-  font-size: 1.05rem;
+  font-size: 1.06rem;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 0.25rem; /* small gap to price/ratings row */
+  color: #2a2a2a;
+  padding-bottom: 0.45rem;
 }
 
-.itemCard_body__content {
+/* Price + Rating row */
+.itemCard_meta {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-size: 0.95rem;
-  color: var(--color-grey-dark-2);
-  margin-bottom: 0.2rem; /* small, uniform gap before description (if any) */
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.35rem 0 0.4rem;
 }
 
-.itemCard_body__content-price {
+.itemCard_price {
   font-size: 1.05rem;
   color: var(--color-zomp);
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.itemCard_body__content-ratings {
-  font-size: 0.9rem;
+/* Rating display */
+.itemCard_rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.93rem;
+  color: var(--color-grey-dark-2);
 }
-
-/* Description for selection page */
-.itemCard_body__description {
-  color: #555;
+.itemCard_rating .star {
+  color: var(--color-zomp); /* warm gold star */
   font-size: 0.95rem;
-  line-height: 1.4;
+}
+.itemCard_rating .rate {
+  font-weight: 600;
+  color: #333;
+}
+.itemCard_rating .count {
+  color: var(--color-grey-dark-2);
 }
 
-/* Hover effect */
+/* Description (only when rendered) */
+.itemCard_body__description {
+  color: #4a4a4a;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  /* Clamp to 3 lines so cards look tidy */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Hover effect for card */
 .itemCard:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-  transform: scale(1.02);
+  transform: translateY(-1px);
+}
+
+/* Utility if you render action icons in Favs list */
+.itemCard__actionoptions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.35rem;
+  cursor: pointer;
 }

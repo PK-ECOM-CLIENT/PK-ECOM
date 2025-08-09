@@ -103,282 +103,355 @@ const ItemSelectionPage = () => {
   return (
     <AppLayOut>
       <div className="itemSelection">
-        <div className="itemSelection_body">
-          <div className="itemSelection_body__img">
-            <div className="itemSelection_body__img-images">
-              {images &&
-                images.map((img, i) => (
-                  <img
-                    className={
-                      img.secure_url === image
-                        ? "item-subImages item-subImages-border"
-                        : "item-subImages"
-                    }
-                    src={img.secure_url}
-                    alt="thumbnail"
-                    key={i}
-                    onClick={() => handleOnImageClick(img.secure_url)}
-                  />
-                ))}
-            </div>
+        <div className="itemSelection_container">
+          {/* LEFT: gallery */}
+          <section className="itemSelection_gallery">
+            <div className="gallery_panel">
+              <div className="gallery_media">
+                {/* thumbnails rail */}
+                <div className="thumbs">
+                  {images?.map((img, i) => (
+                    <img
+                      key={i}
+                      className={
+                        img.secure_url === image
+                          ? "thumb thumb--active"
+                          : "thumb"
+                      }
+                      src={img.secure_url}
+                      alt="thumbnail"
+                      onClick={() => handleOnImageClick(img.secure_url)}
+                    />
+                  ))}
+                </div>
 
-            <div className="itemSelection_body__img-image">
-              {image && (
-                <ItemCard
-                  name={name}
-                  img={image}
-                  price={price}
-                  ratingsRate="3.5"
-                  ratingsCount="990"
-                  location="selection"
-                  id={_iid}
-                  description={description} /* Description now INSIDE card */
-                />
-              )}
+                {/* main item card */}
+                <div className="main_card">
+                  {image && (
+                    <ItemCard
+                      name={name}
+                      img={image}
+                      price={price}
+                      ratingsRate="3.5"
+                      ratingsCount="990"
+                      location="selection"
+                      id={_iid}
+                      description={description}
+                    />
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+          </section>
 
-          <div className="itemSelection_body__shopping">
-            <Form onSubmit={handleOnAddToCart}>
-              <div className="body_shopping">
-                <div className="itemSelection_body__shoping-price">
-                  <label htmlFor="unitPrice_label" className="unitPrice_label">
+          {/* RIGHT: checkout */}
+          <aside className="itemSelection_checkout">
+            <Form onSubmit={handleOnAddToCart} className="checkout_panel">
+              <div className="checkout_rows">
+                <div className="row_price">
+                  <label htmlFor="unitPrice" className="lbl">
                     Unit Price:
                   </label>
                   <input
-                    className="unitPrice_input"
-                    type="text"
+                    className="ro"
                     id="unitPrice"
                     value={price ?? ""}
                     readOnly
-                    name="price"
                   />
                 </div>
 
                 {selectedItem?.filters?.length ? (
-                  <div className="itemSelection_body__shoping-filter">
-                    <div className="filterName">{filterName}:</div>
+                  <div className="row_filter">
+                    <div className="lbl">{filterName}:</div>
                     <Form.Select
-                      name="filter"
-                      className="filter_heading"
                       id="filterSelect"
                       ref={filterRef}
                       required
+                      className="filter_select"
                     >
                       <option value="">choose</option>
-                      {filters.map((filter, i) => (
-                        <option key={i} value={filter}>
-                          {filter}
+                      {filters.map((f, i) => (
+                        <option key={i} value={f}>
+                          {f}
                         </option>
                       ))}
                     </Form.Select>
                   </div>
                 ) : null}
 
-                <div className="itemSelection_body_shopping-no">
-                  <label htmlFor="number" className="number">
+                <div className="row_qty">
+                  <label htmlFor="number" className="lbl">
                     No of items:
                   </label>
-                  <span
-                    className="itemSelection_body__shopping-btn"
+                  <Button
+                    variant="none"
+                    type="button"
+                    className="qty_btn"
                     onClick={handleOnDecrement}
                   >
-                    <Button
-                      variant="none"
-                      type="button"
-                      className="btn-noFocus"
-                    >
-                      -
-                    </Button>
-                  </span>
+                    -
+                  </Button>
                   <input
-                    className="count"
-                    type="text"
+                    className="qty_count ro"
                     id="number"
                     value={count}
                     readOnly
-                    name="count"
                   />
-                  <span
-                    className="itemSelection_body__shopping-btn"
+                  <Button
+                    variant="none"
+                    type="button"
+                    className="qty_btn"
                     onClick={handleOnIncrement}
                   >
-                    <Button
-                      className="btn-noFocus"
-                      variant="none"
-                      type="button"
-                    >
-                      +
-                    </Button>
-                  </span>
+                    +
+                  </Button>
                 </div>
 
-                <div className="itemSelection_body_shopping-totalPrice">
-                  <label className="totalPrice" htmlFor="totalPrice">
+                <div className="row_total">
+                  <label htmlFor="totalPrice" className="lbl">
                     Total Price:
                   </label>
                   <input
-                    className="totalPriceValue"
-                    type="text"
-                    id="readOnlyField"
+                    className="ro"
+                    id="totalPrice"
                     value={totalPrice ?? ""}
                     readOnly
-                    name="totalPrice"
                   />
                 </div>
 
-                <div className="itemSelection_buttonoptions">
-                  <div className="itemSelection_body_shopping-buy d-grid border-0">
-                    <Button
-                      size="lg"
-                      className="-util-btn-positive"
-                      type="submit"
-                    >
-                      Add to cart
-                    </Button>
-                  </div>
-                  <div className="d-grid border-0">
-                    <Button
-                      className="btn-fav -util-fav"
-                      onClick={handleOnAddToFav}
-                    >
-                      Add to favourites
-                    </Button>
-                  </div>
-                  <div className="d-grid border-0">
-                    <Button
-                      className="-util-share"
-                      onClick={() =>
-                        copyOnClick(process.env.REACT_APP_ROOTURL + url)
-                      }
-                    >
-                      Share
-                    </Button>
-                  </div>
+                <div className="row_cta">
+                  <Button
+                    size="lg"
+                    className="-util-btn-positive w-100"
+                    type="submit"
+                  >
+                    Add to cart
+                  </Button>
+                  <Button
+                    className="btn-fav -util-fav w-100"
+                    onClick={handleOnAddToFav}
+                  >
+                    Add to favourites
+                  </Button>
+                  <Button
+                    className="-util-share w-100"
+                    onClick={() =>
+                      copyOnClick(process.env.REACT_APP_ROOTURL + url)
+                    }
+                  >
+                    Share
+                  </Button>
                 </div>
               </div>
             </Form>
-          </div>
+          </aside>
         </div>
 
-        <div className="itemSelection_reviews">
+        {/* Reviews */}
+        <section className="itemSelection_reviews">
           <h3 className="itemSelection_reviews__heading">Recent Reviews</h3>
           <div className="itemSelection_reviews__content">
-            <div className="itemSelection_reviews__content">
-              <div className="itemSelection_reviews__content-review">
-                <div className="itemSelection_reviews__content-review--first -util-borderbottom">
-                  <div className="itemSelection_reviews__content-review--first_name">
-                    Pradeep
-                  </div>
-                  <div className="itemSelection_reviews__content-review--first_date">
-                    19/06/2023
-                  </div>
+            <div className="itemSelection_reviews__content-review">
+              <div className="itemSelection_reviews__content-review--first -util-borderbottom">
+                <div className="itemSelection_reviews__content-review--first_name">
+                  Pradeep
                 </div>
-
-                <div className="itemSelection_reviews__content-review--second">
-                  <div className="itemSelection_reviews__content-review--second_description">
-                    Is a really nice Product Lorem ipsum, dolor sit amet
-                    consectetur adipisicing elit. Laboriosam aut culpa dolor
-                    explicabo illum voluptatem distinctio beatae dicta cum
-                    tempora.
-                  </div>
-                  <div className="itemSelection_reviews__content-review--second_star">
-                    5 stars
-                  </div>
+                <div className="itemSelection_reviews__content-review--first_date">
+                  19/06/2023
                 </div>
               </div>
-              <div className="itemSelection_reviews__content-review">
-                <div className="itemSelection_reviews__content-review--first -util-borderbottom">
-                  <div className="itemSelection_reviews__content-review--first_name">
-                    Pradeep
-                  </div>
-                  <div className="itemSelection_reviews__content-review--first_date">
-                    19/06/2023
-                  </div>
-                </div>
 
-                <div className="itemSelection_reviews__content-review--second">
-                  <div className="itemSelection_reviews__content-review--second_description">
-                    Is a really nice Product Lorem ipsum, dolor sit amet
-                    consectetur adipisicing elit. Laboriosam aut culpa dolor
-                    explicabo illum voluptatem distinctio beatae dicta cum
-                    tempora.
-                  </div>
-                  <div className="itemSelection_reviews__content-review--second_star">
-                    5 stars
-                  </div>
+              <div className="itemSelection_reviews__content-review--second">
+                <div className="itemSelection_reviews__content-review--second_description">
+                  Is a really nice Product Lorem ipsum, dolor sit amet
+                  consectetur adipisicing elit. Laboriosam aut culpa dolor
+                  explicabo illum voluptatem distinctio beatae dicta cum
+                  tempora.
+                </div>
+                <div className="itemSelection_reviews__content-review--second_star">
+                  5 stars
                 </div>
               </div>
-              <div className="itemSelection_reviews__content-review">
-                <div className="itemSelection_reviews__content-review--first -util-borderbottom">
-                  <div className="itemSelection_reviews__content-review--first_name">
-                    Pradeep
-                  </div>
-                  <div className="itemSelection_reviews__content-review--first_date">
-                    19/06/2023
-                  </div>
+            </div>{" "}
+            <div className="itemSelection_reviews__content-review">
+              <div className="itemSelection_reviews__content-review--first -util-borderbottom">
+                <div className="itemSelection_reviews__content-review--first_name">
+                  Pradeep
                 </div>
-
-                <div className="itemSelection_reviews__content-review--second">
-                  <div className="itemSelection_reviews__content-review--second_description">
-                    Is a really nice Product Lorem ipsum, dolor sit amet
-                    consectetur adipisicing elit. Laboriosam aut culpa dolor
-                    explicabo illum voluptatem distinctio beatae dicta cum
-                    tempora.
-                  </div>
-                  <div className="itemSelection_reviews__content-review--second_star">
-                    5 stars
-                  </div>
+                <div className="itemSelection_reviews__content-review--first_date">
+                  19/06/2023
                 </div>
               </div>
-              <div className="itemSelection_reviews__content-review">
-                <div className="itemSelection_reviews__content-review--first -util-borderbottom">
-                  <div className="itemSelection_reviews__content-review--first_name">
-                    Pradeep
-                  </div>
-                  <div className="itemSelection_reviews__content-review--first_date">
-                    19/06/2023
-                  </div>
-                </div>
 
-                <div className="itemSelection_reviews__content-review--second">
-                  <div className="itemSelection_reviews__content-review--second_description">
-                    Is a really nice Product Lorem ipsum, dolor sit amet
-                    consectetur adipisicing elit. Laboriosam aut culpa dolor
-                    explicabo illum voluptatem distinctio beatae dicta cum
-                    tempora.
-                  </div>
-                  <div className="itemSelection_reviews__content-review--second_star">
-                    5 stars
-                  </div>
+              <div className="itemSelection_reviews__content-review--second">
+                <div className="itemSelection_reviews__content-review--second_description">
+                  Is a really nice Product Lorem ipsum, dolor sit amet
+                  consectetur adipisicing elit. Laboriosam aut culpa dolor
+                  explicabo illum voluptatem distinctio beatae dicta cum
+                  tempora.
+                </div>
+                <div className="itemSelection_reviews__content-review--second_star">
+                  5 stars
                 </div>
               </div>
-              <div className="itemSelection_reviews__content-review">
-                <div className="itemSelection_reviews__content-review--first -util-borderbottom">
-                  <div className="itemSelection_reviews__content-review--first_name">
-                    Pradeep
-                  </div>
-                  <div className="itemSelection_reviews__content-review--first_date">
-                    19/06/2023
-                  </div>
+            </div>{" "}
+            <div className="itemSelection_reviews__content-review">
+              <div className="itemSelection_reviews__content-review--first -util-borderbottom">
+                <div className="itemSelection_reviews__content-review--first_name">
+                  Pradeep
                 </div>
+                <div className="itemSelection_reviews__content-review--first_date">
+                  19/06/2023
+                </div>
+              </div>
 
-                <div className="itemSelection_reviews__content-review--second">
-                  <div className="itemSelection_reviews__content-review--second_description">
-                    Is a really nice Product Lorem ipsum, dolor sit amet
-                    consectetur adipisicing elit. Laboriosam aut culpa dolor
-                    explicabo illum voluptatem distinctio beatae dicta cum
-                    tempora.
-                  </div>
-                  {/* to make the content of the star rating show in a single line min-width is applied to the following class */}
-                  <div className="itemSelection_reviews__content-review--second_star">
-                    5 stars
-                  </div>
+              <div className="itemSelection_reviews__content-review--second">
+                <div className="itemSelection_reviews__content-review--second_description">
+                  Is a really nice Product Lorem ipsum, dolor sit amet
+                  consectetur adipisicing elit. Laboriosam aut culpa dolor
+                  explicabo illum voluptatem distinctio beatae dicta cum
+                  tempora.
+                </div>
+                <div className="itemSelection_reviews__content-review--second_star">
+                  5 stars
+                </div>
+              </div>
+            </div>{" "}
+            <div className="itemSelection_reviews__content-review">
+              <div className="itemSelection_reviews__content-review--first -util-borderbottom">
+                <div className="itemSelection_reviews__content-review--first_name">
+                  Pradeep
+                </div>
+                <div className="itemSelection_reviews__content-review--first_date">
+                  19/06/2023
+                </div>
+              </div>
+
+              <div className="itemSelection_reviews__content-review--second">
+                <div className="itemSelection_reviews__content-review--second_description">
+                  Is a really nice Product Lorem ipsum, dolor sit amet
+                  consectetur adipisicing elit. Laboriosam aut culpa dolor
+                  explicabo illum voluptatem distinctio beatae dicta cum
+                  tempora.
+                </div>
+                <div className="itemSelection_reviews__content-review--second_star">
+                  5 stars
+                </div>
+              </div>
+            </div>{" "}
+            <div className="itemSelection_reviews__content-review">
+              <div className="itemSelection_reviews__content-review--first -util-borderbottom">
+                <div className="itemSelection_reviews__content-review--first_name">
+                  Pradeep
+                </div>
+                <div className="itemSelection_reviews__content-review--first_date">
+                  19/06/2023
+                </div>
+              </div>
+
+              <div className="itemSelection_reviews__content-review--second">
+                <div className="itemSelection_reviews__content-review--second_description">
+                  Is a really nice Product Lorem ipsum, dolor sit amet
+                  consectetur adipisicing elit. Laboriosam aut culpa dolor
+                  explicabo illum voluptatem distinctio beatae dicta cum
+                  tempora.
+                </div>
+                <div className="itemSelection_reviews__content-review--second_star">
+                  5 stars
+                </div>
+              </div>
+            </div>
+            <div className="itemSelection_reviews__content-review">
+              <div className="itemSelection_reviews__content-review--first -util-borderbottom">
+                <div className="itemSelection_reviews__content-review--first_name">
+                  Pradeep
+                </div>
+                <div className="itemSelection_reviews__content-review--first_date">
+                  19/06/2023
+                </div>
+              </div>
+
+              <div className="itemSelection_reviews__content-review--second">
+                <div className="itemSelection_reviews__content-review--second_description">
+                  Is a really nice Product Lorem ipsum, dolor sit amet
+                  consectetur adipisicing elit. Laboriosam aut culpa dolor
+                  explicabo illum voluptatem distinctio beatae dicta cum
+                  tempora.
+                </div>
+                <div className="itemSelection_reviews__content-review--second_star">
+                  5 stars
+                </div>
+              </div>
+            </div>
+            <div className="itemSelection_reviews__content-review">
+              <div className="itemSelection_reviews__content-review--first -util-borderbottom">
+                <div className="itemSelection_reviews__content-review--first_name">
+                  Pradeep
+                </div>
+                <div className="itemSelection_reviews__content-review--first_date">
+                  19/06/2023
+                </div>
+              </div>
+
+              <div className="itemSelection_reviews__content-review--second">
+                <div className="itemSelection_reviews__content-review--second_description">
+                  Is a really nice Product Lorem ipsum, dolor sit amet
+                  consectetur adipisicing elit. Laboriosam aut culpa dolor
+                  explicabo illum voluptatem distinctio beatae dicta cum
+                  tempora.
+                </div>
+                <div className="itemSelection_reviews__content-review--second_star">
+                  5 stars
+                </div>
+              </div>
+            </div>
+            <div className="itemSelection_reviews__content-review">
+              <div className="itemSelection_reviews__content-review--first -util-borderbottom">
+                <div className="itemSelection_reviews__content-review--first_name">
+                  Pradeep
+                </div>
+                <div className="itemSelection_reviews__content-review--first_date">
+                  19/06/2023
+                </div>
+              </div>
+
+              <div className="itemSelection_reviews__content-review--second">
+                <div className="itemSelection_reviews__content-review--second_description">
+                  Is a really nice Product Lorem ipsum, dolor sit amet
+                  consectetur adipisicing elit. Laboriosam aut culpa dolor
+                  explicabo illum voluptatem distinctio beatae dicta cum
+                  tempora.
+                </div>
+                <div className="itemSelection_reviews__content-review--second_star">
+                  5 stars
+                </div>
+              </div>
+            </div>
+            <div className="itemSelection_reviews__content-review">
+              <div className="itemSelection_reviews__content-review--first -util-borderbottom">
+                <div className="itemSelection_reviews__content-review--first_name">
+                  Pradeep
+                </div>
+                <div className="itemSelection_reviews__content-review--first_date">
+                  19/06/2023
+                </div>
+              </div>
+
+              <div className="itemSelection_reviews__content-review--second">
+                <div className="itemSelection_reviews__content-review--second_description">
+                  Is a really nice Product Lorem ipsum, dolor sit amet
+                  consectetur adipisicing elit. Laboriosam aut culpa dolor
+                  explicabo illum voluptatem distinctio beatae dicta cum
+                  tempora.
+                </div>
+                {/* to make the content of the star rating show in a single line min-width is applied to the following class */}
+                <div className="itemSelection_reviews__content-review--second_star">
+                  5 stars
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </AppLayOut>
   );
