@@ -92,10 +92,12 @@
 
 .cart_icon--delete {
   top: 0.25rem;
+  color: var(--color-grey-dark-2);
+  /* color:black; */
 }
 .cart_icon--fav {
   bottom: 0.25rem;
-  color: var(--color-pastrelred);
+  color: var(--color-pastrelred-2);
 }
 
 .cart_icon:hover {

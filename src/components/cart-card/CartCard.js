@@ -31,7 +31,9 @@ export const CartCard = ({
   const { cart } = useSelector((state) => state.system);
 
   const handleOnDeleteFromCart = (_id) => {
-    if (window.confirm("Are you sure, you want to remove the item from cart?")) {
+    if (
+      window.confirm("Are you sure, you want to remove the item from cart?")
+    ) {
       dispatch(deleteCartsAction(_id));
     }
   };
@@ -131,15 +133,14 @@ export const CartCard = ({
           onClick={() => handleOnDeleteFromCart(id)}
           aria-label="Remove from cart"
         >
-          <i className="fa-solid fa-trash-can -util-trashcan"></i>
+          <i className="fa-solid fa-trash-can -util-trashcan -util-font15"></i>
         </button>
-
         <button
           className="cart_icon cart_icon--fav -util-pointer"
           onClick={() => handleOnAddToFav(id)}
           aria-label="Move to favourites"
         >
-          <i className="fa-solid fa-heart -util-font15"></i>
+          <i className="fa-solid fa-heart -util-fav -util-font15"></i>
         </button>
       </div>
     </div>

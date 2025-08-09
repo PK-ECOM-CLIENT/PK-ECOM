@@ -9,7 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setPublicUrl } from "../../slices/system/systemSlice";
 
-// Font Awesome (already in your deps)
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
@@ -20,7 +19,7 @@ export const ItemCard = ({
   id,
   ratingsRate,
   ratingsCount,
-  location,
+  location,     // "items" | "selection" | "favs"
   catId,
   productId,
   description,
@@ -46,11 +45,7 @@ export const ItemCard = ({
   };
 
   const handleOnDeleteFromFav = (_id) => {
-    if (
-      window.confirm(
-        "Are you sure, you want to remove the item from favourites?"
-      )
-    ) {
+    if (window.confirm("Are you sure, you want to remove the item from favourites?")) {
       dispatch(deleteFavsAction(_id));
     }
   };
@@ -71,6 +66,7 @@ export const ItemCard = ({
           onClick={() => handleOnItemClick(catId, productId, id)}
         />
 
+        {/* Overlay icons on items & selection pages */}
         {(location === "items" || location === "selection") && (
           <div>
             <i
@@ -83,7 +79,7 @@ export const ItemCard = ({
             </i>
 
             <i
-              className="itemCard_img__cart fa-solid fa-cart-shopping -util-font20"
+              className="itemCard_img__cart fa-solid fa-cart-shopping"
               onClick={() => handleOnAddToCart(id)}
               aria-label="Add to cart"
               title="Add to cart"
@@ -96,32 +92,51 @@ export const ItemCard = ({
 
       {/* Body */}
       <div className="itemCard_body">
-        {/* Title */}
         <div className="itemCard_body__name -util-borderbottom">{name}</div>
 
-        {/* Price + Rating row */}
         <div className="itemCard_meta -util-borderbottom">
           <div className="itemCard_price">${price}</div>
 
-          {/* show actions on favs list */}
+          {/* Always show the icons in the row so users see the feature.
+              On the favourites page, make them *non-interactive* because
+              the hover quick actions perform the operations. */}
           {location === "favs" ? (
             <>
-              <div
+              <span
+                className="itemCard__actionoptions"
+                title="Add to cart (use quick actions)"
+                style={{ pointerEvents: "none", opacity: 0.55 }}
+                aria-hidden="true"
+              >
+                <i className="fa-solid fa-cart-shopping"></i>
+              </span>
+              <span
+                className="itemCard__actionoptions"
+                title="Remove from favourites (use quick actions)"
+                style={{ pointerEvents: "none", opacity: 0.55 }}
+                aria-hidden="true"
+              >
+                <i className="fa-solid fa-trash-can -util-trashcan"></i>
+              </span>
+            </>
+          ) : (
+            <>
+              <span
                 className="itemCard__actionoptions"
                 onClick={() => handleOnAddToCart(id)}
                 title="Add to cart"
               >
-                <i className="fa-solid fa-cart-shopping -util-font15"></i>
-              </div>
-              <div
+                <i className="fa-solid fa-cart-shopping"></i>
+              </span>
+              <span
                 className="itemCard__actionoptions"
                 onClick={() => handleOnDeleteFromFav(id)}
                 title="Remove from favourites"
               >
                 <i className="fa-solid fa-trash-can -util-trashcan"></i>
-              </div>
+              </span>
             </>
-          ) : null}
+          )}
 
           <div className="itemCard_rating" aria-label="rating">
             <FontAwesomeIcon icon={faStar} className="star" />
@@ -130,7 +145,6 @@ export const ItemCard = ({
           </div>
         </div>
 
-        {/* Description (only on selection page) */}
         {location === "selection" && description ? (
           <div className="itemCard_body__description">{description}</div>
         ) : null}

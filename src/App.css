@@ -15,7 +15,7 @@
   --color-pastrelred-lightest: #ff6b6bc4;
   --color-sunsetorange: #ff5e57;
   --color-grey-dark-1: #333;
-  --color-grey-dark-2: #777;
+  --color-grey-dark-2: #555151;
   --color-grey-dark-2-light: #77777718;
   --color-grey-dark-3: #999;
   --color-grey-dark-3-light: #99999980;
@@ -69,10 +69,24 @@ body {
 .-util-font20 {
   font-size: 2rem !important;
 }
-.-util-trashcan {
-  font-size: 1.2rem;
+.-util-trashcan,
+.-util-cart,
+.-util-fav {
+  transition: all 0.3s ease;
 }
-.-util-link{
+.-util-trashcan:hover {
+  color: red;
+  transform: scale(1.05);
+}
+.-util-cart:hover {
+  color: var(--color-zomp);
+  transform: scale(1.05);
+}
+.-util-fav:hover {
+  color: var(--color-pastrelred);
+  transform: scale(1.05);
+}
+.-util-link {
   cursor: pointer;
 }
 .-util-btn-positive,
@@ -86,16 +100,7 @@ body {
   outline: none !important;
   outline-offset: none !important;
 }
-.-util-fav,
-.-util-fav:hover,
-.-util-fav:focus,
-.-util-fav:target,
-.-util-fav:visited,
-.-util-fav:active {
-  background-color: var(--color-pastrelred) !important;
-  border: none !important;
-  font-size: 0.9rem;
-}
+
 .-util-share,
 .-util-share:hover,
 .-util-share:focus,
@@ -106,17 +111,7 @@ body {
   border: none !important;
   font-size: 0.9rem;
 }
-.-util-cart,
-.-util-cart:hover,
-.-util-cart:focus,
-.-util-cart:target,
-.-util-cart:visited,
-.-util-cart:active {
-  background-color: var(--color-zomp) !important;
-  border: none !important;
-  font-size: 0.9rem;
-  width: 6rem;
-}
+
 .-util-brdr-btm-none {
   border: none !important;
 }
@@ -143,7 +138,7 @@ body {
   transform: translateX(-0.5rem);
 }
 /* for the image flowing out of the card */
-.util-link{
+.util-link {
   text-decoration: none;
 }
 .-util-required::after {
@@ -175,13 +170,13 @@ body {
 .-util-rotate_180 {
   transform: rotate(180deg);
 }
-.-util-ml-sml{
+.-util-ml-sml {
   margin-left: 1rem;
 }
-.util-mr-xsml{
-  margin-right: .3rem;
+.util-mr-xsml {
+  margin-right: 0.3rem;
 }
-.util-mr-sml{
+.util-mr-sml {
   margin-right: 1rem;
 }
 /* overriding default elements styling */
