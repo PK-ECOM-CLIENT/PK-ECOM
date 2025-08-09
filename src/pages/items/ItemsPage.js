@@ -23,7 +23,7 @@ const ItemsPage = () => {
     <AppLayOut>
       <div className="items">
         <div className="items_container">
-          <Row className="g-4"> {/* g-4 = spacing between cards */}
+          <Row className="g-4">
             {items.map((item, i) => {
               const { name, thumbnail, price, _id, catId, productId } = item;
               return (
