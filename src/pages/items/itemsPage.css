@@ -2,21 +2,22 @@
   margin: 5rem 1rem 2rem;
   background-color: #f8f8f8;
   min-height: 100vh;
-  overflow-x: hidden; /* stop horizontal scrollbar */
+  overflow-x: hidden;
 }
 
-/* Center the content and let cards be nice and wide on desktop */
+/* Center the content and let cards be wide on desktop */
 .items_container {
-  max-width: 1400px; /* widen if you want larger cards */
+  max-width: 1400px;
   margin: 0 auto;
 }
 
-/* Card wrapper: contain hover scale so it doesn't cause overflow */
+/* Card wrapper: contains hover scale; no image overrides here */
 .items_grid_card {
   overflow: hidden;
   transform-origin: center center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   will-change: transform;
+  min-width: 0; /* prevent intrinsic overflow */
 }
 
 .items_grid_card:hover {
@@ -25,27 +26,10 @@
   cursor: pointer;
 }
 
-/* Make whatever is inside (ItemCard) fluid */
+/* Make the ItemCard fill the column; do not restyle inner img */
 .items_grid_card > * {
   width: 100%;
   height: 100%;
   max-width: none;
-}
-
-/* Helpful if ItemCard contains a .card or fixed width elements */
-.items_grid_card .card {
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  display: flex;
-  flex-direction: column;
   box-sizing: border-box;
-}
-
-/* Ensure images inside ItemCard don't blow out the column */
-.items_grid_card img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
 }

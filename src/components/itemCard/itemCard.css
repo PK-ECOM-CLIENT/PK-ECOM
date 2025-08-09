@@ -1,3 +1,7 @@
+/* =========================
+   ItemCard (final, tighter)
+   ========================= */
+
 /* ---- Card container ---- */
 .itemCard {
   background-color: #fff;
@@ -7,24 +11,23 @@
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: 380px;
+  height: auto; /* let content define height */
+  min-height: unset; /* remove forced min height */
   box-sizing: border-box;
 }
-
-/* ---- Image area (same everywhere) ---- */
+/* ---- Image area ---- */
 .itemCard_img {
   position: relative;
   width: 100%;
-  aspect-ratio: 5 / 4;   /* 10:8 ratio */
+  aspect-ratio: 5 / 4; /* 10:8 ratio */
   overflow: hidden;
 }
 
 .itemCard_img__img {
-  display: block;        /* remove inline-img baseline gap */
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;     /* fill the box consistently */
+  object-fit: cover;
   transition: transform 0.3s ease;
 }
 
@@ -32,23 +35,35 @@
   transform: scale(1.04);
 }
 
-/* ---- Action icons (always inside image area) ---- */
+/* ---- Action icons ---- */
 .itemCard_img__fav,
 .itemCard_img__cart {
   position: absolute;
   top: 0.5rem;
   font-size: 1.4rem;
-  transition: transform 0.2s ease, color 0.2s ease;
   line-height: 1;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.itemCard_img__fav { left: 0.5rem; color: var(--color-pastrelred-2); }
-.itemCard_img__fav:hover { transform: scale(1.1); color: var(--color-pastrelred); }
+.itemCard_img__fav {
+  left: 0.5rem;
+  color: var(--color-pastrelred-2);
+}
+.itemCard_img__fav:hover {
+  transform: scale(1.1);
+  color: var(--color-pastrelred);
+}
 
-.itemCard_img__cart { right: 0.5rem; color: var(--color-zomp); }
-.itemCard_img__cart:hover { transform: scale(1.1); color: var(--color-zomp-2); }
+.itemCard_img__cart {
+  right: 0.5rem;
+  color: var(--color-zomp);
+}
+.itemCard_img__cart:hover {
+  transform: scale(1.1);
+  color: var(--color-zomp-2);
+}
 
-/* tiny tooltips */
+/* Tiny hover tooltips */
 .addto {
   position: absolute;
   top: 2.3rem;
@@ -57,25 +72,30 @@
   opacity: 0;
   transition: opacity 0.2s ease;
 }
-.addtocart { left: -1.3rem !important; }
+.addtocart {
+  left: -1.3rem !important;
+}
 .itemCard_img__fav:hover .addto,
-.itemCard_img__cart:hover .addto { opacity: 1; }
-
-/* ---- Body ---- */
-.itemCard_body {
-  padding: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1 1 auto;
+.itemCard_img__cart:hover .addto {
+  opacity: 1;
 }
 
+/* ---- Body (tight spacing) ---- */
+.itemCard_body {
+  padding: 0.1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem; /* small uniform gap between elements */
+  flex-grow: 0; /* prevent stretching */
+}
+
+/* Title and price row tight together */
 .itemCard_body__name {
   text-align: center;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
   color: #333;
+  margin-bottom: 0.25rem; /* small gap to price/ratings row */
 }
 
 .itemCard_body__content {
@@ -84,10 +104,11 @@
   align-items: center;
   font-size: 0.95rem;
   color: var(--color-grey-dark-2);
+  margin-bottom: 0.2rem; /* small, uniform gap before description (if any) */
 }
 
 .itemCard_body__content-price {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--color-zomp);
   font-weight: 600;
 }
@@ -96,16 +117,15 @@
   font-size: 0.9rem;
 }
 
-/* Description (rendered only on selection page by JSX condition, but styled same) */
+/* Description for selection page */
 .itemCard_body__description {
-  margin-top: 0.5rem;
   color: #555;
   font-size: 0.95rem;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
-/* Optional subtle card hover */
+/* Hover effect */
 .itemCard:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-  transform: translateY(-1px);
+  transform: scale(1.02);
 }
