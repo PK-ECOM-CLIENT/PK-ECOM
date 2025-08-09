@@ -50,7 +50,7 @@ export const ItemCard = ({
       dispatch(deleteFavsAction(_id));
     }
   };
- 
+
   const handleOnItemClick = (catId, productId, id) => {
     navigate(`/categories/${catId}/products/${productId}/item/${id}`);
   };
@@ -61,9 +61,7 @@ export const ItemCard = ({
           src={img}
           className="itemCard_img__img"
           alt="itemimg"
-          onClick={
-            () => handleOnItemClick(catId, productId, id)
-          }
+          onClick={() => handleOnItemClick(catId, productId, id)}
           // crossOrigin="anonymous"
         ></img>
         {location === "items" || location === "selection" ? (
