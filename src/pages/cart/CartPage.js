@@ -22,47 +22,39 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   const { totalItems, totalPrice } = cart.reduce(
-    (accumulator, item) => {
-      return {
-        totalItems: accumulator.totalItems + parseInt(item.count, 10),
-        totalPrice: accumulator.totalPrice + item.count * item.price,
-      };
-    },
+    (acc, item) => ({
+      totalItems: acc.totalItems + parseInt(item.count, 10),
+      totalPrice: acc.totalPrice + item.count * item.price,
+    }),
     { totalItems: 0, totalPrice: 0 }
   );
 
-  // State to store the dynamically calculated delivery charge
   const [deliveryDetails, setDeliveryDetails] = useState({
     service: "",
     deliveryTime: "",
-    totalCost: 0, // Store delivery cost as a number for calculations
+    totalCost: 0,
   });
-const [paymentInitiationSpinner,setPaymentInitiationSpinner]=useState(false);
+  const [paymentInitiationSpinner, setPaymentInitiationSpinner] = useState(false);
+
   const calculatedDimension = useMemo(
     () => calculateDimensionsAndWeight(cart),
     [cart]
   );
-console.log(cart)
-  // Fetch delivery fee when the component mounts or when cart or user details change
+
   useEffect(() => {
     const fetchDeliveryDetails = async () => {
       try {
         if (user?.address?.postCode) {
-          const result = await getDeliveryDetails(
-            {
-              fromPostcode: 6107, // Hardcoded origin postcode
-              toPostcode: user.address.postCode, // Use the user's address for delivery
-              ...calculatedDimension,
-            }
-        
-          );
-          console.log(result);
+          const result = await getDeliveryDetails({
+            fromPostcode: 6107,
+            toPostcode: user.address.postCode,
+            ...calculatedDimension,
+          });
 
-          // Update the delivery details state
           setDeliveryDetails({
             service: result?.service || "Unknown service",
             deliveryTime: result?.delivery_time || "Unknown delivery time",
-            totalCost: Number(result?.total_cost || 0), // Ensure it's a number
+            totalCost: Number(result?.total_cost || 0),
           });
         }
       } catch (error) {
@@ -71,138 +63,137 @@ console.log(cart)
     };
 
     fetchDeliveryDetails();
-  }, [cart, user, calculatedDimension]); // Memoized 'calculatedDimension' won't cause unnecessary triggers
+  }, [cart, user, calculatedDimension]);
 
-  // Calculate GST and round to 2 decimals
   const gst = (totalPrice * process.env.REACT_APP_GST_CHARGE_RATE).toFixed(2);
-
-  // Calculate cart total and round to 2 decimals
-  let cartTotal = (
-    Number(totalPrice) +
-    Number(gst) +
-    Number(deliveryDetails.totalCost)
+  const cartTotal = (
+    Number(totalPrice) + Number(gst) + Number(deliveryDetails.totalCost)
   ).toFixed(2);
 
   const makePayment = async () => {
-  try {
-    setPaymentInitiationSpinner(true); // Start spinner
-
-    const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
-    const response = await createStripeSession({ items: cart });
-
-    if (response.sessionId) {
-      await stripe.redirectToCheckout({
-        sessionId: response.sessionId,
-      });
+    try {
+      setPaymentInitiationSpinner(true);
+      const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+      const response = await createStripeSession({ items: cart });
+      if (response.sessionId) {
+        await stripe.redirectToCheckout({ sessionId: response.sessionId });
+      }
+    } catch (error) {
+      console.error("Error during payment initiation", error);
+    } finally {
+      setPaymentInitiationSpinner(false);
     }
-  } catch (error) {
-    console.error("Error during payment initiation", error);
-  } finally {
-    setPaymentInitiationSpinner(false); // Stop spinner regardless of success or failure
-  }
-};
+  };
 
   return (
     <AppLayOut>
-      <div className="items">
-        <div className="cart_body">
-          <div className="cart_body__items">
-            {cart.map((item, i) => {
-              return (
-                <CartCard
-                  key={item._id}
-                  name={item.name}
-                  count={parseInt(item.count, 10)}
-                  filter={item.filter}
-                  filterName={item.filterName}
-                  filters={item.filters}
-                  price={item.price}
-                  thumbnail={item.thumbnail}
-                  id={item._id}
-                  quantity={item.quantity}
-                />
-              );
-            })}
+      <div className="cart_page">
+        {/* LEFT: list of cart cards */}
+        <section className="cart_items_container">
+          <div className="cart_items_scroll">
+            {cart.map((item) => (
+              <CartCard
+                key={item._id}
+                name={item.name}
+                count={parseInt(item.count, 10)}
+                filter={item.filter}
+                filterName={item.filterName}
+                filters={item.filters}
+                price={item.price}
+                thumbnail={item.thumbnail}
+                id={item._id}
+                quantity={item.quantity}
+              />
+            ))}
           </div>
-          {cart.length > 0 && (
-            <div className="cart_body__checkout">
-             <div className="checkout_div">
-  <h5 className="fw-bold text-center mb-4">
-      <i className="fa-solid fa-cart-shopping -util-font15 util-mr-sml"></i>Cart Summary
-  </h5>
+        </section>
 
-  <div className="d-flex justify-content-between mb-2">
-    <span>Number of items:</span>
-    <span className="fw-bold">{totalItems}</span>
-  </div>
+        {/* RIGHT: summary */}
+        {cart.length > 0 && (
+          <aside className="cart_summary_container">
+            <div className="checkout_div">
+              <h5 className="fw-bold text-center mb-4">
+                <i className="fa-solid fa-cart-shopping -util-font15 util-mr-sml" />
+                Cart Summary
+              </h5>
 
-  <div className="d-flex justify-content-between mb-2">
-    <span>Total items cost:</span>
-    <span className="fw-bold">${totalPrice.toFixed(2)}</span>
-  </div>
+              <div className="d-flex justify-content-between mb-2">
+                <span>Number of items:</span>
+                <span className="fw-bold">{totalItems}</span>
+              </div>
 
-  <div className="d-flex justify-content-between mb-2">
-    <span>GST:</span>
-    <span className="fw-bold">${gst}</span>
-  </div>
+              <div className="d-flex justify-content-between mb-2">
+                <span>Total items cost:</span>
+                <span className="fw-bold">${totalPrice.toFixed(2)}</span>
+              </div>
 
-  <hr />
+              <div className="d-flex justify-content-between mb-2">
+                <span>GST:</span>
+                <span className="fw-bold">${gst}</span>
+              </div>
 
-  <div className="d-flex justify-content-between mb-1">
-    <span className="fw-bold">Delivery:</span>
-    <span className="fw-bold">${deliveryDetails.totalCost.toFixed(2)}</span>
-  </div>
+              <hr />
 
-  <div className="small  d-flex justify-content-between align-items-start mb-1">
-    <div>
-    <i class="fa-solid fa-location-dot util-mr-xsml"></i>{user.address?.streetAddress}, {user.address?.suburb},{" "}
-      {user.address?.state}, {user.address?.postCode}
-      <div className="fst-italic -util-ml-sml text-decoration-underline"> {deliveryDetails.deliveryTime}</div>
-    </div>
-    <div
-      className="ms-2 text-decoration-underline "
-      style={{ cursor: "pointer", fontWeight: 500 }}
-      onClick={() =>
-        dispatch(
-          setApplicationModal({
-            title: "Update User Address",
-            body: "update-address",
-          })
-        )
-      }
-    >
-      Edit
-    </div>
-  </div>
+              <div className="d-flex justify-content-between mb-1">
+                <span className="fw-bold">Delivery:</span>
+                <span className="fw-bold">
+                  ${deliveryDetails.totalCost.toFixed(2)}
+                </span>
+              </div>
 
-  <hr />
+              <div className="small d-flex justify-content-between align-items-start mb-1">
+                <div>
+                  <i className="fa-solid fa-location-dot util-mr-xsml"></i>
+                  {user.address?.streetAddress}, {user.address?.suburb},{" "}
+                  {user.address?.state}, {user.address?.postCode}
+                  <div className="fst-italic -util-ml-sml text-decoration-underline">
+                    {deliveryDetails.deliveryTime}
+                  </div>
+                </div>
+                <div
+                  className="ms-2 text-decoration-underline"
+                  style={{ cursor: "pointer", fontWeight: 500 }}
+                  onClick={() =>
+                    dispatch(
+                      setApplicationModal({
+                        title: "Update User Address",
+                        body: "update-address",
+                      })
+                    )
+                  }
+                >
+                  Edit
+                </div>
+              </div>
 
-  <div className="d-flex justify-content-between fs-5 fw-bold mb-3">
-    <span>Subtotal:</span>
-    <span>${cartTotal}</span>
-  </div>
+              <hr />
 
-  <div className="d-grid mb-2">
-    <Button
-      size="lg"
-      className="-util-btn-positive"
-      onClick={makePayment}
-      disabled={paymentInitiationSpinner}
-    >
-      {paymentInitiationSpinner ? <Spinnersmall /> : `Pay $${cartTotal}`}
-    </Button>
-  </div>
+              <div className="d-flex justify-content-between fs-5 fw-bold mb-3">
+                <span>Subtotal:</span>
+                <span>${cartTotal}</span>
+              </div>
 
-  <p className="checkout_paragraph">
-    By checking out, you agree to our&nbsp;
-    <Link to="">Terms and Conditions</Link>.
-  </p>
-</div>
+              <div className="d-grid mb-2">
+                <Button
+                  size="lg"
+                  className="-util-btn-positive"
+                  onClick={makePayment}
+                  disabled={paymentInitiationSpinner}
+                >
+                  {paymentInitiationSpinner ? <Spinnersmall /> : `Pay $${cartTotal}`}
+                </Button>
+              </div>
+
+              <p className="checkout_paragraph">
+                By checking out, you agree to our&nbsp;
+                <Link to="">Terms and Conditions</Link>.
+              </p>
             </div>
-          )}
-        </div>
-        {applicationModal.state && <CustomModal />}
+          </aside>
+        )}
       </div>
+
+      {applicationModal.state && <CustomModal />}
     </AppLayOut>
   );
 };

@@ -9,6 +9,7 @@ import {
 } from "../../slices/system/systemAction";
 import { useNavigate } from "react-router-dom";
 import { setPublicUrl } from "../../slices/system/systemSlice";
+
 export const CartCard = ({
   name,
   count,
@@ -24,108 +25,122 @@ export const CartCard = ({
   const navigate = useNavigate();
   const [num, setNum] = useState(count);
   const [filterValue, setFilterValue] = useState(filter);
-  const [totalPrice, setTotalPrice] = useState(num * price);
+  const [totalPrice, setTotalPrice] = useState(count * price);
   const url = window.location.pathname;
   const { user } = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.system);
+
   const handleOnDeleteFromCart = (_id) => {
-    if (
-      window.confirm("Are you sure, you want to remove the item from cart?")
-    ) {
+    if (window.confirm("Are you sure, you want to remove the item from cart?")) {
       dispatch(deleteCartsAction(_id));
     }
   };
-  const handleOnCountChange = (id, count, filter) => {
-    dispatch(updateCartItemAction(id, count, filter));
-    setTotalPrice(count * price);
+
+  const handleOnCountChange = (id, nextCount, flt) => {
+    setNum(nextCount);
+    setTotalPrice(nextCount * price);
+    dispatch(updateCartItemAction(id, nextCount, flt));
   };
-  const handleOnFilterChange = (id, count, filter) => {
-    dispatch(updateCartItemAction(id, count, filter));
-    console.log(cart);
+
+  const handleOnFilterChange = (id, nextCount, flt) => {
+    setFilterValue(flt);
+    dispatch(updateCartItemAction(id, nextCount, flt));
   };
+
   const handleOnAddToFav = (_id) => {
     if (!user._id) {
       dispatch(setPublicUrl(url));
       navigate("/login");
       return;
     }
-    const obj = { itemId: _id };
-    dispatch(addFavsAction(obj));
+    dispatch(addFavsAction({ itemId: _id }));
   };
+
   useEffect(() => {
     setNum(count);
     setFilterValue(filter);
-  }, [count, filter]);
+    setTotalPrice(count * price);
+  }, [count, filter, price]);
+
   return (
     <div className="cart_items_item">
       <div className="cart_items_item_image">
-        <img src={thumbnail} alt="img" className="cart_items_item_image-img" />
+        <img src={thumbnail} alt={name} className="cart_items_item_image-img" />
       </div>
+
       <div className="cart_items_item_details">
+        {/* Title spans full width */}
         <div className="cart_items_item_details-name">{name}</div>
-        <div className="cart_items_item_details-price">
-          Unit Price: <span className="price">{price}</span>
-        </div>
-        <Form>
+
+        <div className="cart_rows">
+          {/* Unit price */}
+          <div className="label">Unit Price:</div>
+          <div className="value price">${price}</div>
+
+          {/* Filter (if any) */}
           {filters?.length ? (
-            <div className="itemSelection_body__shoping-filter">
-              <div className="filterName">{filterName}:</div>
-              <Form.Select
-                name="filter"
-                className="filter_heading"
-                onChange={(e) => handleOnFilterChange(id, num, e.target.value)}
-              >
-                {!filter && <option value="">choose</option>}
-                {filters.map((item, i) => {
-                  return (
-                    <option
-                      key={i}
-                      value={item}
-                      selected={item === filterValue}
-                      required
-                    >
+            <>
+              <div className="label">{filterName}:</div>
+              <div className="value">
+                <Form.Select
+                  size="sm"
+                  className="cart_select cart_filter"
+                  value={filterValue || ""}
+                  onChange={(e) =>
+                    handleOnFilterChange(id, num, e.target.value)
+                  }
+                >
+                  {!filter && <option value="">choose</option>}
+                  {filters.map((item, i) => (
+                    <option key={i} value={item}>
                       {item}
                     </option>
-                  );
-                })}
-              </Form.Select>
-            </div>
+                  ))}
+                </Form.Select>
+              </div>
+            </>
           ) : null}
 
-          <div className="itemSelection_body_shopping-no">
-            <label htmlFor="number" className="number">
-              No of items:
-            </label>
+          {/* Quantity */}
+          <div className="label">No of items:</div>
+          <div className="value">
             <Form.Select
-              name="count"
-              className="count_heading"
+              size="sm"
+              className="cart_select cart_qty"
+              value={num}
               onChange={(e) =>
-                handleOnCountChange(id, e.target.value, filterValue)
+                handleOnCountChange(id, Number(e.target.value), filterValue)
               }
             >
               {Array.from({ length: quantity }).map((_, i) => (
-                <option key={i} value={i + 1} selected={i + 1 === num}>
+                <option key={i} value={i + 1}>
                   {i + 1}
                 </option>
               ))}
             </Form.Select>
           </div>
-        </Form>
-        <div className="cart_items_item_details-total">
-          Item total Price: <span className="price">${totalPrice}</span>
+
+          {/* Total */}
+          <div className="label">Item total Price:</div>
+          <div className="value price">${totalPrice}</div>
         </div>
-        <div
-          className="cart_items_item_details-remove -util-pointer"
+
+        {/* Corners: absolute icons (stay slightly outside the value column) */}
+        <button
+          className="cart_icon cart_icon--delete -util-pointer"
           onClick={() => handleOnDeleteFromCart(id)}
+          aria-label="Remove from cart"
         >
           <i className="fa-solid fa-trash-can -util-trashcan"></i>
-        </div>
-        <div
-          className="cart_items_item_details-later -util-pointer"
+        </button>
+
+        <button
+          className="cart_icon cart_icon--fav -util-pointer"
           onClick={() => handleOnAddToFav(id)}
+          aria-label="Move to favourites"
         >
           <i className="fa-solid fa-heart -util-font15"></i>
-        </div>
+        </button>
       </div>
     </div>
   );
