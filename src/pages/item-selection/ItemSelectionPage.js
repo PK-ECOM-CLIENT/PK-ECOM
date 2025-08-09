@@ -11,21 +11,25 @@ import {
   addFavsAction,
 } from "../../slices/system/systemAction";
 import { setPublicUrl } from "../../slices/system/systemSlice";
+
 const itemInitialState = {
   price: null,
   filter: "",
   count: null,
   totalPrice: null,
 };
+
 const ItemSelectionPage = () => {
   const { _cid, _pid, _iid } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const url = window.location.pathname;
+
   const [form, setForm] = useState(itemInitialState);
   const [image, setImage] = useState("");
   const [count, setCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(null);
+
   const filterRef = useRef(null);
   const { selectedItem } = useSelector((state) => state.items);
   const { user } = useSelector((state) => state.user);
@@ -33,56 +37,51 @@ const ItemSelectionPage = () => {
     selectedItem;
 
   const handleOnIncrement = () => {
-    setCount(count + 1);
+    setCount((c) => c + 1);
     setTotalPrice((count + 1) * price);
   };
+
   const handleOnDecrement = () => {
-    if (count < 2) {
-      return;
-    }
-    setCount(count - 1);
+    if (count < 2) return;
+    setCount((c) => c - 1);
     setTotalPrice((count - 1) * price);
   };
+
   const handleOnAddToFav = () => {
     if (!user._id) {
       dispatch(setPublicUrl(url));
       navigate("/login");
       return;
     }
-    const obj = { itemId: _iid };
-    dispatch(addFavsAction(obj));
+    dispatch(addFavsAction({ itemId: _iid }));
   };
 
-  const handleOnImageClick = (img) => {
-    setImage(img);
-  };
-  // for sharing
+  const handleOnImageClick = (img) => setImage(img);
+
   const copyOnClick = (content) => {
     navigator.clipboard
       .writeText(content)
-      .then(() => {
-        alert("Link copied to clipboard!");
-      })
-      .catch((error) => {
-        console.error("Failed to copy:", error);
-      });
+      .then(() => alert("Link copied to clipboard!"))
+      .catch((error) => console.error("Failed to copy:", error));
   };
-  // handling adding to cart
+
   const handleOnAddToCart = (e) => {
+    e.preventDefault();
     if (!user._id) {
       dispatch(setPublicUrl(url));
       navigate("/login");
       return;
     }
-    e.preventDefault(); 
-    const selectedFilter = filterRef.current?.value; // Get the selected filter here
-    const obj = {
-      itemId: _iid,
-      filter: selectedFilter ? selectedFilter : "",
-      count,
-    };
-    dispatch(addCartsAction(obj));
+    const selectedFilter = filterRef.current?.value;
+    dispatch(
+      addCartsAction({
+        itemId: _iid,
+        filter: selectedFilter ? selectedFilter : "",
+        count,
+      })
+    );
   };
+
   useEffect(() => {
     dispatch(getIndividualItemAction(_iid));
     filterRef.current = document.getElementById("filterSelect");
@@ -100,169 +99,171 @@ const ItemSelectionPage = () => {
       });
     }
   }, [selectedItem]);
+
   return (
-    <div>
-      <AppLayOut>
-        <div className="itemSelection">
-          <div className="itemSelection_body">
-            <div className="itemSelection_body__img">
-              <div className="itemSelection_body__img-images">
-                {images &&
-                  images.map((img, i) => (
-                    <img
-                      className={
-                        img.secure_url === image
-                          ? "item-subImages item-subImages-border"
-                          : "item-subImages"
-                      }
-                      src={img.secure_url}
-                      alt="img1"
-                      key={i}
-                      onClick={() => handleOnImageClick(img.secure_url)}
-                    />
-                  ))}
-              </div>
-              <div className="itemSelection_body__img-image">
-                {image && (
-                  <ItemCard
-                    name={name}
-                    img={image}
-                    price={price}
-                    ratingsRate="3.5"
-                    ratingsCount="990"
-                    location="selection"
-                    id={_iid}
-                  ></ItemCard>
-                )}
-
-                <div className="itemSelection_body__img-image--description">
-                  {description}
-                </div>
-              </div>
+    <AppLayOut>
+      <div className="itemSelection">
+        <div className="itemSelection_body">
+          <div className="itemSelection_body__img">
+            <div className="itemSelection_body__img-images">
+              {images &&
+                images.map((img, i) => (
+                  <img
+                    className={
+                      img.secure_url === image
+                        ? "item-subImages item-subImages-border"
+                        : "item-subImages"
+                    }
+                    src={img.secure_url}
+                    alt="thumbnail"
+                    key={i}
+                    onClick={() => handleOnImageClick(img.secure_url)}
+                  />
+                ))}
             </div>
-            <div className="itemSelection_body__shopping">
-              <Form onSubmit={(e) => handleOnAddToCart(e)}>
-                <div className="body_shopping">
-                  <div className="itemSelection_body__shoping-price">
-                    <label
-                      htmlFor="unitPrice_label"
-                      className="unitPrice_label"
-                    >
-                      Unit Price:
-                    </label>
-                    <input
-                      className="unitPrice_input"
-                      type="text"
-                      id="unitPrice"
-                      value={price}
-                      readOnly
-                      name="price"
-                    />
-                  </div>
-                  {selectedItem?.filters?.length ? (
-                    <div className="itemSelection_body__shoping-filter">
-                      <div className="filterName">{filterName}:</div>
-                      <Form.Select
-                        name="filter"
-                        className="filter_heading"
-                        id="filterSelect"
-                        ref={filterRef}
-                        required
-                      >
-                        <option value="">choose</option>
-                        {filters.map((filter, i) => (
-                          <option value={filter}>{filter}</option>
-                        ))}
-                      </Form.Select>
-                    </div>
-                  ) : null}
 
-                  <div className="itemSelection_body_shopping-no">
-                    <label htmlFor="number" className="number">
-                      No of items:
-                    </label>
-                    <span
-                      className="itemSelection_body__shopping-btn"
-                      onClick={handleOnDecrement}
-                    >
-                      <Button
-                        variant="none"
-                        type="button"
-                        className="btn-noFocus"
-                      >
-                        -
-                      </Button>
-                    </span>
-                    <input
-                      className="count"
-                      type="text"
-                      id="number"
-                      value={count}
-                      readOnly
-                      name="count"
-                    />
-                    <span
-                      className="itemSelection_body__shopping-btn"
-                      onClick={handleOnIncrement}
-                    >
-                      <Button
-                        className="btn-noFocus"
-                        variant="none"
-                        type="button"
-                      >
-                        +
-                      </Button>
-                    </span>
-                  </div>
-                  <div className="itemSelection_body_shopping-totalPrice">
-                    <label className="totalPrice" htmlFor="totalPrice">
-                      Total Price:
-                    </label>
-                    <input
-                      className="totalPriceValue"
-                      type="text"
-                      id="readOnlyField"
-                      value={totalPrice}
-                      readOnly
-                      name="totalPrice"
-                    />
-                  </div>
-                  <div className="itemSelection_buttonoptions">
-                    <div className="itemSelection_body_shopping-buy d-grid border-0">
-                      <Button
-                        size="lg"
-                        className="-util-btn-positive"
-                        type="submit"
-                      >
-                        Add to cart
-                      </Button>
-                    </div>
-                    <div className="d-grid border-0">
-                      <Button
-                        className="btn-fav -util-fav"
-                        onClick={() => handleOnAddToFav()}
-                      >
-                        Add to favourites
-                      </Button>
-                    </div>
-                    <div className="d-grid border-0">
-                      <Button
-                        className="-util-share"
-                        onClick={() =>
-                          copyOnClick(process.env.REACT_APP_ROOTURL + url)
-                        }
-                      >
-                        Share
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </Form>
+            <div className="itemSelection_body__img-image">
+              {image && (
+                <ItemCard
+                  name={name}
+                  img={image}
+                  price={price}
+                  ratingsRate="3.5"
+                  ratingsCount="990"
+                  location="selection"
+                  id={_iid}
+                  description={description} /* Description now INSIDE card */
+                />
+              )}
             </div>
           </div>
 
-          <div className="itemSelection_reviews">
-            <h3 className="itemSelection_reviews__heading">Recent Reviews</h3>
+          <div className="itemSelection_body__shopping">
+            <Form onSubmit={handleOnAddToCart}>
+              <div className="body_shopping">
+                <div className="itemSelection_body__shoping-price">
+                  <label htmlFor="unitPrice_label" className="unitPrice_label">
+                    Unit Price:
+                  </label>
+                  <input
+                    className="unitPrice_input"
+                    type="text"
+                    id="unitPrice"
+                    value={price ?? ""}
+                    readOnly
+                    name="price"
+                  />
+                </div>
+
+                {selectedItem?.filters?.length ? (
+                  <div className="itemSelection_body__shoping-filter">
+                    <div className="filterName">{filterName}:</div>
+                    <Form.Select
+                      name="filter"
+                      className="filter_heading"
+                      id="filterSelect"
+                      ref={filterRef}
+                      required
+                    >
+                      <option value="">choose</option>
+                      {filters.map((filter, i) => (
+                        <option key={i} value={filter}>
+                          {filter}
+                        </option>
+                      ))}
+                    </Form.Select>
+                  </div>
+                ) : null}
+
+                <div className="itemSelection_body_shopping-no">
+                  <label htmlFor="number" className="number">
+                    No of items:
+                  </label>
+                  <span
+                    className="itemSelection_body__shopping-btn"
+                    onClick={handleOnDecrement}
+                  >
+                    <Button
+                      variant="none"
+                      type="button"
+                      className="btn-noFocus"
+                    >
+                      -
+                    </Button>
+                  </span>
+                  <input
+                    className="count"
+                    type="text"
+                    id="number"
+                    value={count}
+                    readOnly
+                    name="count"
+                  />
+                  <span
+                    className="itemSelection_body__shopping-btn"
+                    onClick={handleOnIncrement}
+                  >
+                    <Button
+                      className="btn-noFocus"
+                      variant="none"
+                      type="button"
+                    >
+                      +
+                    </Button>
+                  </span>
+                </div>
+
+                <div className="itemSelection_body_shopping-totalPrice">
+                  <label className="totalPrice" htmlFor="totalPrice">
+                    Total Price:
+                  </label>
+                  <input
+                    className="totalPriceValue"
+                    type="text"
+                    id="readOnlyField"
+                    value={totalPrice ?? ""}
+                    readOnly
+                    name="totalPrice"
+                  />
+                </div>
+
+                <div className="itemSelection_buttonoptions">
+                  <div className="itemSelection_body_shopping-buy d-grid border-0">
+                    <Button
+                      size="lg"
+                      className="-util-btn-positive"
+                      type="submit"
+                    >
+                      Add to cart
+                    </Button>
+                  </div>
+                  <div className="d-grid border-0">
+                    <Button
+                      className="btn-fav -util-fav"
+                      onClick={handleOnAddToFav}
+                    >
+                      Add to favourites
+                    </Button>
+                  </div>
+                  <div className="d-grid border-0">
+                    <Button
+                      className="-util-share"
+                      onClick={() =>
+                        copyOnClick(process.env.REACT_APP_ROOTURL + url)
+                      }
+                    >
+                      Share
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </Form>
+          </div>
+        </div>
+
+        <div className="itemSelection_reviews">
+          <h3 className="itemSelection_reviews__heading">Recent Reviews</h3>
+          <div className="itemSelection_reviews__content">
             <div className="itemSelection_reviews__content">
               <div className="itemSelection_reviews__content-review">
                 <div className="itemSelection_reviews__content-review--first -util-borderbottom">
@@ -378,8 +379,8 @@ const ItemSelectionPage = () => {
             </div>
           </div>
         </div>
-      </AppLayOut>
-    </div>
+      </div>
+    </AppLayOut>
   );
 };
 

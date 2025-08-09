@@ -1,19 +1,24 @@
 .itemSelection {
   margin-top: 3rem;
 }
+
+/* layout */
 .itemSelection_body {
   display: flex;
   justify-content: space-around;
 }
+
 .itemSelection_body__img {
   display: flex;
   background-color: white;
 }
+
 .itemSelection_body__img-images {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 }
+
 .item-subImages {
   width: 7rem;
   height: 5rem;
@@ -22,19 +27,19 @@
   object-fit: cover;
   cursor: pointer;
 }
+
 .item-subImages-border {
   border: 1px solid var(--color-pastrelred);
 }
+
 .itemSelection_body__img-image {
   max-width: 24rem;
 }
-.itemSelection_body__img-image--description {
-  font-size: 1rem;
-  text-align: left;
-  padding-bottom: 1rem;
-}
+
+/* description that used to be outside is REMOVED — it is now inside ItemCard */
+
+/* shopping panel */
 .itemSelection_body__shopping {
-  /* background-color: rgba(222, 93, 33, 0.137); */
   background-color: white;
   width: 20rem;
   height: max-content;
@@ -44,21 +49,25 @@
   font-weight: 200;
   text-align: left;
 }
+
 .itemSelection_body__shoping-price {
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
 }
+
 .unitPrice_label {
   display: inline-block;
   min-width: 5rem;
   margin-right: 1rem;
 }
+
 .unitPrice_input {
   display: inline-block;
   max-width: 2rem;
   border: none;
 }
+
 .unitPrice_input:active,
 .unitPrice_input:focus,
 .totalPriceValue:active,
@@ -70,112 +79,142 @@
   outline: none;
   border: none;
 }
+
 .itemSelection_body__shoping-filter {
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
   min-width: min-content;
 }
+
 .filterName {
   min-width: min-content;
 }
+
 .filter_heading {
   margin-left: 0.5rem;
   max-width: 10rem;
 }
+
 .count_heading {
   margin-left: 0.5rem;
   max-width: 5rem;
 }
+
 .itemSelection_body_shopping-no {
   display: flex;
   align-items: center;
   align-self: center;
   margin-bottom: 0.5rem;
 }
+
 .number {
   display: inline-block;
   min-width: 7rem;
-  /* margin-right: 1rem; */
 }
+
 .itemSelection_body__shopping-btn {
   background-color: var(--color-grey-dark-3-light);
   width: 2rem;
   display: inline-block;
-  /* margin: 0.5rem; */
   text-align: center;
   font-weight: 400;
   border-radius: 5px;
   cursor: pointer;
 }
+
 .count {
   display: inline-block;
   width: 2rem;
   border: none;
   text-align: center;
 }
+
 .itemSelection_body_shopping-totalPrice {
   display: flex;
   align-items: center;
   align-self: center;
 }
+
 .totalPrice {
   display: inline-block;
   min-width: 7rem;
 }
+
 .totalPriceValue {
   display: inline-block;
   width: 2rem;
   border: none;
   text-align: center;
 }
+
 .body_shopping > *:not(:last-child) {
   border-bottom: 1px solid rgb(162, 159, 159);
   padding: 0.5rem;
   letter-spacing: 0.05rem;
 }
+
 .itemSelection_buttonoptions > * {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
+
+/* reviews */
 .itemSelection_reviews {
   max-width: 50rem;
   margin-top: 3rem;
   font-size: 1rem;
   text-align: left;
 }
+
 .itemSelection_reviews__heading {
   text-align: center;
 }
+
 .itemSelection_reviews__content {
   display: flex;
   flex-direction: column;
   max-height: 40rem;
   overflow: scroll;
 }
+
 .itemSelection_reviews__content::-webkit-scrollbar {
   display: none;
 }
+
 .itemSelection_reviews__content-review {
   margin: 0 auto;
   max-width: 45rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  /* background-color: var(--color-grey-dark-2-light); */
   background-color: white;
   margin-bottom: 0.5rem;
   border-radius: 5px;
 }
+
 .itemSelection_reviews__content-review--first {
   display: flex;
   justify-content: space-between;
   color: var(--color-grey-dark-2);
 }
+
 .itemSelection_reviews__content-review--second {
   display: flex;
   justify-content: space-between;
 }
+
 .itemSelection_reviews__content-review--second_star {
   min-width: 2.9rem;
   color: var(--color-grey-dark-2);
+}
+
+.itemCard_img__img {
+  object-fit: cover;
+  background: #fff;
+  transform: scale(1.01);
+  display: block;
+}
+
+.itemSelection .itemCard_img:hover .itemCard_img__img {
+  transform: none;
 }
