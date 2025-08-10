@@ -1,11 +1,11 @@
-/* Shell */
+/* ========== Shell ========== */
 .home {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem 3rem;
 }
 
-/* Hero */
+/* ========== Hero ========== */
 .home__hero {
   margin: 0.5rem 0 1.5rem;
 }
@@ -16,7 +16,7 @@
   border-radius: 14px;
 }
 
-/* Promo strip */
+/* ========== Promo strip ========== */
 .home__promostrip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -44,7 +44,7 @@
   }
 }
 
-/* Section header */
+/* ========== Section header ========== */
 .home__section {
   margin-top: 2.25rem;
 }
@@ -84,16 +84,15 @@
   transform: translateY(8px);
 }
 
-/* =========
-   Horizontal scrollers (all breakpoints)
-   ========= */
+/* ========== Horizontal scrollers (all breakpoints) ========== */
 
-/* Wrapper provides the persistent darker edge fades */
+/* Wrapper provides persistent darker edge fades */
 .home__grid-wrapper {
   position: relative;
+  isolation: isolate;
 }
 
-/* Always-on edge fades (dark gray for contrast, visible even before scroll) */
+/* Always-on edge fades (dark/gray, visible even before scroll) */
 .home__grid-wrapper::before,
 .home__grid-wrapper::after {
   content: "";
@@ -103,43 +102,62 @@
   width: 42px;
   pointer-events: none;
   z-index: 2;
+  opacity: 0.75;
 }
 .home__grid-wrapper::before {
   left: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+  background: linear-gradient(to right, var(--color-grey-dark-2), transparent);
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 .home__grid-wrapper::after {
   right: 0;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+  background: linear-gradient(to left, var(--color-grey-dark-2), transparent);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 /* The scroller itself */
 .home__grid {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: clamp(240px, 28%, 320px); /* responsive card width */
+  /* Adjusted for 5:4 ratio images */
+  grid-auto-columns: minmax(
+    220px,
+    300px
+  ); /* 👈 Slightly wider max for nice proportions */
   gap: 1rem;
-  overflow-x: auto;
-  padding: 0.25rem 0; /* room for edge fades */
+  padding: 0.25rem 0.5rem;
+  overflow-x: hidden;
   scroll-snap-type: x mandatory;
   scroll-padding: 0.5rem;
-  -webkit-overflow-scrolling: touch; /* momentum on iOS */
+  -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
 }
 .home__grid::-webkit-scrollbar {
+  /* Chrome/Safari */
   display: none;
-} /* Chrome/Safari */
+}
+
+/* Show scroll on hover/focus, with a grab hint */
+.home__grid-wrapper:hover .home__grid,
+.home__grid:focus {
+  overflow-x: auto;
+  cursor: var(--scroll-cursor, grab); /* uses CSS var if you set it */
+}
+.home__grid:active {
+  cursor: grabbing;
+}
 
 /* Cells snap nicely */
 .home__cell {
   scroll-snap-align: start;
-  cursor:var()
 }
 
 /* Keyboard focus ring for accessibility */
 .home__grid:focus {
-  outline: 2px solid color-mix(in srgb, var(--color-zomp) 65%, white);
+  outline: 2px solid var(--color-zomp-2);
   outline-offset: 2px;
 }
 

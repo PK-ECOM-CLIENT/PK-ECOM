@@ -2,7 +2,7 @@ import React from "react";
 import "./HomePage.css";
 import { AppLayOut } from "../../components/layout/AppLayOut";
 import { CustomCarousels } from "../../components/custom-components/CustomCarousels";
-import { CustomCard } from "../../components/custom-components/CustomCard";
+import { CustomCard } from "../../components/custom-components/customcard/CustomCard";
 import { NoticeModal } from "../../components/noticeModal/NoticeModal";
 
 // demo images
@@ -157,7 +157,11 @@ const HomeSection = ({ title, hint, icon = "fa-star", items }) => {
 
       {/* Horizontal scroller (all breakpoints) with persistent dark edge fades */}
       <div className="home__grid-wrapper">
-        <div className="home__grid" tabIndex={0} aria-label={`${title} scroller`}>
+        <div
+          className="home__grid"
+          tabIndex={0}
+          aria-label={`${title} scroller`}
+        >
           {items.map((item, i) => (
             <div className="home__cell" key={`${title}-${i}`}>
               <CustomCard
