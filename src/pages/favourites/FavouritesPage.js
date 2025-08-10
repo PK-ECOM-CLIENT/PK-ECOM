@@ -66,10 +66,10 @@ const Favourites = () => {
 
         {favourites.length === 0 ? (
           <div className="favs__empty">
-            <div className="favs__empty-emoji">💚</div>
+              <i className="fa-solid fa-heart -util-fav -util-font15"></i>
             <h4>No favourites yet</h4>
             <p>Add items to your favourites and they’ll show up here.</p>
-            <a className="favs__browse -util-btn-positive" href="/categories">
+            <a className="favs__browse -util-btn-positive" href="/">
               Browse products
             </a>
           </div>

@@ -39,7 +39,41 @@
   font-size: 0.85rem;
   text-align: center;
 }
+.cart__empty {
+  text-align: center;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  padding: 2.2rem 1.2rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  margin: 0 auto; /* center within left column */
+  max-width: 560px; /* pleasant readable width */
+}
 
+.cart__empty i {
+  font-size: 2rem;
+  margin-bottom: 0.35rem;
+  color: var(--color-zomp);
+}
+
+.cart__empty h4 {
+  margin: 0.35rem 0 0.25rem;
+  font-weight: 700;
+}
+
+.cart__empty p {
+  margin: 0 0 0.6rem;
+  color: var(--color-grey-dark-2);
+}
+
+.cart__browse {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.55rem 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+}
 /* ===== Responsive behavior ===== */
 
 /* Below 992px: stack and center both sections */

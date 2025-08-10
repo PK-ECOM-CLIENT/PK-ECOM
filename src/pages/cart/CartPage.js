@@ -34,7 +34,8 @@ const Cart = () => {
     deliveryTime: "",
     totalCost: 0,
   });
-  const [paymentInitiationSpinner, setPaymentInitiationSpinner] = useState(false);
+  const [paymentInitiationSpinner, setPaymentInitiationSpinner] =
+    useState(false);
 
   const calculatedDimension = useMemo(
     () => calculateDimensionsAndWeight(cart),
@@ -90,22 +91,33 @@ const Cart = () => {
       <div className="cart_page">
         {/* LEFT: list of cart cards */}
         <section className="cart_items_container">
-          <div className="cart_items_scroll">
-            {cart.map((item) => (
-              <CartCard
-                key={item._id}
-                name={item.name}
-                count={parseInt(item.count, 10)}
-                filter={item.filter}
-                filterName={item.filterName}
-                filters={item.filters}
-                price={item.price}
-                thumbnail={item.thumbnail}
-                id={item._id}
-                quantity={item.quantity}
-              />
-            ))}
-          </div>
+          {cart.length === 0 ? (
+            <div className="cart__empty">
+              <i className="fa-solid fa-cart-shopping -util-cart -util-font15"></i>
+              <h4>Your cart is empty</h4>
+              <p>Add items to your cart and they’ll show up here.</p>
+              <a className="cart__browse -util-btn-positive" href="/">
+                Browse products
+              </a>
+            </div>
+          ) : (
+            <div className="cart_items_scroll">
+              {cart.map((item) => (
+                <CartCard
+                  key={item._id}
+                  name={item.name}
+                  count={parseInt(item.count, 10)}
+                  filter={item.filter}
+                  filterName={item.filterName}
+                  filters={item.filters}
+                  price={item.price}
+                  thumbnail={item.thumbnail}
+                  id={item._id}
+                  quantity={item.quantity}
+                />
+              ))}
+            </div>
+          )}
         </section>
 
         {/* RIGHT: summary */}
@@ -180,7 +192,11 @@ const Cart = () => {
                   onClick={makePayment}
                   disabled={paymentInitiationSpinner}
                 >
-                  {paymentInitiationSpinner ? <Spinnersmall /> : `Pay $${cartTotal}`}
+                  {paymentInitiationSpinner ? (
+                    <Spinnersmall />
+                  ) : (
+                    `Pay $${cartTotal}`
+                  )}
                 </Button>
               </div>
 

@@ -1,87 +1,119 @@
-.homepage_content {
-  position: relative;
+/* Shell */
+.home {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
 }
-.homepage_content::-webkit-scrollbar {
-  display: none;
+
+/* Hero */
+.home__hero {
+  margin: 0.5rem 0 1.5rem;
 }
 .carousel_img {
   width: 100%;
-  height: 20rem;
+  height: 22rem;
   object-fit: cover;
+  border-radius: 14px;
 }
 
-/* clearance */
-.clearance {
-  margin-top: 3rem;
+/* Promo strip */
+.home__promostrip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .75rem;
+  margin: .25rem 0 2rem;
 }
-.clearance_heading {
-  text-align: center;
-  margin-bottom: 2rem;
+.promo {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 12px;
+  padding: .7rem .9rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,.05);
+  font-weight: 600;
+  color: #1f2937;
 }
-.clearance_clearance {
-  padding-top: 1rem;
-  max-height: 50rem;
-  overflow: scroll;
+.promo i {
+  color: var(--color-zomp);
 }
-.clearance_clearance::-webkit-scrollbar {
-  display: none;
+@media (max-width: 768px) {
+  .home__promostrip {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-/* offers */
-.offers {
-  margin-top: 3rem;
+/* Section header */
+.home__section {
+  margin-top: 2.25rem;
 }
-.offers_heading {
-  margin-bottom: 2rem;
-  text-align: center;
+.home__sectionhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: .8rem;
 }
-.offers_offers {
-  padding-top: 1rem;
-  max-height: 50rem;
-  overflow: scroll;
+.home__titlewrap {
+  display: flex;
+  align-items: baseline;
+  gap: .55rem;
+  position: relative;
 }
-.offers_offers::-webkit-scrollbar {
-  display: none;
+.home__titleicon {
+  color: var(--color-zomp);
 }
-/* New Arrivals */
-.newArrivals {
-  margin-top: 3rem;
+.home__title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: .2px;
 }
-.newArrivals_heading {
-  margin-bottom: 2rem;
-  text-align: center;
+.home__hint {
+  color: var(--color-grey-dark-2);
+  font-size: .95rem;
+  margin-left: .25rem;
 }
-.newArrivals_newArrivals {
-  padding-top: 1rem;
-  max-height: 50rem;
-  overflow: scroll;
+.home__sectionhead::after {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 72px;
+  background: var(--color-zomp);
+  border-radius: 2px;
+  transform: translateY(8px);
 }
-.newArrivals_newArrivals::-webkit-scrollbar {
-  display: none;
+.home__viewall {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--color-zomp);
 }
-/* Top sales */
-.topSales {
-  margin-top: 3rem;
+.home__viewall:hover { text-decoration: underline; }
+
+/* Grid → responsive / scrollable */
+.home__grid {
+  --min: 220px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--min), 1fr));
+  gap: 1rem;
 }
-.topSales_heading {
-  margin-bottom: 2rem;
-  text-align: center;
+
+/* Card cell wrapper (so we can snap on mobile) */
+.home__cell { scroll-snap-align: start; }
+
+/* On smaller screens: turn into a horizontal scroller */
+@media (max-width: 768px) {
+  .home__grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(72%, 1fr);
+    overflow-x: auto;
+    gap: .85rem;
+    padding-bottom: .35rem;
+    scroll-snap-type: x mandatory;
+  }
+  .home__grid::-webkit-scrollbar { display: none; }
 }
-.topSales_topSales {
-  padding-top: 1rem;
-  max-height: 50rem;
-  overflow: scroll;
-}
-.topSales_topSales::-webkit-scrollbar {
-  display: none;
-}
-.subcategories {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: red;
-  height: 100%;
-  width: 100%;
-  z-index: 900;
-}
+
+/* (Legacy styles that were forcing tall overflow are removed)
+   .clearance_clearance, .offers_offers, etc… aren’t used anymore. */
