@@ -1,174 +1,217 @@
-.purchase-card {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 6px;
-  width: 400px;
-  height: 17rem;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin: 16px;
-  font-family: Arial, sans-serif;
-  position: relative;
+/* Card wrapper */
+.pcard {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  padding: 1rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+    border-color 0.18s ease;
+  position: relative; /* create a containing block for any absolute children if needed */
+  z-index: 0;
+  overflow: visible;
+}
+.pcard.is-open {
+  z-index: 999;                /* higher than any hovered/animated neighbor */
+}
+.pcard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.09);
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
-.card-content {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  margin-bottom: 16px;
+/* Main row */
+.pcard__main {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+@media (max-width: 480px) {
+  .pcard__main {
+    grid-template-columns: 1fr;
+  }
 }
 
-.product-image {
-  width: 10rem;
-  height: 10rem;
+/* Thumb */
+.pcard__thumb {
+  display: block;
+  aspect-ratio: 5/4;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+.pcard__thumb img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  display: block;
+  transition: transform 0.25s ease;
+}
+.pcard__thumb:hover img {
+  transform: scale(1.03);
 }
 
-.product-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-align: center;
+/* Info area */
+.pcard__info {
+  min-width: 0;
 }
 
-.details {
+/* Top row: date + price */
+.pcard__top {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+.pcard__date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-grey-dark-2);
+  font-size: 0.95rem;
+}
+.pcard__date i {
+  color: var(--color-zomp);
+}
+.pcard__price {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  color: #222;
+}
+.pcard__price i {
+  color: var(--color-zomp);
 }
 
-.order-status {
-  color: #555;
-  font-size: 0.9rem;
+/* Title/link */
+.pcard__name {
+  display: inline-block;
+  font-weight: 600;
+  color: #222;
+  margin: 0.15rem 0 0.35rem;
+  text-decoration: none;
 }
-
-.product-link {
-  color: #007bff;
+.pcard__name:hover {
   text-decoration: underline;
-  cursor: pointer;
-  font-size: 0.9rem;
 }
 
-.unit-price {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #333;
-  margin-top: 8px;
-}
-
-.card-actions {
+/* Bottom actions row */
+.pcard__actions {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-top: 16px;
-  position: relative; /* This ensures the dropdown is positioned relative to this container */
-  align-items: flex-start; /* Ensure items are centered vertically */
+  gap: 0.75rem;
+  margin-top: 0.35rem;
 }
 
-.buy-again-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease;
-  display: inline-block; /* Make sure it only takes up as much space as the content */
+/* Buy again */
+.pcard__buy {
+  padding-inline: 1rem;
+}
+.pcard__buy .btn,
+.pcard__buy:hover .btn {
+  color: #fff;
+}
+.pcard__buylink {
+  color: inherit;
+  text-decoration: none;
 }
 
-.more-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  position: absolute;
-  right: 0.2rem;
+/* More actions */
+.pcard__more {
+  position: relative; /* anchor for dropdown */
+  /* do NOT set overflow hidden here */
 }
-
-.more-actions-btn {
-  background-color: #6c757d;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  width: fit-content;
-  transition: background-color 0.3s ease;
-}
-
-.more-actions-btn:hover {
-  background-color: #5a6268;
-}
-.dropdown-meu {
-  position: absolute;
-  top: 40px;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ddd;
+.pcard__morebtn {
+  position: relative; /* to be able to control stacking */
+   z-index: 1001; ; /* default above card, below menu when open */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #f7f7f8;
+  padding: 0.45rem 0.7rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-  width: 200px;
-  padding: 10px;
-}
-.more-actions-options {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.more-actions-options li {
-  padding: 8px 12px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease;
+  font-size: 0.95rem;
+  line-height: 1;
 }
-.more-actions-options li:hover {
-  background-color: #f5f5f5;
-  border-radius: 4px;
+.pcard__morebtn:hover {
+  background: #efeff1;
 }
-.modal-content{
-  padding:2rem;
+
+/* caret rotation */
+.pcard__caret {
+  transition: transform 0.25s ease;
 }
-.card-info {
+.pcard__caret.is-open {
+  transform: rotate(180deg);
+}
+
+/* When open: ensure menu is above the button, and button is not intercepting */
+.pcard__more.is-open {
+  z-index: 10;
+}
+.pcard__more.is-open .pcard__menu {
+  z-index: 5;
+}
+.pcard__more.is-open .pcard__morebtn {
+  z-index: 6;
+  /* Optional: prevent accidental clicks on the button while menu open */
+  pointer-events: auto;
+}
+
+/* Dropdown / popover menu */
+.pcard__menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px); /* sit flush with the button */
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  min-width: 220px;
+  padding: 0.4rem;
+  z-index: 1000; /* higher than the button's base z-index */
+}
+.pcard__menu::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 18px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  transform: rotate(45deg);
+}
+
+/* Menu items */
+.pcard__menuitem {
   display: flex;
-  align-items: center; /* Align items vertically centered */
-  justify-content: space-between; /* Space between the icon and the card details */
-
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  padding: 0.55rem 0.65rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
 }
-
-.card-details {
-  margin-left: 12px; /* Space between the SVG and the card details */
-  flex-grow: 1; /* Allow this to grow and take available space */
+.pcard__menuitem i {
+  color: var(--color-zomp);
 }
-
-.card-number {
-  font-size: 1rem; /* Font size for card number */
-  font-weight: bold; /* Make it bold */
+.pcard__menuitem:hover {
+  background: color-mix(in srgb, var(--color-zomp) 12%, white);
 }
-
-.card-holder-name {
-  font-size: 0.9rem; /* Slightly smaller font for the holder name */
-  color: #555; /* Optional: a lighter color for the holder name */
-}
-
-.payment-info {
-  text-align: right; /* Align text to the right */
-}
-
-.price-paid {
-  font-size: 1.1rem; /* Adjust size for price */
-  font-weight: bold; /* Make it bold */
-}
-
-.time-paid {
-  font-size: 0.8rem; /* Smaller size for the time */
-  color: #999; /* Optional: lighter color for the time */
-}
-
-.order-details > * {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.pcard__menuitem:disabled {
+  color: #9aa0a6;
+  cursor: not-allowed;
+  background: transparent;
 }

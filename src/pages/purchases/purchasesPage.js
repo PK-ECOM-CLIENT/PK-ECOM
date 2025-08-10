@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { AppLayOut } from "../../components/layout/AppLayOut";
-import { PurchasesCard } from "../../components/purchases-card/PurchasesCard";
-import { Col, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import "./purchases.css";
+import { PurchasesCard } from "../../components/purchases-card/PurchasesCard";
 import { convertToAESTWithTimeZone } from "../../helpers/functions/dateConversion";
 
 const Purchases = () => {
@@ -16,26 +15,34 @@ const Purchases = () => {
 
   return (
     <AppLayOut>
-      <div className="purchases">
-        <Row>
-          {purchases.map((item) => (
-            <Col key={item.itemId} lg={6} md={6} sm={12} className="purchases-column">
-              <PurchasesCard
-              item={item}
-                image={item.image}
-                orderDate={convertToAESTWithTimeZone(item.createdAt)}
-                itemId={item.itemId}
-                name={item.name}
-                catId={item.catId}
-                productId={item.productId}
-                itemPrice={item.itemPrice}
-                dropdownVisible={openDropdownId === item._id}
-                onToggleDropdown={handleToggleDropdown}
-              />
-            </Col>
-          ))}
-        </Row>
-      </div>
+      <section className="purchases">
+        {purchases.length === 0 ? (
+          <div className="purchases__empty">
+            <div className="emoji">🛒</div>
+            <h4>No purchases yet</h4>
+            <p>When you buy something, it’ll appear here.</p>
+          </div>
+        ) : (
+          <div className="purchases__grid">
+            {purchases.map((item) => (
+              <div key={item.itemId} className="purchases__cell">
+                <PurchasesCard
+                  item={item}
+                  image={item.image}
+                  orderDate={convertToAESTWithTimeZone(item.createdAt)}
+                  itemId={item.itemId}
+                  name={item.name}
+                  catId={item.catId}
+                  productId={item.productId}
+                  itemPrice={item.itemPrice}
+                  dropdownVisible={openDropdownId === item._id}
+                  onToggleDropdown={handleToggleDropdown}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
     </AppLayOut>
   );
 };
