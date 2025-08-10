@@ -88,7 +88,7 @@ const HomePage = () => {
           <CustomCarousels items={carouselOffers} />
         </section>
 
-        {/* Promo strip (optional quick links / badges) */}
+        {/* Promo strip */}
         <section className="home__promostrip">
           <div className="promo">
             <i className="fa-solid fa-truck-fast"></i>
@@ -124,7 +124,7 @@ const HomePage = () => {
         />
 
         <HomeSection
-          icon="fa-sparkles" /* fallback to star if missing */
+          icon="fa-wand-magic-sparkles"
           title="New Arrivals"
           hint="Fresh picks this week"
           items={newArrivals}
@@ -153,22 +153,22 @@ const HomeSection = ({ title, hint, icon = "fa-star", items }) => {
           <h3 className="home__title">{title}</h3>
           <span className="home__hint">{hint}</span>
         </div>
-        {/* optional view-all link – wire up path if you have one */}
-        {/* <a className="home__viewall" href="/offers">View all</a> */}
       </header>
 
-      {/* Grid that becomes horizontal scroll on small screens */}
-      <div className="home__grid">
-        {items.map((item, i) => (
-          <div className="home__cell" key={`${title}-${i}`}>
-            <CustomCard
-              name={item.name}
-              img={item.img}
-              description={item.description}
-              parent={title.toLowerCase().replace(/\s+/g, "")}
-            />
-          </div>
-        ))}
+      {/* Horizontal scroller (all breakpoints) with persistent dark edge fades */}
+      <div className="home__grid-wrapper">
+        <div className="home__grid" tabIndex={0} aria-label={`${title} scroller`}>
+          {items.map((item, i) => (
+            <div className="home__cell" key={`${title}-${i}`}>
+              <CustomCard
+                name={item.name}
+                img={item.img}
+                description={item.description}
+                parent={title.toLowerCase().replace(/\s+/g, "")}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

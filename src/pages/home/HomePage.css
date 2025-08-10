@@ -20,18 +20,18 @@
 .home__promostrip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: .75rem;
-  margin: .25rem 0 2rem;
+  gap: 0.75rem;
+  margin: 0.25rem 0 2rem;
 }
 .promo {
   display: flex;
   align-items: center;
-  gap: .6rem;
+  gap: 0.6rem;
   background: #fff;
-  border: 1px solid rgba(0,0,0,.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 12px;
-  padding: .7rem .9rem;
-  box-shadow: 0 6px 16px rgba(0,0,0,.05);
+  padding: 0.7rem 0.9rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
   font-weight: 600;
   color: #1f2937;
 }
@@ -52,12 +52,12 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
 }
 .home__titlewrap {
   display: flex;
   align-items: baseline;
-  gap: .55rem;
+  gap: 0.55rem;
   position: relative;
 }
 .home__titleicon {
@@ -67,12 +67,12 @@
   margin: 0;
   font-size: 1.35rem;
   font-weight: 800;
-  letter-spacing: .2px;
+  letter-spacing: 0.2px;
 }
 .home__hint {
   color: var(--color-grey-dark-2);
-  font-size: .95rem;
-  margin-left: .25rem;
+  font-size: 0.95rem;
+  margin-left: 0.25rem;
 }
 .home__sectionhead::after {
   content: "";
@@ -83,37 +83,70 @@
   border-radius: 2px;
   transform: translateY(8px);
 }
-.home__viewall {
-  text-decoration: none;
-  font-weight: 600;
-  color: var(--color-zomp);
-}
-.home__viewall:hover { text-decoration: underline; }
 
-/* Grid → responsive / scrollable */
+/* =========
+   Horizontal scrollers (all breakpoints)
+   ========= */
+
+/* Wrapper provides the persistent darker edge fades */
+.home__grid-wrapper {
+  position: relative;
+}
+
+/* Always-on edge fades (dark gray for contrast, visible even before scroll) */
+.home__grid-wrapper::before,
+.home__grid-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 42px;
+  pointer-events: none;
+  z-index: 2;
+}
+.home__grid-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+}
+.home__grid-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+}
+
+/* The scroller itself */
 .home__grid {
-  --min: 220px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--min), 1fr));
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(240px, 28%, 320px); /* responsive card width */
   gap: 1rem;
+  overflow-x: auto;
+  padding: 0.25rem 0; /* room for edge fades */
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0.5rem;
+  -webkit-overflow-scrolling: touch; /* momentum on iOS */
+  overscroll-behavior-x: contain;
+  scrollbar-width: none; /* Firefox */
+}
+.home__grid::-webkit-scrollbar {
+  display: none;
+} /* Chrome/Safari */
+
+/* Cells snap nicely */
+.home__cell {
+  scroll-snap-align: start;
+  cursor:var()
 }
 
-/* Card cell wrapper (so we can snap on mobile) */
-.home__cell { scroll-snap-align: start; }
+/* Keyboard focus ring for accessibility */
+.home__grid:focus {
+  outline: 2px solid color-mix(in srgb, var(--color-zomp) 65%, white);
+  outline-offset: 2px;
+}
 
-/* On smaller screens: turn into a horizontal scroller */
-@media (max-width: 768px) {
-  .home__grid {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(72%, 1fr);
-    overflow-x: auto;
-    gap: .85rem;
-    padding-bottom: .35rem;
-    scroll-snap-type: x mandatory;
+/* Subtle fade width tweak on tiny phones */
+@media (max-width: 480px) {
+  .home__grid-wrapper::before,
+  .home__grid-wrapper::after {
+    width: 28px;
   }
-  .home__grid::-webkit-scrollbar { display: none; }
 }
-
-/* (Legacy styles that were forcing tall overflow are removed)
-   .clearance_clearance, .offers_offers, etc… aren’t used anymore. */
