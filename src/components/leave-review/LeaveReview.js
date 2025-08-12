@@ -1,40 +1,33 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap"; // Import Bootstrap components
-import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap styles are included
-import "./leaveReview.css"; // CSS for star ratings
+import { Button, Form } from "react-bootstrap";
+import "./leaveReview.css";
 
 const LeaveReview = () => {
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
 
-  const handleStarClick = (value) => {
-    setRating(value);
-  };
-
-  const handleTextChange = (e) => {
-    setReviewText(e.target.value);
-  };
+  const handleStarClick = (value) => setRating(value);
+  const handleTextChange = (e) => setReviewText(e.target.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Sample submission function
     console.log("Submitted Rating:", rating);
     console.log("Submitted Review:", reviewText);
     alert(`Rating: ${rating}\nReview: ${reviewText}`);
-
-    // Clear the form after submission
     setRating(0);
     setReviewText("");
   };
 
   return (
-    <div className="modal-content d-flex flex-column align-items-center justify-content-center">
-      <h3>Submit Your Review</h3>
-      <div className="star-rating">
+    <section className="review">
+      <h4 className="review__title">Submit Your Review</h4>
+
+      {/* Star rating */}
+      <div className="review__stars">
         {[1, 2, 3, 4, 5].map((value) => (
           <span
             key={value}
-            className={`star ${value <= rating ? "selected" : ""}`}
+            className={`review__star ${value <= rating ? "selected" : ""}`}
             onClick={() => handleStarClick(value)}
           >
             ★
@@ -42,12 +35,19 @@ const LeaveReview = () => {
         ))}
       </div>
 
-      <Form onSubmit={handleSubmit} className="w-100 mt-3">
+      {/* Review textarea */}
+      <Form onSubmit={handleSubmit} noValidate>
         <Form.Group controlId="reviewTextArea">
-          <Form.Label>Review:</Form.Label>
+          <div className="review__labelrow">
+            <Form.Label className="m-0">Review</Form.Label>
+            <small className="review__counter">
+              {reviewText.length}/500
+            </small>
+          </div>
           <Form.Control
             as="textarea"
             rows={4}
+            maxLength={500}
             value={reviewText}
             onChange={handleTextChange}
             placeholder="Type your review..."
@@ -55,11 +55,13 @@ const LeaveReview = () => {
           />
         </Form.Group>
 
-        <Button type="submit" variant="primary" className="mt-3">
-          Submit
-        </Button>
+        <div className="review__actions">
+          <Button type="submit" className="review__submit -util-btn-positive">
+            Submit
+          </Button>
+        </div>
       </Form>
-    </div>
+    </section>
   );
 };
 

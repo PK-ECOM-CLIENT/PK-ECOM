@@ -1,44 +1,119 @@
-.modal-content{
-  padding:2rem;
+/* Keep styles scoped to this body; do not touch .modal-content here. */
+
+.pay {
+  display: grid;
+  gap: 1rem;
 }
-.card-info {
+
+/* Header strip */
+.pay__head {
   display: flex;
-  align-items: center; /* Align items vertically centered */
-  justify-content: space-between; /* Space between the icon and the card details */
-
-}
-
-.card-details {
-  margin-left: 12px; /* Space between the SVG and the card details */
-  flex-grow: 1; /* Allow this to grow and take available space */
-}
-
-.card-number {
-  font-size: 1rem; /* Font size for card number */
-  font-weight: bold; /* Make it bold */
-}
-
-.card-holder-name {
-  font-size: 0.9rem; /* Slightly smaller font for the holder name */
-  color: #555; /* Optional: a lighter color for the holder name */
-}
-
-.payment-info {
-  text-align: right; /* Align text to the right */
-}
-
-.price-paid {
-  font-size: 1.1rem; /* Adjust size for price */
-  font-weight: bold; /* Make it bold */
-}
-
-.time-paid {
-  font-size: 0.8rem; /* Smaller size for the time */
-  color: #999; /* Optional: lighter color for the time */
-}
-
-.order-details > * {
-  display: flex;
-  flex-direction: row;
+  align-items: start;
   justify-content: space-between;
+  gap: 1rem;
+  padding: .75rem .85rem;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, #fafbfc);
+}
+
+/* Left: card + holder */
+.pay__card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .75rem;
+  align-items: center;
+  min-width: 0;
+}
+.pay__cardmeta { min-width: 0; }
+.pay__cardline {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 800;
+  color: var(--color-charcoal);
+}
+.pay__mask { letter-spacing: 1px; }
+
+.pay__badge {
+  padding: .15rem .5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-zomp) 18%, #ffffff);
+  color: var(--color-zomp-2);
+  border: 1px solid color-mix(in srgb, var(--color-zomp) 35%, #ffffff);
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+.pay__holder {
+  color: var(--color-grey-dark-2);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right: amount + time */
+.pay__when { text-align: right; }
+.pay__amount {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--color-charcoal);
+  line-height: 1.2;
+}
+.pay__time {
+  font-size: .85rem;
+  color: var(--color-grey-dark-2);
+}
+
+/* Receipt (rows) */
+.pay__receipt {
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 12px;
+  background: #fff;
+  padding: .5rem .85rem;
+}
+
+.pay__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: .75rem;
+  padding: .55rem 0;
+}
+
+.pay__row--strong .-l { font-weight: 900; color: var(--color-charcoal); }
+.pay__row--strong .-r { font-weight: 900; color: var(--color-charcoal); }
+
+.pay__cell.-l {
+  color: var(--color-charcoal);
+  font-weight: 700;
+}
+.pay__cell.-r {
+  font-weight: 700;
+  color: var(--color-charcoal);
+}
+
+.pay__muted {
+  margin-left: .4rem;
+  font-weight: 600;
+  color: var(--color-grey-dark-2);
+}
+
+.pay__cell.-r.-neg { color: #c0392b; }
+
+.pay__rule {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0,0,0,0.12), transparent);
+  margin: .25rem 0;
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .pay__head {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+  .pay__when { text-align: left; }
 }

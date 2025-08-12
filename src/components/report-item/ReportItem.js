@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap"; // Import Bootstrap components
-import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap styles are included
-
+import { Button, Form } from "react-bootstrap";
+import "./reportItem.css";
 
 const ReportItem = () => {
   const [text, setText] = useState("");
@@ -14,18 +13,21 @@ const ReportItem = () => {
     e.preventDefault();
     console.log("Submitted Text:", text);
     alert(`Submitted Text: ${text}`);
-
-    // Clear the text area after submission
-    setText("");
+    setText(""); // Clear after submission
   };
 
   return (
-    <div className="modal-content d-flex align-items-center justify-content-center">
-      <Form onSubmit={handleSubmit} className="w-100">
-        <Form.Group controlId="textAreaInput">
+    <section className="report">
+      <Form onSubmit={handleSubmit} noValidate>
+        <Form.Group controlId="reportTextarea">
+          <div className="report__labelrow">
+            <Form.Label className="m-0">Report Details</Form.Label>
+            <small className="report__counter">{text.length}/500</small>
+          </div>
           <Form.Control
-            as="textarea" // Change to textarea
-            rows={5} // Adjust number of rows as needed
+            as="textarea"
+            rows={5}
+            maxLength={500}
             value={text}
             onChange={handleChange}
             placeholder="Type your report..."
@@ -33,11 +35,13 @@ const ReportItem = () => {
           />
         </Form.Group>
 
-        <Button type="submit" variant="primary" className="mt-3">
-          Submit
-        </Button>
+        <div className="report__actions">
+          <Button type="submit" className="report__submit -util-btn-positive">
+            Submit
+          </Button>
+        </div>
       </Form>
-    </div>
+    </section>
   );
 };
 
