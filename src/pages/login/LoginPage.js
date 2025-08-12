@@ -9,6 +9,7 @@ import { logInUserAction } from "../../slices/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { setPublicUrl } from "../../slices/system/systemSlice";
 import { TypingEffect } from "../../components/typing-effect/TypingEffect";
+
 const inputFields = [
   {
     label: "Email",
@@ -25,7 +26,6 @@ const inputFields = [
     required: true,
   },
 ];
-// typing effect
 
 const LoginPage = () => {
   const [form, setForm] = useState({});
@@ -33,18 +33,18 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   const origin =
     (location.state && location.state.from && location.state.from.pathname) ||
     publicUrl ||
     "/";
+
   const handleOnChange = (e) => {
     let { name, value } = e.target;
-    if (name === "email") {
-      value = value.toLowerCase();
-      setForm({ ...form, [name]: value });
-    }
+    if (name === "email") value = value.toLowerCase();
     setForm({ ...form, [name]: value });
   };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const result = await dispatch(logInUserAction(form));
@@ -55,55 +55,63 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <AppLayOut>
-        <div className="login">
-          <Form className="login_form -util-form" onSubmit={handleOnSubmit}>
-            <Button className="-util-btnback">
-              <Link className="nav-link" to="/">
-                <i class="fa-solid fa-angle-left -util-backicon"></i> Back
-              </Link>
+    <AppLayOut>
+      <div className="login">
+        <Form className="login_form -util-form" onSubmit={handleOnSubmit}>
+          <div className="login_toprow">
+            <Link className="btn-back" to="/">
+              <i className="fa-solid fa-angle-left"></i>
+              <span>Back</span>
+            </Link>
+            <h1 className="login_title">Welcome back</h1>
+          </div>
+
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            {inputFields.map((item) => (
+              <CustomInputFields
+                key={item.name}
+                {...item}
+                onChange={handleOnChange}
+              />
+            ))}
+          </Form.Group>
+
+          <div className="d-grid">
+            <Button className="-util-btn-positive" type="submit">
+              Login
             </Button>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              {inputFields.map((item, i) => (
-                <CustomInputFields
-                  {...item}
-                  onChange={handleOnChange}
-                ></CustomInputFields>
-              ))}
-            </Form.Group>
-            <div className="d-grid">
-              <Button className="-util-btn-positive" type="submit">
-                Login
-              </Button>
+          </div>
+
+          <div className="login_issues">
+            <Link className="login_link" to="/forgotpassword">
+              Forgotten Password?
+            </Link>
+            <Link className="login_link" to="/register">
+              Not member yet?
+            </Link>
+          </div>
+
+          <div
+            className="sampleLogin"
+            role="note"
+            aria-label="Sample login details"
+          >
+            <div className="heading">
+              <TypingEffect
+                text="Sample login details:"
+                charDelay={100}
+                pauseDuration={1000}
+                className="typingEffect"
+              />
             </div>
-            <div className="login_issues">
-              <Link className="forgotten-password" to="/forgotpassword">
-                Forgotten Password?
-              </Link>
-              <Link className="not-member-yet" to="/register">
-                Not member yet?
-              </Link>
+            <div className="sampleLogin_email">
+              Email: Pradeepdhital@gmail.com
             </div>
-            <div className="sampleLogin">
-              <div className="heading">
-                {/* typing effect */}
-                <TypingEffect
-                  text="Sample login details:"
-                  charDelay={100} // Delay between characters in milliseconds
-                  pauseDuration={1000} // Duration to pause after typing all characters in milliseconds
-                  className="typingEffect"
-                />
-              </div>
-              <div className="sampleLogin_email">
-                Email: Pradeepdhital@gmail.com
-              </div>
-              <div className="sampleLogin_password">Password: Pradeep</div>
-            </div>
-          </Form>
-        </div>
-      </AppLayOut>
-    </div>
+            <div className="sampleLogin_password">Password: Pradeep</div>
+          </div>
+        </Form>
+      </div>
+    </AppLayOut>
   );
 };
 
