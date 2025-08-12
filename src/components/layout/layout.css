@@ -13,6 +13,7 @@
   max-width: 120rem;
   margin: 0 auto;        /* 👈 center */
   border-radius: 0.3rem;
+  background-color: var(--color-zomp);
 }
 
 .header {
@@ -43,10 +44,7 @@
 }
 
 /* Footer color kept */
-.footer {
-  min-height: 10vh;
-  background-color: var(--color-pastrelred);
-}
+
 
 /* If you ever render Cols without a Row, nuke their padding to avoid overflow */
 .body > [class*="col"] { padding-left: 0; padding-right: 0; }

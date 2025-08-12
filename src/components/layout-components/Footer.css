@@ -1,12 +1,168 @@
-.footer_footer {
-  max-width: 90rem;
+/* The footer sits inside your AppLayOut .footer wrapper.
+   We inherit that background so there's no inner white box. */
+.site-footer {
+  width: 100%;
+  background: inherit; /* ← key: blend with wrapper */
+  color: #fff; /* default text on colored bg */
+  padding: 2rem 0 1.5rem;
+}
+
+/* Content container only (no card styling) */
+.footer__inner {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0.5rem 0;
+  padding: 0 1rem;
+}
+
+/* Grid */
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+  gap: 1.25rem;
+}
+@media (max-width: 992px) {
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Headings */
+.footer__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.6rem;
+}
+.footer__heading i {
+  color: var(--color-pastrelred);
+}
+
+/* Links */
+.footer__links {
+  display: grid;
+  gap: 0.35rem;
+}
+.footer__link {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.footer__link:hover {
+  color: #fff;
+  transform: translateX(2px);
+}
+
+/* Newsletter */
+.footer__text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  margin: 0.25rem 0 0.65rem;
+}
+.footer__newsletter {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+}
+.footer__input {
+  height: 2.4rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 0 0.7rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  outline: none;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.footer__input::placeholder {
+  color: rgba(255, 255, 255, 0.85);
+}
+.footer__input:focus {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 0 0.15rem rgba(255, 255, 255, 0.25);
+}
+.footer__btn {
+  height: 2.4rem;
+  border-radius: 10px;
+  padding: 0 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Socials */
+.footer__socials {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+.footer__social {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease,
+    border-color 0.18s ease;
+}
+.footer__social:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Divider */
+.footer__hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  margin: 1.1rem 0 0.7rem;
+}
+
+/* Bottom bar */
+.footer__bottom {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
 }
-.footer_footer__list > :first-child {
-  font-weight: bold;
+.footer__copy {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+.footer__legal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.footer__legal-link {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+}
+.footer__legal-link:hover {
   text-decoration: underline;
+}
+.footer__dot {
+  color: rgba(255, 255, 255, 0.7);
 }
