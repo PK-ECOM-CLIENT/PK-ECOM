@@ -4,6 +4,7 @@
   gap: 1rem;
   color: white;
 }
+
 .top {
   display: flex;
   justify-content: space-between;
@@ -24,28 +25,31 @@
   justify-content: flex-end;
   align-items: center;
 }
+
 .search {
   flex-grow: 1;
   display: flex;
   align-items: center;
-  /* background-color: #e8f0fe; */
   padding: 0.5rem 1rem;
   border-radius: 5px;
 }
+
 .search_form__control {
   display: flex;
   width: 100%;
   margin-top: 0.8rem;
   position: relative;
-  transform-origin: left; /* Anchor scaling to left edge */
+  transform-origin: left;
   transition: transform 0.3s ease;
 }
+
 .search_form__control:focus {
   transform: scaleX(1.05);
   color: var(--color-pastrelred);
   border-radius: 5px;
   font-weight: 500;
 }
+
 .search_icon {
   background: none;
   border: none;
@@ -54,6 +58,7 @@
   transform: translateY(0.6rem);
   transition: transform 0.3s ease;
 }
+
 .search_form__control:focus + .search_icon {
   transform: translateX(-0.9rem) translateY(0.6rem) scale(1.1);
 }
@@ -66,16 +71,19 @@
   flex-shrink: 0;
   margin-top: 0.5rem;
 }
+
 .header_login_btn {
   cursor: pointer;
   font-weight: bold;
   text-decoration: underline;
 }
+
 /* OPTIONS HORIZONTAL */
 .facaret {
   transition: all 0.3s ease;
 }
-/* DROPDOWN STYLE */
+
+/* PROFILE DROPDOWN STYLE */
 .user_profile__profie_dropdown_items {
   background-color: white !important;
   border-radius: 5px;
@@ -99,7 +107,7 @@
   position: relative;
   display: block;
   width: 100%;
-  padding: 0.1rem 0; /* Vertical padding only */
+  padding: 0.1rem 0;
   text-decoration: none;
   color: black;
   transition: color 0.3s;
@@ -110,7 +118,7 @@
 
 /* INNER TEXT WITH LEFT PADDING */
 .dropdown_item_text {
-  padding-left: 1rem; /* Visual gap for text */
+  padding-left: 1rem;
   display: inline-block;
   width: 100%;
 }
@@ -122,7 +130,7 @@
   top: 0;
   left: 0;
   height: 100%;
-  width: 20px; /* Start small */
+  width: 20px;
   background-color: var(--color-zomp);
   transform: scaleY(0);
   transform-origin: top;
@@ -139,11 +147,13 @@
   width: 100%;
   z-index: -1;
 }
+
 /* ICON COUNT */
 .nav_icons {
   position: relative;
   margin: 0.2rem 0.2rem 0;
 }
+
 .nav_icons__count {
   position: absolute;
   top: -0.3rem;
@@ -162,39 +172,123 @@
 .-util-rotate_180 {
   transform: rotate(180deg);
 }
+
 .bottom {
   display: flex;
-  justify-content: flex-end; /* Push content_options to the right end */
-  align-items: flex-start; /* Align to top if needed, adjust to center if not */
+  justify-content: flex-end;
+  align-items: flex-start;
   gap: 0.75rem;
   margin-top: 1rem;
   width: 100%;
 }
+
 .content_options {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   list-style: none;
   align-items: center;
-  justify-content: flex-start; /* Items start from the left edge of container */
-  width: auto; /* Only take the space needed */
+  justify-content: flex-start;
+  width: auto;
 }
+
 .icon_wrapper {
   position: relative;
   display: inline-block;
 }
+
 .nav_icons__count {
   position: absolute;
   top: -0.4rem;
   right: -0.4rem;
-  width: 1.3rem; /* Set smaller width for better fit */
-  height: 1.3rem; /* Equal to width for perfect circle */
-  display: flex; /* Center content horizontally and vertically */
+  width: 1.3rem;
+  height: 1.3rem;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 0.8rem;
   font-weight: bold;
   background-color: var(--color-pastrelred-lightest);
   border-radius: 50%;
-  line-height: 1; /* Prevent vertical shift */
+  line-height: 1;
+}
+
+/* ===========================
+   CATEGORIES DROPDOWN (PurchasesCard look)
+   =========================== */
+
+.catnav {
+  position: relative; /* anchor for dropdown */
+}
+
+.catbtn {
+  /* mimic a nav link but clickable button */
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font: inherit;
+  color: inherit;
+}
+
+.catcaret {
+  transition: transform 0.25s ease;
+}
+.catcaret.isopen {
+  transform: rotate(180deg);
+}
+
+/* Menu panel (styled like .pcard__menu) */
+.catmenu {
+  position: absolute;
+  left: 0; /* open under the label */
+  top: calc(100% + 8px);
+  background: #fff;
+  color: #222;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  min-width: 240px;
+  padding: 0.45rem;
+  z-index: 1000;
+}
+
+.catmenu::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 18px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  transform: rotate(45deg);
+}
+
+/* Menu items (styled like .pcard__menuitem) */
+.catmenuitem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  padding: 0.55rem 0.65rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.catmenuitem i {
+  color: var(--color-zomp);
+}
+
+.catmenuitem:hover {
+  background: color-mix(in srgb, var(--color-zomp) 12%, white);
 }

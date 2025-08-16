@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import styles from "./tabletScreens.module.css"; // ✅ Updated for CSS Modules
+import React, { useEffect, useRef, useState } from "react";
+import styles from "./tabletScreens.module.css"; // ✅ CSS Modules
 import logo from "../../assits/images/logo/pk.png";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -19,6 +19,8 @@ const MediumScreens = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] =
     useState(false);
+  const catMenuRef = useRef(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const url = window.location.pathname;
@@ -37,14 +39,29 @@ const MediumScreens = () => {
   };
 
   const handleDropdownToggle = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setIsDropdownOpen((v) => !v);
     setIsCategoriesDropdownOpen(false);
   };
 
   const handleCategoriesDropdownToggle = () => {
-    setIsCategoriesDropdownOpen(!isCategoriesDropdownOpen);
+    setIsCategoriesDropdownOpen((v) => !v);
     setIsDropdownOpen(false);
   };
+
+  // Close categories dropdown on outside click
+  useEffect(() => {
+    const onDocClick = (e) => {
+      if (
+        isCategoriesDropdownOpen &&
+        catMenuRef.current &&
+        !catMenuRef.current.contains(e.target)
+      ) {
+        setIsCategoriesDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, [isCategoriesDropdownOpen]);
 
   useEffect(() => {
     if (!categories.length) dispatch(getCategoriesAction());
@@ -54,6 +71,9 @@ const MediumScreens = () => {
     if (user._id) dispatch(getPurchasesAction());
   }, [dispatch, user._id, categories.length, favourites.length, cart.length]);
 
+  // top-level categories only
+  const topLevelCats = categories.filter((c) => !c.catId);
+
   return (
     <div className={styles.maindiv}>
       <div className={styles.top}>
@@ -62,6 +82,7 @@ const MediumScreens = () => {
             <img src={logo} alt="logo" className={styles.logo_icon} />
           </Navbar.Brand>
         </Col>
+
         <div className={styles.search_login}>
           <div className={styles.search}>
             <Form className={styles.search} role="search">
@@ -76,6 +97,7 @@ const MediumScreens = () => {
               </Button>
             </Form>
           </div>
+
           <div className={styles.login}>
             {user?._id ? (
               <div
@@ -93,6 +115,7 @@ const MediumScreens = () => {
                     } ${styles.facaret}`}
                   ></i>
                 </div>
+
                 <Dropdown show={isDropdownOpen}>
                   <Dropdown.Menu
                     variant="light"
@@ -146,9 +169,54 @@ const MediumScreens = () => {
           </div>
         </div>
       </div>
+
       <div className={styles.bottom}>
         <Col sm={2} className={styles.logo}></Col>
+
         <ul className={styles.content_options}>
+          {" "}
+          {/* CATEGORIES — dropdown like PurchasesCard "More Actions" */}
+          <li className={`nav-item ${styles.catnav}`} ref={catMenuRef}>
+            <button
+              type="button"
+              className={`${styles.catbtn} nav-link active`}
+              onClick={handleCategoriesDropdownToggle}
+              aria-expanded={isCategoriesDropdownOpen ? "true" : "false"}
+              aria-haspopup="menu"
+            >
+              <span>Categories</span>
+              <i
+                className={`${styles.catcaret} fa-solid fa-caret-down ${
+                  isCategoriesDropdownOpen ? styles.isopen : ""
+                }`}
+                aria-hidden="true"
+              ></i>
+            </button>
+
+            {isCategoriesDropdownOpen && (
+              <div className={styles.catmenu} role="menu">
+
+                {topLevelCats.map((item) => (
+                  <Link
+                    key={item._id}
+                    to={`/categories/${item._id}`}
+                    className={styles.catmenuitem}
+                    onClick={() => setIsCategoriesDropdownOpen(false)}
+                  >
+                    <i className="fa-regular fa-folder"></i>
+                    {item.name === "Home & Kitchen" ? (
+                      <span>
+                        {item.name}
+                        <span className="-util-nav">*</span>
+                      </span>
+                    ) : (
+                      item.name
+                    )}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </li>
           {url !== "/" && (
             <li className="nav-item">
               <Link
@@ -163,7 +231,6 @@ const MediumScreens = () => {
               </Link>
             </li>
           )}
-
           <li className="nav-item">
             <Link
               className={`nav-link active ${
@@ -173,10 +240,9 @@ const MediumScreens = () => {
               }`}
               to="/offers"
             >
-            Offers
+              Offers
             </Link>
           </li>
-
           <li className="nav-item">
             <Link
               className={`nav-link active ${
@@ -189,7 +255,6 @@ const MediumScreens = () => {
               Best Sellers
             </Link>
           </li>
-
           <li className="nav-item">
             <Link
               className={`nav-link active ${
@@ -202,7 +267,6 @@ const MediumScreens = () => {
               New Arrivals
             </Link>
           </li>
-
           <li className="nav-item">
             <Link
               className={`nav-link active ${
@@ -215,7 +279,6 @@ const MediumScreens = () => {
               Deals and Sales
             </Link>
           </li>
-
           <li className={`nav-item ${styles.nav_icons}`}>
             <Link
               className={`nav-link active ${styles.nav_icons__icon} ${
@@ -233,7 +296,6 @@ const MediumScreens = () => {
               </div>
             </Link>
           </li>
-
           <li className={`nav-item ${styles.nav_icons}`}>
             <Link
               className={`nav-link active ${styles.nav_icons__icon} ${
