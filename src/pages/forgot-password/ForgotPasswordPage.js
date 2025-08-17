@@ -5,30 +5,47 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import BackButton from "../../components/backbutton/BackButton";
+
 const ForgotPasswordPage = () => {
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    // TODO: wire to your OTP request action if needed
+  };
+
   return (
-    <div>
-      <AppLayOut>
-           <BackButton />
-        <div className="forgotpassword">
-          <Form className=" forgotpassword_form -util-form">
-            <Button className="-util-btnback">
-              <Link className="nav-link" to="/login">
-                <i class="fa-solid fa-angle-left -util-backicon"></i> Back
-              </Link>
-            </Button>
-            <h5 className="text-center">Request OTP</h5>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" required />
-            </Form.Group>
-            <Button className="btn-positive" type="submit">
+    <AppLayOut>
+      <BackButton />
+      <div className="forgot">
+        <Form className="forgot_form -util-form" onSubmit={handleOnSubmit}>
+          {/* Top row: Back + Title (consistent with login/registration) */}
+          <div className="forgot_toprow">
+            <Link className="btn-back" to="/login">
+              <i className="fa-solid fa-angle-left"></i>
+              <span>Back</span>
+            </Link>
+            <h1 className="forgot_title">Request OTP</h1>
+          </div>
+
+          <Form.Group className="mb-3" controlId="forgotEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" required />
+          </Form.Group>
+
+          <div className="d-grid">
+            <Button className="-util-btn-positive" type="submit">
               Request OTP
             </Button>
-          </Form>
-        </div>
-      </AppLayOut>
-    </div>
+          </div>
+
+          <div className="forgot_footerlinks">
+            <span>Remembered your password?</span>
+            <Link className="forgot_link" to="/login">
+              Login
+            </Link>
+          </div>
+        </Form>
+      </div>
+    </AppLayOut>
   );
 };
 
