@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./computerScreens.module.css"; // ✅ CSS Module
 import logo from "../../assits/images/logo/pk.png";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import Dropdown from "react-bootstrap/Dropdown";
 import { Button } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,7 +26,8 @@ const Bigscreens = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef(null);
 
   const address = user._id
     ? `${user.address.streetAddress} ${user.address.suburb} ${user.address.state} ${user.address.postCode}`
@@ -40,11 +40,21 @@ const Bigscreens = () => {
 
   const handleOnLogout = () => {
     dispatch(logoutUserAction({}));
+    setIsProfileOpen(false);
   };
 
-  const handleDropdownToggle = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  const toggleProfile = () => setIsProfileOpen((v) => !v);
+
+  // Close profile dropdown on outside click
+  useEffect(() => {
+    const onDocClick = (e) => {
+      if (isProfileOpen && profileRef.current && !profileRef.current.contains(e.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, [isProfileOpen]);
 
   useEffect(() => {
     const handleResize = () => setwindowWidth(window.innerWidth);
@@ -63,14 +73,13 @@ const Bigscreens = () => {
   const hour = new Date().getHours();
 
   return (
-    <div
-      className={`${styles.navdiv} ${styles.header_navbar} ${styles.colorWhite}`}
-    >
+    <div className={`${styles.navdiv} ${styles.header_navbar} ${styles.colorWhite}`}>
       <Col md={2}>
         <Navbar.Brand className="navbar-brand d-flex flex-column justify-content-center align-items-center">
           <img src={logo} alt="logo" className={styles.logo} />
         </Navbar.Brand>
       </Col>
+
       <div className={styles.contents}>
         <div className={styles.client_login_search_wrapper}>
           <div className={styles.client_login_search}>
@@ -79,81 +88,77 @@ const Bigscreens = () => {
                 {user?._id
                   ? `Hello ${user.firstName} ! Delivery Address: ${address}`
                   : `Dear valued client! Wishing you a great ${
-                      hour < 4
-                        ? "night"
-                        : hour < 12
-                        ? "morning"
-                        : hour < 17
-                        ? "day"
-                        : hour < 21
-                        ? "evening"
-                        : "night"
+                      hour < 4 ? "night" : hour < 12 ? "morning" : hour < 17 ? "day" : hour < 21 ? "evening" : "night"
                     }!`}
               </div>
+
               <div>
                 {user?._id ? (
-                  <div
-                    onClick={handleDropdownToggle}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <div>
+                  <div className={styles.hprof} ref={profileRef}>
+                    <button
+                      type="button"
+                      className={styles.hprof__btn}
+                      onClick={toggleProfile}
+                      aria-expanded={isProfileOpen ? "true" : "false"}
+                      aria-haspopup="menu"
+                    >
                       <i className="fa-solid fa-user -util-font15"></i>
                       <i
-                        className={`fa-solid fa-caret-down ${
-                          isDropdownOpen ? "-util-rotate_180" : ""
-                        } ${styles.facaret}`}
+                        className={`fa-solid fa-caret-down ${styles.hprof__caret} ${
+                          isProfileOpen ? styles.isopen : ""
+                        }`}
+                        aria-hidden="true"
                       ></i>
-                    </div>
-                    <Dropdown show={isDropdownOpen}>
-                      <Dropdown.Menu
-                        variant="light"
-                        className={styles.user_profile__profie_dropdown_items}
-                      >
-                        <Link className={styles.dropdown_item}>
-                          <span className={styles.dropdown_item_text}>
-                            Profile
-                          </span>
+                    </button>
+
+                    {isProfileOpen && (
+                      <div className={styles.hprof__menu} role="menu">
+                        <Link to="/profile" className={styles.hprof__menuitem} onClick={() => setIsProfileOpen(false)}>
+                          <i className="fa-regular fa-id-badge"></i>
+                          Profile
                         </Link>
-                        <Link className={styles.dropdown_item} to="/purchases">
-                          <span className={styles.dropdown_item_text}>
-                            Purchases
-                          </span>
+
+                        <Link to="/purchases" className={styles.hprof__menuitem} onClick={() => setIsProfileOpen(false)}>
+                          <i className="fa-regular fa-receipt"></i>
+                          Purchases
                         </Link>
-                        <Link className={styles.dropdown_item}>
-                          <span className={styles.dropdown_item_text}>
-                            Reviews
-                          </span>
+
+                        <Link to="/reviews" className={styles.hprof__menuitem} onClick={() => setIsProfileOpen(false)}>
+                          <i className="fa-regular fa-star"></i>
+                          Reviews
                         </Link>
-                        <Link className={styles.dropdown_item}>
-                          <span className={styles.dropdown_item_text}>
-                            Payment Methods
-                          </span>
+
+                        <Link to="/payments" className={styles.hprof__menuitem} onClick={() => setIsProfileOpen(false)}>
+                          <i className="fa-regular fa-credit-card"></i>
+                          Payment Methods
                         </Link>
-                        <Link className={styles.dropdown_item}>
-                          <span className={styles.dropdown_item_text}>
-                            Close Account
-                          </span>
-                        </Link>
-                        <Link className={styles.dropdown_item}>
-                          <span className={styles.dropdown_item_text}>
-                            Switch Account
-                          </span>
-                        </Link>
+
+                        <button className={styles.hprof__menuitem} disabled>
+                          <i className="fa-regular fa-circle-xmark"></i>
+                          Close Account
+                        </button>
+
                         <Link
-                          className={styles.dropdown_item}
-                          onClick={handleOnLogout}
+                          to="/switch-account"
+                          className={styles.hprof__menuitem}
+                          onClick={() => setIsProfileOpen(false)}
                         >
-                          <span className={styles.dropdown_item_text}>
-                            Sign Out
-                          </span>
+                          <i className="fa-regular fa-arrows-rotate"></i>
+                          Switch Account
                         </Link>
-                      </Dropdown.Menu>
-                    </Dropdown>
+
+                        <button className={styles.hprof__menuitem} onClick={handleOnLogout}>
+                          <i className="fa-regular fa-right-from-bracket"></i>
+                          Sign Out
+                        </button>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div
                     className={`nav-link ${styles.header_login_btn} -util-link mb-3`}
                     onClick={handleOnLogin}
+                    role="button"
                   >
                     Login
                   </div>
@@ -176,15 +181,12 @@ const Bigscreens = () => {
             </div>
           </div>
         </div>
+
         <ul className={styles.content_options}>
           {url !== "/" && (
             <li className="nav-item">
               <Link
-                className={`nav-link active ${
-                  url === "/"
-                    ? "-util-underline"
-                    : "-util-underline-transparent"
-                }`}
+                className={`nav-link active ${url === "/" ? "-util-underline" : "-util-underline-transparent"}`}
                 to="/"
               >
                 Home
@@ -195,9 +197,7 @@ const Bigscreens = () => {
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/offers")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
+                url.includes("/offers") ? "-util-underline" : "-util-underline-transparent"
               }`}
               to="/offers"
             >
@@ -208,9 +208,7 @@ const Bigscreens = () => {
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/bestsellers")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
+                url.includes("/bestsellers") ? "-util-underline" : "-util-underline-transparent"
               }`}
               to="/bestsellers"
             >
@@ -221,9 +219,7 @@ const Bigscreens = () => {
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/newarrivals")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
+                url.includes("/newarrivals") ? "-util-underline" : "-util-underline-transparent"
               }`}
               to="/newarrivals"
             >
@@ -234,9 +230,7 @@ const Bigscreens = () => {
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/dealsandsales")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
+                url.includes("/dealsandsales") ? "-util-underline" : "-util-underline-transparent"
               }`}
               to="/dealsandsales"
             >
@@ -247,17 +241,13 @@ const Bigscreens = () => {
           <li className={`nav-item ${styles.nav_icons}`}>
             <Link
               className={`nav-link active ${styles.nav_icons__icon} ${
-                url.includes("/favourites")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
+                url.includes("/favourites") ? "-util-underline" : "-util-underline-transparent"
               }`}
               to="/favourites"
             >
               <div className={styles.icon_wrapper}>
                 <i className="fa-solid fa-heart -util-font15"></i>
-                <span className={styles.nav_icons__count}>
-                  {favourites?.length}
-                </span>
+                <span className={styles.nav_icons__count}>{favourites?.length}</span>
               </div>
             </Link>
           </li>
@@ -265,9 +255,7 @@ const Bigscreens = () => {
           <li className={`nav-item ${styles.nav_icons}`}>
             <Link
               className={`nav-link active ${styles.nav_icons__icon} ${
-                url.includes("/cart")
-                  ? "-util-underline"
-                  : "-util-underline-transparent"
+                url.includes("/cart") ? "-util-underline" : "-util-underline-transparent"
               }`}
               to="/cart"
             >

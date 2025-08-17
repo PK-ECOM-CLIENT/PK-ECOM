@@ -78,74 +78,85 @@
   text-decoration: underline;
 }
 
-/* OPTIONS HORIZONTAL */
-.facaret {
-  transition: all 0.3s ease;
-}
-
-/* PROFILE DROPDOWN STYLE */
-.user_profile__profie_dropdown_items {
-  background-color: white !important;
-  border-radius: 5px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-size: 1rem;
-  max-height: 8rem;
-  overflow-y: auto;
-  scrollbar-width: none;
-  text-align: center;
-  transform: translateX(-6.2rem);
-  transition: transform 0.3s ease;
-}
-
-/* Hide scrollbar on WebKit browsers */
-.user_profile__profie_dropdown_items::-webkit-scrollbar {
-  display: none;
-}
-
-/* DROPDOWN ITEM (LINK) */
-.dropdown_item {
+/* ===============================
+   PROFILE DROPDOWN (PurchasesCard look)
+   =============================== */
+.hprof {
   position: relative;
-  display: block;
-  width: 100%;
-  padding: 0.1rem 0;
-  text-decoration: none;
-  color: black;
-  transition: color 0.3s;
-  z-index: 1;
-  overflow: hidden;
-  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  z-index: 10;
+}
+.hprof__btn {
+  background: transparent;
+  border: 0;
+  padding: 0.35rem 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: inherit;
+  cursor: pointer;
+}
+.hprof__btn:focus { outline: none; }
+
+.hprof__caret {
+  transition: transform 0.25s ease;
+}
+.isopen {
+  transform: rotate(180deg);
 }
 
-/* INNER TEXT WITH LEFT PADDING */
-.dropdown_item_text {
-  padding-left: 1rem;
-  display: inline-block;
-  width: 100%;
+.hprof__menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: #fff;
+  color: #222;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  min-width: 220px;
+  padding: 0.4rem;
+  z-index: 10000;
 }
-
-/* BACKGROUND EFFECT ON HOVER */
-.dropdown_item::before {
+.hprof__menu::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 20px;
-  background-color: var(--color-zomp);
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.3s ease, width 0.3s ease;
-  z-index: 0;
+  top: -6px;
+  right: 18px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  transform: rotate(45deg);
 }
 
-.dropdown_item:hover {
-  color: white;
-}
-
-.dropdown_item:hover::before {
-  transform: scaleY(1);
+.hprof__menuitem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   width: 100%;
-  z-index: -1;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  padding: 0.55rem 0.65rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+.hprof__menuitem i {
+  color: var(--color-zomp);
+}
+.hprof__menuitem:hover {
+  background: color-mix(in srgb, var(--color-zomp) 12%, white);
+}
+.hprof__menuitem:disabled {
+  color: #9aa0a6;
+  cursor: not-allowed;
+  background: transparent;
 }
 
 /* ICON COUNT */
@@ -163,10 +174,6 @@
   padding: 0.1rem 0.4rem;
   border-radius: 50%;
   font-weight: bold;
-}
-
-.dropdown-item {
-  padding: 0.5rem 1rem;
 }
 
 .-util-rotate_180 {
@@ -218,11 +225,10 @@
    =========================== */
 
 .catnav {
-  position: relative; /* anchor for dropdown */
+  position: relative;
 }
 
 .catbtn {
-  /* mimic a nav link but clickable button */
   background: transparent;
   border: 0;
   padding: 0;
@@ -241,10 +247,10 @@
   transform: rotate(180deg);
 }
 
-/* Menu panel (styled like .pcard__menu) */
+/* Menu panel */
 .catmenu {
   position: absolute;
-  left: 0; /* open under the label */
+  left: 0;
   top: calc(100% + 8px);
   background: #fff;
   color: #222;
@@ -269,7 +275,7 @@
   transform: rotate(45deg);
 }
 
-/* Menu items (styled like .pcard__menuitem) */
+/* Menu items */
 .catmenuitem {
   display: flex;
   align-items: center;
