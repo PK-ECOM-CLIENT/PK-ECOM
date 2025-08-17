@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import "./purchases.css";
 import { PurchasesCard } from "../../components/purchases-card/PurchasesCard";
 import { convertToAESTWithTimeZone } from "../../helpers/functions/dateConversion";
+import BackButton from "../../components/backbutton/BackButton";
 
 const Purchases = () => {
   const { purchases } = useSelector((state) => state.system);
@@ -15,6 +16,7 @@ const Purchases = () => {
 
   return (
     <AppLayOut>
+      <BackButton />
       <section className="purchases">
         {purchases.length === 0 ? (
           <div className="purchases__empty">

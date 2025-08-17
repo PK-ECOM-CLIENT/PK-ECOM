@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   favourites: [],
   cart: [],
-  purchases:[],
+  purchases: [],
   selectedPurchase: {},
   publicUrl: "",
+  prevUrl: "",
   applicationModal: {
     state: false,
     modalContent: {
@@ -12,7 +13,7 @@ const initialState = {
       body: "",
     },
   },
-  noticeModal:true
+  noticeModal: true,
 };
 const systemSlice = createSlice({
   name: "systemSlice",
@@ -28,14 +29,14 @@ const systemSlice = createSlice({
     setFavourites: (state, { payload = {} }) => {
       state.favourites = payload;
     },
-    
+
     setCart: (state, { payload = {} }) => {
       state.cart = payload;
     },
-     setPurchases: (state, { payload = {} }) => {
+    setPurchases: (state, { payload = {} }) => {
       state.purchases = payload;
     },
-     setSelectedPurchase: (state, { payload }) => {
+    setSelectedPurchase: (state, { payload }) => {
       state.selectedPurchase = payload;
     },
     updateCartItem: (state, action) => {
@@ -56,7 +57,10 @@ const systemSlice = createSlice({
     setPublicUrl: (state, action) => {
       state.publicUrl = action.payload;
     },
-     setNoticeModal: (state) => {
+    setPrevUrl: (state, action) => {
+      state.prevUrl = action.payload;
+    },
+    setNoticeModal: (state) => {
       state.noticeModal = !state.noticeModal;
     },
   },
@@ -68,6 +72,7 @@ export const {
   setPurchases,
   setSelectedPurchase,
   setPublicUrl,
+  setPrevUrl,
   updateCartItem,
   setApplicationModal,
   setNoticeModal,

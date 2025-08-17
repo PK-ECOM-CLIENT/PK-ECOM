@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSingleProductAction } from "../../slices/products/productsAction";
 import { getItemsByProductAction } from "../../slices/items/itemsAction";
 import { Row, Col } from "react-bootstrap"; // ✅ add this
+import BackButton from "../../components/backbutton/BackButton";
 
 const ItemsPage = () => {
   const { _pid } = useParams();
@@ -21,13 +22,16 @@ const ItemsPage = () => {
 
   return (
     <AppLayOut>
+      <BackButton />
       <div className="items">
         <div className="items_container">
           <Row className="g-4">
             {items.map((item, i) => {
               const { name, thumbnail, price, _id, catId, productId } = item;
               return (
-                <Col key={i} lg={4} md={4} sm={6}> {/* 3 / 2 / 1 columns */}
+                <Col key={i} lg={4} md={4} sm={6}>
+                  {" "}
+                  {/* 3 / 2 / 1 columns */}
                   <div className="items_grid_card">
                     <ItemCard
                       name={name}

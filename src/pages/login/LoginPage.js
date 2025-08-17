@@ -9,6 +9,7 @@ import { logInUserAction } from "../../slices/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { setPublicUrl } from "../../slices/system/systemSlice";
 import { TypingEffect } from "../../components/typing-effect/TypingEffect";
+import BackButton from "../../components/backbutton/BackButton";
 
 const inputFields = [
   {
@@ -56,6 +57,7 @@ const LoginPage = () => {
 
   return (
     <AppLayOut>
+         <BackButton />
       <div className="login">
         <Form className="login_form -util-form" onSubmit={handleOnSubmit}>
           <div className="login_toprow">

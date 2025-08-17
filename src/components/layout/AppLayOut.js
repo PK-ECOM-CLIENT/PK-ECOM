@@ -4,6 +4,7 @@ import { Sidebar } from "../layout-components/Sidebar";
 import { Footer } from "../layout-components/Footer";
 import "./layout.css";
 import { Col, Row } from "react-bootstrap";
+import BackButton from "../backbutton/BackButton";
 export const AppLayOut = ({ children }) => {
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   useEffect(() => {

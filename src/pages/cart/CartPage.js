@@ -14,6 +14,7 @@ import { setApplicationModal } from "../../slices/system/systemSlice";
 import { CustomModal } from "../../components/custom-modal/CustomModal";
 import { calculateDimensionsAndWeight } from "../../helpers/functions/cartDimension";
 import { Spinnersmall } from "../../helpers/snippets/spinner";
+import BackButton from "../../components/backbutton/BackButton";
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.system);
@@ -68,7 +69,9 @@ const Cart = () => {
 
   const gst = (totalPrice * process.env.REACT_APP_GST_CHARGE_RATE).toFixed(2);
   const cartTotal = (
-    Number(totalPrice) + Number(gst) + Number(deliveryDetails.totalCost)
+    Number(totalPrice) +
+    Number(gst) +
+    Number(deliveryDetails.totalCost)
   ).toFixed(2);
 
   const makePayment = async () => {
@@ -88,6 +91,7 @@ const Cart = () => {
 
   return (
     <AppLayOut>
+      <BackButton />
       <div className="cart_page">
         {/* LEFT: list of cart cards */}
         <section className="cart_items_container">

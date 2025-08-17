@@ -11,6 +11,7 @@ import {
   addFavsAction,
 } from "../../slices/system/systemAction";
 import { setPublicUrl } from "../../slices/system/systemSlice";
+import BackButton from "../../components/backbutton/BackButton";
 
 const itemInitialState = {
   price: null,
@@ -102,6 +103,7 @@ const ItemSelectionPage = () => {
 
   return (
     <AppLayOut>
+         <BackButton />
       <div className="itemSelection">
         <div className="itemSelection_container">
           {/* LEFT: gallery */}
