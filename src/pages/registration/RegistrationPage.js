@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { Alert, Col, Row } from "react-bootstrap";
 import { postUser } from "../../helpers/axiosHelper";
+import BackButton from "../../components/backbutton/BackButton";
 const inputFieldsFirst = [
   {
     label: "First Name",
@@ -122,6 +123,7 @@ const RegistrationPage = () => {
   return (
     <div>
       <AppLayOut>
+        <BackButton />
         <div className="registration">
           <Form
             className="registration_form -util-form"

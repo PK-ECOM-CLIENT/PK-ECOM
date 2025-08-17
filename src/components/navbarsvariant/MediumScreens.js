@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import styles from "./tabletScreens.module.css"; // ✅ Updated for CSS Modules
+import React, { useEffect, useRef, useState } from "react";
+import styles from "./tabletScreens.module.css";
 import logo from "../../assits/images/logo/pk.png";
 import Form from "react-bootstrap/Form";
-import Dropdown from "react-bootstrap/Dropdown";
 import { Button, Col, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,9 +15,12 @@ import {
 import { setPublicUrl } from "../../slices/system/systemSlice";
 
 const MediumScreens = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] =
     useState(false);
+  const profileRef = useRef(null);
+  const catMenuRef = useRef(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const url = window.location.pathname;
@@ -34,17 +36,33 @@ const MediumScreens = () => {
 
   const handleOnLogout = () => {
     dispatch(logoutUserAction({}));
+    setIsProfileOpen(false);
   };
 
-  const handleDropdownToggle = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-    setIsCategoriesDropdownOpen(false);
-  };
+  const toggleProfile = () => setIsProfileOpen((v) => !v);
+  const toggleCategories = () => setIsCategoriesDropdownOpen((v) => !v);
 
-  const handleCategoriesDropdownToggle = () => {
-    setIsCategoriesDropdownOpen(!isCategoriesDropdownOpen);
-    setIsDropdownOpen(false);
-  };
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const onDocClick = (e) => {
+      if (
+        isProfileOpen &&
+        profileRef.current &&
+        !profileRef.current.contains(e.target)
+      ) {
+        setIsProfileOpen(false);
+      }
+      if (
+        isCategoriesDropdownOpen &&
+        catMenuRef.current &&
+        !catMenuRef.current.contains(e.target)
+      ) {
+        setIsCategoriesDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, [isProfileOpen, isCategoriesDropdownOpen]);
 
   useEffect(() => {
     if (!categories.length) dispatch(getCategoriesAction());
@@ -54,6 +72,9 @@ const MediumScreens = () => {
     if (user._id) dispatch(getPurchasesAction());
   }, [dispatch, user._id, categories.length, favourites.length, cart.length]);
 
+  // top-level categories only
+  const topLevelCats = categories.filter((c) => !c.catId);
+
   return (
     <div className={styles.maindiv}>
       <div className={styles.top}>
@@ -62,6 +83,7 @@ const MediumScreens = () => {
             <img src={logo} alt="logo" className={styles.logo_icon} />
           </Navbar.Brand>
         </Col>
+
         <div className={styles.search_login}>
           <div className={styles.search}>
             <Form className={styles.search} role="search">
@@ -76,64 +98,87 @@ const MediumScreens = () => {
               </Button>
             </Form>
           </div>
+
           <div className={styles.login}>
             {user?._id ? (
-              <div
-                className={styles.user_profile__profile}
-                onClick={handleDropdownToggle}
-                style={{ cursor: "pointer" }}
-              >
-                <div
-                  className={`${styles.user_profile__profie_btn} btn-logout text-white d-flex align-items-center`}
+              <div className={styles.hprof} ref={profileRef}>
+                <button
+                  type="button"
+                  className={styles.hprof__btn}
+                  onClick={toggleProfile}
+                  aria-expanded={isProfileOpen ? "true" : "false"}
+                  aria-haspopup="menu"
                 >
                   <i className="fa-solid fa-user -util-font15"></i>
                   <i
-                    className={`fa-solid fa-caret-down ${
-                      isDropdownOpen ? "-util-rotate_180" : ""
-                    } ${styles.facaret}`}
+                    className={`fa-solid fa-caret-down ${styles.hprof__caret} ${
+                      isProfileOpen ? styles.isopen : ""
+                    }`}
+                    aria-hidden="true"
                   ></i>
-                </div>
-                <Dropdown show={isDropdownOpen}>
-                  <Dropdown.Menu
-                    variant="light"
-                    className={styles.user_profile__profie_dropdown_items}
-                  >
-                    <Link className={styles.dropdown_item}>
-                      <span className={styles.dropdown_item_text}>Profile</span>
-                    </Link>
-                    <Link className={styles.dropdown_item} to="/purchases">
-                      <span className={styles.dropdown_item_text}>
-                        Purchases
-                      </span>
-                    </Link>
-                    <Link className={styles.dropdown_item}>
-                      <span className={styles.dropdown_item_text}>Reviews</span>
-                    </Link>
-                    <Link className={styles.dropdown_item}>
-                      <span className={styles.dropdown_item_text}>
-                        Payment Methods
-                      </span>
-                    </Link>
-                    <Link className={styles.dropdown_item}>
-                      <span className={styles.dropdown_item_text}>
-                        Close Account
-                      </span>
-                    </Link>
-                    <Link className={styles.dropdown_item}>
-                      <span className={styles.dropdown_item_text}>
-                        Switch Account
-                      </span>
-                    </Link>
+                </button>
+
+                {isProfileOpen && (
+                  <div className={styles.hprof__menu} role="menu">
                     <Link
-                      className={styles.dropdown_item}
+                      to="/profile"
+                      className={styles.hprof__menuitem}
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      <i className="fa-regular fa-id-badge"></i>
+                      Profile
+                    </Link>
+
+                    <Link
+                      to="/purchases"
+                      className={styles.hprof__menuitem}
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      <i className="fa-regular fa-receipt"></i>
+                      Purchases
+                    </Link>
+
+                    <Link
+                      to="/reviews"
+                      className={styles.hprof__menuitem}
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      <i className="fa-regular fa-star"></i>
+                      Reviews
+                    </Link>
+
+                    <Link
+                      to="/payments"
+                      className={styles.hprof__menuitem}
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      <i className="fa-regular fa-credit-card"></i>
+                      Payment Methods
+                    </Link>
+
+                    <button className={styles.hprof__menuitem} disabled>
+                      <i className="fa-regular fa-circle-xmark"></i>
+                      Close Account
+                    </button>
+
+                    <Link
+                      to="/switch-account"
+                      className={styles.hprof__menuitem}
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      <i className="fa-regular fa-arrows-rotate"></i>
+                      Switch Account
+                    </Link>
+
+                    <button
+                      className={styles.hprof__menuitem}
                       onClick={handleOnLogout}
                     >
-                      <span className={styles.dropdown_item_text}>
-                        Sign Out
-                      </span>
-                    </Link>
-                  </Dropdown.Menu>
-                </Dropdown>
+                      <i className="fa-regular fa-right-from-bracket"></i>
+                      Sign Out
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div
@@ -146,9 +191,52 @@ const MediumScreens = () => {
           </div>
         </div>
       </div>
+
       <div className={styles.bottom}>
         <Col sm={2} className={styles.logo}></Col>
+
         <ul className={styles.content_options}>
+          {/* CATEGORIES DROPDOWN */}
+          <li className={`nav-item ${styles.catnav}`} ref={catMenuRef}>
+            <button
+              type="button"
+              className={`${styles.catbtn} nav-link active`}
+              onClick={toggleCategories}
+              aria-expanded={isCategoriesDropdownOpen ? "true" : "false"}
+              aria-haspopup="menu"
+            >
+              <span>Categories</span>
+              <i
+                className={`${styles.catcaret} fa-solid fa-caret-down ${
+                  isCategoriesDropdownOpen ? styles.isopen : ""
+                }`}
+                aria-hidden="true"
+              ></i>
+            </button>
+
+            {isCategoriesDropdownOpen && (
+              <div className={styles.catmenu} role="menu">
+                {topLevelCats.map((item) => (
+                  <Link
+                    key={item._id}
+                    to={`/categories/${item._id}`}
+                    className={styles.catmenuitem}
+                    onClick={() => setIsCategoriesDropdownOpen(false)}
+                  >
+                    <i className="fa-regular fa-folder"></i>
+                    {item.name === "Home & Kitchen" ? (
+                      <span>
+                        {item.name}
+                        <span className="-util-nav">*</span>
+                      </span>
+                    ) : (
+                      item.name
+                    )}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </li>
           {url !== "/" && (
             <li className="nav-item">
               <Link
@@ -173,7 +261,7 @@ const MediumScreens = () => {
               }`}
               to="/offers"
             >
-            Offers
+              Offers
             </Link>
           </li>
 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCategoriesAction } from "../../slices/categories/categoriesAction";
 import { getProductsAction } from "../../slices/products/productsAction";
+import BackButton from "../../components/backbutton/BackButton";
 const Categories = () => {
   const { _cid } = useParams();
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Categories = () => {
   };
   return (
     <AppLayOut>
+         <BackButton />
       <div className="categories_content">
         <div className="categories_content__wrapper">
           <div className="categories_grid">

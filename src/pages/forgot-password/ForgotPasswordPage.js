@@ -4,10 +4,12 @@ import { AppLayOut } from "../../components/layout/AppLayOut";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
+import BackButton from "../../components/backbutton/BackButton";
 const ForgotPasswordPage = () => {
   return (
     <div>
       <AppLayOut>
+           <BackButton />
         <div className="forgotpassword">
           <Form className=" forgotpassword_form -util-form">
             <Button className="-util-btnback">

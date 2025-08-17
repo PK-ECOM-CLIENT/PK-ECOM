@@ -13,6 +13,7 @@ import {
   deleteFavsAction,
 } from "../../slices/system/systemAction";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../../components/backbutton/BackButton";
 
 const Favourites = () => {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const Favourites = () => {
     <AppLayOut>
       <section className="favs">
         <header className="favs__header">
+          <BackButton />
           {favourites.length > 0 && (
             <Button
               variant="outline-secondary"

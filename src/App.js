@@ -1,9 +1,13 @@
+import React, { useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setPrevUrl } from "./slices/system/systemSlice";
+
 import HomePage from "./pages/home/HomePage";
 import ForgotPasswordPage from "./pages/forgot-password/ForgotPasswordPage";
 import ItemSelectionPage from "./pages/item-selection/ItemSelectionPage";
@@ -23,11 +27,33 @@ import EmailVerification from "./pages/registration/EmailVerification";
 import { PrivateRouter } from "./components/private-router/PrivateRouter";
 import SuccessfulPayment from "./pages/successfulpayment/successfulPayent";
 import FailedPayment from "./pages/successfulpayment/failedPayment";
-import Purchases from "./pages/purchases/purchasesPage"
+import Purchases from "./pages/purchases/purchasesPage";
+
+// Tracks route changes and stores the *previous* URL in Redux
+const RouteChangeTracker = () => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const lastSeenRef = useRef(null);
+
+  useEffect(() => {
+    const current = location.pathname + location.search + location.hash;
+
+    // On each route change, push the *previous* URL to Redux
+    if (lastSeenRef.current && lastSeenRef.current !== current) {
+      dispatch(setPrevUrl(lastSeenRef.current));
+    }
+
+    lastSeenRef.current = current;
+  }, [location, dispatch]);
+
+  return null;
+};
+
 function App() {
   return (
     <div className="app">
       <BrowserRouter>
+        <RouteChangeTracker />
         <Routes>
           <Route path="/" element={<HomePage></HomePage>}></Route>
           <Route path="/login" element={<LoginPage></LoginPage>}></Route>
@@ -92,17 +118,10 @@ function App() {
           ></Route>
           <Route
             path="/paymentsuccessful"
-            element={
-              // <PrivateRouter>
-              <SuccessfulPayment />
-              // </PrivateRouter>
-            }
+            element={<SuccessfulPayment />}
           ></Route>
           <Route path="/paymentfailed" element={<FailedPayment />}></Route>
-          <Route
-            path="/purchases"
-            element={<Purchases></Purchases>}
-          ></Route>
+          <Route path="/purchases" element={<Purchases></Purchases>}></Route>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
