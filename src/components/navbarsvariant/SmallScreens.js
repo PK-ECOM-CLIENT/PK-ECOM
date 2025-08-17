@@ -4,6 +4,8 @@ import logo from "../../assits/images/logo/pk.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
@@ -23,6 +25,7 @@ const SmallScreens = () => {
   const [showMain, setShowMain] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const { categories } = useSelector((state) => state.categories);
   const { user } = useSelector((state) => state.user);
@@ -56,6 +59,18 @@ const SmallScreens = () => {
     dispatch(logoutUserAction({}));
     setShowProfileMenu(false);
     setShowMain(true);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    // Route however you handle search results:
+    // e.g., navigate(`/search?q=${encodeURIComponent(searchTerm)}`)
+    // For now, just close the offcanvas if a term exists:
+    if (searchTerm.trim()) {
+      // Example route (adjust to your app)
+      navigate(`/?q=${encodeURIComponent(searchTerm.trim())}`);
+    }
+    setShowMain(false);
   };
 
   return (
@@ -118,6 +133,27 @@ const SmallScreens = () => {
                 Profile
               </li>
             )}
+
+            {/* Search: pinned at the bottom with same width as items */}
+            <li className={styles.offcanvas_searchItem}>
+              <Form
+                className={styles.offcanvas_searchForm}
+                role="search"
+                onSubmit={handleSearchSubmit}
+              >
+                <Form.Control
+                  className={`form-control ${styles.search_form__control}`}
+                  type="text"
+                  aria-label="Search"
+                  placeholder="Search"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button className={styles.search_icon} type="submit">
+                  <i className="fa-solid fa-magnifying-glass -util-font15 color-pastrelred"></i>
+                </button>
+              </Form>
+            </li>
           </ul>
         </Offcanvas.Body>
       </Offcanvas>
