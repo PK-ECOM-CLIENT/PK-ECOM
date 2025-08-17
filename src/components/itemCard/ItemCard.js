@@ -45,7 +45,8 @@ export const ItemCard = ({
   };
 
   const handleOnDeleteFromFav = (_id) => {
-    if (window.confirm("Are you sure, you want to remove the item from favourites?")) {
+    if (!user._id) return requireLogin();
+    if (window.confirm("Remove this item from favourites?")) {
       dispatch(deleteFavsAction(_id));
     }
   };
@@ -66,7 +67,7 @@ export const ItemCard = ({
           onClick={() => handleOnItemClick(catId, productId, id)}
         />
 
-        {/* Overlay icons on items & selection pages */}
+        {/* Overlay icons ONLY on items & selection (NOT on favs) */}
         {(location === "items" || location === "selection") && (
           <div>
             <i
@@ -94,57 +95,53 @@ export const ItemCard = ({
       <div className="itemCard_body">
         <div className="itemCard_body__name -util-borderbottom">{name}</div>
 
-        <div className="itemCard_meta -util-borderbottom">
-          <div className="itemCard_price">${price}</div>
+        {/* Meta row */}
+        {location === "favs" ? (
+          // FAVOURITES: centered row with price + rating + actions (always visible)
+          <div className="itemCard_meta itemCard_meta--favs -util-borderbottom">
+            <div className="itemCard_price">${price}</div>
 
-          {/* Always show the icons in the row so users see the feature.
-              On the favourites page, make them *non-interactive* because
-              the hover quick actions perform the operations. */}
-          {location === "favs" ? (
-            <>
-              <span
-                className="itemCard__actionoptions"
-                title="Add to cart (use quick actions)"
-                style={{ pointerEvents: "none", opacity: 0.55 }}
-                aria-hidden="true"
-              >
-                <i className="fa-solid fa-cart-shopping"></i>
-              </span>
-              <span
-                className="itemCard__actionoptions"
-                title="Remove from favourites (use quick actions)"
-                style={{ pointerEvents: "none", opacity: 0.55 }}
-                aria-hidden="true"
-              >
-                <i className="fa-solid fa-trash-can -util-trashcan"></i>
-              </span>
-            </>
-          ) : (
-            <>
-              <span
-                className="itemCard__actionoptions"
+            <div className="itemCard_rating" aria-label="rating">
+              <FontAwesomeIcon icon={faStar} className="star" />
+              <span className="rate">{ratingsRate}</span>
+              <span className="count">({ratingsCount})</span>
+            </div>
+
+            <div className="itemCard_actions">
+              <button
+                type="button"
+                className="itemCard_action"
                 onClick={() => handleOnAddToCart(id)}
+                aria-label="Add to cart"
                 title="Add to cart"
               >
                 <i className="fa-solid fa-cart-shopping"></i>
-              </span>
-              <span
-                className="itemCard__actionoptions"
+              </button>
+
+              <button
+                type="button"
+                className="itemCard_action"
                 onClick={() => handleOnDeleteFromFav(id)}
+                aria-label="Remove from favourites"
                 title="Remove from favourites"
               >
                 <i className="fa-solid fa-trash-can -util-trashcan"></i>
-              </span>
-            </>
-          )}
-
-          <div className="itemCard_rating" aria-label="rating">
-            <FontAwesomeIcon icon={faStar} className="star" />
-            <span className="rate">{ratingsRate}</span>
-            <span className="count">({ratingsCount})</span>
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          // ITEMS / SELECTION: price left, rating right, no inline actions
+          <div className="itemCard_meta -util-borderbottom">
+            <div className="itemCard_price">${price}</div>
+            <div className="itemCard_rating" aria-label="rating">
+              <FontAwesomeIcon icon={faStar} className="star" />
+              <span className="rate">{ratingsRate}</span>
+              <span className="count">({ratingsCount})</span>
+            </div>
+          </div>
+        )}
 
+        {/* Only selection page shows description */}
         {location === "selection" && description ? (
           <div className="itemCard_body__description">{description}</div>
         ) : null}
