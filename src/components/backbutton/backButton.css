@@ -1,7 +1,21 @@
 .back-btn {
-  border-radius: 999px; /* pill shape, same as favs__clear */
-  padding: 0.3rem 0.7rem; /* same padding */
+  border-radius: 999px; /* pill shape */
+  padding: 0.3rem 0.7rem;
   font-size: 0.9rem;
   font-weight: 500;
-  margin-right: auto; /* push it to the left inside flex container */
+  margin-right: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: transform 0.3s ease; /* smooth button scale */
+  min-width: 100px;
+justify-content: center;
+}
+
+.back-btn i {
+  transition: transform 0.3s ease; /* smooth icon movement */
+}
+
+.back-btn:hover i {
+  transform: translateX(-4px); /* subtle left shift */
 }

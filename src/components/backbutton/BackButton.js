@@ -30,7 +30,7 @@ const BackButton = ({ fallback = "/" }) => {
       className="back-btn"
       onClick={handleBack}
     >
-      ← Back
+      <i className="fa-solid fa-angle-left"></i>Back
     </Button>
   );
 };
