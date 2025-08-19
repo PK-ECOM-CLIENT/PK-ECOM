@@ -30,6 +30,7 @@ const ItemSelectionPage = () => {
   const [image, setImage] = useState("");
   const [count, setCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(null);
+  const [qtyInput, setQtyInput] = useState("1"); // ✅ mirrors the input exactly while typing
 
   const filterRef = useRef(null);
   const { selectedItem } = useSelector((state) => state.items);
@@ -38,14 +39,20 @@ const ItemSelectionPage = () => {
     selectedItem;
 
   const handleOnIncrement = () => {
-    setCount((c) => c + 1);
-    setTotalPrice((count + 1) * price);
+    setCount((c) => {
+      const next = c + 1;
+      setQtyInput(String(next));
+      return next;
+    });
   };
 
   const handleOnDecrement = () => {
     if (count < 2) return;
-    setCount((c) => c - 1);
-    setTotalPrice((count - 1) * price);
+    setCount((c) => {
+      const next = c - 1;
+      setQtyInput(String(next));
+      return next;
+    });
   };
 
   const handleOnAddToFav = () => {
@@ -98,12 +105,21 @@ const ItemSelectionPage = () => {
         count: 1,
         totalPrice: selectedItem.price,
       });
+      setCount(1);
+      setQtyInput("1");
     }
   }, [selectedItem]);
 
+  // ✅ Recalculate total whenever count or price changes
+  useEffect(() => {
+    if (typeof price === "number" && !Number.isNaN(count)) {
+      setTotalPrice(count * price);
+    }
+  }, [count, price]);
+
   return (
     <AppLayOut>
-         <BackButton />
+      <BackButton />
       <div className="itemSelection">
         <div className="itemSelection_container">
           {/* LEFT: gallery */}
@@ -185,28 +201,59 @@ const ItemSelectionPage = () => {
                   <label htmlFor="number" className="lbl">
                     No of items:
                   </label>
-                  <Button
+                  <span
                     variant="none"
-                    type="button"
                     className="qty_btn"
                     onClick={handleOnDecrement}
                   >
                     -
-                  </Button>
+                  </span>
                   <input
+                    type="text"
                     className="qty_count ro"
                     id="number"
-                    value={count}
-                    readOnly
+                    value={qtyInput}
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    onChange={(e) => {
+                      const raw = e.target.value;
+
+                      // Allow empty → show 0 immediately
+                      if (raw === "") {
+                        setQtyInput("0");
+                        setCount(0);
+                        return;
+                      }
+
+                      // Only digits allowed
+                      if (!/^\d+$/.test(raw)) {
+                        return;
+                      }
+
+                      let normalized = raw;
+
+                      // If previous was "0", replace it with new digits (avoid "04"/"094")
+                      if (qtyInput === "0") {
+                        normalized = raw.replace(/^0+/, "");
+                        if (normalized === "") normalized = "0";
+                      } else if (normalized.length > 1 && normalized.startsWith("0")) {
+                        // Strip unintended leading zeros
+                        normalized = normalized.replace(/^0+/, "");
+                        if (normalized === "") normalized = "0";
+                      }
+
+                      const n = parseInt(normalized, 10);
+                      setQtyInput(normalized);
+                      setCount(Number.isNaN(n) ? 0 : n);
+                    }}
                   />
-                  <Button
+                  <span
                     variant="none"
-                    type="button"
                     className="qty_btn"
                     onClick={handleOnIncrement}
                   >
                     +
-                  </Button>
+                  </span>
                 </div>
 
                 <div className="row_total">
@@ -229,10 +276,7 @@ const ItemSelectionPage = () => {
                   >
                     Add to cart
                   </Button>
-                  <Button
-                    className="btn-fav -util-fav w-100"
-                    onClick={handleOnAddToFav}
-                  >
+                  <Button className="btn-fav  w-100" onClick={handleOnAddToFav}>
                     Add to favourites
                   </Button>
                   <Button
