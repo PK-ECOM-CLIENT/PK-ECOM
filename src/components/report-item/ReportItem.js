@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import "./reportItem.css";
+import "./ReportItem.css";
 
 const ReportItem = () => {
   const [text, setText] = useState("");
