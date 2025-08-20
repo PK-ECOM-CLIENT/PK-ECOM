@@ -119,6 +119,9 @@ body {
 .-util-brdr-btm-none {
   border: none !important;
 }
+.-util-back_btn_wraper {
+  text-align: left;
+}
 .-util-form {
   background-color: rgba(243, 89, 42, 0.1);
   padding: 2rem;

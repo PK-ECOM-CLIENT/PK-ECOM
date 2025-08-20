@@ -1,15 +1,17 @@
 .back-btn {
   border-radius: 999px; /* pill shape */
-  padding: 0.3rem 0.7rem;
   font-size: 0.9rem;
   font-weight: 500;
-  margin-right: auto;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  transition: transform 0.3s ease; /* smooth button scale */
-  min-width: 100px;
-justify-content: center;
+  transition: transform 0.3s ease;
+  min-width: 90px;
+  justify-content: center;
+
+  /* ✅ Always left aligned */
+  margin: 0; /* remove inherited margins */
+  align-self: flex-start; /* works inside flex parents */
 }
 
 .back-btn i {

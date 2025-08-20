@@ -1,29 +1,31 @@
 /* ===== Page layout ===== */
 .cart_page {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
+  margin: 1rem auto;
+  display: grid; /* switch to grid for precise columns */
+  grid-template-columns: 1fr 360px; /* left grows, right fixed */
+  column-gap: 2rem; /* gap between columns */
+  align-items: start;
 }
 
 /* Left column — list of cards */
 .cart_items_container {
-  flex: 1 1 0;
-  display: grid;
-  place-items: start;
+  /* ensure the left column starts at the very left */
+  display: block; /* no grid here, prevents centering */
 }
 
 .cart_items_scroll {
-  width: 100%;
-  display: grid;
-  gap: 1rem;
+  display: flex; /* horizontal list */
+  flex-direction: column; /* stack vertically */
+  gap: 1rem; /* spacing between cards */
+  width: 90%;
 }
 
 /* Right column — summary */
 .cart_summary_container {
-  flex: 0 0 360px;
+  width: 360px; /* match template column */
+  justify-self: end; /* stick to the right edge of grid */
+  margin-right: clamp(1rem, 4vw, 3rem); /* nice breathing room on the right */
 }
 
 /* Summary card */
@@ -33,12 +35,16 @@
   border-radius: 14px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   width: 100%;
+  /* remove inner right margin; spacing handled by aside above */
+  margin-right: 0;
 }
 
 .checkout_paragraph {
   font-size: 0.85rem;
   text-align: center;
 }
+
+/* Empty state */
 .cart__empty {
   text-align: center;
   background: #fff;
@@ -46,8 +52,8 @@
   border-radius: 12px;
   padding: 2.2rem 1.2rem;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  margin: 0 auto; /* center within left column */
-  max-width: 560px; /* pleasant readable width */
+  margin: 0; /* no auto-centering that creates left gap */
+  max-width: 560px;
 }
 
 .cart__empty i {
@@ -55,17 +61,14 @@
   margin-bottom: 0.35rem;
   color: var(--color-zomp);
 }
-
 .cart__empty h4 {
   margin: 0.35rem 0 0.25rem;
   font-weight: 700;
 }
-
 .cart__empty p {
   margin: 0 0 0.6rem;
   color: var(--color-grey-dark-2);
 }
-
 .cart__browse {
   display: inline-block;
   margin-top: 0.6rem;
@@ -74,18 +77,25 @@
   text-decoration: none;
   color: white;
 }
-/* ===== Responsive behavior ===== */
 
+/* ===== Responsive behavior ===== */
 /* Below 992px: stack and center both sections */
 @media (max-width: 991.98px) {
   .cart_page {
-    flex-direction: column;
-    align-items: center; /* horizontally center children */
+    grid-template-columns: 1fr; /* single column */
+    column-gap: 0;
+    padding: 0 0.75rem;
   }
 
   .cart_items_container,
   .cart_summary_container {
     width: 100%;
-    max-width: 560px; /* match CartCard max-width for tidy alignment */
+    max-width: 560px; /* tidy alignment with cards */
+    justify-self: center; /* center the stacked sections */
+    margin-right: 0; /* no extra right margin on mobile */
+  }
+
+  .cart_items_scroll {
+    justify-items: stretch; /* full width on mobile too */
   }
 }

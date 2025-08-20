@@ -51,9 +51,9 @@ const Favourites = () => {
 
   return (
     <AppLayOut>
-      <section className="favs">
+      <div className="-util-back_btn_wraper d-flex justify-content-between">
+        <BackButton></BackButton>
         <header className="favs__header">
-          <BackButton />
           {favourites.length > 0 && (
             <Button
               variant="outline-secondary"
@@ -65,10 +65,11 @@ const Favourites = () => {
             </Button>
           )}
         </header>
-
+      </div>
+      <section className="favs">
         {favourites.length === 0 ? (
           <div className="favs__empty">
-              <i className="fa-solid fa-heart -util-fav -util-font15"></i>
+            <i className="fa-solid fa-heart -util-fav -util-font15"></i>
             <h4>No favourites yet</h4>
             <p>Add items to your favourites and they’ll show up here.</p>
             <a className="favs__browse -util-btn-positive" href="/">

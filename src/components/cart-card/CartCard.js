@@ -24,24 +24,67 @@ export const CartCard = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [num, setNum] = useState(count);
+  const [qtyInput, setQtyInput] = useState(String(count));
   const [filterValue, setFilterValue] = useState(filter);
   const [totalPrice, setTotalPrice] = useState(count * price);
   const url = window.location.pathname;
   const { user } = useSelector((state) => state.user);
-  const { cart } = useSelector((state) => state.system);
 
   const handleOnDeleteFromCart = (_id) => {
-    if (
-      window.confirm("Are you sure, you want to remove the item from cart?")
-    ) {
+    if (window.confirm("Are you sure, you want to remove the item from cart?")) {
       dispatch(deleteCartsAction(_id));
     }
   };
 
-  const handleOnCountChange = (id, nextCount, flt) => {
+  const applyCountChange = (nextCount) => {
+    if (nextCount < 0) nextCount = 0;
+    if (quantity && nextCount > quantity) nextCount = quantity;
+
     setNum(nextCount);
+    setQtyInput(String(nextCount));
     setTotalPrice(nextCount * price);
-    dispatch(updateCartItemAction(id, nextCount, flt));
+    dispatch(updateCartItemAction(id, nextCount, filterValue));
+  };
+
+  const handleOnIncrement = () => {
+    applyCountChange(num + 1);
+  };
+
+  const handleOnDecrement = () => {
+    applyCountChange(num - 1);
+  };
+
+  const handleOnInputChange = (e) => {
+    const raw = e.target.value;
+
+    // If cleared, revert to "0"
+    if (raw === "") {
+      setQtyInput("0");
+      setNum(0);
+      applyCountChange(0);
+      return;
+    }
+
+    // Only digits allowed
+    if (!/^\d+$/.test(raw)) {
+      return;
+    }
+
+    let normalized = raw;
+
+    // Strip leading zeros
+    if (normalized.length > 1 && normalized.startsWith("0")) {
+      normalized = normalized.replace(/^0+/, "");
+      if (normalized === "") normalized = "0";
+    }
+
+    const n = parseInt(normalized, 10);
+    setQtyInput(normalized);
+    setNum(Number.isNaN(n) ? 0 : n);
+
+    if (!Number.isNaN(n)) {
+      applyCountChange(n);
+    }
   };
 
   const handleOnFilterChange = (id, nextCount, flt) => {
@@ -60,6 +103,7 @@ export const CartCard = ({
 
   useEffect(() => {
     setNum(count);
+    setQtyInput(String(count));
     setFilterValue(filter);
     setTotalPrice(count * price);
   }, [count, filter, price]);
@@ -105,21 +149,21 @@ export const CartCard = ({
 
           {/* Quantity */}
           <div className="label">No of items:</div>
-          <div className="value">
-            <Form.Select
-              size="sm"
-              className="cart_select cart_qty"
-              value={num}
-              onChange={(e) =>
-                handleOnCountChange(id, Number(e.target.value), filterValue)
-              }
-            >
-              {Array.from({ length: quantity }).map((_, i) => (
-                <option key={i} value={i + 1}>
-                  {i + 1}
-                </option>
-              ))}
-            </Form.Select>
+          <div className="value cart_qty_wrapper">
+            <span className="qty_btn qty_btn_-" onClick={handleOnDecrement}>
+              -
+            </span>
+            <input
+              type="text"
+              className="qty_input"
+              value={qtyInput}
+              inputMode="numeric"
+              pattern="[0-9]*"
+              onChange={handleOnInputChange}
+            />
+            <span className="qty_btn" onClick={handleOnIncrement}>
+              +
+            </span>
           </div>
 
           {/* Total */}
@@ -127,7 +171,7 @@ export const CartCard = ({
           <div className="value price">${totalPrice}</div>
         </div>
 
-        {/* Corners: absolute icons (stay slightly outside the value column) */}
+        {/* Corners: absolute icons */}
         <button
           className="cart_icon cart_icon--delete -util-pointer"
           onClick={() => handleOnDeleteFromCart(id)}

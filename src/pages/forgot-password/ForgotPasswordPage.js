@@ -14,15 +14,13 @@ const ForgotPasswordPage = () => {
 
   return (
     <AppLayOut>
-      <BackButton />
       <div className="forgot">
         <Form className="forgot_form -util-form" onSubmit={handleOnSubmit}>
           {/* Top row: Back + Title (consistent with login/registration) */}
           <div className="forgot_toprow">
-            <Link className="btn-back" to="/login">
-              <i className="fa-solid fa-angle-left"></i>
-              <span>Back</span>
-            </Link>
+            <div className="-util-back_btn_wraper">
+              <BackButton></BackButton>
+            </div>
             <h1 className="forgot_title">Request OTP</h1>
           </div>
 

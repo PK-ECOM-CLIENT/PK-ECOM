@@ -23,8 +23,9 @@ const Categories = () => {
   };
   return (
     <AppLayOut>
-         <BackButton />
+      <BackButton></BackButton>
       <div className="categories_content">
+        <div className="-util-back_btn_wraper"></div>
         <div className="categories_content__wrapper">
           <div className="categories_grid">
             {subCategories.map((item) => (

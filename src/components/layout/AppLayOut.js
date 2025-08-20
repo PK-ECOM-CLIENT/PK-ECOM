@@ -38,7 +38,7 @@ export const AppLayOut = ({ children }) => {
         ) : (
           <Row className="g-0">
             <Col>
-              <div className="body_content text-center font-20">{children}</div>
+              <div className="body_content">{children}</div>
             </Col>
           </Row>
         )}

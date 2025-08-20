@@ -5,8 +5,9 @@ import BackButton from "../../components/backbutton/BackButton";
 const Profile = () => {
   return (
     <AppLayOut>
-      {" "}
-      <BackButton />
+      <div className="-util-back_btn_wraper">
+        <BackButton></BackButton>
+      </div>
       <div>Profile</div>
     </AppLayOut>
   );

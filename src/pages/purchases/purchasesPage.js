@@ -16,7 +16,9 @@ const Purchases = () => {
 
   return (
     <AppLayOut>
-      <BackButton />
+      <div className="-util-back_btn_wraper">
+        <BackButton></BackButton>
+      </div>
       <section className="purchases">
         {purchases.length === 0 ? (
           <div className="purchases__empty">
