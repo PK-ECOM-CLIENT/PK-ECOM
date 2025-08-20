@@ -1,7 +1,7 @@
 /* Backdrop: soft blur + subtle tint using your brand */
 .app-modal__backdrop {
   backdrop-filter: blur(10px) saturate(115%);
-  background: color-mix(in srgb, var(--color-zomp) 8%, rgba(0,0,0,0.45));
+  background: color-mix(in srgb, var(--color-zomp) 8%, rgba(0, 0, 0, 0.45));
 }
 
 /* Dialog width & margins (Bootstrap respects this class) */
@@ -10,26 +10,26 @@
   margin: 2rem auto;
 }
 @media (max-width: 576px) {
-  .app-modal__dialog { margin: 0; }
+  .app-modal__dialog {
+    margin: 0;
+  }
 }
 
 /* Content card */
 .app-modal__content {
   background: #fff;
   border-radius: 18px;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   overflow: hidden;
-  box-shadow:
-    0 20px 40px rgba(0,0,0,0.20),
-    0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.2), 0 7px 4px rgba(0, 0, 0, 0.06);
   /* Accent glow */
-  outline: 0.5px solid rgba(0,0,0,0.02);
+  outline: 0.5px solid rgba(0, 0, 0, 0.02);
 }
 
 /* Header: bold title, subtle divider, nicer close button */
 .app-modal__header {
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   position: relative;
 }
 .app-modal__title {
@@ -42,10 +42,13 @@
 
 /* Tweak the default close button */
 .app-modal__header .btn-close {
-  filter: invert(16%) sepia(6%) saturate(500%) hue-rotate(150deg) brightness(94%) contrast(92%);
-  opacity: .8;
+  filter: invert(16%) sepia(6%) saturate(500%) hue-rotate(150deg)
+    brightness(94%) contrast(92%);
+  opacity: 0.8;
 }
-.app-modal__header .btn-close:hover { opacity: 1; }
+.app-modal__header .btn-close:hover {
+  opacity: 1;
+}
 
 /* Body: comfy padding & scroll safety */
 .app-modal__body {
