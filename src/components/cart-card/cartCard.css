@@ -3,11 +3,11 @@
   display: flex;
   gap: 0.75rem;
   width: 100%;
-  max-width: 680px; /* keep card from getting too wide */
+
   border: 1px solid rgba(71, 70, 70, 0.18);
   padding: 0.6rem;
   background-color: #fff;
-  margin: 0 auto 1rem; /* center within its column */
+
   border-radius: 10px;
 }
 
@@ -68,8 +68,38 @@
   max-width: 120px;
   margin-left: auto; /* keeps select aligned with value column */
 }
+
 .cart_qty {
   min-width: 84px;
+}
+.cart_qty_wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  justify-content: flex-end;
+  transform: translatex(2rem);
+
+}
+.qty_btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  user-select: none;
+}
+
+.qty_input {
+  width: 2rem; /* fixed width */
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  padding: 0.1rem;
 }
 .cart_filter {
   min-width: 120px;

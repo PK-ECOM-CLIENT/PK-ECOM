@@ -1,17 +1,17 @@
 /* Make the main wrapper actually clamp and center children */
 .applayout {
-  width: 100%;           /* 👈 add */
+  width: 100%; /* 👈 add */
   max-width: 120rem;
-  margin: 0 auto;        /* 👈 center */
+  margin: 0 auto; /* 👈 center */
   position: relative;
-  overflow-x: clip;      /* 👈 stop tiny calc overflow from causing a page scrollbar */
+  overflow-x: clip; /* 👈 stop tiny calc overflow from causing a page scrollbar */
 }
 
 .header,
 .footer {
-  width: 100%;           /* 👈 add */
+  width: 100%; /* 👈 add */
   max-width: 120rem;
-  margin: 0 auto;        /* 👈 center */
+  margin: 0 auto; /* 👈 center */
   border-radius: 0.3rem;
   background-color: var(--color-zomp);
 }
@@ -24,13 +24,15 @@
 }
 
 .body {
-  width: 100%;           /* 👈 add */
+  width: 100%; /* 👈 add */
   max-width: 90rem;
   margin: 0 auto;
   min-height: 95vh;
   background-color: var(--color-grey-dark-3-lightest);
 }
-
+.body_content {
+  padding: 1rem 0.5rem;
+}
 /* Sidebar look */
 .body_sidebar {
   background-color: #fff;
@@ -45,6 +47,8 @@
 
 /* Footer color kept */
 
-
 /* If you ever render Cols without a Row, nuke their padding to avoid overflow */
-.body > [class*="col"] { padding-left: 0; padding-right: 0; }
+.body > [class*="col"] {
+  padding-left: 0;
+  padding-right: 0;
+}

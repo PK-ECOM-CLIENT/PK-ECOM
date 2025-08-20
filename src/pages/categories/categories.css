@@ -1,12 +1,11 @@
 .categories_content {
   min-height: 100vh;
-  padding: 3rem 1rem;
   background-color: #f8f8f8;
 }
 
 .categories_content__wrapper {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 1rem auto;
 }
 
 .categories_grid {

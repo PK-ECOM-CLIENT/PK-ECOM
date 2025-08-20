@@ -91,7 +91,9 @@ const Cart = () => {
 
   return (
     <AppLayOut>
-      <BackButton />
+      <div className="-util-back_btn_wraper">
+        <BackButton></BackButton>
+      </div>
       <div className="cart_page">
         {/* LEFT: list of cart cards */}
         <section className="cart_items_container">

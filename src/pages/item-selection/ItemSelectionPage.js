@@ -119,7 +119,9 @@ const ItemSelectionPage = () => {
 
   return (
     <AppLayOut>
-      <BackButton />
+      <div className="-util-back_btn_wraper">
+        <BackButton></BackButton>
+      </div>
       <div className="itemSelection">
         <div className="itemSelection_container">
           {/* LEFT: gallery */}
@@ -236,7 +238,10 @@ const ItemSelectionPage = () => {
                       if (qtyInput === "0") {
                         normalized = raw.replace(/^0+/, "");
                         if (normalized === "") normalized = "0";
-                      } else if (normalized.length > 1 && normalized.startsWith("0")) {
+                      } else if (
+                        normalized.length > 1 &&
+                        normalized.startsWith("0")
+                      ) {
                         // Strip unintended leading zeros
                         normalized = normalized.replace(/^0+/, "");
                         if (normalized === "") normalized = "0";

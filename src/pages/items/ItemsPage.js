@@ -22,7 +22,9 @@ const ItemsPage = () => {
 
   return (
     <AppLayOut>
-      <BackButton />
+      <div className="-util-back_btn_wraper">
+        <BackButton></BackButton>
+      </div>
       <div className="items">
         <div className="items_container">
           <Row className="g-4">
