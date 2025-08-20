@@ -10,11 +10,45 @@ import { postUser } from "../../helpers/axiosHelper";
 import BackButton from "../../components/backbutton/BackButton";
 
 const inputFieldsFirst = [
-  { label: "First Name", className: "-util-required", name: "firstName", type: "text", placeholder: "First Name", required: true },
-  { label: "Last Name",  className: "-util-required", name: "lastName",  type: "text", placeholder: "Last Name",  required: true },
-  { label: "Email",      className: "-util-required", name: "email",     type: "email", placeholder: "youremail@email.com", required: true },
-  { label: "Phone",      className: "-util-required", name: "phone",     type: "number", placeholder: "0452734634", required: false },
-  { label: "Date of Birth", name: "dob", type: "date", placeholder: "dd/mm/yy", required: false },
+  {
+    label: "First Name",
+    className: "-util-required",
+    name: "firstName",
+    type: "text",
+    placeholder: "First Name",
+    required: true,
+  },
+  {
+    label: "Last Name",
+    className: "-util-required",
+    name: "lastName",
+    type: "text",
+    placeholder: "Last Name",
+    required: true,
+  },
+  {
+    label: "Email",
+    className: "-util-required",
+    name: "email",
+    type: "email",
+    placeholder: "youremail@email.com",
+    required: true,
+  },
+  {
+    label: "Phone",
+    className: "-util-required",
+    name: "phone",
+    type: "number",
+    placeholder: "0452734634",
+    required: false,
+  },
+  {
+    label: "Date of Birth",
+    name: "dob",
+    type: "date",
+    placeholder: "dd/mm/yy",
+    required: false,
+  },
 ];
 
 const initialState = {
@@ -36,8 +70,16 @@ const RegistrationPage = () => {
   const handleOnChange = (e) => {
     let { name, value } = e.target;
 
-    if (name === "streetAddress" || name === "suburb" || name === "state" || name === "postCode") {
-      setForm((prev) => ({ ...prev, address: { ...prev.address, [name]: value } }));
+    if (
+      name === "streetAddress" ||
+      name === "suburb" ||
+      name === "state" ||
+      name === "postCode"
+    ) {
+      setForm((prev) => ({
+        ...prev,
+        address: { ...prev.address, [name]: value },
+      }));
     } else if (name === "email") {
       setForm((prev) => ({ ...prev, [name]: value.toLowerCase() }));
     } else {
@@ -47,11 +89,16 @@ const RegistrationPage = () => {
     const { password } = form;
     if (name === "confirmPassword") {
       if (!password) setError("Please fill up the password first!");
-      else if (password.length < 6) setError("Password must be minimum of 6 characters long!");
-      else if (!/[A-Z]/.test(password)) setError("Password must contain minimum of 1 capital letter!");
-      else if (!/[a-z]/.test(password)) setError("Password must contain minimum of 1 small letter!");
-      else if (!/[0-9]/.test(password)) setError("Password must contain minimum of 1 number!");
-      else if (!password.includes(value)) setError("Password and confirm password must match!");
+      else if (password.length < 6)
+        setError("Password must be minimum of 6 characters long!");
+      else if (!/[A-Z]/.test(password))
+        setError("Password must contain minimum of 1 capital letter!");
+      else if (!/[a-z]/.test(password))
+        setError("Password must contain minimum of 1 small letter!");
+      else if (!/[0-9]/.test(password))
+        setError("Password must contain minimum of 1 number!");
+      else if (!password.includes(value))
+        setError("Password and confirm password must match!");
       else setError("");
     }
   };
@@ -68,20 +115,20 @@ const RegistrationPage = () => {
 
   return (
     <AppLayOut>
-      <BackButton />
       <div className="register">
         <Form className="register_form -util-form" onSubmit={handleOnSubmit}>
           {/* Top row: Back to Login + Title (mirrors login page look) */}
           <div className="register_toprow">
-            <Link className="btn-back" to="/login">
-              <i className="fa-solid fa-angle-left"></i>
-              <span>Back</span>
-            </Link>
+            <div className="-util-back_btn_wraper">
+              <BackButton></BackButton>
+            </div>
             <h1 className="register_title">Create your account</h1>
           </div>
 
           {response?.message && (
-            <Alert variant={response?.status === "success" ? "success" : "danger"}>
+            <Alert
+              variant={response?.status === "success" ? "success" : "danger"}
+            >
               {response.message}
             </Alert>
           )}
@@ -99,7 +146,9 @@ const RegistrationPage = () => {
               <Row>
                 <Col md={9} sm={9}>
                   <Form.Group>
-                    <Form.Label className="-util-required">Street Address</Form.Label>
+                    <Form.Label className="-util-required">
+                      Street Address
+                    </Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="102/1-3 Clarence Street"
@@ -125,10 +174,17 @@ const RegistrationPage = () => {
                 </Col>
                 <Col sm={3}>
                   <Form.Group className="mb-3">
-                    <Form.Label htmlFor="disabledSelect" className="-util-required">
+                    <Form.Label
+                      htmlFor="disabledSelect"
+                      className="-util-required"
+                    >
                       State
                     </Form.Label>
-                    <Form.Select name="state" onChange={handleOnChange} required>
+                    <Form.Select
+                      name="state"
+                      onChange={handleOnChange}
+                      required
+                    >
                       <option value="">Select</option>
                       <option value="NSW">NSW</option>
                       <option value="ACT">ACT</option>
@@ -178,7 +234,11 @@ const RegistrationPage = () => {
           {error && <Alert variant="danger">{error}</Alert>}
 
           <div className="d-grid">
-            <Button className="-util-btn-positive" type="submit" disabled={error}>
+            <Button
+              className="-util-btn-positive"
+              type="submit"
+              disabled={error}
+            >
               Register
             </Button>
           </div>

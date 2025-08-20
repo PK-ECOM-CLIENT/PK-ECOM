@@ -57,14 +57,12 @@ const LoginPage = () => {
 
   return (
     <AppLayOut>
-         <BackButton />
       <div className="login">
         <Form className="login_form -util-form" onSubmit={handleOnSubmit}>
           <div className="login_toprow">
-            <Link className="btn-back" to="/">
-              <i className="fa-solid fa-angle-left"></i>
-              <span>Back</span>
-            </Link>
+            <div className="-util-back_btn_wraper">
+              <BackButton></BackButton>
+            </div>
             <h1 className="login_title">Welcome back</h1>
           </div>
 

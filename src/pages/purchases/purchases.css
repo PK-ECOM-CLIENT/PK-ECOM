@@ -1,7 +1,7 @@
 /* Page shell */
 .purchases {
   max-width: 1200px;
-  margin: 2rem auto;
+  margin: 1rem auto;
   padding: 0 1rem;
 }
 
@@ -11,11 +11,13 @@
   margin: 8vh auto 0;
   background: #fff;
   border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   padding: 2rem;
   text-align: center;
 }
-.purchases__empty .emoji { font-size: 2.2rem; }
+.purchases__empty .emoji {
+  font-size: 2.2rem;
+}
 
 /* Grid */
 .purchases__grid {
@@ -25,7 +27,8 @@
   gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
 }
-.purchases__cell { }
+.purchases__cell {
+}
 
 @media (max-width: 480px) {
   .purchases__grid {

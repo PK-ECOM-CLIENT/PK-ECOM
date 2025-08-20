@@ -6,7 +6,7 @@
   align-items: center;
   gap: 0.4rem;
   transition: transform 0.3s ease;
-  min-width: 100px;
+  min-width: 90px;
   justify-content: center;
 
   /* ✅ Always left aligned */
