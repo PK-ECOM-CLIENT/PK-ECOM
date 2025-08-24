@@ -1,23 +1,23 @@
 .back-btn {
-  border-radius: 999px; /* pill shape */
+  border-radius: 999px; /* pill shape, keep px */
   font-size: 0.9rem;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   transition: transform 0.3s ease;
-  min-width: 90px;
+  min-width: 5.625rem; /* 90px → 5.625rem */
   justify-content: center;
 
   /* ✅ Always left aligned */
-  margin: 0; /* remove inherited margins */
-  align-self: flex-start; /* works inside flex parents */
+  margin: 0;
+  align-self: flex-start;
 }
 
 .back-btn i {
-  transition: transform 0.3s ease; /* smooth icon movement */
+  transition: transform 0.3s ease;
 }
 
 .back-btn:hover i {
-  transform: translateX(-4px); /* subtle left shift */
+  transform: translateX(-0.25rem); /* -4px → -0.25rem */
 }

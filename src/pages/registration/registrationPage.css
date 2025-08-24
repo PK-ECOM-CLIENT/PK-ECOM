@@ -10,13 +10,13 @@
 /* Card */
 .register_form {
   width: 100%;
-  max-width: 34rem;                  /* match login card width */
+  max-width: 34rem;                 /* matches login card width */
   margin: 0 auto;
   padding: 1.5rem;
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 16px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06); /* keep 1px hairline */
+  border-radius: 1rem;               /* 16px → 1rem */
+  box-shadow: 0 0.75rem 1.75rem rgba(0, 0, 0, 0.08); /* 12px 28px → rem */
   text-align: left;
   font-size: 1rem;
 }
@@ -33,17 +33,16 @@
   align-items: center;
   gap: 0.45rem;
   padding: 0.45rem 0.7rem;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px; /* pill */
+  border: 1px solid rgba(0, 0, 0, 0.08); /* keep 1px */
   background: #f6f7f8;
   color: var(--color-charcoal);
   text-decoration: none;
   font-weight: 700;
   line-height: 1;
 }
-.btn-back:hover {
-  background: #eef0f2;
-}
+.btn-back:hover { background: #eef0f2; }
+
 .register_title {
   margin: 0;
   font-size: 1.15rem;
@@ -59,8 +58,8 @@
 .register_form .form-control,
 .register_form select.form-select {
   height: 2.75rem;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0.75rem; /* 12px → 0.75rem */
+  border: 1px solid rgba(0, 0, 0, 0.12); /* keep 1px */
   background: #f8fbff;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
@@ -75,26 +74,24 @@
 .address {
   display: block;
   margin: 1rem 0 1.25rem;
-  border-radius: 12px;
+  border-radius: 0.75rem; /* 12px → 0.75rem */
   padding: 1rem;
   background:
     linear-gradient(0deg, rgba(255,255,255,0.7), rgba(255,255,255,0.7)),
     color-mix(in srgb, var(--color-zomp) 8%, #6bafff20);
-  border: 1px dashed color-mix(in srgb, var(--color-zomp) 40%, #6bafff);
+  border: 1px dashed color-mix(in srgb, var(--color-zomp) 40%, #6bafff); /* dashed stays 1px */
 }
 .address_heading {
   font-weight: 800;
   color: var(--color-charcoal);
   margin-bottom: 0.5rem;
 }
-.address_content .form-label {
-  font-weight: 700;
-}
+.address_content .form-label { font-weight: 700; }
 
 /* Submit button (use your util class, boost presence) */
 .register_form .-util-btn-positive {
   height: 2.75rem;
-  border-radius: 12px;
+  border-radius: 0.75rem; /* 12px → 0.75rem */
   font-weight: 800;
   margin-top: 0.25rem;
 }
@@ -112,16 +109,10 @@
   text-decoration: none;
   font-weight: 700;
 }
-.register_link:hover {
-  text-decoration: underline;
-}
+.register_link:hover { text-decoration: underline; }
 
 /* Mobile tweaks (match login) */
 @media (max-width: 420px) {
-  .register_form {
-    padding: 1.25rem;
-  }
-  .register_title {
-    font-size: 1.05rem;
-  }
+  .register_form { padding: 1.25rem; }
+  .register_title { font-size: 1.05rem; }
 }

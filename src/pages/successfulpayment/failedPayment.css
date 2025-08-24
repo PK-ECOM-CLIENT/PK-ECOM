@@ -14,15 +14,15 @@
 }
 
 .circle {
-  width: 100px;
-  height: 100px;
+  width: 6.25rem;   /* 100px → 6.25rem */
+  height: 6.25rem;  /* 100px → 6.25rem */
   border-radius: 50%;
-  background-color: #ff6b6b; /* Solid inner circle color */
+  background-color: #ff6b6b;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  border: 10px solid #58a97d; /* Thicker main green border */
+  border: 0.625rem solid #58a97d; /* 10px → 0.625rem */
   z-index: 2;
 }
 
@@ -32,55 +32,55 @@
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  opacity: 0; /* Start invisible */
-  animation-fill-mode: forwards; /* Ensure it stays after the animation */
+  opacity: 0;
+  animation-fill-mode: forwards;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0); /* Center and start from scale 0 */
+  transform: translate(-50%, -50%) scale(0);
 }
 
 /* First outer green shade animation */
 .circle-container::before {
-  width: 130px;
-  height: 130px;
-  border: 30px solid rgba(102, 161, 130, 0.75); /* Semi-transparent green */
+  width: 8.125rem;   /* 130px → 8.125rem */
+  height: 8.125rem;
+  border: 1.875rem solid rgba(102, 161, 130, 0.75); /* 30px → 1.875rem */
   z-index: 1;
-  animation: expandShade 1.5s ease-out forwards; /* Adjusted timing */
+  animation: expandShade 1.5s ease-out forwards;
 }
 
 /* Second outer green shade animation */
 .circle-container::after {
-  width: 180px; /* Adjusted size */
-  height: 180px; /* Adjusted size */
-  border: 40px solid rgba(102, 161, 130, 0.5); /* More transparent green */
+  width: 11.25rem;   /* 180px → 11.25rem */
+  height: 11.25rem;
+  border: 2.5rem solid rgba(102, 161, 130, 0.5); /* 40px → 2.5rem */
   z-index: 0;
-  animation: expandShade 1.5s ease-out forwards; /* Adjusted timing */
+  animation: expandShade 1.5s ease-out forwards;
 }
 
 @keyframes expandShade {
   0% {
-    transform: translate(-50%, -50%) scale(0); /* Start from the origin */
-    opacity: 0; /* Invisible at start */
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
   }
   100% {
-    transform: translate(-50%, -50%) scale(1); /* Expand to full size */
-    opacity: 1; /* Full opacity at end */
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
   }
 }
 
 .exclamation {
-  width: 60px;
-  height: 60px;
+  width: 3.75rem;   /* 60px → 3.75rem */
+  height: 3.75rem;
 }
 
 .exclamation-path {
   stroke: white;
-  stroke-width: 4;
+  stroke-width: 0.25rem; /* 4px → 0.25rem */
   stroke-linecap: round;
   fill: none;
   stroke-dasharray: 24;
   stroke-dashoffset: 24;
-  transition: stroke 1.5s ease-out, stroke-dashoffset 1.5s ease-out; /* Adjusted timing */
+  transition: stroke 1.5s ease-out, stroke-dashoffset 1.5s ease-out;
 }
 
 .circle.completed .exclamation-path {
@@ -88,30 +88,27 @@
   stroke-dashoffset: 0;
 }
 
-/* New style for the error text */
 .error-text {
   margin-top: 3rem;
-  font-size: 18px;
+  font-size: 1.125rem; /* 18px → 1.125rem */
   color: #e16363;
   font-weight: 400;
   text-decoration: underline;
   text-align: center;
   z-index: 3;
-  white-space: nowrap; /* Prevent text from wrapping to the next line */
-  overflow: hidden; /* Hide any overflow text */
-  text-overflow: ellipsis; /* Add ellipsis (…) if text overflows */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* New style for the link */
 .text {
-  /* margin-top: 1rem; */
   text-decoration: none;
   display: block;
-  background-color: #58a97d; /* Green color */
+  background-color: #58a97d;
   padding: 0.5rem 1rem;
   font-weight: 600;
   color: white;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem; /* 8px → 0.5rem */
   text-align: center;
-  margin-top: -.5rem;
+  margin-top: -0.5rem;
 }

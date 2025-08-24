@@ -5,8 +5,8 @@
 /* ---- Card container ---- */
 .itemCard {
   background-color: #fff;
-  border: 1px solid rgba(226, 218, 218, 0.421);
-  border-radius: 8px;
+  border: 1px solid rgba(226, 218, 218, 0.421); /* keep 1px hairline */
+  border-radius: 0.5rem; /* 8px → 0.5rem */
   overflow: hidden;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   display: flex;
@@ -17,9 +17,10 @@
 }
 .itemCard:hover {
   transform: scale(1.02);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0.375rem 1.25rem rgba(0, 0, 0, 0.12); /* 6px 20px → rem */
   cursor: pointer;
 }
+
 /* ---- Image area ---- */
 .itemCard_img {
   position: relative;
@@ -77,9 +78,7 @@
   opacity: 0;
   transition: opacity 0.2s ease;
 }
-.addtocart {
-  left: -1.3rem !important;
-}
+.addtocart { left: -1.3rem !important; }
 
 .itemCard_img__fav:hover .addto,
 .itemCard_img__cart:hover .addto {
@@ -143,14 +142,11 @@
   color: #4a4a4a;
   font-size: 0.95rem;
   line-height: 1.55;
-  /* Clamp to 3 lines so cards look tidy */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
-/* Hover effect for card */
 
 /* Legacy utility (kept if referenced elsewhere) */
 .itemCard__actionoptions {
@@ -163,47 +159,34 @@
 
 /* =========================================================
    FAVOURITES VARIANT
-   - Price left, Actions center, Rating right
-   - Always-visible actions
-   - Nice spacing between cart & delete
    ========================================================= */
 
-/* Use a 3-column grid for perfect alignment */
 .itemCard_meta--favs {
   display: grid;
-  grid-template-columns: 1fr auto 1fr; /* left | center | right  */
-  grid-template-areas: "price actions rating"; /* name the zones         */
+  grid-template-columns: 1fr auto 1fr; /* left | center | right */
+  grid-template-areas: "price actions rating";
   align-items: center;
   column-gap: clamp(0.6rem, 2vw, 1rem);
   padding: 0.35rem 0 0.4rem;
 }
 
-/* Place each group in its zone */
-.itemCard_meta--favs .itemCard_price {
-  grid-area: price;
-  justify-self: start;
-}
-.itemCard_meta--favs .itemCard_actions {
-  grid-area: actions;
-  justify-self: center;
-}
-.itemCard_meta--favs .itemCard_rating {
-  grid-area: rating;
-  justify-self: end;
-}
+/* Placement */
+.itemCard_meta--favs .itemCard_price { grid-area: price;  justify-self: start; }
+.itemCard_meta--favs .itemCard_actions { grid-area: actions; justify-self: center; }
+.itemCard_meta--favs .itemCard_rating { grid-area: rating; justify-self: end; }
 
 /* Inline actions (always visible on favourites) */
 .itemCard_actions {
   display: inline-flex;
   align-items: center;
-  gap: clamp(1rem, 2.4vw, 1.6rem); /* nice spacing between cart & delete */
+  gap: clamp(1rem, 2.4vw, 1.6rem); /* space between cart & delete */
 }
 
 .itemCard_action {
   background: transparent;
   border: 0;
-  padding: 0rem 3rem; /* bigger hit area */
-  border-radius: 8px;
+  padding: 0 3rem; /* bigger hit area */
+  border-radius: 0.5rem; /* 8px → 0.5rem */
   cursor: pointer;
   line-height: 1;
   color: var(--color-grey-dark-2);
@@ -212,32 +195,28 @@
 
 .itemCard_action:hover {
   background: rgba(0, 0, 0, 0.06);
-  transform: translateY(-1px);
+  transform: translateY(-0.0625rem); /* -1px → rem nudge */
   color: var(--color-zomp);
 }
 
-.itemCard_action i {
-  font-size: 1rem;
-}
+.itemCard_action i { font-size: 1rem; }
 
 /* =========================================================
    FAVOURITES HOVER BAR (Quick actions) – fully opaque overlay
    ========================================================= */
 
-/* Ensure the card clips the overlay edges */
 .favs__card {
   position: relative;
-  overflow: hidden; /* no bleed around rounded corners */
+  overflow: hidden; /* clip overlay to rounded corners */
 }
 
-/* Quick actions bar: solid white, full-width at bottom */
 .favs__hoverbar {
   position: absolute;
-  inset: auto 0 0 0; /* edge-to-edge across the bottom */
-  background: #fff; /* ← opaque */
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
-  border-radius: 10px 10px 0 0; /* rounded top corners (optional) */
+  inset: auto 0 0 0;
+  background: #fff; /* opaque */
+  border: 1px solid rgba(0, 0, 0, 0.06); /* keep hairline in px */
+  box-shadow: 0 0.375rem 0.875rem rgba(0, 0, 0, 0.06); /* 6px 14px → rem */
+  border-radius: 0.625rem 0.625rem 0 0; /* 10px → 0.625rem */
   padding: 0.35rem 0.6rem;
 
   display: flex;
@@ -245,12 +224,11 @@
   gap: 0.6rem;
 
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(0.375rem); /* 6px → 0.375rem */
   transition: opacity 0.18s ease, transform 0.18s ease;
-  z-index: 5; /* above everything in the card */
+  z-index: 5;
 }
 
-/* Show the quick actions smoothly on hover */
 .favs__card:hover .favs__hoverbar {
   opacity: 1;
   transform: translateY(0);
@@ -259,7 +237,7 @@
 /* Hide meta/description behind the bar while hovered */
 .favs__card:hover .itemCard_meta--favs,
 .favs__card:hover .itemCard_body__description {
-  opacity: 0; /* completely invisible behind the bar */
+  opacity: 0;
   transition: opacity 0.15s ease;
-  pointer-events: none; /* block clicks on hidden content */
+  pointer-events: none;
 }

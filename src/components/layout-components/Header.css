@@ -29,15 +29,15 @@
 }
 
 .user_profile__profie-dropdown-items {
-  background-color: white !important;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 0.25rem 0; /* reduced padding */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff !important;
+  border: 1px solid #ddd;          /* keep px for hairline */
+  border-radius: 0.3125rem;        /* 5px → 0.3125rem */
+  padding: 0.25rem 0;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1); /* 2px 8px → rem */
   font-size: 0.95rem;
   min-width: 10rem;
-  max-height: 15rem; /* restrict height */
-  overflow-y: auto; /* enable scroll */
+  max-height: 15rem;
+  overflow-y: auto;
   scrollbar-width: none; /* Firefox */
 }
 
@@ -46,19 +46,19 @@
 }
 
 .user_profile__profie-dropdown-items > * {
-  color: black;
-  padding: 0.1rem 1rem; /* reduced vertical padding */
+  color: #fff;
+  padding: 0.1rem 1rem;
   text-decoration: none;
   white-space: nowrap;
-  color: white;
 }
+
 .dropdown-item {
   position: relative;
   z-index: 1;
   display: block;
   padding: 0.4rem 1rem;
   text-decoration: none;
-  color: black;
+  color: #000;
   transition: color 0.3s;
   line-height: 1.3;
   text-align: left;
@@ -70,14 +70,14 @@
   top: 0;
   left: 0;
   height: 100%;
-  width: 20px;
+  width: 1.25rem; /* 20px → 1.25rem */
   background-color: var(--color-zomp);
   transform: scaleY(0);
   transition: transform 0.3s ease, width 0.3s ease;
   z-index: 0;
 }
 .dropdown-item:hover {
-  color: white;
+  color: #fff;
 }
 .dropdown-item:hover::before {
   transform: scaleY(1);
@@ -94,8 +94,8 @@
   position: absolute;
   top: -0.2rem;
   right: -0.2rem;
-  padding: 0rem 0.2rem;
-  border-radius: 10%;
+  padding: 0 0.2rem;
+  border-radius: 10%; /* keep as % */
   font-weight: bold;
   background-color: var(--color-pastrelred-lightest);
 }
@@ -105,6 +105,7 @@
   transition: all 0.3s ease;
   border: none;
 }
+
 .search_form__control {
   transition: all 0.3s ease;
   transform-origin: left;
@@ -113,23 +114,22 @@
 .search_form__control:focus {
   transform: scaleX(1.07);
   color: var(--color-pastrelred);
-  /* color: var(--color-grey-dark-2); */
-  border-radius: 5px;
+  border-radius: 0.3125rem; /* 5px → 0.3125rem */
   font-weight: 500;
 }
 .search_form__control:focus + .search_icon {
   transform: translateX(-1.2rem);
 }
+
 .categories_search__menu {
-  background-color: white;
-  color: white;
+  background-color: #fff;
+  color: #fff;
   border: none;
   line-height: 0.8;
   font-size: 0.95rem;
   max-height: 10rem;
   overflow-y: auto;
 }
-
 .categories_search__menu::-webkit-scrollbar {
   display: none;
 }
@@ -137,6 +137,7 @@
 .header_login-btn {
   font-weight: bold;
 }
+
 .fa-caret-down {
   transition: transform 0.3s ease;
 }

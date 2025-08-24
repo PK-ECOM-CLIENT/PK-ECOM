@@ -1,15 +1,14 @@
 /* Page wrapper */
 .favs {
-  max-width: 1200px;
+  max-width: 75rem; /* 1200px → 75rem */
   margin: 1rem auto;
 }
 
 /* Header */
-
 .favs__clear {
-  border-radius: 999px;
-  /* padding: 0.3rem 0.7rem; */
-  min-width: 90px;
+  border-radius: 999px;          /* keep pill shape in px */
+  min-width: 5.625rem;           /* 90px → 5.625rem */
+  /* padding: 0.3rem 0.7rem; */  /* already rem-based if you re-enable */
 }
 .favs__title {
   display: inline-flex;
@@ -28,10 +27,10 @@
   font-size: 0.85rem;
   line-height: 1;
   padding: 0.35rem 0.55rem;
-  border-radius: 999px;
+  border-radius: 999px;          /* keep pill in px */
 }
 .favs__clear {
-  border-radius: 999px;
+  border-radius: 999px;          /* duplicate rule kept consistent */
   padding: 0.3rem 0.7rem;
 }
 
@@ -39,10 +38,10 @@
 .favs__empty {
   text-align: center;
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);      /* keep 1px hairline */
+  border-radius: 0.75rem;                     /* 12px → 0.75rem */
   padding: 2.2rem 1.2rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0.375rem 1.125rem rgba(0, 0, 0, 0.06); /* 6px 18px → rem */
 }
 .favs__empty-emoji {
   font-size: 2rem;
@@ -52,15 +51,15 @@
   display: inline-block;
   margin-top: 0.6rem;
   padding: 0.55rem 1rem;
-  border-radius: 10px;
+  border-radius: 0.625rem; /* 10px → 0.625rem */
   text-decoration: none;
-  color: white;
+  color: #fff;
 }
 
 /* Grid */
 .favs__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(16.875rem, 1fr)); /* 270px → 16.875rem */
   gap: 1rem;
 }
 .favs__cell {
@@ -73,7 +72,7 @@
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 .favs__card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem); /* -2px → -0.125rem */
 }
 .favs__hoverbar {
   position: absolute;
@@ -82,12 +81,12 @@
   align-items: center;
   gap: 0.6rem;
   background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
-  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.06);      /* keep 1px hairline */
+  box-shadow: 0 0.375rem 0.875rem rgba(0, 0, 0, 0.06); /* 6px 14px → rem */
+  border-radius: 0.625rem;                    /* 10px → 0.625rem */
   padding: 0.35rem 0.5rem;
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(0.375rem);            /* 6px → 0.375rem */
   transition: opacity 0.18s ease, transform 0.18s ease;
 }
 .favs__card:hover .favs__hoverbar {
@@ -107,6 +106,7 @@
 .favs__qa-btn {
   padding: 0 1rem;
 }
+
 /* Small tweaks for tighter layout */
 @media (max-width: 575.98px) {
   .favs {

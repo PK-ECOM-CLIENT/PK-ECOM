@@ -1,8 +1,9 @@
 /* customCarousel */
 .carousel {
   margin: 3rem auto 0;
-  width: 50rem;
+  width: min(50rem, 90vw); /* responsive cap: 50rem on desktop, 90vw on small */
 }
+
 .carousel_caption {
   background-color: var(--color-pastrelred-lightest);
   height: 3rem;
@@ -10,20 +11,21 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  padding-top: 0.3rem;
+  padding: 0.3rem 0.6rem; /* was top-only; add horizontal breathing room */
 }
+
 .carousel_name,
 .carousel_description {
   margin: 0;
   font-size: 1rem;
 }
+
 /* Custom Card */
 .card {
-  margin: 0 auto;
+  margin: 0 auto 0.8rem; /* combine margins */
   width: 80%;
   height: 15rem;
-  margin-bottom: 0.8rem;
-  transition: all 0.3s;
+  transition: transform 0.3s ease; /* be explicit and avoid all */
   z-index: 10;
 }
 .card:hover {
@@ -32,12 +34,18 @@
   backface-visibility: hidden;
   cursor: pointer;
 }
-/* offers card */
-.clearance_card__img {
+
+/* offers / clearance / new arrivals / top sales — shared image rule */
+.clearance_card__img,
+.offers_card__img,
+.newArrivals_card__img,
+.topSales_card__img {
   height: 100%;
   width: 100%;
   /* display: block; */
 }
+
+/* Clearance */
 .clearance_card__title {
   position: absolute;
   top: 0;
@@ -57,12 +65,8 @@
   font-size: 1rem;
   text-align: right;
 }
-/* offers card */
-.offers_card__img {
-  height: 100%;
-  width: 100%;
-  /* display: block; */
-}
+
+/* Offers */
 .offers_card__title {
   position: absolute;
   top: 0;
@@ -82,12 +86,8 @@
   font-size: 1rem;
   text-align: right;
 }
-/* New Arrival Card */
-.newArrivals_card__img {
-  height: 100%;
-  width: 100%;
-  /* display: block; */
-}
+
+/* New Arrival */
 .newArrivals_card__title {
   position: absolute;
   top: 0;
@@ -107,12 +107,8 @@
   font-size: 1rem;
   text-align: right;
 }
-/* top sales */
-.topSales_card__img {
-  height: 100%;
-  width: 100%;
-  /* display: block; */
-}
+
+/* Top Sales */
 .topSales_card__title {
   position: absolute;
   top: 0;

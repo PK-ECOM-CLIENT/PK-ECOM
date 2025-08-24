@@ -5,34 +5,41 @@
   padding: 0.5rem;
   color: white;
 }
+
 .header_navbar {
   max-width: 90rem;
   margin: 0 auto;
   position: relative;
   z-index: 9999;
 }
+
 .logo {
   max-width: 13rem;
   background-color: var(--color-zomp) !important;
   border: none !important;
 }
+
 .header_login_btn {
   cursor: pointer;
   font-weight: bold;
   text-decoration: underline;
 }
+
 .contents {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
+
 .client_login_search_wrapper {
   display: inline-block;
 }
+
 .client {
   text-decoration: underline;
   margin-right: 1rem;
 }
+
 .client_login {
   display: inline-flex;
 }
@@ -42,11 +49,11 @@
   transition: all 0.3s ease;
 }
 
-/* Legacy bootstrap dropdown (safe to keep if used elsewhere) */
+/* Legacy bootstrap dropdown */
 .user_profile__profie_dropdown_items {
   background-color: white !important;
-  border-radius: 5px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 0.3125rem; /* 5px → rem */
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15); /* 4px 12px → rem */
   font-size: 1rem;
   max-height: 8rem;
   overflow-y: auto;
@@ -80,7 +87,7 @@
   top: 0;
   left: 0;
   height: 100%;
-  width: 20px;
+  width: 1.25rem; /* 20px → rem */
   background-color: var(--color-zomp);
   transform: scaleY(0);
   transition: transform 0.3s ease, width 0.3s ease;
@@ -99,11 +106,13 @@
   width: 100%;
   display: flex;
 }
+
 .search_form {
   display: flex;
   width: 100%;
   margin-top: 0.8rem;
 }
+
 .search_form__control {
   flex: 1;
   background-color: white !important;
@@ -111,15 +120,17 @@
   transform-origin: left;
   color: var(--color-pastrelred-2);
 }
+
 .search_icon {
   transition: all 0.3s ease;
   border: none;
   transform: translateX(0.8rem);
 }
+
 .search_form__control:focus {
   transform: scaleX(1.07);
   color: var(--color-pastrelred);
-  border-radius: 5px;
+  border-radius: 0.3125rem; /* 5px → rem */
   font-weight: 500;
 }
 .search_form__control:focus + .search_icon {
@@ -134,10 +145,12 @@
   list-style: none;
   margin-top: 0.8rem;
 }
+
 .icon_wrapper {
   position: relative;
   display: inline-block;
 }
+
 .nav_icons__count {
   position: absolute;
   top: -0.4rem;
@@ -154,13 +167,11 @@
   line-height: 1;
 }
 
-
-
 /* ===============================
    NEW: Profile dropdown (PurchasesCard look)
    =============================== */
 .hprof {
-  position: relative;          /* anchor for the popover */
+  position: relative;
   display: inline-flex;
   align-items: center;
   z-index: 10;
@@ -180,38 +191,34 @@
 .hprof__caret {
   transition: transform 0.25s ease;
 }
-.isopen {                         /* helper for rotation */
-  transform: rotate(180deg);
-}
+.isopen { transform: rotate(180deg); }
 
-/* Mirror .pcard__menu */
 .hprof__menu {
   position: absolute;
   right: 0;
-  top: calc(100% + 8px);
+  top: calc(100% + 0.5rem); /* 8px → rem */
   background: #fff;
   color: #222;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  min-width: 220px;
+  border-radius: 0.75rem; /* 12px → rem */
+  box-shadow: 0 0.75rem 1.75rem rgba(0, 0, 0, 0.12); /* 12px 28px → rem */
+  min-width: 13.75rem; /* 220px → rem */
   padding: 0.4rem;
-  z-index: 10000;                 /* above header surface */
+  z-index: 10000;
 }
 .hprof__menu::before {
   content: "";
   position: absolute;
-  top: -6px;
-  right: 18px;
-  width: 12px;
-  height: 12px;
+  top: -0.375rem; /* 6px → rem */
+  right: 1.125rem; /* 18px → rem */
+  width: 0.75rem;  /* 12px → rem */
+  height: 0.75rem;
   background: #fff;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   transform: rotate(45deg);
 }
 
-/* Mirror .pcard__menuitem */
 .hprof__menuitem {
   display: flex;
   align-items: center;
@@ -221,11 +228,11 @@
   border: 0;
   text-align: left;
   padding: 0.55rem 0.65rem;
-  border-radius: 8px;
+  border-radius: 0.5rem; /* 8px → rem */
   font-size: 0.95rem;
   cursor: pointer;
   color: inherit;
-  text-decoration: none;          /* for <Link> */
+  text-decoration: none;
 }
 .hprof__menuitem i {
   color: var(--color-zomp);
