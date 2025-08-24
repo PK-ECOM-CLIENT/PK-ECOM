@@ -38,11 +38,6 @@
 .promo i {
   color: var(--color-zomp);
 }
-@media (max-width: 768px) {
-  .home__promostrip {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 
 /* ========== Section header ========== */
 .home__section {
@@ -148,10 +143,16 @@
   outline: 2px solid var(--color-zomp-2);
   outline-offset: 2px;
 }
+@media (max-width: 48em) {
+  .home__promostrip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
-@media (max-width: 480px) {
+/* Subtle fade width tweak on tiny phones */
+@media (max-width: 30em) {
   .home__grid-wrapper::before,
   .home__grid-wrapper::after {
-    width: 1.75rem; /* 28px → 1.75rem */
+    width: 28px;
   }
 }

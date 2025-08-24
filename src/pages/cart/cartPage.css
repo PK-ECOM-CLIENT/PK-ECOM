@@ -78,9 +78,11 @@
 
 /* ===== Responsive behavior ===== */
 /* Below 992px: stack and center both sections */
-@media (max-width: 991.98px) {
+/* ===== Responsive behavior ===== */
+/* Below 992px: stack and center both sections */
+@media (max-width: 61.9375em) {
   .cart_page {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* single column */
     column-gap: 0;
     padding: 0 0.75rem;
   }
@@ -88,12 +90,12 @@
   .cart_items_container,
   .cart_summary_container {
     width: 100%;
-    max-width: 35rem; /* 560px → 35rem */
-    justify-self: center;
-    margin-right: 0;
+    max-width: 560px; /* tidy alignment with cards */
+    justify-self: center; /* center the stacked sections */
+    margin-right: 0; /* no extra right margin on mobile */
   }
 
   .cart_items_scroll {
-    justify-items: stretch;
+    justify-items: stretch; /* full width on mobile too */
   }
 }

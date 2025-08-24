@@ -9,9 +9,6 @@
   max-width: min(53.75rem, 94vw); /* 860px → 53.75rem */
   margin: 2rem auto;
 }
-@media (max-width: 576px) {
-  .app-modal__dialog { margin: 0; } /* breakpoint stays in px */
-}
 
 /* Content card */
 .app-modal__content {
@@ -19,10 +16,9 @@
   border-radius: 1.125rem; /* 18px → 1.125rem */
   border: 1px solid rgba(0, 0, 0, 0.06); /* keep 1px hairline */
   overflow: hidden;
-  box-shadow:
-    0 0.4375rem 0.625rem rgba(0, 0, 0, 0.2),  /* 0 7px 10px */
-    0 0.4375rem 0.25rem rgba(0, 0, 0, 0.06);  /* 0 7px 4px  */
-  outline: 0.5px solid rgba(0, 0, 0, 0.02);  /* keep sub-pixel */
+  box-shadow: 0 0.4375rem 0.625rem rgba(0, 0, 0, 0.2),
+    /* 0 7px 10px */ 0 0.4375rem 0.25rem rgba(0, 0, 0, 0.06); /* 0 7px 4px  */
+  outline: 0.5px solid rgba(0, 0, 0, 0.02); /* keep sub-pixel */
 }
 
 /* Header: bold title, subtle divider, nicer close button */
@@ -45,7 +41,9 @@
     brightness(94%) contrast(92%);
   opacity: 0.8;
 }
-.app-modal__header .btn-close:hover { opacity: 1; }
+.app-modal__header .btn-close:hover {
+  opacity: 1;
+}
 
 /* Body: comfy padding & scroll safety */
 .app-modal__body {
@@ -65,4 +63,9 @@
     var(--color-zomp-2),
     color-mix(in srgb, var(--color-zomp-2) 60%, white)
   );
+}
+@media (max-width: 36em) {
+  .app-modal__dialog {
+    margin: 0;
+  }
 }

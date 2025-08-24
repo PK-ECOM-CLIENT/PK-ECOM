@@ -34,11 +34,7 @@
   gap: 0.75rem;
   grid-template-columns: 1fr; /* mobile */
 }
-@media (min-width: 576px) {
-  .addr__row {
-    grid-template-columns: 1.2fr 0.8fr 0.6fr; /* City / State / Postcode */
-  }
-}
+
 
 /* Actions */
 .addr__actions {
@@ -50,4 +46,7 @@
   font-weight: 800;
   padding-inline: 1.25rem;
   width: 100%;
+}
+@media (min-width: 36em) {  /* 576px */
+  .addr__row { grid-template-columns: 1.2fr 0.8fr 0.6fr; }
 }

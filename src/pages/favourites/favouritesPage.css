@@ -108,12 +108,8 @@
 }
 
 /* Small tweaks for tighter layout */
-@media (max-width: 575.98px) {
-  .favs {
-    padding: 0 0.75rem;
-  }
-  .favs__grid {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-  }
+@media (max-width: 35.99875em) {  /* 575.98px */
+  .favs { padding: 0 0.75rem; }
+  .favs__grid { grid-template-columns: 1fr; gap: 0.85rem; }
 }
+

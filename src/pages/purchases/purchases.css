@@ -30,7 +30,7 @@
 .purchases__cell {}
 
 /* Mobile */
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .purchases__grid {
     grid-template-columns: 1fr;
   }

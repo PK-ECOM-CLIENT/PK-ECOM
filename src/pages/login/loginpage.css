@@ -117,7 +117,7 @@
 }
 
 /* Mobile tweaks */
-@media (max-width: 420px) {
+@media (max-width: 26.25em) {
   .login_form {
     padding: 1.25rem;
   }

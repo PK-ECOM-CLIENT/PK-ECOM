@@ -112,7 +112,7 @@
 .register_link:hover { text-decoration: underline; }
 
 /* Mobile tweaks (match login) */
-@media (max-width: 420px) {
+@media (max-width: 26.25em) {  /* 420px */
   .register_form { padding: 1.25rem; }
   .register_title { font-size: 1.05rem; }
 }

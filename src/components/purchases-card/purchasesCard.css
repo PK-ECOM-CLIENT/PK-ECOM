@@ -27,11 +27,6 @@
   gap: 1rem;
   align-items: start;
 }
-@media (max-width: 480px) {
-  .pcard__main {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* Thumb */
 .pcard__thumb {
@@ -212,4 +207,7 @@
   color: #9aa0a6;
   cursor: not-allowed;
   background: transparent;
+}
+@media (max-width: 30em) {  /* 480px */
+  .pcard__main { grid-template-columns: 1fr; }
 }

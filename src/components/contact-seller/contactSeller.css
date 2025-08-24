@@ -9,12 +9,10 @@
   display: grid;
   gap: 0.75rem;
 }
-@media (min-width: 576px) {
-  .contact__row {
-    grid-template-columns: 1fr 1fr;
-  }
+
+.contact__col {
+  min-width: 0;
 }
-.contact__col { min-width: 0; }
 
 /* Labels */
 .contact .form-label {
@@ -27,11 +25,11 @@
   border-radius: 0.75rem; /* 12px → 0.75rem */
   height: 2.75rem;
   background: #f8fbff;
-  border: 1px solid rgba(0,0,0,0.12); /* keep px for crispness */
+  border: 1px solid rgba(0, 0, 0, 0.12); /* keep px for crispness */
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 .contact textarea.form-control {
-  height: auto;                 
+  height: auto;
   min-height: 8rem;
   resize: vertical;
 }
@@ -56,11 +54,14 @@
 .contact__actions {
   margin-top: 1rem;
   display: flex;
-  justify-content: flex-start;   /* change to space-between if you add a Cancel */
+  justify-content: flex-start; /* change to space-between if you add a Cancel */
 }
 .contact__submit {
   height: 2.75rem;
   border-radius: 0.75rem; /* 12px → 0.75rem */
   font-weight: 800;
   padding-inline: 1.25rem;
+}
+@media (min-width: 36em) {  /* 576px */
+  .contact__row { grid-template-columns: 1fr 1fr; }
 }

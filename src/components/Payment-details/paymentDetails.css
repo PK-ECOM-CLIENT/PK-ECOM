@@ -110,10 +110,11 @@
 }
 
 /* Mobile tweaks */
-@media (max-width: 480px) {
+@media (max-width: 30em) {  /* 480px */
   .pay__head {
     grid-template-columns: 1fr;
     display: grid;
   }
   .pay__when { text-align: left; }
 }
+
