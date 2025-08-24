@@ -4,7 +4,7 @@
   margin: 1rem auto;
   display: grid;
   grid-template-columns: 1fr 22.5rem; /* 360px → 22.5rem */
-  column-gap: 2rem;
+  /* column-gap: 1rem; */
   align-items: start;
 }
 
@@ -24,7 +24,7 @@
 .cart_summary_container {
   width: 22.5rem; /* 360px → 22.5rem */
   justify-self: end;
-  margin-right: clamp(1rem, 4vw, 3rem);
+  margin-right: clamp(1rem, 4vw, 1rem);
 }
 
 /* Summary card */
@@ -77,25 +77,30 @@
 }
 
 /* ===== Responsive behavior ===== */
-/* Below 992px: stack and center both sections */
-/* ===== Responsive behavior ===== */
-/* Below 992px: stack and center both sections */
-@media (max-width: 61.9375em) {
+/* Below 992px (~43em): stack, match widths, center, and add a small gap */
+@media (max-width: 43em) {
   .cart_page {
-    grid-template-columns: 1fr; /* single column */
+    grid-template-columns: 1fr;   /* stack */
     column-gap: 0;
+    row-gap: 0.75rem;             /* small space between stacked sections */
     padding: 0 0.75rem;
+    justify-items: center;        /* center grid children consistently */
   }
 
   .cart_items_container,
   .cart_summary_container {
-    width: 100%;
-    max-width: 560px; /* tidy alignment with cards */
-    justify-self: center; /* center the stacked sections */
-    margin-right: 0; /* no extra right margin on mobile */
+    width: 100%;                  /* take full available width */
+    max-width: 560px;             /* same cap for both */
+    /* margin: 0 auto;                */
+    justify-self: center;         /* ensure grid child centering */
   }
 
   .cart_items_scroll {
-    justify-items: stretch; /* full width on mobile too */
+    width: 100%;                  /* match container width (was 90%) */
+  }
+
+  /* remove desktop-specific right margin on summary */
+  .cart_summary_container {
+    margin-right: 0;
   }
 }
