@@ -1,6 +1,6 @@
 .maindiv {
   box-sizing: border-box;
-  padding: 0 1rem .5rem 1.5rem;
+  padding: 0 .5rem 0 .5rem;
   /* gap: 1rem; */
   color: white;
 }
@@ -17,6 +17,7 @@
 .logo_icon {
   max-width: 12rem;
   max-height: 12rem;
+  margin-left: 2rem;
 }
 
 .search_login {
@@ -27,10 +28,10 @@
 }
 
 .search {
-  flex-grow: .8;
+  flex-grow: 0.8;
   display: flex;
   align-items: center;
-  border-radius: 0.3125rem; 
+  border-radius: 0.3125rem;
 }
 
 .search_form__control {
@@ -194,13 +195,13 @@
 .content_options {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.9rem;
+  gap: 1rem;
   list-style: none;
   align-items: center;
   justify-content: flex-end;
   width: auto;
-  padding-left: 0;   /* remove default UL padding */
-  margin: 0;         /* optional: remove default margin */
+  padding-left: 0;
+  margin: 0 0 .5rem;
 }
 .icon_wrapper {
   position: relative;

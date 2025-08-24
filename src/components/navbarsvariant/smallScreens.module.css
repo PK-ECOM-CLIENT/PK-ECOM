@@ -11,6 +11,7 @@
   border: none !important;
 }
 
+/* Toggle / back icons */
 .toggle_icon,
 .left_icon {
   position: absolute;
@@ -26,7 +27,9 @@
 .toggle_icon:hover,
 .left_icon:hover { transform: scale(1.15); }
 
-/* Full screen Offcanvas */
+/* ===========================
+   Full screen Offcanvas (center everything)
+   =========================== */
 .fullscreen_offcanvas {
   height: 100vh !important;
   width: 100vw !important;
@@ -36,20 +39,34 @@
   left: 0;
   z-index: 1050;
   color: white;
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
+
+  /* Perfect centering for its contents */
+  display: grid !important;
+  place-items: center;
   overflow: hidden !important;
+  padding: 0 !important;
 }
 
-/* Centered list */
+/* Make Offcanvas body fill and center */
+.fullscreen_offcanvas :global(.offcanvas-body) {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+  margin: 0;
+}
+
+/* ===========================
+   Centered list
+   =========================== */
 .offcanvas_list {
   list-style: none;
-  padding: 3rem;
+  padding: 0;                 /* removed 3rem so it’s truly centered */
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center;    /* redundant with outer grid, safe */
   align-items: center;
   gap: 1.2rem;
   font-size: 1.2rem;
@@ -59,9 +76,9 @@
 /* Menu items: uniform width */
 .offcanvas_list li {
   cursor: pointer;
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1.2rem;     /* spacing lives on items, not container */
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem; /* 8px → 0.5rem */
+  border-radius: 0.5rem;      /* 8px → 0.5rem */
   font-weight: bold;
   min-width: 16rem;
   text-align: center;
@@ -187,6 +204,8 @@
   margin-top: 1rem;
   width: 100%;
 }
+
+/* Bottom nav content (if used anywhere else) */
 .content_options {
   display: flex;
   flex-wrap: wrap;
@@ -196,14 +215,8 @@
   justify-content: flex-start;
   width: auto;
 }
-.icon_wrapper {
-  position: relative;
-  display: inline-block;
-}
 
-/* ===========================
-   Categories dropdown
-   =========================== */
+/* Categories dropdown (unchanged) */
 .catnav { position: relative; }
 .catbtn {
   background: transparent;
@@ -222,22 +235,22 @@
 .catmenu {
   position: absolute;
   left: 0;
-  top: calc(100% + 0.5rem); /* 8px → 0.5rem */
+  top: calc(100% + 0.5rem);
   background: #fff;
   color: #222;
-  border: 1px solid rgba(0, 0, 0, 0.1); /* keep 1px */
-  border-radius: 0.75rem; /* 12px → 0.75rem */
-  box-shadow: 0 0.75rem 1.75rem rgba(0, 0, 0, 0.12); /* 12px 28px → rem */
-  min-width: 15rem; /* 240px → 15rem */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  box-shadow: 0 0.75rem 1.75rem rgba(0, 0, 0, 0.12);
+  min-width: 15rem;
   padding: 0.45rem;
   z-index: 1000;
 }
 .catmenu::before {
   content: "";
   position: absolute;
-  top: -0.375rem; /* 6px → 0.375rem */
-  left: 1.125rem; /* 18px → 1.125rem */
-  width: 0.75rem; /* 12px → 0.75rem */
+  top: -0.375rem;
+  left: 1.125rem;
+  width: 0.75rem;
   height: 0.75rem;
   background: #fff;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
