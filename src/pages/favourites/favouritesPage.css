@@ -6,9 +6,8 @@
 
 /* Header */
 .favs__clear {
-  border-radius: 999px;          /* keep pill shape in px */
-  min-width: 5.625rem;           /* 90px → 5.625rem */
-  /* padding: 0.3rem 0.7rem; */  /* already rem-based if you re-enable */
+  border-radius: 999px;
+  min-width: 5.625rem; /* 90px */
 }
 .favs__title {
   display: inline-flex;
@@ -27,10 +26,10 @@
   font-size: 0.85rem;
   line-height: 1;
   padding: 0.35rem 0.55rem;
-  border-radius: 999px;          /* keep pill in px */
+  border-radius: 999px;
 }
 .favs__clear {
-  border-radius: 999px;          /* duplicate rule kept consistent */
+  border-radius: 999px;
   padding: 0.3rem 0.7rem;
 }
 
@@ -38,10 +37,10 @@
 .favs__empty {
   text-align: center;
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.06);      /* keep 1px hairline */
-  border-radius: 0.75rem;                     /* 12px → 0.75rem */
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 0.75rem; /* 12px */
   padding: 2.2rem 1.2rem;
-  box-shadow: 0 0.375rem 1.125rem rgba(0, 0, 0, 0.06); /* 6px 18px → rem */
+  box-shadow: 0 0.375rem 1.125rem rgba(0, 0, 0, 0.06);
 }
 .favs__empty-emoji {
   font-size: 2rem;
@@ -51,7 +50,7 @@
   display: inline-block;
   margin-top: 0.6rem;
   padding: 0.55rem 1rem;
-  border-radius: 0.625rem; /* 10px → 0.625rem */
+  border-radius: 0.625rem; /* 10px */
   text-decoration: none;
   color: #fff;
 }
@@ -59,7 +58,7 @@
 /* Grid */
 .favs__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16.875rem, 1fr)); /* 270px → 16.875rem */
+  grid-template-columns: repeat(auto-fit, minmax(16.875rem, 1fr)); /* 270px */
   gap: 1rem;
 }
 .favs__cell {
@@ -70,29 +69,26 @@
 .favs__card {
   position: relative;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
+  overflow: hidden; /* clip overlay to rounded corners of card inside */
 }
 .favs__card:hover {
-  transform: translateY(-0.125rem); /* -2px → -0.125rem */
+  transform: translateY(-0.125rem); /* -2px */
 }
+
+/* Important: we keep ONLY minimal appearance here.
+   All behavior of the bar (position/z-index/opacity) is controlled in itemCard.css
+   to avoid conflicting duplicate rules. */
 .favs__hoverbar {
-  position: absolute;
-  inset: auto 0.6rem 0.6rem 0.6rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0.375rem 0.875rem rgba(0, 0, 0, 0.06);
+  border-radius: 0.625rem 0.625rem 0 0; /* 10px */
+  background: #fff; /* fully opaque */
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(0, 0, 0, 0.06);      /* keep 1px hairline */
-  box-shadow: 0 0.375rem 0.875rem rgba(0, 0, 0, 0.06); /* 6px 14px → rem */
-  border-radius: 0.625rem;                    /* 10px → 0.625rem */
-  padding: 0.35rem 0.5rem;
-  opacity: 0;
-  transform: translateY(0.375rem);            /* 6px → 0.375rem */
-  transition: opacity 0.18s ease, transform 0.18s ease;
+  padding: 0.35rem 0.6rem;
 }
-.favs__card:hover .favs__hoverbar {
-  opacity: 1;
-  transform: translateY(0);
-}
+
 .favs__hoverbar i {
   color: var(--color-grey-dark-2);
   cursor: pointer;
@@ -112,4 +108,3 @@
   .favs { padding: 0 0.75rem; }
   .favs__grid { grid-template-columns: 1fr; gap: 0.85rem; }
 }
-
