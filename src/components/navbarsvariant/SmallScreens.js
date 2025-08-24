@@ -63,11 +63,7 @@ const SmallScreens = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    // Route however you handle search results:
-    // e.g., navigate(`/search?q=${encodeURIComponent(searchTerm)}`)
-    // For now, just close the offcanvas if a term exists:
     if (searchTerm.trim()) {
-      // Example route (adjust to your app)
       navigate(`/?q=${encodeURIComponent(searchTerm.trim())}`);
     }
     setShowMain(false);

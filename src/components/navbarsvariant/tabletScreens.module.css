@@ -1,14 +1,14 @@
 .maindiv {
   box-sizing: border-box;
-  padding: 1rem;
-  gap: 1rem;
+  padding: 0 .5rem 0 .5rem;
+  /* gap: 1rem; */
   color: white;
 }
 
 .top {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  /* gap: 1rem; */
   align-items: center;
   justify-items: center;
 }
@@ -17,6 +17,7 @@
 .logo_icon {
   max-width: 12rem;
   max-height: 12rem;
+  margin-left: 2rem;
 }
 
 .search_login {
@@ -27,11 +28,10 @@
 }
 
 .search {
-  flex-grow: 1;
+  flex-grow: 0.8;
   display: flex;
   align-items: center;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
 }
 
 .search_form__control {
@@ -40,13 +40,13 @@
   margin-top: 0.8rem;
   position: relative;
   transform-origin: left;
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
 }
 
 .search_form__control:focus {
-  transform: scaleX(1.05);
+  transform: scaleX(1.07);
   color: var(--color-pastrelred);
-  border-radius: 5px;
+  border-radius: 0.3125rem; /* 5px → rem */
   font-weight: 500;
 }
 
@@ -56,7 +56,7 @@
   padding-left: 0.5rem;
   cursor: pointer;
   transform: translateY(0.6rem);
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
 }
 
 .search_form__control:focus + .search_icon {
@@ -67,7 +67,7 @@
 .login {
   white-space: nowrap;
   padding: 0.75rem 1rem;
-  border-radius: 5px;
+  border-radius: 0.3125rem; /* 5px → rem */
   flex-shrink: 0;
   margin-top: 0.5rem;
 }
@@ -79,7 +79,7 @@
 }
 
 /* ===============================
-   PROFILE DROPDOWN (PurchasesCard look)
+   PROFILE DROPDOWN
    =============================== */
 .hprof {
   position: relative;
@@ -97,7 +97,9 @@
   color: inherit;
   cursor: pointer;
 }
-.hprof__btn:focus { outline: none; }
+.hprof__btn:focus {
+  outline: none;
+}
 
 .hprof__caret {
   transition: transform 0.25s ease;
@@ -109,23 +111,23 @@
 .hprof__menu {
   position: absolute;
   right: 0;
-  top: calc(100% + 8px);
+  top: calc(100% + 0.5rem); /* 8px → rem */
   background: #fff;
   color: #222;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  min-width: 220px;
+  border-radius: 0.75rem; /* 12px → rem */
+  box-shadow: 0 0.75rem 1.75rem rgba(0, 0, 0, 0.12); /* 12px 28px → rem */
+  min-width: 13.75rem; /* 220px → rem */
   padding: 0.4rem;
   z-index: 10000;
 }
 .hprof__menu::before {
   content: "";
   position: absolute;
-  top: -6px;
-  right: 18px;
-  width: 12px;
-  height: 12px;
+  top: -0.375rem; /* 6px → rem */
+  right: 1.125rem; /* 18px → rem */
+  width: 0.75rem; /* 12px → rem */
+  height: 0.75rem;
   background: #fff;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -141,7 +143,7 @@
   border: 0;
   text-align: left;
   padding: 0.55rem 0.65rem;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   font-size: 0.95rem;
   cursor: pointer;
   color: inherit;
@@ -164,46 +166,6 @@
   position: relative;
   margin: 0.2rem 0.2rem 0;
 }
-
-.nav_icons__count {
-  position: absolute;
-  top: -0.3rem;
-  right: -0.4rem;
-  font-size: 0.7rem;
-  background-color: var(--color-pastrelred-lightest);
-  padding: 0.1rem 0.4rem;
-  border-radius: 50%;
-  font-weight: bold;
-}
-
-.-util-rotate_180 {
-  transform: rotate(180deg);
-}
-
-.bottom {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  width: 100%;
-}
-
-.content_options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  list-style: none;
-  align-items: center;
-  justify-content: flex-start;
-  width: auto;
-}
-
-.icon_wrapper {
-  position: relative;
-  display: inline-block;
-}
-
 .nav_icons__count {
   position: absolute;
   top: -0.4rem;
@@ -220,14 +182,38 @@
   line-height: 1;
 }
 
-/* ===========================
-   CATEGORIES DROPDOWN (PurchasesCard look)
-   =========================== */
+.-util-rotate_180 {
+  transform: rotate(180deg);
+}
 
+.bottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: 100%;
+}
+.content_options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  align-items: center;
+  justify-content: flex-end;
+  width: auto;
+  padding-left: 0;
+  margin: 0 0 .5rem;
+}
+.icon_wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* ===========================
+   CATEGORIES DROPDOWN
+   =========================== */
 .catnav {
   position: relative;
 }
-
 .catbtn {
   background: transparent;
   border: 0;
@@ -239,7 +225,6 @@
   font: inherit;
   color: inherit;
 }
-
 .catcaret {
   transition: transform 0.25s ease;
 }
@@ -247,35 +232,32 @@
   transform: rotate(180deg);
 }
 
-/* Menu panel */
 .catmenu {
   position: absolute;
   left: 0;
-  top: calc(100% + 8px);
+  top: calc(100% + 0.5rem); /* 8px → rem */
   background: #fff;
   color: #222;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  min-width: 240px;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.75rem 1.75rem rgba(0, 0, 0, 0.12);
+  min-width: 15rem; /* 240px → rem */
   padding: 0.45rem;
   z-index: 1000;
 }
-
 .catmenu::before {
   content: "";
   position: absolute;
-  top: -6px;
-  left: 18px;
-  width: 12px;
-  height: 12px;
+  top: -0.375rem;
+  left: 1.125rem;
+  width: 0.75rem;
+  height: 0.75rem;
   background: #fff;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   transform: rotate(45deg);
 }
 
-/* Menu items */
 .catmenuitem {
   display: flex;
   align-items: center;
@@ -285,16 +267,14 @@
   border: 0;
   text-align: left;
   padding: 0.55rem 0.65rem;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   font-size: 0.95rem;
   color: inherit;
   text-decoration: none;
 }
-
 .catmenuitem i {
   color: var(--color-zomp);
 }
-
 .catmenuitem:hover {
   background: color-mix(in srgb, var(--color-zomp) 12%, white);
 }

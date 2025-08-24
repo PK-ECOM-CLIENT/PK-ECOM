@@ -1,117 +1,224 @@
-.content {
+/* Background mirrors success page but slightly red-biased */
+.failed {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.circle-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
   position: relative;
+  overflow: hidden;
 }
 
-.circle {
-  width: 100px;
-  height: 100px;
+/* Card */
+.failed__card {
+  width: min(44rem, 92vw);
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: var(--shadow-light);
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 4vw, 2.25rem);
+  text-align: center;
+  position: relative;
+  isolation: isolate; /* keep sparkles below */
+}
+
+/* Badge */
+.failed__badge {
+  position: relative;
+  width: 6.5rem;
+  height: 6.5rem;
+  margin: 0 auto clamp(0.9rem, 2vw, 1.25rem);
+}
+
+.failed__circle {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  background-color: #ff6b6b; /* Solid inner circle color */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: var(--color-pastrelred);
+  border: 0.625rem solid var(--color-zomp); /* theme ring */
+  display: grid;
+  place-items: center;
   position: relative;
-  border: 10px solid #58a97d; /* Thicker main green border */
   z-index: 2;
+  transform: scale(0.9);
+  opacity: 0;
 }
 
-.circle-container::before,
-.circle-container::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0; /* Start invisible */
-  animation-fill-mode: forwards; /* Ensure it stays after the animation */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0); /* Center and start from scale 0 */
+.failed.is-visible .failed__circle {
+  animation: popIn 420ms cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
 }
 
-/* First outer green shade animation */
-.circle-container::before {
-  width: 130px;
-  height: 130px;
-  border: 30px solid rgba(102, 161, 130, 0.75); /* Semi-transparent green */
-  z-index: 1;
-  animation: expandShade 1.5s ease-out forwards; /* Adjusted timing */
+.failed__icon {
+  width: 3.4rem;
+  height: 3.4rem;
 }
 
-/* Second outer green shade animation */
-.circle-container::after {
-  width: 180px; /* Adjusted size */
-  height: 180px; /* Adjusted size */
-  border: 40px solid rgba(102, 161, 130, 0.5); /* More transparent green */
-  z-index: 0;
-  animation: expandShade 1.5s ease-out forwards; /* Adjusted timing */
-}
-
-@keyframes expandShade {
-  0% {
-    transform: translate(-50%, -50%) scale(0); /* Start from the origin */
-    opacity: 0; /* Invisible at start */
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1); /* Expand to full size */
-    opacity: 1; /* Full opacity at end */
-  }
-}
-
-.exclamation {
-  width: 60px;
-  height: 60px;
-}
-
-.exclamation-path {
-  stroke: white;
-  stroke-width: 4;
+.failed__icon-path {
+  stroke: #fff;
+  stroke-width: 0.25rem; /* 4px */
   stroke-linecap: round;
   fill: none;
   stroke-dasharray: 24;
   stroke-dashoffset: 24;
-  transition: stroke 1.5s ease-out, stroke-dashoffset 1.5s ease-out; /* Adjusted timing */
 }
 
-.circle.completed .exclamation-path {
-  stroke: white;
-  stroke-dashoffset: 0;
+.failed.is-visible .failed__icon-path {
+  animation: draw 900ms ease-out 180ms forwards;
 }
 
-/* New style for the error text */
-.error-text {
-  margin-top: 3rem;
-  font-size: 18px;
-  color: #e16363;
-  font-weight: 400;
-  text-decoration: underline;
-  text-align: center;
-  z-index: 3;
-  white-space: nowrap; /* Prevent text from wrapping to the next line */
-  overflow: hidden; /* Hide any overflow text */
-  text-overflow: ellipsis; /* Add ellipsis (…) if text overflows */
+/* Pulse rings (red-tinted) */
+.failed__pulse {
+  position: absolute;
+  inset: -0.35rem;
+  border-radius: 999px;
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.8);
+  border: 0.75rem solid var(--color-pastrelred-2-light);
 }
 
-/* New style for the link */
-.text {
-  /* margin-top: 1rem; */
-  text-decoration: none;
-  display: block;
-  background-color: #58a97d; /* Green color */
-  padding: 0.5rem 1rem;
+.failed__pulse--2 {
+  inset: -0.9rem;
+  border-color: var(--color-grey-dark-3-light);
+}
+
+.failed.is-visible .failed__pulse--1 {
+  animation: ringOut 1.2s ease-out 120ms forwards;
+}
+.failed.is-visible .failed__pulse--2 {
+  animation: ringOut 1.2s ease-out 220ms forwards;
+}
+
+/* Titles / text */
+.failed__title {
+  margin: 0.25rem 0 0.35rem;
+  font-size: clamp(1.25rem, 2.8vw, 1.6rem);
+  font-weight: 800;
+  color: var(--color-charcoal);
+}
+
+.failed__subtitle {
+  margin: 0 0 0.85rem;
+  font-size: clamp(0.98rem, 1.8vw, 1.05rem);
+  color: var(--color-grey-dark-2);
+}
+
+/* Optional order tag */
+.failed__order {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  background: var(--color-pastrelred-2-light);
+  border: 1px solid var(--color-pastrelred-2);
+  color: var(--color-charcoal);
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  margin: 0.2rem 0 1rem;
+}
+
+.failed__order-label {
   font-weight: 600;
-  color: white;
-  border-radius: 0.5rem;
-  text-align: center;
-  margin-top: -.5rem;
+}
+.failed__order-value {
+  font-weight: 800;
+}
+
+/* Actions */
+.failed__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-top: 0.2rem;
+}
+
+.failed__btn {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  border-radius: 0.625rem; /* 10px */
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease,
+              color 0.15s ease, border-color 0.15s ease;
+  will-change: transform;
+}
+
+.failed__btn--primary {
+  background: var(--color-zomp);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(88, 169, 125, 0.2);
+}
+.failed__btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 26px rgba(88, 169, 125, 0.25);
+}
+
+.failed__btn--ghost {
+  background: #fff;
+  color: var(--color-zomp);
+  border-color: var(--color-zomp-2-light);
+}
+.failed__btn--ghost:hover {
+  background: var(--color-zomp-2-light);
+  transform: translateY(-1px);
+}
+
+/* Sparkles (for parity with success) */
+.failed__sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.fspark {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--color-pastrelred);
+  border-radius: 2px;
+  opacity: 0;
+  animation: floatUp 1.6s ease-out forwards;
+}
+
+.fspark--1 { left: 8%;  bottom: -10px; animation-delay: .1s; }
+.fspark--2 { left: 18%; bottom: -10px; animation-delay: .18s; }
+.fspark--3 { left: 32%; bottom: -10px; animation-delay: .22s; background: var(--color-zomp); }
+.fspark--4 { left: 48%; bottom: -10px; animation-delay: .3s;  }
+.fspark--5 { left: 62%; bottom: -10px; animation-delay: .16s; background: var(--color-zomp); }
+.fspark--6 { left: 74%; bottom: -10px; animation-delay: .25s; }
+.fspark--7 { left: 86%; bottom: -10px; animation-delay: .12s; }
+.fspark--8 { left: 25%; bottom: -10px; animation-delay: .35s; }
+.fspark--9 { left: 55%; bottom: -10px; animation-delay: .28s; }
+.fspark--10{ left: 80%; bottom: -10px; animation-delay:.32s; }
+
+/* Animations (match success page) */
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes ringOut {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1.05); opacity: 1; }
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(-140px) rotate(25deg); opacity: 0; }
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .failed__pulse,
+  .failed__sparkles .fspark,
+  .failed__icon-path,
+  .failed__circle {
+    animation: none !important;
+    transition: none !important;
+  }
+  .failed__circle { opacity: 1; transform: none; }
 }

@@ -5,9 +5,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f8f8; /* optional: set a clean default */
+  color: #222;              /* optional: set default text color */
+  line-height: 1.5;         /* improve readability */
 }
 
+/* Code blocks */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+  font-size: 0.875rem; /* ~14px at desktop root */
 }

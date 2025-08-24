@@ -22,9 +22,9 @@
 /* Textarea styling */
 .report textarea.form-control {
   min-height: 8rem;
-  border-radius: 12px;
+  border-radius: 0.75rem; /* 12px → 0.75rem */
   background: #f8fbff;
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0,0,0,0.12); /* keep hairline */
   resize: vertical;
   transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
@@ -40,7 +40,7 @@
 }
 .report__submit {
   height: 2.75rem;
-  border-radius: 12px;
+  border-radius: 0.75rem; /* 12px → 0.75rem */
   font-weight: 800;
   padding-inline: 1.25rem;
 }

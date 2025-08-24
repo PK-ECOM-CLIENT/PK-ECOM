@@ -11,36 +11,25 @@
   border: none !important;
 }
 
-.toggle_icon {
-  position: absolute;
-  top: 2rem;
-  right: 1rem;
-  z-index: 1051;
-  cursor: pointer;
-  font-size: 1.4rem;
-  color: white;
-  transition: transform 0.2s ease;
-}
-.toggle_icon:hover {
-  transform: scale(1.15);
-}
-
+/* Toggle / back icons */
+.toggle_icon,
 .left_icon {
-  left: 1rem;
-  right: auto;
+  position: absolute;
   top: 2rem;
   font-size: 1.4rem;
   color: white;
   cursor: pointer;
   z-index: 1051;
-  position: absolute;
   transition: transform 0.2s ease;
 }
-.left_icon:hover {
-  transform: scale(1.15);
-}
+.toggle_icon { right: 1rem; }
+.left_icon { left: 1rem; }
+.toggle_icon:hover,
+.left_icon:hover { transform: scale(1.15); }
 
-/* Full screen Offcanvas */
+/* ===========================
+   Full screen Offcanvas (center everything)
+   =========================== */
 .fullscreen_offcanvas {
   height: 100vh !important;
   width: 100vw !important;
@@ -50,20 +39,34 @@
   left: 0;
   z-index: 1050;
   color: white;
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
+
+  /* Perfect centering for its contents */
+  display: grid !important;
+  place-items: center;
   overflow: hidden !important;
+  padding: 0 !important;
 }
 
-/* Centered list */
+/* Make Offcanvas body fill and center */
+.fullscreen_offcanvas :global(.offcanvas-body) {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+  margin: 0;
+}
+
+/* ===========================
+   Centered list
+   =========================== */
 .offcanvas_list {
   list-style: none;
-  padding: 3rem;
+  padding: 0;                 /* removed 3rem so it’s truly centered */
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center;    /* redundant with outer grid, safe */
   align-items: center;
   gap: 1.2rem;
   font-size: 1.2rem;
@@ -73,9 +76,9 @@
 /* Menu items: uniform width */
 .offcanvas_list li {
   cursor: pointer;
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1.2rem;     /* spacing lives on items, not container */
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 0.5rem;      /* 8px → 0.5rem */
   font-weight: bold;
   min-width: 16rem;
   text-align: center;
@@ -88,7 +91,7 @@
   background-color: var(--color-pastrelred-lightest);
   color: white !important;
   transform: scale(1.05);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.3); /* 2px 6px → rem */
 }
 
 /* Text with count (favorites/cart) */
@@ -111,25 +114,21 @@
   font-weight: bold;
   border-radius: 50%;
   line-height: 1;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.3); /* 1px 4px → rem */
   transform: translateY(-0.1rem);
 }
 
 /* ===========================
-   Search item (single-fade, full-width input)
+   Search item
    =========================== */
-
-/* Keep the single translucent background on the LI, like other items */
 .offcanvas_list li.offcanvas_searchItem {
   cursor: default;
   min-width: 16rem;
   text-align: center;
   padding: 0.6rem 1.2rem;
-  background-color: rgba(255, 255, 255, 0.1); /* single fade layer */
-  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
 }
-
-/* Lock hover/active visuals for the search LI (no extra scale/shadow) */
 .offcanvas_list li.offcanvas_searchItem:hover,
 .offcanvas_list li.offcanvas_searchItem:active,
 .offcanvas_list li.offcanvas_searchItem:focus {
@@ -138,18 +137,15 @@
   box-shadow: none;
 }
 
-/* Inner form stays transparent to avoid double fade */
 .offcanvas_searchForm {
   display: flex;
   align-items: center;
   gap: 0.4rem;
   width: 100%;
   background: transparent !important;
-  padding: 0; /* LI handles padding */
+  padding: 0;
   box-shadow: none;
 }
-
-/* Full-width input; no scale on focus */
 .search_form__control {
   display: flex;
   width: 100%;
@@ -162,8 +158,6 @@
 .search_form__control:focus {
   transform: scaleX(1.2);
 }
-
-/* Icon button */
 .search_icon {
   background: none !important;
   border: none !important;
@@ -171,25 +165,19 @@
   cursor: pointer;
   transform: translateX(0);
   transition: transform 0.2s ease;
-  color: inherit; /* keep white icon */
+  color: inherit;
 }
 .search_form__control:focus + .search_icon {
   transform: translateX(-0.15rem) scale(1.05);
 }
-
-/* Optional: match rounded feel */
 .offcanvas_searchForm .search_form__control {
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 /* ===========================
    Icons & counts
    =========================== */
-
-.nav_icons {
-  position: relative;
-  margin: 0.2rem 0.2rem 0;
-}
+.nav_icons { position: relative; margin: 0.2rem; }
 .nav_icons__count {
   position: absolute;
   top: -0.4rem;
@@ -206,10 +194,7 @@
   line-height: 1;
 }
 
-/* Misc */
-.-util-rotate_180 {
-  transform: rotate(180deg);
-}
+.-util-rotate_180 { transform: rotate(180deg); }
 
 .bottom {
   display: flex;
@@ -219,6 +204,8 @@
   margin-top: 1rem;
   width: 100%;
 }
+
+/* Bottom nav content (if used anywhere else) */
 .content_options {
   display: flex;
   flex-wrap: wrap;
@@ -228,18 +215,9 @@
   justify-content: flex-start;
   width: auto;
 }
-.icon_wrapper {
-  position: relative;
-  display: inline-block;
-}
 
-/* ===========================
-   Categories dropdown
-   =========================== */
-
-.catnav {
-  position: relative;
-}
+/* Categories dropdown (unchanged) */
+.catnav { position: relative; }
 .catbtn {
   background: transparent;
   border: 0;
@@ -251,41 +229,35 @@
   font: inherit;
   color: inherit;
 }
-.catcaret {
-  transition: transform 0.25s ease;
-}
-.catcaret.isopen {
-  transform: rotate(180deg);
-}
+.catcaret { transition: transform 0.25s ease; }
+.catcaret.isopen { transform: rotate(180deg); }
 
-/* Menu panel */
 .catmenu {
   position: absolute;
   left: 0;
-  top: calc(100% + 8px);
+  top: calc(100% + 0.5rem);
   background: #fff;
   color: #222;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  min-width: 240px;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.75rem 1.75rem rgba(0, 0, 0, 0.12);
+  min-width: 15rem;
   padding: 0.45rem;
   z-index: 1000;
 }
 .catmenu::before {
   content: "";
   position: absolute;
-  top: -6px;
-  left: 18px;
-  width: 12px;
-  height: 12px;
+  top: -0.375rem;
+  left: 1.125rem;
+  width: 0.75rem;
+  height: 0.75rem;
   background: #fff;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   transform: rotate(45deg);
 }
 
-/* Menu items */
 .catmenuitem {
   display: flex;
   align-items: center;
@@ -295,14 +267,10 @@
   border: 0;
   text-align: left;
   padding: 0.55rem 0.65rem;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   font-size: 0.95rem;
   color: inherit;
   text-decoration: none;
 }
-.catmenuitem i {
-  color: var(--color-zomp);
-}
-.catmenuitem:hover {
-  background: color-mix(in srgb, var(--color-zomp) 12%, white);
-}
+.catmenuitem i { color: var(--color-zomp); }
+.catmenuitem:hover { background: color-mix(in srgb, var(--color-zomp) 12%, white); }

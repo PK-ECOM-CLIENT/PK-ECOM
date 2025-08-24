@@ -193,8 +193,6 @@ const MediumScreens = () => {
       </div>
 
       <div className={styles.bottom}>
-        <Col sm={2} className={styles.logo}></Col>
-
         <ul className={styles.content_options}>
           {/* CATEGORIES DROPDOWN */}
           <li className={`nav-item ${styles.catnav}`} ref={catMenuRef}>

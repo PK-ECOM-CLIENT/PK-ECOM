@@ -1,6 +1,6 @@
 /* ========== Shell ========== */
 .home {
-  max-width: 1200px;
+  max-width: 75rem; /* 1200px → 75rem */
   margin: 0 auto;
   padding: 0 1rem 3rem;
 }
@@ -13,7 +13,7 @@
   width: 100%;
   height: 22rem;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: 0.875rem; /* 14px → 0.875rem */
 }
 
 /* ========== Promo strip ========== */
@@ -28,20 +28,15 @@
   align-items: center;
   gap: 0.6rem;
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06); /* keep px hairline */
+  border-radius: 0.75rem; /* 12px → 0.75rem */
   padding: 0.7rem 0.9rem;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.05); /* 6px 16px → rem */
   font-weight: 600;
   color: #1f2937;
 }
 .promo i {
   color: var(--color-zomp);
-}
-@media (max-width: 768px) {
-  .home__promostrip {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 /* ========== Section header ========== */
@@ -67,7 +62,7 @@
   margin: 0;
   font-size: 1.35rem;
   font-weight: 800;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.0125rem; /* 0.2px → 0.0125rem */
 }
 .home__hint {
   color: var(--color-grey-dark-2);
@@ -77,29 +72,26 @@
 .home__sectionhead::after {
   content: "";
   display: block;
-  height: 3px;
-  width: 72px;
+  height: 3px; /* keep px for underline thickness */
+  width: 4.5rem; /* 72px → 4.5rem */
   background: var(--color-zomp);
-  border-radius: 2px;
-  transform: translateY(8px);
+  border-radius: 0.125rem; /* 2px → 0.125rem */
+  transform: translateY(0.5rem); /* 8px → 0.5rem */
 }
 
-/* ========== Horizontal scrollers (all breakpoints) ========== */
-
-/* Wrapper provides persistent darker edge fades */
+/* ========== Horizontal scrollers ========== */
 .home__grid-wrapper {
   position: relative;
   isolation: isolate;
 }
 
-/* Always-on edge fades (dark/gray, visible even before scroll) */
 .home__grid-wrapper::before,
 .home__grid-wrapper::after {
   content: "";
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 42px;
+  width: 2.625rem; /* 42px → 2.625rem */
   pointer-events: none;
   z-index: 2;
   opacity: 0.75;
@@ -107,25 +99,20 @@
 .home__grid-wrapper::before {
   left: 0;
   background: linear-gradient(to right, var(--color-grey-dark-2), transparent);
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
+  border-top-left-radius: 0.75rem; /* 12px → 0.75rem */
+  border-bottom-left-radius: 0.75rem;
 }
 .home__grid-wrapper::after {
   right: 0;
   background: linear-gradient(to left, var(--color-grey-dark-2), transparent);
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
 }
 
-/* The scroller itself */
 .home__grid {
   display: grid;
   grid-auto-flow: column;
-  /* Adjusted for 5:4 ratio images */
-  grid-auto-columns: minmax(
-    220px,
-    300px
-  ); /* 👈 Slightly wider max for nice proportions */
+  grid-auto-columns: minmax(13.75rem, 18.75rem); /* 220px–300px → rem */
   gap: 1rem;
   padding: 0.25rem 0.5rem;
   overflow-x: hidden;
@@ -136,33 +123,34 @@
   scrollbar-width: none;
 }
 .home__grid::-webkit-scrollbar {
-  /* Chrome/Safari */
   display: none;
 }
 
-/* Show scroll on hover/focus, with a grab hint */
 .home__grid-wrapper:hover .home__grid,
 .home__grid:focus {
   overflow-x: auto;
-  cursor: var(--scroll-cursor, grab); /* uses CSS var if you set it */
+  cursor: var(--scroll-cursor, grab);
 }
 .home__grid:active {
   cursor: grabbing;
 }
 
-/* Cells snap nicely */
 .home__cell {
   scroll-snap-align: start;
 }
 
-/* Keyboard focus ring for accessibility */
 .home__grid:focus {
   outline: 2px solid var(--color-zomp-2);
   outline-offset: 2px;
 }
+@media (max-width: 48em) {
+  .home__promostrip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 /* Subtle fade width tweak on tiny phones */
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .home__grid-wrapper::before,
   .home__grid-wrapper::after {
     width: 28px;

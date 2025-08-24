@@ -2,14 +2,14 @@
    We inherit that background so there's no inner white box. */
 .site-footer {
   width: 100%;
-  background: inherit; /* ← key: blend with wrapper */
-  color: #fff; /* default text on colored bg */
+  background: inherit; /* blend with wrapper */
+  color: #fff;
   padding: 2rem 0 1.5rem;
 }
 
 /* Content container only (no card styling) */
 .footer__inner {
-  max-width: 1200px;
+  max-width: 75rem; /* 1200px → 75rem */
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -58,7 +58,7 @@
 }
 .footer__link:hover {
   color: #fff;
-  transform: translateX(2px);
+  transform: translateX(0.125rem); /* 2px → 0.125rem */
 }
 
 /* Newsletter */
@@ -74,8 +74,8 @@
 }
 .footer__input {
   height: 2.4rem;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0.625rem; /* 10px → 0.625rem */
+  border: 1px solid rgba(255, 255, 255, 0.35); /* keep px for hairline */
   padding: 0 0.7rem;
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
@@ -92,7 +92,7 @@
 }
 .footer__btn {
   height: 2.4rem;
-  border-radius: 10px;
+  border-radius: 0.625rem; /* 10px → 0.625rem */
   padding: 0 0.9rem;
   font-weight: 700;
   white-space: nowrap;
@@ -106,20 +106,20 @@
   margin-top: 0.75rem;
 }
 .footer__social {
-  width: 36px;
-  height: 36px;
+  width: 2.25rem;  /* 36px → 2.25rem */
+  height: 2.25rem; /* 36px → 2.25rem */
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.15);
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease,
-    border-color 0.18s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25); /* keep px for hairline */
+  transition: transform 0.18s ease, background 0.18s ease,
+    color 0.18s ease, border-color 0.18s ease;
 }
 .footer__social:hover {
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem); /* 2px → 0.125rem */
   background: rgba(255, 255, 255, 0.25);
   border-color: rgba(255, 255, 255, 0.35);
 }
@@ -127,7 +127,7 @@
 /* Divider */
 .footer__hr {
   border: 0;
-  height: 1px;
+  height: 1px; /* keep px for crisp hairline */
   background: linear-gradient(
     to right,
     transparent,

@@ -48,7 +48,11 @@ const Bigscreens = () => {
   // Close profile dropdown on outside click
   useEffect(() => {
     const onDocClick = (e) => {
-      if (isProfileOpen && profileRef.current && !profileRef.current.contains(e.target)) {
+      if (
+        isProfileOpen &&
+        profileRef.current &&
+        !profileRef.current.contains(e.target)
+      ) {
         setIsProfileOpen(false);
       }
     };
@@ -73,7 +77,9 @@ const Bigscreens = () => {
   const hour = new Date().getHours();
 
   return (
-    <div className={`${styles.navdiv} ${styles.header_navbar} ${styles.colorWhite}`}>
+    <div
+      className={`${styles.navdiv} ${styles.header_navbar} ${styles.colorWhite}`}
+    >
       <Col md={2}>
         <Navbar.Brand className="navbar-brand d-flex flex-column justify-content-center align-items-center">
           <img src={logo} alt="logo" className={styles.logo} />
@@ -88,7 +94,15 @@ const Bigscreens = () => {
                 {user?._id
                   ? `Hello ${user.firstName} ! Delivery Address: ${address}`
                   : `Dear valued client! Wishing you a great ${
-                      hour < 4 ? "night" : hour < 12 ? "morning" : hour < 17 ? "day" : hour < 21 ? "evening" : "night"
+                      hour < 4
+                        ? "night"
+                        : hour < 12
+                        ? "morning"
+                        : hour < 17
+                        ? "day"
+                        : hour < 21
+                        ? "evening"
+                        : "night"
                     }!`}
               </div>
 
@@ -104,31 +118,47 @@ const Bigscreens = () => {
                     >
                       <i className="fa-solid fa-user -util-font15"></i>
                       <i
-                        className={`fa-solid fa-caret-down ${styles.hprof__caret} ${
-                          isProfileOpen ? styles.isopen : ""
-                        }`}
+                        className={`fa-solid fa-caret-down ${
+                          styles.hprof__caret
+                        } ${isProfileOpen ? styles.isopen : ""}`}
                         aria-hidden="true"
                       ></i>
                     </button>
 
                     {isProfileOpen && (
                       <div className={styles.hprof__menu} role="menu">
-                        <Link to="/profile" className={styles.hprof__menuitem} onClick={() => setIsProfileOpen(false)}>
+                        <Link
+                          to="/profile"
+                          className={styles.hprof__menuitem}
+                          onClick={() => setIsProfileOpen(false)}
+                        >
                           <i className="fa-regular fa-id-badge"></i>
                           Profile
                         </Link>
 
-                        <Link to="/purchases" className={styles.hprof__menuitem} onClick={() => setIsProfileOpen(false)}>
+                        <Link
+                          to="/purchases"
+                          className={styles.hprof__menuitem}
+                          onClick={() => setIsProfileOpen(false)}
+                        >
                           <i className="fa-regular fa-receipt"></i>
                           Purchases
                         </Link>
 
-                        <Link to="/reviews" className={styles.hprof__menuitem} onClick={() => setIsProfileOpen(false)}>
+                        <Link
+                          to="/reviews"
+                          className={styles.hprof__menuitem}
+                          onClick={() => setIsProfileOpen(false)}
+                        >
                           <i className="fa-regular fa-star"></i>
                           Reviews
                         </Link>
 
-                        <Link to="/payments" className={styles.hprof__menuitem} onClick={() => setIsProfileOpen(false)}>
+                        <Link
+                          to="/payments"
+                          className={styles.hprof__menuitem}
+                          onClick={() => setIsProfileOpen(false)}
+                        >
                           <i className="fa-regular fa-credit-card"></i>
                           Payment Methods
                         </Link>
@@ -147,7 +177,10 @@ const Bigscreens = () => {
                           Switch Account
                         </Link>
 
-                        <button className={styles.hprof__menuitem} onClick={handleOnLogout}>
+                        <button
+                          className={styles.hprof__menuitem}
+                          onClick={handleOnLogout}
+                        >
                           <i className="fa-regular fa-right-from-bracket"></i>
                           Sign Out
                         </button>
@@ -186,7 +219,11 @@ const Bigscreens = () => {
           {url !== "/" && (
             <li className="nav-item">
               <Link
-                className={`nav-link active ${url === "/" ? "-util-underline" : "-util-underline-transparent"}`}
+                className={`nav-link active ${
+                  url === "/"
+                    ? "-util-underline"
+                    : "-util-underline-transparent"
+                }`}
                 to="/"
               >
                 Home
@@ -197,7 +234,9 @@ const Bigscreens = () => {
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/offers") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/offers")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/offers"
             >
@@ -208,7 +247,9 @@ const Bigscreens = () => {
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/bestsellers") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/bestsellers")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/bestsellers"
             >
@@ -219,7 +260,9 @@ const Bigscreens = () => {
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/newarrivals") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/newarrivals")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/newarrivals"
             >
@@ -230,7 +273,9 @@ const Bigscreens = () => {
           <li className="nav-item">
             <Link
               className={`nav-link active ${
-                url.includes("/dealsandsales") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/dealsandsales")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/dealsandsales"
             >
@@ -241,13 +286,17 @@ const Bigscreens = () => {
           <li className={`nav-item ${styles.nav_icons}`}>
             <Link
               className={`nav-link active ${styles.nav_icons__icon} ${
-                url.includes("/favourites") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/favourites")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/favourites"
             >
               <div className={styles.icon_wrapper}>
                 <i className="fa-solid fa-heart -util-font15"></i>
-                <span className={styles.nav_icons__count}>{favourites?.length}</span>
+                <span className={styles.nav_icons__count}>
+                  {favourites?.length}
+                </span>
               </div>
             </Link>
           </li>
@@ -255,7 +304,9 @@ const Bigscreens = () => {
           <li className={`nav-item ${styles.nav_icons}`}>
             <Link
               className={`nav-link active ${styles.nav_icons__icon} ${
-                url.includes("/cart") ? "-util-underline" : "-util-underline-transparent"
+                url.includes("/cart")
+                  ? "-util-underline"
+                  : "-util-underline-transparent"
               }`}
               to="/cart"
             >
