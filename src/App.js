@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -30,10 +31,10 @@ import SuccessfulPayment from "./pages/successfulpayment/successfulPayent";
 import FailedPayment from "./pages/successfulpayment/failedPayment";
 import Purchases from "./pages/purchases/purchasesPage";
 
+import AuthLoading from "./components/loading-effect/Authloading";
+
 /**
  * Boot + Route tracker
- * - On mount (once): run autoLogin() to resolve auth, which will set hydrated=true when done
- * - On every route change: record previous URL in Redux
  */
 const BootAndRouteTracker = () => {
   const dispatch = useDispatch();
@@ -60,10 +61,10 @@ const BootAndRouteTracker = () => {
   return null;
 };
 
-/** Prevents routes from rendering until user state is hydrated (auth check finished) */
+/** Show full-screen brand loader while auth is resolving */
 const HydrationGate = ({ children }) => {
   const hydrated = useSelector((s) => s.user.hydrated);
-  if (!hydrated) return null; // later: small global spinner
+  if (!hydrated) return <AuthLoading />;
   return children;
 };
 
