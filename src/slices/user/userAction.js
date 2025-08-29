@@ -1,3 +1,4 @@
+// src/slices/user/userAction.js
 import { toast } from "react-toastify";
 import {
   getNewAccessJWT,
@@ -5,7 +6,7 @@ import {
   loginUser,
   updateUserAddress,
 } from "../../helpers/axiosHelper";
-import { setUser } from "./userSlice";
+import { setUser, setHydrated } from "./userSlice";
 import { setCart, setFavourites } from "../system/systemSlice";
 
 export const logInUserAction = (data) => async (dispatch) => {
@@ -20,35 +21,69 @@ export const logInUserAction = (data) => async (dispatch) => {
     return status;
   }
 };
+
 export const logoutUserAction = () => (dispatch) => {
   dispatch(setUser({}));
   dispatch(setFavourites([]));
   dispatch(setCart([]));
   sessionStorage.removeItem("accessJWT");
   localStorage.removeItem("refreshJWT");
+  // auth state is now known (guest)
+  dispatch(setHydrated(true));
 };
+
 export const getUserAction = (token) => async (dispatch) => {
   const { status, user } = await getUser(token);
-  status === "success" && dispatch(setUser(user));
+  if (status === "success") {
+    dispatch(setUser(user));
+    return true;
+  }
+  return false;
 };
-// update users Address Action
+
 export const updateUserAddressAction = (data) => async (dispatch) => {
   const { status, user } = await updateUserAddress(data);
   status === "success" && dispatch(setUser(user));
 };
-export const autoLogin = () => async (dispatch) => {
-  const accessJWT = sessionStorage.getItem("accessJWT");
-  const refreshJWT = localStorage.getItem("refreshJWT");
-  // if accessJWT exist, fetch user and mount user in out redux store
-  if (accessJWT) {
-    dispatch(getUserAction());
-  }
 
-  // if only refreshJWT exist , fetch new access JWT and fetch user using newly fetched accessJWT
-  else if (refreshJWT) {
-    const token = await getNewAccessJWT();
-    token ? dispatch(getUserAction(token)) : dispatch(logoutUserAction());
-  } else {
+// >>> Critical: drive hydration from here <<<
+export const autoLogin = () => async (dispatch) => {
+  try {
+    // We're starting an auth check
+    dispatch(setHydrated(false));
+
+    const accessJWT = sessionStorage.getItem("accessJWT");
+    const refreshJWT = localStorage.getItem("refreshJWT");
+
+    if (accessJWT) {
+      // Use existing access token
+      const ok = await dispatch(getUserAction(accessJWT));
+      if (ok) {
+        dispatch(setHydrated(true));
+        return;
+      }
+      // fallthrough to refresh
+    }
+
+    if (refreshJWT) {
+      // Try to refresh
+      const token = await getNewAccessJWT();
+      if (token) {
+        const ok = await dispatch(getUserAction(token));
+        dispatch(setHydrated(true));
+        if (ok) return;
+      } else {
+        // refresh failed, clear tokens
+        dispatch(logoutUserAction());
+        return;
+      }
+    } else {
+      // no tokens at all
+      dispatch(logoutUserAction());
+      return;
+    }
+  } catch (e) {
+    // any unexpected failure → guest
     dispatch(logoutUserAction());
   }
 };

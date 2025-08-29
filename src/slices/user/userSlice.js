@@ -2,8 +2,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: {}, // your logged-in user object
-  hydrated: false, // becomes true once we've loaded user (from storage/API)
+  user: {},       // logged-in user object
+  hydrated: false // true ONLY after autoLogin finishes (success or fail)
 };
 
 const userSlice = createSlice({
@@ -12,13 +12,16 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, { payload = {} }) => {
       state.user = payload || {};
+      // (optional) persist if you want:
+      // localStorage.setItem("user", JSON.stringify(state.user));
     },
     setHydrated: (state, { payload = true }) => {
       state.hydrated = Boolean(payload);
     },
     clearUser: (state) => {
       state.user = {};
-      state.hydrated = true; // state is known (no user)
+      state.hydrated = true; // auth state is known: guest
+      // localStorage.removeItem("user");
     },
   },
 });
