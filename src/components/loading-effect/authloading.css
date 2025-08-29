@@ -1,0 +1,116 @@
+/* Full-viewport overlay */
+.authloading {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  background:
+    radial-gradient(80rem 80rem at 20% 10%, var(--color-zomp-2-light) 0%, transparent 45%),
+    radial-gradient(100rem 100rem at 80% 90%, var(--color-pastrelred-2-light) 0%, transparent 50%),
+    linear-gradient(180deg, #ffffff, #ffffff);
+
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  overflow: hidden;
+  pointer-events: all;
+}
+
+/* Absolute center */
+.authloading__center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Loader size & layers */
+.authloading__wrap {
+  position: relative;
+  width: 6.25rem;   /* 100px */
+  height: 6.25rem;
+  filter: drop-shadow(0 6px 18px var(--color-grey-dark-3-lightest));
+  margin-inline: auto;
+}
+
+/* Hollow ring base via mask */
+.authloading__ring {
+  --thick: 0.55rem;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--thick)), #000 calc(100% - var(--thick)));
+          mask: radial-gradient(farthest-side, transparent calc(100% - var(--thick)), #000 calc(100% - var(--thick)));
+}
+
+/* Blurred glow trail (reverse spin) */
+.authloading__ring--glow {
+  background:
+    conic-gradient(
+      from 35deg,
+      var(--color-zomp-2-light) 0 90deg,
+      transparent 90deg 180deg,
+      var(--color-pastrelred-2-light) 180deg 270deg,
+      transparent 270deg 360deg
+    );
+  filter: blur(8px) saturate(110%);
+  animation: authloading-spin-rev 1.7s linear infinite;
+  opacity: 0.9;
+}
+
+/* Primary segmented arc (forward spin) */
+.authloading__ring--primary {
+  background:
+    conic-gradient(
+      from -20deg,
+      var(--color-zomp-2) 0 70deg,
+      transparent 70deg 130deg,
+      var(--color-pastrelred) 130deg 190deg,
+      transparent 190deg 250deg,
+      var(--color-zomp) 250deg 310deg,
+      transparent 310deg 360deg
+    );
+  animation: authloading-spin 1.05s linear infinite;
+  box-shadow:
+    0 0 0.6rem var(--color-zomp-2-light),
+    0 0 1.1rem var(--color-pastrelred-2-light);
+}
+
+/* Fine ticks (slow spin) */
+.authloading__ring--ticks {
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      var(--color-grey-dark-3-lightest) 0deg 8deg,
+      transparent 8deg 20deg
+    );
+  opacity: 0.65;
+  animation: authloading-spin 2.6s linear infinite;
+}
+
+/* Caption */
+.authloading__text {
+  margin-top: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-zomp);
+  animation: authloading-pulse 1.4s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes authloading-spin      { to { transform: rotate(360deg); } }
+@keyframes authloading-spin-rev  { to { transform: rotate(-360deg); } }
+@keyframes authloading-pulse     {
+  0%, 100% { opacity: 0.55; transform: translateY(0); }
+  50%      { opacity: 1;    transform: translateY(-1px); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .authloading__ring--glow,
+  .authloading__ring--primary,
+  .authloading__ring--ticks,
+  .authloading__text {
+    animation: none !important;
+  }
+}

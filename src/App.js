@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,7 +8,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setPrevUrl } from "./slices/system/systemSlice";
-import { setUser, setHydrated } from "./slices/user/userSlice";
+import { autoLogin } from "./slices/user/userAction";
 
 import HomePage from "./pages/home/HomePage";
 import ForgotPasswordPage from "./pages/forgot-password/ForgotPasswordPage";
@@ -30,38 +31,25 @@ import SuccessfulPayment from "./pages/successfulpayment/successfulPayent";
 import FailedPayment from "./pages/successfulpayment/failedPayment";
 import Purchases from "./pages/purchases/purchasesPage";
 
+import AuthLoading from "./components/loading-effect/Authloading";
+
 /**
  * Boot + Route tracker
- * - On mount (once): hydrate user from localStorage, then mark hydrated=true
- * - On every route change: store previous URL in Redux
  */
 const BootAndRouteTracker = () => {
-  const location = useLocation();
   const dispatch = useDispatch();
+  const location = useLocation();
 
-  // Track last URL to compute "previous"
-  const lastSeenRef = useRef(null);
-
-  // Run ONCE: hydrate user -> setHydrated(true)
+  // One-time auto login
   const bootRef = useRef(false);
   useEffect(() => {
     if (bootRef.current) return;
     bootRef.current = true;
-
-    try {
-      // Adjust key if you store under a different name
-      const raw = localStorage.getItem("user");
-      const parsed = raw ? JSON.parse(raw) : {};
-      dispatch(setUser(parsed && typeof parsed === "object" ? parsed : {}));
-    } catch {
-      dispatch(setUser({}));
-    } finally {
-      // Critical: only after setting user, mark hydration complete
-      dispatch(setHydrated(true));
-    }
+    dispatch(autoLogin());
   }, [dispatch]);
 
-  // On each route change, push the *previous* URL to Redux
+  // Track previous URL
+  const lastSeenRef = useRef(null);
   useEffect(() => {
     const current = location.pathname + location.search + location.hash;
     if (lastSeenRef.current && lastSeenRef.current !== current) {
@@ -73,10 +61,10 @@ const BootAndRouteTracker = () => {
   return null;
 };
 
-/** Prevents routes (and PrivateRouter) from rendering until user state is hydrated */
+/** Show full-screen brand loader while auth is resolving */
 const HydrationGate = ({ children }) => {
   const hydrated = useSelector((s) => s.user.hydrated);
-  if (!hydrated) return null; // or a small global spinner
+  if (!hydrated) return <AuthLoading />;
   return children;
 };
 
@@ -87,6 +75,7 @@ function App() {
         <BootAndRouteTracker />
         <HydrationGate>
           <Routes>
+            {/* public routes */}
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegistrationPage />} />
@@ -105,13 +94,13 @@ function App() {
               path="/categories/:_cid/products/:_pid/item/:_iid"
               element={<ItemSelectionPage />}
             />
-
             <Route path="/offers" element={<OffersPage />} />
             <Route path="/bestsellers" element={<BestSellersPage />} />
             <Route path="/newarrivals" element={<NewArrivals />} />
             <Route path="/dealsandsales" element={<DealsAndSales />} />
             <Route path="/profile" element={<Profile />} />
 
+            {/* private routes */}
             <Route
               path="/favourites"
               element={
@@ -128,10 +117,18 @@ function App() {
                 </PrivateRouter>
               }
             />
+            <Route
+              path="/purchases"
+              element={
+                <PrivateRouter>
+                  <Purchases />
+                </PrivateRouter>
+              }
+            />
 
+            {/* payment result pages (public) */}
             <Route path="/paymentsuccessful" element={<SuccessfulPayment />} />
             <Route path="/paymentfailed" element={<FailedPayment />} />
-            <Route path="/purchases" element={<Purchases />} />
           </Routes>
         </HydrationGate>
         <ToastContainer />
